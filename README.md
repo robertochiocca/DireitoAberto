@@ -29,7 +29,8 @@ O DireitoAberto ataca o problema em duas camadas:
 | Autenticação | PBKDF2 (stdlib) + tokens de sessão opacos (Bearer) |
 | Documentos | pypdf (upload de nota fiscal/contrato em PDF ou TXT) |
 | Geração | API de LLM (pacote `anthropic`), opcional |
-| Frontend | HTML/CSS/JS estático (sem build), integrado à API quando servido pelo backend |
+| Frontend (produto) | React/Next.js 15 + TypeScript (`web/`): perguntar, login, histórico e base legal |
+| Frontend (MVP) | HTML/CSS/JS estático (`frontend/`), servido pelo próprio backend |
 | Testes | pytest + TestClient (httpx) — 50 testes |
 
 ## Arquitetura
@@ -88,11 +89,19 @@ O script extrai os artigos e gera esqueletos no formato do corpus com `"revisado
 ## Como rodar
 
 ```bash
+# 1. API (obrigatória)
 cd backend
 pip install -r requirements.txt
 uvicorn app.main:app --reload
-# abra http://localhost:8000  (frontend integrado)
-# docs da API: http://localhost:8000/docs
+# http://localhost:8000  -> frontend estático (MVP) integrado
+# http://localhost:8000/docs -> documentação OpenAPI
+
+# 2. Frontend React/Next.js (opcional, em outro terminal)
+cd web
+npm install
+npm run dev
+# http://localhost:3000 -> perguntar, login, histórico e base legal
+# (o Next proxia /api/* para o FastAPI; para outra origem: API_URL=https://... npm run build)
 ```
 
 Com a variável `ANTHROPIC_API_KEY` configurada, as respostas passam a ser geradas por LLM; sem chave, o sistema responde no modo extrativo. Para desligar o LLM explicitamente: `export DIREITO_ABERTO_USAR_LLM=0`.
@@ -142,7 +151,7 @@ curl -s localhost:8000/api/perguntar \
 - ⬜ Embeddings multilíngues de qualidade (modelo PT-BR; o MiniLM padrão é limitado)
 - ⬜ Ingestão automatizada de jurisprudência (APIs dos tribunais) — hoje a curadoria é manual
 - ⬜ Migrações de banco (Alembic) e deploy com PostgreSQL gerenciado
-- ⬜ Frontend em React/Next.js (com telas de login/histórico)
+- ✅ Frontend em React/Next.js (`web/`: perguntar, login, histórico e base legal, com modo escuro)
 - ⬜ Camada de revisão jurídica contínua com profissional (o fluxo `revisado: false` já existe)
 
 ### A visão de longo prazo
