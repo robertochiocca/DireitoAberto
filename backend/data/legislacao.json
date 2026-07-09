@@ -180,6 +180,126 @@
       "resumo": "Serviço mal prestado: o fornecedor responde pelos danos causados ao consumidor independentemente de culpa (responsabilidade objetiva).",
       "palavras_chave": ["serviço", "defeito", "dano", "responsabilidade", "objetiva", "reparação", "fornecedor", "prestação", "má", "qualidade"],
       "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    {
+      "id": "cc-1694",
+      "lei": "Código Civil — Lei nº 10.406/2002",
+      "artigo": "Arts. 1.694 e 1.695",
+      "tema": "familia",
+      "texto": "Podem os parentes, os cônjuges ou companheiros pedir uns aos outros os alimentos de que necessitem para viver de modo compatível com a sua condição social, inclusive para atender às necessidades de sua educação. § 1º Os alimentos devem ser fixados na proporção das necessidades do reclamante e dos recursos da pessoa obrigada. Art. 1.695. São devidos os alimentos quando quem os pretende não tem bens suficientes, nem pode prover, pelo seu trabalho, à própria mantença, e aquele de quem se reclamam pode fornecê-los, sem desfalque do necessário ao seu sustento.",
+      "resumo": "Pensão alimentícia: o valor é fixado caso a caso, no equilíbrio entre a necessidade de quem pede e a possibilidade de quem paga — não existe percentual fixo em lei.",
+      "palavras_chave": ["pensão", "alimentícia", "alimentos", "filho", "filhos", "pai", "mãe", "valor", "necessidade", "possibilidade", "revisão"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+    },
+    {
+      "id": "cpc-528",
+      "lei": "Código de Processo Civil — Lei nº 13.105/2015",
+      "artigo": "Art. 528, §§ 3º e 7º",
+      "tema": "familia",
+      "texto": "No cumprimento de sentença que condene ao pagamento de prestação alimentícia, o juiz mandará intimar o executado para, em 3 dias, pagar o débito, provar que o fez ou justificar a impossibilidade de efetuá-lo. § 3º Se o executado não pagar ou se a justificativa apresentada não for aceita, o juiz, além de mandar protestar o pronunciamento judicial, decretar-lhe-á a prisão pelo prazo de 1 a 3 meses. § 7º O débito alimentar que autoriza a prisão civil do alimentando é o que compreende até as 3 prestações anteriores ao ajuizamento da execução e as que se vencerem no curso do processo.",
+      "resumo": "Pensão atrasada: a cobrança das 3 últimas parcelas (e das que vencerem durante o processo) pode levar à prisão civil do devedor, de 1 a 3 meses.",
+      "palavras_chave": ["pensão", "atrasada", "alimentos", "prisão", "execução", "devedor", "cobrança", "parcelas", "não", "paga"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm"
+    },
+    {
+      "id": "cf-226",
+      "lei": "Constituição Federal de 1988 (c/ CPC, art. 733)",
+      "artigo": "Art. 226, § 6º",
+      "tema": "familia",
+      "texto": "O casamento civil pode ser dissolvido pelo divórcio. Não há prazo mínimo nem necessidade de separação prévia. Pelo art. 733 do CPC, o divórcio consensual pode ser feito por escritura pública em cartório, sem processo judicial, desde que não haja filhos menores ou incapazes nem gravidez, e que os cônjuges estejam assistidos por advogado ou defensor público.",
+      "resumo": "Divórcio: é direito que não exige prazo nem justificativa. Se houver consenso e não houver filhos menores/incapazes, pode ser feito direto em cartório, com advogado ou defensor.",
+      "palavras_chave": ["divórcio", "casamento", "separação", "cartório", "consensual", "escritura", "cônjuge", "dissolução"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+    },
+    {
+      "id": "cc-1583",
+      "lei": "Código Civil — Lei nº 10.406/2002",
+      "artigo": "Arts. 1.583 e 1.584, § 2º",
+      "tema": "familia",
+      "texto": "A guarda será unilateral ou compartilhada. Compreende-se por guarda compartilhada a responsabilização conjunta e o exercício de direitos e deveres do pai e da mãe que não vivam sob o mesmo teto, concernentes ao poder familiar dos filhos comuns. Art. 1.584, § 2º Quando não houver acordo entre a mãe e o pai quanto à guarda do filho, encontrando-se ambos os genitores aptos a exercer o poder familiar, será aplicada a guarda compartilhada, salvo se um dos genitores declarar ao magistrado que não deseja a guarda do menor.",
+      "resumo": "Guarda dos filhos: a regra é a guarda compartilhada, mesmo sem acordo entre os pais — desde que ambos estejam aptos. Guarda, convivência e pensão são questões independentes.",
+      "palavras_chave": ["guarda", "compartilhada", "filho", "filhos", "pai", "mãe", "convivência", "visitas", "poder", "familiar"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+    },
+    {
+      "id": "lei9656-35c",
+      "lei": "Lei dos Planos de Saúde — Lei nº 9.656/1998",
+      "artigo": "Art. 35-C",
+      "tema": "saude",
+      "texto": "É obrigatória a cobertura do atendimento nos casos: I — de emergência, como tal definidos os que implicarem risco imediato de vida ou de lesões irreparáveis para o paciente, caracterizado em declaração do médico assistente; II — de urgência, assim entendidos os resultantes de acidentes pessoais ou de complicações no processo gestacional. A ANS (RN nº 566/2022) fixa prazos máximos para a operadora garantir o atendimento e obriga a entrega de negativa de cobertura por escrito quando solicitada.",
+      "resumo": "Plano de saúde: atendimento de urgência e emergência tem cobertura obrigatória; negativas devem ser dadas por escrito e há prazos máximos de atendimento fixados pela ANS.",
+      "palavras_chave": ["plano", "saúde", "negou", "negativa", "cobertura", "urgência", "emergência", "exame", "cirurgia", "internação", "ans", "operadora", "convênio"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9656compilado.htm"
+    },
+    {
+      "id": "lei8213-126",
+      "lei": "Lei de Benefícios da Previdência Social — Lei nº 8.213/1991",
+      "artigo": "Art. 126 (c/ Regimento do CRPS)",
+      "tema": "previdencia",
+      "texto": "Das decisões do INSS nos processos de interesse dos beneficiários caberá recurso para o Conselho de Recursos da Previdência Social (CRPS). O prazo para interposição do recurso ordinário pelo segurado é de trinta dias contados da ciência da decisão. O recurso administrativo é gratuito e não exige advogado, podendo ser apresentado pelo Meu INSS ou pela Central 135.",
+      "resumo": "Benefício negado pelo INSS: cabe recurso gratuito ao CRPS em 30 dias, sem necessidade de advogado — pelo Meu INSS ou pela Central 135.",
+      "palavras_chave": ["inss", "benefício", "negado", "indeferido", "recurso", "aposentadoria", "auxílio", "bpc", "loas", "previdência", "trinta", "dias", "crps"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm"
+    },
+    {
+      "id": "lei10259-3",
+      "lei": "Lei dos Juizados Especiais Federais — Lei nº 10.259/2001",
+      "artigo": "Art. 3º",
+      "tema": "previdencia",
+      "texto": "Compete ao Juizado Especial Federal Cível processar, conciliar e julgar causas de competência da Justiça Federal até o valor de sessenta salários mínimos, bem como executar as suas sentenças. As ações contra o INSS de até esse valor correm no JEF, onde a parte pode atuar sem advogado em primeiro grau (art. 10).",
+      "resumo": "Ações contra o INSS de até 60 salários mínimos correm no Juizado Especial Federal, onde é possível entrar sem advogado em primeiro grau.",
+      "palavras_chave": ["juizado", "federal", "jef", "inss", "sessenta", "salários", "mínimos", "advogado", "ação", "benefício"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10259.htm"
+    },
+    {
+      "id": "stj-sumula479",
+      "lei": "Súmula nº 479 do Superior Tribunal de Justiça",
+      "artigo": "Súmula 479 (c/ Resolução BCB nº 103/2021 — MED)",
+      "tema": "consumidor",
+      "texto": "As instituições financeiras respondem objetivamente pelos danos gerados por fortuito interno relativo a fraudes e delitos praticados por terceiros no âmbito de operações bancárias. Em golpes envolvendo Pix, a Resolução BCB nº 103/2021 criou o Mecanismo Especial de Devolução (MED): a vítima deve comunicar o banco imediatamente, que pode bloquear os valores na conta do golpista e devolvê-los em até 96 horas, com análise em até 7 dias.",
+      "resumo": "Golpe bancário/Pix: o banco responde por falhas de segurança em suas operações, e a vítima pode acionar o MED (devolução do Pix) comunicando a instituição imediatamente.",
+      "palavras_chave": ["golpe", "pix", "fraude", "banco", "transferência", "estelionato", "med", "devolução", "conta", "vítima", "clonado"],
+      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2017_44_capSumulas479-483.pdf"
+    },
+    {
+      "id": "anac-400",
+      "lei": "Resolução ANAC nº 400/2016 (c/ Código Brasileiro de Aeronáutica)",
+      "artigo": "Arts. 20 a 27 (síntese)",
+      "tema": "consumidor",
+      "texto": "Em atrasos, cancelamentos e preterição de embarque, o transportador aéreo deve prestar assistência material conforme o tempo de espera: a partir de 1 hora, facilidades de comunicação; a partir de 2 horas, alimentação; a partir de 4 horas, acomodação ou hospedagem (com traslado) para quem estiver fora do domicílio. No cancelamento ou atraso superior a 4 horas, o passageiro pode escolher entre reacomodação em outro voo, reembolso integral ou execução do serviço por outra modalidade de transporte.",
+      "resumo": "Voo atrasado/cancelado: a companhia deve dar comunicação (1h), alimentação (2h) e hospedagem (4h); acima de 4 horas ou no cancelamento, o passageiro escolhe entre reacomodação, reembolso integral ou outro transporte.",
+      "palavras_chave": ["voo", "aéreo", "avião", "atraso", "cancelado", "cancelamento", "passageiro", "companhia", "assistência", "reembolso", "reacomodação", "overbooking", "bagagem"],
+      "fonte": "https://www.anac.gov.br/assuntos/legislacao/legislacao-1/resolucoes/resolucoes-2016/resolucao-no-400-13-07-2016"
+    },
+    {
+      "id": "cc-1336",
+      "lei": "Código Civil — Lei nº 10.406/2002",
+      "artigo": "Arts. 1.336, 1.337 e 1.277",
+      "tema": "moradia",
+      "texto": "São deveres do condômino: contribuir para as despesas do condomínio; não realizar obras que comprometam a segurança da edificação; não alterar a forma e a cor da fachada; dar às suas partes a mesma destinação que tem a edificação e não as utilizar de maneira prejudicial ao sossego, salubridade e segurança dos possuidores. § 1º O condômino que não pagar a sua contribuição ficará sujeito aos juros moratórios convencionados ou, não sendo previstos, os de 1% ao mês e multa de até 2% sobre o débito. Art. 1.337. O condômino que reiteradamente descumprir seus deveres poderá ser condenado a pagar multa de até o quíntuplo do valor da cota condominial. Art. 1.277. O proprietário ou possuidor tem o direito de fazer cessar as interferências prejudiciais ao sossego, à segurança e à saúde provocadas por vizinho.",
+      "resumo": "Condomínio: atraso na cota gera multa de no máximo 2% + juros; multas por infração têm limites legais e exigem procedimento; barulho e perturbação do sossego podem ser exigidos de cessar judicialmente.",
+      "palavras_chave": ["condomínio", "condômino", "síndico", "multa", "cota", "taxa", "barulho", "sossego", "vizinho", "fachada", "assembleia"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+    },
+    {
+      "id": "ctn-174",
+      "lei": "Código Tributário Nacional — Lei nº 5.172/1966",
+      "artigo": "Arts. 34 e 174",
+      "tema": "tributos",
+      "texto": "Art. 34. Contribuinte do imposto (IPTU) é o proprietário do imóvel, o titular do seu domínio útil, ou o seu possuidor a qualquer título. Art. 174. A ação para a cobrança do crédito tributário prescreve em cinco anos, contados da data da sua constituição definitiva. O lançamento do IPTU pode ser impugnado administrativamente perante a prefeitura, inclusive quanto ao valor venal atribuído ao imóvel.",
+      "resumo": "IPTU: quem responde é o proprietário ou possuidor; a cobrança prescreve em 5 anos; erros de valor venal ou de lançamento podem ser impugnados na própria prefeitura, sem processo judicial.",
+      "palavras_chave": ["iptu", "imposto", "tributo", "prefeitura", "cobrança", "prescrição", "cinco", "anos", "valor", "venal", "lançamento", "imóvel"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l5172compilado.htm"
+    },
+    {
+      "id": "cc-1784",
+      "lei": "Código Civil — Lei nº 10.406/2002 (c/ CPC, art. 611)",
+      "artigo": "Arts. 1.784, 1.845 e 1.846",
+      "tema": "familia",
+      "texto": "Aberta a sucessão, a herança transmite-se, desde logo, aos herdeiros legítimos e testamentários. Art. 1.845. São herdeiros necessários os descendentes, os ascendentes e o cônjuge. Art. 1.846. Pertence aos herdeiros necessários, de pleno direito, a metade dos bens da herança, constituindo a legítima. Pelo art. 611 do CPC, o inventário deve ser instaurado em até 2 meses da abertura da sucessão; havendo consenso entre herdeiros capazes e sem testamento, pode ser feito por escritura pública em cartório.",
+      "resumo": "Herança: transmite-se aos herdeiros no momento da morte; metade dos bens é reservada aos herdeiros necessários; o inventário deve começar em até 2 meses e pode ser feito em cartório quando há consenso.",
+      "palavras_chave": ["herança", "inventário", "herdeiro", "sucessão", "testamento", "partilha", "falecimento", "cartório", "legítima", "bens"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
     }
   ]
 }

@@ -25,6 +25,16 @@ CASOS = [
     ("Recebi uma multa de trânsito injusta, como recorrer?", "ctb-282"),
     ("O dono do imóvel quer aumentar o aluguel antes de um ano", "lei10192-2"),
     ("Posso entrar no juizado especial sem advogado?", "lei9099-9"),
+    ("Quanto devo pagar de pensão alimentícia para meu filho?", "cc-1694"),
+    ("Quero me divorciar, preciso de processo?", "cf-226"),
+    ("Como fica a guarda compartilhada dos filhos?", "cc-1583"),
+    ("O plano de saúde negou minha cirurgia de emergência", "lei9656-35c"),
+    ("O INSS negou minha aposentadoria, como recorrer?", "lei8213-126"),
+    ("Caí num golpe do pix, o banco devolve?", "stj-sumula479"),
+    ("Meu voo foi cancelado e a companhia não deu assistência", "anac-400"),
+    ("O condomínio me multou e o vizinho faz barulho de madrugada", "cc-1336"),
+    ("A prefeitura cobrou IPTU de dez anos atrás", "ctn-174"),
+    ("Meu pai faleceu, como faço o inventário da herança?", "cc-1784"),
 ]
 
 
@@ -37,6 +47,17 @@ def test_artigo_relevante_no_top_3(retriever, pergunta, esperado):
 def test_pergunta_irrelevante_retorna_vazio_ou_pouco(retriever):
     resultados = retriever.buscar("qual a receita de bolo de cenoura")
     assert len(resultados) <= 1
+
+
+def test_filtro_por_tema(retriever):
+    resultados = retriever.buscar("prazo de cinco anos", tema="tributos")
+    assert resultados, "deveria haver resultado no tema tributos"
+    assert all(r.tema == "tributos" for r in resultados)
+
+
+def test_lista_de_temas(retriever):
+    temas = retriever.temas()
+    assert "consumidor" in temas and "familia" in temas and "previdencia" in temas
 
 
 def test_scores_ordenados_decrescentes(retriever):

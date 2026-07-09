@@ -12,7 +12,7 @@ A legislação brasileira é escrita para operadores do Direito, não para o cid
 
 O DireitoAberto ataca o problema em duas camadas:
 
-1. **Conteúdo curado** (frontend): situações do dia a dia explicadas em passo a passo, com prazos, modelos de texto prontos, glossário de juridiquês e canais gratuitos de ajuda (Defensoria Pública, Procon, consumidor.gov.br, Juizados Especiais).
+1. **Conteúdo curado** (frontend): 16 situações do dia a dia — consumidor, trabalho, trânsito, moradia, família, saúde, previdência e tributos — explicadas em passo a passo, com prazos, modelos de texto prontos, **fonte oficial destacada** (lei, artigo e link para o Planalto), glossário de juridiquês e canais gratuitos de ajuda (Defensoria Pública, Procon, consumidor.gov.br, ANS, INSS, Banco Central, Juizados Especiais). Interface com modo escuro, animações suaves, filtros por área e histórico de pesquisas.
 2. **RAG jurídico** (backend): o usuário descreve o problema em linguagem natural ("*a empresa não quer trocar meu notebook defeituoso*") e o sistema:
    - normaliza a pergunta e a traduz do vocabulário do cidadão para o vocabulário da lei (sinônimos: "notebook" → "produto durável", "nome sujo" → "negativação");
    - busca no corpus de legislação (BM25) os artigos mais relevantes — ex.: CDC art. 18 e art. 26;
@@ -47,10 +47,19 @@ LLM (via API) ── indisponível? ──► resposta extrativa
 resposta + artigos + fontes oficiais + aviso legal
 ```
 
-- `backend/data/legislacao.json` — corpus com artigos do CDC, CLT, CF/88, CTB, Lei do Inquilinato, Lei dos Juizados Especiais, Lei do FGTS e Código Civil, cada um com texto, resumo em linguagem simples, palavras-chave e link para a fonte oficial.
-- `backend/app/retrieval.py` — índice BM25; a interface `Retriever.buscar()` permite trocar o motor por busca semântica (embeddings) sem alterar a API.
+- `backend/data/legislacao.json` — corpus com 30 dispositivos legais (CDC, CLT, CF/88, CTB, Código Civil, CPC, Lei do Inquilinato, Lei dos Juizados Especiais e Federais, Lei do FGTS, Lei dos Planos de Saúde, Lei de Benefícios do INSS, CTN, Súmula 479/STJ e Resolução ANAC 400), cada um com texto, resumo em linguagem simples, tema, palavras-chave e link para a fonte oficial.
+- `backend/app/retrieval.py` — índice BM25 com filtro por área temática; a interface `Retriever.buscar()` permite trocar o motor por busca semântica (embeddings) sem alterar a API.
 - `backend/app/llm.py` — camada de geração com prompt que exige linguagem cautelosa, proíbe inventar dispositivos e sempre encaminha para a Defensoria/Procon.
-- `backend/app/main.py` — API FastAPI (`/api/perguntar`, `/api/artigos`, `/api/saude`) e serving do frontend.
+- `backend/app/main.py` — API FastAPI e serving do frontend.
+
+### Endpoints
+
+| Endpoint | Descrição |
+|---|---|
+| `POST /api/perguntar` | Pergunta em linguagem natural (aceita filtro opcional `tema`) → resposta + artigos + fontes |
+| `GET /api/artigos` | Lista o corpus; filtros `?tema=familia` e `?busca=8.078` (por lei ou artigo) |
+| `GET /api/estatisticas` | Leis e artigos indexados, áreas temáticas, consultas realizadas e data de atualização da base |
+| `GET /api/saude` | Health check |
 
 ## Como rodar
 
@@ -80,22 +89,38 @@ curl -s localhost:8000/api/perguntar \
 ## Limitações (leia antes de usar)
 
 - **Não é aconselhamento jurídico.** O sistema informa a regra geral; detalhes do caso concreto mudam a resposta. Toda resposta encaminha para a Defensoria Pública (gratuita), Procon ou advogado.
-- O corpus é **curado e pequeno** (~18 dispositivos legais): cobre bem consumidor, trabalho, trânsito, moradia e acesso à Justiça, e nada além disso.
+- O corpus é **curado e pequeno** (30 dispositivos legais): cobre consumidor, trabalho, trânsito, moradia, família, saúde, previdência, tributos e acesso à Justiça, e nada além disso.
 - A busca é **lexical** (BM25 + sinônimos), não semântica — perguntas muito distantes do vocabulário indexado podem não encontrar nada (o sistema diz isso em vez de inventar).
 - Os textos legais foram consolidados manualmente a partir do Planalto e podem não refletir alterações legislativas posteriores; cada artigo traz o link para a fonte oficial.
 - Sem jurisprudência por enquanto (ver roadmap).
 
 ## Roadmap
 
-- [x] MVP estático com conteúdo curado
-- [x] Backend FastAPI + RAG lexical (BM25) + camada LLM com fallback extrativo
-- [x] Revisão jurídica do conteúdo (JEC 40/20 salários mínimos, frete no direito de arrependimento)
-- [ ] Busca semântica com embeddings (ChromaDB ou FAISS) atrás da mesma interface `Retriever`
-- [ ] PostgreSQL para corpus e histórico de perguntas
-- [ ] Ampliar o corpus (ingestão automatizada do Planalto/LexML) e incluir súmulas/jurisprudência com metadados de vigência
-- [ ] Upload de documentos (nota fiscal, contrato) com extração de contexto
-- [ ] Frontend em React/Next.js
-- [ ] Camada de revisão jurídica contínua (validação por profissional antes de publicar conteúdo curado)
+- ✅ MVP estático com conteúdo curado
+- ✅ RAG (BM25 + sinônimos PT-BR) com camada de LLM e fallback extrativo
+- ✅ Revisão jurídica do conteúdo (JEC 40/20 salários mínimos, frete no arrependimento)
+- ✅ 16 situações em 8 áreas (família, saúde, previdência, tributos…)
+- ✅ Fonte oficial (lei + artigo + link do Planalto) em cada situação e resposta
+- ✅ Filtros por área, busca por lei/artigo e histórico de pesquisas
+- ✅ Estatísticas da base (`/api/estatisticas` + página no frontend)
+- ✅ Modo escuro, animações e design responsivo
+- ⬜ Embeddings (busca semântica atrás da mesma interface `Retriever`)
+- ⬜ ChromaDB (ou FAISS) como índice vetorial
+- ⬜ PostgreSQL (corpus, histórico e telemetria persistentes)
+- ⬜ Ingestão automatizada do Planalto/LexML
+- ⬜ Jurisprudência STF
+- ⬜ Jurisprudência STJ
+- ⬜ Jurisprudência TST
+- ⬜ Login
+- ⬜ Histórico por usuário
+- ⬜ API pública documentada e versionada
+- ⬜ Upload de documentos (nota fiscal, contrato) com extração de contexto
+- ⬜ Frontend em React/Next.js
+- ⬜ Camada de revisão jurídica contínua (validação por profissional)
+
+### A visão de longo prazo
+
+Integrar **STF, STJ, TST e Planalto num único mecanismo de busca cidadã**: o usuário descreve o caso em linguagem comum e recebe a lei vigente, a jurisprudência dominante e o caminho prático — com fonte oficial em cada afirmação. É o ponto em que o projeto deixa de ser um protótipo educacional e vira uma LegalTech de acesso à Justiça.
 
 ## Tags sugeridas para o repositório
 

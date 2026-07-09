@@ -15,15 +15,43 @@
     --card:#ffffff;         /* reading surfaces */
     --line:#dcd8cb;         /* hairlines */
     --brand:#0f5a4a;        /* deep pine — the institutional voice */
+    --brand-ink:#0f5a4a;    /* brand usable as text on paper */
     --brand-soft:#e2ede8;   /* pine tint */
-    --right:#b5541f;        /* "seu direito" signal (warm clay, used only for rights) */
+    --right:#b5541f;        /* "seu direito" signal */
     --right-soft:#f6e7dc;
-    --do:#1f6f45;           /* action / positive */
-    --warn:#8a6d1a;         /* attention */
+    --do:#1f6f45;
+    --warn:#8a6d1a;
     --warn-soft:#f3ecd4;
-    --dead:#8f8a7c;         /* revoked / partial status */
+    --warn-line:#e6dcb4;
+    --dead:#8f8a7c;
+    --soft:#f0eee6;         /* notes / disclaimers */
+    --soft-2:#faf8f2;       /* templates */
+    --hover:#e9e6da;
+    --bar:rgba(243,241,233,.86);
     --radius:14px;
     --shadow:0 1px 0 rgba(20,29,43,.04), 0 8px 30px -18px rgba(20,29,43,.35);
+  }
+  [data-theme="dark"]{
+    --ink:#e8e6df;
+    --ink-2:#a9b2c0;
+    --paper:#12161d;
+    --card:#1a212b;
+    --line:#2b3441;
+    --brand:#3fb597;
+    --brand-ink:#57c5a8;
+    --brand-soft:#14312a;
+    --right:#e08653;
+    --right-soft:#39231a;
+    --do:#3fb573;
+    --warn:#cfa93c;
+    --warn-soft:#2c2712;
+    --warn-line:#4a4020;
+    --dead:#77818f;
+    --soft:#20262f;
+    --soft-2:#1e242d;
+    --hover:#232b36;
+    --bar:rgba(18,22,29,.82);
+    --shadow:0 1px 0 rgba(0,0,0,.2), 0 10px 30px -18px rgba(0,0,0,.7);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -32,104 +60,133 @@
     font-family:'Inter',system-ui,sans-serif;
     line-height:1.55;-webkit-font-smoothing:antialiased;
     overflow-x:hidden;
+    transition:background .25s ease,color .25s ease;
   }
   .mono{font-family:'Space Mono',monospace}
-  .read{font-family:'Newsreader',Georgia,serif}
   .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
   a{color:inherit}
 
+  /* reveal-on-scroll */
+  .rv{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+  .rv.vis{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    .rv{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+  }
+
   /* ---------- top bar ---------- */
-  .bar{position:sticky;top:0;z-index:40;background:rgba(243,241,233,.86);
+  .bar{position:sticky;top:0;z-index:40;background:var(--bar);
     backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .bar-in{display:flex;align-items:center;gap:18px;height:62px}
   .logo{display:flex;align-items:center;gap:11px;cursor:pointer}
   .logo-mark{width:30px;height:30px;border-radius:7px;background:var(--brand);
-    position:relative;flex:none}
+    position:relative;flex:none;transition:transform .3s ease}
+  .logo:hover .logo-mark{transform:rotate(-6deg) scale(1.06)}
   .logo-mark::before{content:"{ }";position:absolute;inset:0;display:grid;place-items:center;
     color:#dff0e9;font-family:'Space Mono',monospace;font-size:12px;font-weight:700}
   .logo b{font-family:'Bricolage Grotesque';font-weight:800;font-size:18px;letter-spacing:-.01em}
-  .logo span{color:var(--brand);font-weight:800}
-  .bar-nav{margin-left:auto;display:flex;gap:6px}
-  .bar-nav button{padding:8px 13px;border-radius:9px;font-size:14px;font-weight:500;color:var(--ink-2)}
-  .bar-nav button:hover{background:#e9e6da;color:var(--ink)}
-  .bar-nav button.on{color:var(--brand);font-weight:600}
+  .logo span{color:var(--brand-ink);font-weight:800}
+  .bar-nav{margin-left:auto;display:flex;gap:6px;align-items:center}
+  .bar-nav button{padding:8px 13px;border-radius:9px;font-size:14px;font-weight:500;color:var(--ink-2);transition:background .15s,color .15s}
+  .bar-nav button:hover{background:var(--hover);color:var(--ink)}
+  .bar-nav button.on{color:var(--brand-ink);font-weight:600}
+  .theme-btn{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;
+    border:1px solid var(--line);background:var(--card);font-size:15px;transition:transform .2s}
+  .theme-btn:hover{transform:rotate(15deg)}
 
   /* ---------- hero ---------- */
   .hero{padding:66px 0 30px;position:relative}
   .eyebrow{font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--brand);margin-bottom:20px}
+    text-transform:uppercase;color:var(--brand-ink);margin-bottom:20px}
   .hero h1{font-family:'Bricolage Grotesque';font-weight:800;letter-spacing:-.025em;
-    font-size:clamp(34px,6.4vw,66px);line-height:1.02;max-width:16ch}
-  .hero h1 em{font-style:normal;color:var(--brand);position:relative}
+    font-size:clamp(34px,6.4vw,66px);line-height:1.02;max-width:16ch;
+    animation:rise .7s cubic-bezier(.2,.7,.3,1) both}
+  .hero h1 em{font-style:normal;color:var(--brand-ink);position:relative}
   .hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.14em;
-    background:var(--right);opacity:.85;border-radius:2px}
+    background:var(--right);opacity:.85;border-radius:2px;transform-origin:left;
+    animation:underline .6s .5s cubic-bezier(.2,.7,.3,1) both}
   .hero p.lede{font-family:'Newsreader';font-size:clamp(18px,2.4vw,22px);color:var(--ink-2);
-    max-width:52ch;margin-top:22px;line-height:1.45}
+    max-width:52ch;margin-top:22px;line-height:1.45;animation:rise .7s .12s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  @keyframes underline{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
   /* search */
-  .search{margin-top:30px;max-width:560px;position:relative}
+  .search{margin-top:30px;max-width:560px;position:relative;animation:rise .7s .22s cubic-bezier(.2,.7,.3,1) both}
   .search input{width:100%;padding:17px 18px 17px 50px;border:1.5px solid var(--line);
     background:var(--card);border-radius:13px;font-size:16px;font-family:inherit;color:var(--ink);
-    box-shadow:var(--shadow)}
-  .search input:focus{outline:none;border-color:var(--brand)}
-  .search svg{position:absolute;left:17px;top:50%;transform:translateY(-50%);color:var(--ink-2)}
+    box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s}
+  .search input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+  .search svg{position:absolute;left:17px;top:26px;color:var(--ink-2)}
   .search .hint{margin-top:8px;font-size:12.5px;color:var(--dead);font-family:'Space Mono',monospace}
-  .chips{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+  .chips{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;animation:rise .7s .3s cubic-bezier(.2,.7,.3,1) both}
   .chip{padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:var(--card);
-    font-size:13.5px;color:var(--ink-2);font-weight:500}
-  .chip:hover{border-color:var(--brand);color:var(--brand)}
+    font-size:13.5px;color:var(--ink-2);font-weight:500;transition:border-color .15s,color .15s,transform .15s}
+  .chip:hover{border-color:var(--brand);color:var(--brand-ink);transform:translateY(-1px)}
+  .chip.hist{border-style:dashed}
+  .hist-label{font-family:'Space Mono',monospace;font-size:11px;color:var(--dead);align-self:center;letter-spacing:.05em}
 
   /* two doors */
   .doors{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:44px 0 8px}
   .door{border:1px solid var(--line);border-radius:var(--radius);padding:26px;text-align:left;
-    background:var(--card);box-shadow:var(--shadow);transition:transform .15s,border-color .15s;position:relative;overflow:hidden}
-  .door:hover{transform:translateY(-3px);border-color:var(--brand)}
+    background:var(--card);box-shadow:var(--shadow);transition:transform .18s ease,border-color .18s,box-shadow .18s;position:relative;overflow:hidden}
+  .door:hover{transform:translateY(-4px);border-color:var(--brand);box-shadow:0 14px 38px -18px rgba(20,29,43,.4)}
   .door-k{font-family:'Space Mono',monospace;font-size:12px;color:var(--dead);letter-spacing:.05em}
   .door h3{font-family:'Bricolage Grotesque';font-weight:800;font-size:23px;margin:12px 0 8px;letter-spacing:-.01em}
   .door p{font-size:14.5px;color:var(--ink-2);max-width:34ch}
-  .door .go{margin-top:18px;color:var(--brand);font-weight:600;font-size:14.5px;display:inline-flex;align-items:center;gap:6px}
+  .door .go{margin-top:18px;color:var(--brand-ink);font-weight:600;font-size:14.5px;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
+  .door:hover .go{gap:11px}
   .door.primary{background:var(--brand);color:#eef7f2}
   .door.primary .door-k{color:#8fc4b3}
   .door.primary p{color:#cfe6dd}
   .door.primary .go{color:#fff}
-  .door.primary:hover{border-color:#0a4438}
+  .door.primary:hover{border-color:var(--brand)}
 
   /* ---------- section scaffolding ---------- */
-  .view{display:none;padding:38px 0 90px;animation:fade .35s ease}
-  .view.on{display:block}
+  .view{display:none;padding:38px 0 90px}
+  .view.on{display:block;animation:fade .35s ease}
   @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
   .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;
     border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:26px;flex-wrap:wrap}
   .sec-head h2{font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(26px,4vw,38px);letter-spacing:-.02em}
   .sec-head .lbl{font-family:'Space Mono',monospace;font-size:12.5px;color:var(--ink-2)}
-  .back{font-size:14px;color:var(--brand);font-weight:600;display:inline-flex;align-items:center;gap:6px;margin-bottom:20px}
+  .back{font-size:14px;color:var(--brand-ink);font-weight:600;display:inline-flex;align-items:center;gap:6px;margin-bottom:20px}
   .back:hover{text-decoration:underline}
+
+  /* filtros por área */
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .fchip{padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);
+    font-size:13px;font-weight:600;color:var(--ink-2);letter-spacing:.02em;transition:all .15s}
+  .fchip:hover{border-color:var(--brand);color:var(--brand-ink)}
+  .fchip.on{background:var(--brand);border-color:var(--brand);color:#fff}
 
   /* ---------- AI answer panel ---------- */
   .ai-panel{border:1.5px solid var(--brand);border-radius:var(--radius);background:var(--card);
-    box-shadow:var(--shadow);padding:22px 24px;margin-bottom:26px}
+    box-shadow:var(--shadow);padding:22px 24px;margin-bottom:26px;animation:fade .3s ease}
   .ai-panel .ai-k{font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.05em;
-    color:var(--brand);text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    color:var(--brand-ink);text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:12px}
   .ai-panel .ai-answer{font-family:'Newsreader';font-size:16.5px;line-height:1.55;color:var(--ink);white-space:pre-wrap}
   .ai-panel .ai-arts{margin-top:16px;display:flex;flex-direction:column;gap:10px}
   .ai-panel .ai-art{border-left:3px solid var(--brand);background:var(--brand-soft);
     padding:10px 14px;border-radius:0 10px 10px 0}
-  .ai-panel .ai-art .art{font-family:'Space Mono',monospace;font-size:12px;color:var(--brand);font-weight:700}
+  .ai-panel .ai-art .art{font-family:'Space Mono',monospace;font-size:12px;color:var(--brand-ink);font-weight:700}
   .ai-panel .ai-art .txt{font-family:'Newsreader';font-size:14.5px;color:var(--ink-2);margin-top:3px}
-  .ai-panel .ai-art a{font-size:12px;color:var(--brand)}
-  .ai-panel .ai-aviso{margin-top:14px;font-size:12.5px;color:var(--ink-2);background:#f0eee6;
+  .ai-panel .ai-art a{font-size:12px;color:var(--brand-ink)}
+  .ai-panel .ai-aviso{margin-top:14px;font-size:12.5px;color:var(--ink-2);background:var(--soft);
     border-radius:8px;padding:9px 12px}
+  .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand);
+    animation:pulse 1s ease infinite}
+  @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
 
   /* ---------- problem cards ---------- */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:16px}
   .pcard{text-align:left;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);
-    padding:22px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s;display:flex;flex-direction:column;gap:11px}
-  .pcard:hover{transform:translateY(-3px);border-color:var(--right)}
+    padding:22px;box-shadow:var(--shadow);transition:transform .18s ease,border-color .18s,box-shadow .18s;display:flex;flex-direction:column;gap:11px}
+  .pcard:hover{transform:translateY(-4px);border-color:var(--right);box-shadow:0 14px 38px -20px rgba(20,29,43,.45)}
   .pcard .tag{align-self:flex-start;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;
     padding:4px 9px;border-radius:6px;background:var(--right-soft);color:var(--right);letter-spacing:.03em}
   .pcard h4{font-family:'Bricolage Grotesque';font-weight:600;font-size:18.5px;line-height:1.2}
-  .pcard p{font-size:13.5px;color:var(--ink-2);font-family:'Newsreader';font-size:15px}
+  .pcard p{color:var(--ink-2);font-family:'Newsreader';font-size:15px}
   .pcard .law{margin-top:auto;font-family:'Space Mono',monospace;font-size:11.5px;color:var(--dead);padding-top:6px}
 
   /* ---------- problem detail ---------- */
@@ -142,22 +199,29 @@
   .block-h{display:flex;align-items:center;gap:9px;font-family:'Bricolage Grotesque';font-weight:600;font-size:16px;margin-bottom:12px}
   .block-h .dot{width:9px;height:9px;border-radius:3px;flex:none}
   .law-ref{border-left:3px solid var(--brand);background:var(--brand-soft);padding:14px 18px;border-radius:0 10px 10px 0;margin-top:6px}
-  .law-ref .art{font-family:'Space Mono',monospace;font-size:13px;color:var(--brand);font-weight:700}
+  .law-ref .art{font-family:'Space Mono',monospace;font-size:13px;color:var(--brand-ink);font-weight:700}
   .law-ref .txt{font-family:'Newsreader';font-size:16px;color:var(--ink);margin-top:5px;line-height:1.45}
+  .fonte-oficial{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:12px;
+    padding:12px 15px;border:1px dashed var(--line);border-radius:10px;background:var(--soft-2)}
+  .fonte-oficial .fo-k{font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;
+    letter-spacing:.06em;color:var(--dead);text-transform:uppercase}
+  .fonte-oficial .fo-lei{font-weight:600;font-size:13.5px}
+  .fonte-oficial .fo-art{font-family:'Space Mono',monospace;font-size:12px;color:var(--ink-2)}
+  .fonte-oficial a{font-size:13px;font-weight:600;color:var(--brand-ink)}
   ol.steps{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:14px}
   ol.steps li{counter-increment:s;display:flex;gap:14px;font-size:15px;color:var(--ink-2)}
   ol.steps li::before{content:counter(s);flex:none;width:27px;height:27px;border-radius:8px;
     background:var(--ink);color:var(--paper);font-family:'Space Mono',monospace;font-weight:700;font-size:13px;
     display:grid;place-items:center;margin-top:1px}
   ol.steps li b{color:var(--ink)}
-  .deadline{display:flex;align-items:center;gap:10px;background:var(--warn-soft);border:1px solid #e6dcb4;
-    border-radius:10px;padding:13px 16px;margin-top:16px;font-size:14.5px;color:#6b551a}
+  .deadline{display:flex;align-items:center;gap:10px;background:var(--warn-soft);border:1px solid var(--warn-line);
+    border-radius:10px;padding:13px 16px;margin-top:16px;font-size:14.5px;color:var(--warn)}
   .deadline b{color:var(--warn)}
-  .template{font-family:'Newsreader';font-size:15.5px;line-height:1.55;background:#faf8f2;border:1px dashed var(--line);
+  .template{font-family:'Newsreader';font-size:15.5px;line-height:1.55;background:var(--soft-2);border:1px dashed var(--line);
     border-radius:10px;padding:16px 18px;color:var(--ink);font-style:italic}
-  .copybtn{margin-top:10px;font-size:13px;font-weight:600;color:var(--brand);display:inline-flex;align-items:center;gap:6px}
+  .copybtn{margin-top:10px;font-size:13px;font-weight:600;color:var(--brand-ink);display:inline-flex;align-items:center;gap:6px}
   .copybtn:hover{text-decoration:underline}
-  .note{font-size:13.5px;color:var(--ink-2);background:#f0eee6;border-radius:10px;padding:12px 15px;margin-top:14px;font-family:'Newsreader';font-size:15px}
+  .note{color:var(--ink-2);background:var(--soft);border-radius:10px;padding:12px 15px;margin-top:14px;font-family:'Newsreader';font-size:15px}
   .note b{color:var(--ink)}
 
   /* ---------- codes ---------- */
@@ -167,7 +231,7 @@
   .cat-h::after{content:"";flex:1;height:1px;background:var(--line)}
   .ccard{text-align:left;width:100%;border:1px solid var(--line);border-radius:12px;background:var(--card);
     padding:18px 20px;display:grid;grid-template-columns:1fr auto;gap:6px 16px;box-shadow:var(--shadow);
-    transition:transform .13s,border-color .13s}
+    transition:transform .15s,border-color .15s}
   .ccard:hover{transform:translateY(-2px);border-color:var(--brand)}
   .ccard + .ccard{margin-top:10px}
   .ccard .name{font-family:'Bricolage Grotesque';font-weight:600;font-size:17px;grid-column:1}
@@ -175,27 +239,38 @@
   .ccard .desc{grid-column:1;grid-row:3;font-family:'Newsreader';font-size:15px;color:var(--ink-2);margin-top:5px}
   .status{grid-column:2;grid-row:1;align-self:start;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;
     padding:4px 9px;border-radius:6px;letter-spacing:.04em;white-space:nowrap}
-  .status.vig{background:var(--brand-soft);color:var(--brand)}
-  .status.rev{background:#eceae2;color:var(--dead)}
+  .status.vig{background:var(--brand-soft);color:var(--brand-ink)}
+  .status.rev{background:var(--soft);color:var(--dead)}
   .status.par{background:var(--warn-soft);color:var(--warn)}
 
   /* ---------- glossary ---------- */
   .gitem{border-bottom:1px solid var(--line);padding:18px 0}
-  .gitem dt{font-family:'Bricolage Grotesque';font-weight:600;font-size:18px;color:var(--brand)}
+  .gitem dt{font-family:'Bricolage Grotesque';font-weight:600;font-size:18px;color:var(--brand-ink)}
   .gitem dd{font-family:'Newsreader';font-size:16.5px;color:var(--ink-2);margin-top:5px;max-width:60ch;line-height:1.5}
 
+  /* ---------- stats ---------- */
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+  .stat{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);
+    box-shadow:var(--shadow);padding:24px 22px;transition:transform .18s ease}
+  .stat:hover{transform:translateY(-3px)}
+  .stat .n{font-family:'Bricolage Grotesque';font-weight:800;font-size:42px;letter-spacing:-.02em;color:var(--brand-ink);line-height:1}
+  .stat .l{margin-top:8px;font-size:13.5px;color:var(--ink-2);font-weight:500}
+  .stat .s{margin-top:4px;font-family:'Space Mono',monospace;font-size:11px;color:var(--dead)}
+  .stats-note{margin-top:20px;font-size:13px;color:var(--ink-2);background:var(--soft);border-radius:10px;padding:12px 15px}
+
   /* ---------- help strip ---------- */
-  .help{background:var(--ink);color:#dfe4ec;border-radius:18px;padding:34px 30px;margin-top:20px}
+  .help{background:#141d2b;color:#dfe4ec;border-radius:18px;padding:34px 30px;margin-top:20px}
   .help h3{font-family:'Bricolage Grotesque';font-weight:800;font-size:23px;color:#fff;letter-spacing:-.01em}
   .help > p{font-family:'Newsreader';font-size:16px;color:#a9b3c2;margin-top:8px;max-width:56ch}
   .help-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:22px}
-  .hres{background:#1f2a3c;border-radius:12px;padding:17px 18px}
+  .hres{background:#1f2a3c;border-radius:12px;padding:17px 18px;transition:transform .15s ease}
+  .hres:hover{transform:translateY(-2px)}
   .hres .nm{font-weight:700;font-size:15px;color:#fff}
   .hres .tp{font-size:13.5px;color:#9aa5b6;margin-top:5px;line-height:1.4}
   .hres .free{font-family:'Space Mono',monospace;font-size:10.5px;color:#6fd3ac;margin-top:9px;display:inline-block;letter-spacing:.04em}
 
   /* ---------- disclaimer ---------- */
-  .disc{border:1px solid var(--line);background:#f0eee6;border-radius:12px;padding:16px 20px;margin-top:24px;
+  .disc{border:1px solid var(--line);background:var(--soft);border-radius:12px;padding:16px 20px;margin-top:24px;
     display:flex;gap:13px;align-items:flex-start}
   .disc svg{flex:none;color:var(--warn);margin-top:2px}
   .disc p{font-size:13.5px;color:var(--ink-2);line-height:1.5}
@@ -209,10 +284,12 @@
 
   @media(max-width:720px){
     .doors{grid-template-columns:1fr}
-    .bar-nav button:not(.icon){display:none}
+    .bar-nav button:not(.theme-btn){display:none}
     .hero{padding:44px 0 20px}
     .ccard{grid-template-columns:1fr}
     .status{grid-column:1;grid-row:4;justify-self:start;margin-top:8px}
+    .stat .n{font-size:34px}
+    .detail .plain{font-size:18px}
   }
 </style>
 </head>
@@ -229,7 +306,9 @@
       <button data-nav="problemas" onclick="go('problemas')">Problemas</button>
       <button data-nav="codigos" onclick="go('codigos')">Os 18 códigos</button>
       <button data-nav="glossario" onclick="go('glossario')">Glossário</button>
+      <button data-nav="stats" onclick="go('stats')">Estatísticas</button>
       <button data-nav="ajuda" onclick="go('ajuda')">Onde buscar ajuda</button>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Alternar tema" aria-label="Alternar tema claro/escuro">🌙</button>
     </nav>
   </div>
 </header>
@@ -243,10 +322,11 @@
 
     <div class="search">
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="q" type="text" placeholder="Descreva seu problema: multa, demissão, produto com defeito…" oninput="search(this.value)">
+      <input id="q" type="text" placeholder="Descreva seu problema: multa, pensão, golpe do PIX, voo cancelado…" oninput="search(this.value)">
       <div class="hint" id="qhint" hidden>↵ Enter pergunta à base jurídica (RAG)</div>
     </div>
     <div class="chips" id="chips"></div>
+    <div class="chips" id="hist"></div>
 
     <div class="doors">
       <button class="door primary" onclick="go('problemas')">
@@ -277,6 +357,7 @@
       <h2>Tenho um problema</h2>
       <span class="lbl" id="pcount"></span>
     </div>
+    <div class="filters" id="filters"></div>
     <div id="ai-panel" class="ai-panel" hidden></div>
     <div class="grid" id="plist"></div>
   </div>
@@ -316,6 +397,18 @@
   </div>
 </section>
 
+<!-- ============ ESTATÍSTICAS ============ -->
+<section id="stats" class="view">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>A base em números</h2>
+      <span class="lbl" id="stats-updated"></span>
+    </div>
+    <div class="stats-grid" id="stats-grid"></div>
+    <div class="stats-note" id="stats-note"></div>
+  </div>
+</section>
+
 <!-- ============ AJUDA ============ -->
 <section id="ajuda" class="view">
   <div class="wrap">
@@ -333,207 +426,88 @@
 
 <footer>
   <div class="wrap">
-    <span>Direito<b style="color:var(--brand)">Aberto</b> — protótipo de letramento jurídico</span>
+    <span>Direito<b style="color:var(--brand-ink)">Aberto</b> — protótipo de letramento jurídico</span>
     <span class="mono">// a lei em código aberto</span>
   </div>
 </footer>
 
+<script src="dados.js"></script>
 <script>
 /* ============================================================
-   DADOS  — o "esquema" do projeto. Fácil de estender.
+   TEMA (claro/escuro)
    ============================================================ */
-
-const PROBLEMS = [
-  {
-    id:"defeito",
-    tag:"CONSUMIDOR",
-    title:"Comprei um produto com defeito e a loja não quer resolver",
-    short:"Você tem direito a conserto, troca ou dinheiro de volta — e a lei dá um prazo pra loja resolver.",
-    lawShort:"CDC · Lei 8.078/1990",
-    plain:"A loja ou o fabricante têm 30 dias para consertar o defeito. Passou o prazo e não resolveu? Aí quem escolhe é você: trocar por outro, receber o dinheiro de volta ou ficar com o produto pagando menos.",
-    law:{art:"Código de Defesa do Consumidor · art. 18 e art. 26", txt:"Se o vício não for sanado em 30 dias, o consumidor pode exigir a troca, a devolução da quantia paga ou o abatimento proporcional do preço."},
-    steps:[
-      "Reclame por escrito (e-mail, chat, WhatsApp) e <b>guarde o número de protocolo</b>. Provar que você reclamou é metade do caminho.",
-      "Dê o prazo de <b>30 dias</b> para o conserto. Marque a data no calendário.",
-      "Não resolveu? Registre no <b>consumidor.gov.br</b> ou no <b>Procon</b> da sua cidade.",
-      "Persistiu? <b>Juizado Especial Cível</b> — recebe causas de até <b>40 salários mínimos</b>; até <b>20</b>, você pode entrar <b>sem advogado</b> (Lei 9.099/95, arts. 3º e 9º)."
-    ],
-    deadline:"Prazo pra reclamar: <b>30 dias</b> (produtos não duráveis, como alimentos) ou <b>90 dias</b> (duráveis, como eletrônicos), a contar da entrega ou de quando o defeito apareceu.",
-    template:"“Venho registrar reclamação sobre o produto [modelo/nota fiscal nº], que apresentou o defeito [descrever]. Solicito o conserto no prazo legal de 30 dias, nos termos do art. 18 do CDC. Protocolo anterior: [nº]. Aguardo retorno por escrito.”",
-    help:["procon","consumidorgov","juizado"]
-  },
-  {
-    id:"demissao",
-    tag:"TRABALHO",
-    title:"Fui demitido. Quais são os meus direitos?",
-    short:"Demissão sem justa causa gera um pacote de verbas: aviso, férias, 13º, FGTS + multa e seguro-desemprego.",
-    lawShort:"CLT · Decreto-Lei 5.452/1943",
-    plain:"Se você foi demitido sem justa causa, a empresa deve pagar: saldo de salário, aviso prévio, férias vencidas e proporcionais + 1/3, 13º proporcional, liberar o saque do FGTS com multa de 40% e entregar as guias do seguro-desemprego.",
-    law:{art:"Consolidação das Leis do Trabalho + Constituição, art. 7º", txt:"O trabalhador dispensado sem justa causa tem direito ao aviso prévio, às verbas rescisórias proporcionais e à indenização de 40% sobre o FGTS."},
-    steps:[
-      "Confira o <b>termo de rescisão</b>: cada verba deve estar discriminada. Some você mesmo.",
-      "O pagamento deve sair em até <b>10 dias corridos</b> após o fim do contrato.",
-      "Confira se o <b>FGTS</b> foi liberado e a multa de 40% depositada.",
-      "Dê entrada no <b>seguro-desemprego</b> com as guias (app ou site Gov.br / SINE).",
-      "Algo faltou? <b>Sindicato</b> da categoria ou <b>Justiça do Trabalho</b> (a Defensoria e advogados trabalhistas orientam)."
-    ],
-    deadline:"Você tem até <b>2 anos</b> após a saída para cobrar verbas na Justiça — e nesse processo pode cobrar os últimos <b>5 anos</b> trabalhados.",
-    template:"“Solicito a segunda via do termo de rescisão e o extrato do FGTS para conferência das verbas rescisórias referentes ao contrato encerrado em [data]. Verifiquei possível divergência em [verba].”",
-    help:["defensoria","sindicato","justicatrabalho"]
-  },
-  {
-    id:"multa",
-    tag:"TRÂNSITO",
-    title:"Recebi uma multa de trânsito que acho injusta",
-    short:"Dá pra se defender — em dois momentos e sem advogado. O segredo é o prazo na notificação.",
-    lawShort:"CTB · Lei 9.503/1997",
-    plain:"Você pode se defender em duas etapas: primeiro a defesa da autuação (quando chega a notificação), depois o recurso à JARI e, se preciso, ao CETRAN. Tudo tem prazo — que vem impresso na própria notificação.",
-    law:{art:"Código de Trânsito Brasileiro · art. 281 e seguintes", txt:"O autuado tem direito de apresentar defesa da autuação e, mantida a penalidade, recorrer às juntas administrativas antes do vencimento indicado na notificação."},
-    steps:[
-      "Leia a notificação e ache <b>a data limite</b> e o <b>órgão autuador</b> (Detran, prefeitura, PRF…).",
-      "Junte provas: fotos, comprovantes, testemunhas, sinalização irregular.",
-      "Protocole a <b>defesa prévia</b> no órgão que autuou, dentro do prazo.",
-      "Mantida a multa, entre com <b>recurso à JARI</b>; se negado, ao <b>CETRAN</b>.",
-      "Fique de olho na <b>pontuação da CNH</b> — o recurso suspende os efeitos até o julgamento."
-    ],
-    deadline:"Não existe prazo único: <b>cada notificação traz a sua data</b>. Perder o prazo é o erro mais comum — anote assim que a multa chegar.",
-    template:"“Apresento defesa da autuação nº [código], lavrada em [data], por entender que [motivo objetivo: sinalização, identificação do condutor, erro de local]. Anexo [provas]. Requeiro o cancelamento nos termos do CTB.”",
-    help:["defensoria","juizado"]
-  },
-  {
-    id:"negativado",
-    tag:"CONSUMIDOR",
-    title:"Meu nome foi negativado por uma dívida que não reconheço",
-    short:"Cobrança indevida tem regra: você tem que ser avisado antes e, se pagou o que não devia, recebe em dobro.",
-    lawShort:"CDC · Lei 8.078/1990",
-    plain:"Antes de negativar seu nome, a empresa é obrigada a te avisar por escrito. E se você foi cobrado por algo que já pagou ou que não deve, tem direito a receber de volta o dobro do valor, com correção.",
-    law:{art:"Código de Defesa do Consumidor · art. 42 e art. 43", txt:"O consumidor cobrado em quantia indevida tem direito à repetição do dobro do que pagou em excesso, e deve ser comunicado por escrito antes da inscrição em cadastros de inadimplentes."},
-    steps:[
-      "Consulte gratuitamente <b>Serasa</b> e <b>SPC</b> para ver quem negativou e por qual valor.",
-      "Peça à empresa o <b>detalhamento da dívida</b> por escrito.",
-      "Não reconhece? Envie <b>contestação formal</b> pedindo a retirada do nome.",
-      "Sem solução, registre no <b>Procon</b> e leve ao <b>Juizado Especial</b> — negativação indevida pode gerar dano moral."
-    ],
-    deadline:"Uma dívida não fica negativada pra sempre: após <b>5 anos</b>, o nome deve sair dos cadastros — mesmo que a dívida ainda exista.",
-    template:"“Constatei a inscrição do meu nome referente ao débito [nº/origem], que não reconheço. Solicito, no prazo de 10 dias, o detalhamento e a baixa da negativação, sob pena das medidas cabíveis (art. 42 e 43 do CDC).”",
-    help:["procon","juizado","defensoria"]
-  },
-  {
-    id:"aluguel",
-    tag:"MORADIA",
-    title:"O dono quer me despejar ou aumentar o aluguel fora de hora",
-    short:"Reajuste é uma vez por ano, pelo índice do contrato. Despejo segue rito e prazos — não é da noite pro dia.",
-    lawShort:"Lei do Inquilinato · 8.245/1991",
-    plain:"O aluguel só pode ser reajustado uma vez por ano, pelo índice previsto no contrato (IGP-M, IPCA…). E o despejo tem regras e prazos: o locador precisa de motivo válido ou de notificação com antecedência, conforme o tipo de contrato.",
-    law:{art:"Lei do Inquilinato (Lei 8.245/1991)", txt:"A locação de imóvel urbano residencial tem lei própria, que define reajuste anual, prazos de desocupação e as hipóteses de retomada do imóvel pelo proprietário."},
-    steps:[
-      "Releia o contrato: <b>índice de reajuste</b>, prazo e regras de rescisão.",
-      "Reajuste só <b>uma vez a cada 12 meses</b> — cobrança fora disso é indevida.",
-      "Recebeu aviso de despejo? Veja o <b>motivo</b> e o <b>prazo</b> concedido.",
-      "Situação apertada? A <b>Defensoria Pública</b> atende gratuitamente casos de moradia."
-    ],
-    deadline:"Notificação para desocupação costuma dar <b>30 dias</b> em contratos sem prazo — mas depende do caso. Não desocupe por telefone: exija por escrito.",
-    template:"“Recebi a comunicação de [reajuste/desocupação]. Solicito o fundamento contratual e legal e o prazo aplicável, conforme a Lei 8.245/1991, antes de qualquer providência.”",
-    help:["defensoria","juizado"],
-    note:"<b>Detalhe importante de letramento:</b> a locação residencial urbana <u>não</u> é regida diretamente pelo Código Civil, e sim pela Lei do Inquilinato (8.245/1991). O Código Civil entra só de forma subsidiária. Saber qual lei rege o seu caso já evita metade dos erros."
-  },
-  {
-    id:"arrependimento",
-    tag:"CONSUMIDOR",
-    title:"Comprei pela internet e me arrependi",
-    short:"Compra fora da loja física? Você tem 7 dias para desistir e receber tudo de volta — sem precisar explicar por quê.",
-    lawShort:"CDC · Lei 8.078/1990",
-    plain:"Quando você compra pela internet, telefone ou catálogo — ou seja, sem ver o produto pessoalmente —, tem 7 dias corridos para desistir. Basta avisar dentro do prazo e a loja devolve os valores pagos, atualizados.",
-    law:{art:"Código de Defesa do Consumidor · art. 49", txt:"O consumidor pode desistir do contrato em 7 dias sempre que a contratação ocorrer fora do estabelecimento comercial, com devolução dos valores pagos, monetariamente atualizados."},
-    steps:[
-      "Confira a <b>data de recebimento</b>: o prazo de 7 dias conta a partir dela.",
-      "Comunique a desistência <b>por escrito</b> dentro do prazo e guarde o protocolo.",
-      "Devolva o produto conforme orientado. <b>Em regra, o custo da devolução não deve recair sobre você</b> — mas há discussão na jurisprudência em casos específicos; guarde todos os comprovantes.",
-      "O reembolso inclui os <b>valores pagos, inclusive o frete da compra</b>. Não recebeu? Procon ou consumidor.gov.br."
-    ],
-    deadline:"São <b>7 dias corridos</b> (incluindo fins de semana) a partir do recebimento. É o chamado <b>direito de arrependimento</b> — vale só para compras fora da loja física.",
-    template:"“Manifesto, dentro do prazo de 7 dias do art. 49 do CDC, a desistência da compra [pedido nº], recebida em [data]. Solicito instruções para devolução e o reembolso integral, incluindo o frete.”",
-    help:["consumidorgov","procon"]
-  }
-];
-
-const HELP = {
-  defensoria:{nm:"Defensoria Pública",tp:"Orienta e representa quem não pode pagar advogado. Atende família, moradia, consumidor e mais.",free:"GRATUITO"},
-  procon:{nm:"Procon",tp:"Órgão de defesa do consumidor da sua cidade/estado. Media conflitos com empresas.",free:"GRATUITO"},
-  consumidorgov:{nm:"consumidor.gov.br",tp:"Plataforma oficial para reclamar de empresas cadastradas. Resposta em até 10 dias.",free:"GRATUITO"},
-  juizado:{nm:"Juizado Especial Cível",tp:"As “pequenas causas”: até 40 salários mínimos. Até 20, você pode entrar sem advogado; acima disso, o advogado é obrigatório (Lei 9.099/95).",free:"GRATUITO ATÉ CERTO VALOR"},
-  sindicato:{nm:"Sindicato da categoria",tp:"Orienta sobre direitos trabalhistas e pode ajudar na homologação e em ações.",free:"GRATUITO P/ FILIADOS"},
-  justicatrabalho:{nm:"Justiça do Trabalho",tp:"Onde correm as ações trabalhistas. A Defensoria e advogados trabalhistas atuam nela.",free:"—"}
-};
-
-const CODES = [
-  {cat:"No seu dia a dia", items:[
-    {name:"Código Civil", num:"Lei 10.406 · 2002", status:"vig", desc:"O código das relações entre pessoas: contratos, propriedade, casamento, herança e indenizações."},
-    {name:"Código de Defesa do Consumidor", num:"Lei 8.078 · 1990", status:"vig", desc:"Seus direitos ao comprar e contratar: garantia, troca, cobrança, publicidade."},
-    {name:"Consolidação das Leis do Trabalho", num:"DL 5.452 · 1943", status:"vig", desc:"Direitos de quem trabalha com carteira assinada: jornada, férias, rescisão, FGTS."},
-    {name:"Código de Trânsito Brasileiro", num:"Lei 9.503 · 1997", status:"vig", desc:"Regras de trânsito, infrações, CNH e como recorrer de multas."},
-    {name:"Código Penal", num:"DL 2.848 · 1940", status:"vig", desc:"Define o que é crime e qual a pena. Base do Direito Penal brasileiro."},
-    {name:"Código Tributário Nacional", num:"Lei 5.172 · 1966", status:"vig", desc:"Regras gerais dos impostos e taxas: como se cobra, prazos e prescrição."}
-  ]},
-  {cat:"Como corre na Justiça", items:[
-    {name:"Código de Processo Civil", num:"Lei 13.105 · 2015", status:"vig", desc:"O CPC atual. Define como anda um processo civil: prazos, provas, recursos, execução."},
-    {name:"Código de Processo Penal", num:"DL 3.689 · 1941", status:"vig", desc:"Como funcionam a investigação e o processo criminal, e os direitos do acusado."},
-    {name:"Código de Processo Civil (1973)", num:"Lei 5.869 · 1973", status:"rev", desc:"Revogado. Foi substituído pelo CPC de 2015 — hoje só tem valor histórico."}
-  ]},
-  {cat:"Áreas específicas", items:[
-    {name:"Código Eleitoral", num:"Lei 4.737 · 1965", status:"vig", desc:"Regras das eleições, alistamento, voto e crimes eleitorais (muito alterado desde então)."},
-    {name:"Código Florestal", num:"Lei 12.651 · 2012", status:"vig", desc:"Proteção da vegetação: áreas de preservação (APP), reserva legal, uso do solo rural."},
-    {name:"Código de Mineração", num:"DL 227 · 1967", status:"vig", desc:"Regras para pesquisar e explorar recursos minerais no país."},
-    {name:"Código Brasileiro de Aeronáutica", num:"Lei 7.565 · 1986", status:"vig", desc:"Aviação civil e base dos direitos do passageiro aéreo (junto com as resoluções da ANAC)."},
-    {name:"Código de Águas", num:"Decreto 24.643 · 1934", status:"par", desc:"Parcialmente em vigor. Uso e aproveitamento dos recursos hídricos."},
-    {name:"Código Brasileiro de Telecomunicações", num:"Lei 4.117 · 1962", status:"par", desc:"Parcialmente em vigor. Muito substituído pela Lei Geral de Telecomunicações (1997)."},
-    {name:"Código Comercial", num:"Lei 556 · 1850", status:"par", desc:"Só a parte de comércio marítimo continua valendo; o resto foi absorvido pelo Código Civil de 2002."}
-  ]},
-  {cat:"Justiça Militar", items:[
-    {name:"Código Penal Militar", num:"DL 1.001 · 1969", status:"vig", desc:"Define os crimes militares e suas penas."},
-    {name:"Código de Processo Penal Militar", num:"DL 1.002 · 1969", status:"vig", desc:"Como corre o processo penal na Justiça Militar."}
-  ]}
-];
-
-const GLOSSARY = [
-  {t:"Petição inicial", d:"O documento que abre um processo. É onde você conta o problema e diz o que quer da Justiça."},
-  {t:"Autor e réu", d:"O autor é quem entra com a ação; o réu é quem é processado. Em muitos casos, o mesmo cidadão pode ser um ou outro."},
-  {t:"Prescrição", d:"O prazo depois do qual não dá mais para cobrar uma dívida ou processar alguém. Passou o prazo, perdeu-se o direito de exigir na Justiça."},
-  {t:"Verbas rescisórias", d:"O conjunto de valores que a empresa paga quando o contrato de trabalho termina (aviso, férias, 13º, saldo…)."},
-  {t:"Vício do produto", d:"Um defeito que faz o produto funcionar mal ou não servir para o que deveria. É o que aciona a garantia legal."},
-  {t:"Liminar", d:"Uma decisão rápida do juiz, no começo do processo, para proteger alguém antes do julgamento final."},
-  {t:"Juizado Especial", d:"A Justiça das “pequenas causas”: recebe causas de até 40 salários mínimos. Mais rápida e informal — até 20 salários mínimos, sem precisar de advogado."},
-  {t:"Notificação extrajudicial", d:"Um aviso formal, por escrito, enviado antes de ir à Justiça. Serve para provar que você comunicou a outra parte."},
-  {t:"Danos morais", d:"Indenização pelo sofrimento, humilhação ou constrangimento causado por alguém — separada do prejuízo em dinheiro."},
-  {t:"Trânsito em julgado", d:"O momento em que a decisão não admite mais recurso. Dali em diante, ela é definitiva."}
-];
+function aplicarTema(t){
+  document.documentElement.setAttribute("data-theme", t);
+  document.getElementById("themeBtn").textContent = t === "dark" ? "☀️" : "🌙";
+}
+function toggleTheme(){
+  const atual = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  localStorage.setItem("da-tema", atual);
+  aplicarTema(atual);
+}
+aplicarTema(localStorage.getItem("da-tema") ||
+  (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
 
 /* ============================================================
    RENDER + NAVEGAÇÃO
    ============================================================ */
-const V = ["home","problemas","problema","codigos","glossario","ajuda"];
+const V = ["home","problemas","problema","codigos","glossario","stats","ajuda"];
 function go(v){
   V.forEach(x=>document.getElementById(x).classList.toggle("on",x===v));
   document.querySelectorAll(".bar-nav button").forEach(b=>b.classList.toggle("on",b.dataset.nav===v));
   window.scrollTo({top:0,behavior:"instant"});
+  if(v==="stats") renderStats();
 }
+
+/* reveal-on-scroll */
+const observer = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("vis"); observer.unobserve(e.target);} });
+},{threshold:.08});
+function observarCards(container){
+  container.querySelectorAll(".rv").forEach((el,i)=>{
+    el.style.transitionDelay = Math.min(i*45, 350)+"ms";
+    observer.observe(el);
+  });
+}
+
+/* filtros por área */
+let filtroTag = "TODOS";
+function renderFilters(){
+  const tags = ["TODOS", ...new Set(PROBLEMS.map(p=>p.tag))];
+  document.getElementById("filters").innerHTML = tags.map(t=>
+    `<button class="fchip ${t===filtroTag?"on":""}" onclick="setFiltro('${t}')">${t}</button>`).join("");
+}
+function setFiltro(t){
+  filtroTag = t;
+  renderFilters();
+  renderProblems(filtrar(PROBLEMS));
+}
+const filtrar = list => filtroTag==="TODOS" ? list : list.filter(p=>p.tag===filtroTag);
 
 function renderProblems(list){
   const el=document.getElementById("plist");
   document.getElementById("pcount").textContent=list.length+" situações";
-  if(!list.length){el.innerHTML='<p class="empty">Nada encontrado — tente outra palavra, como “multa”, “demissão” ou “troca”.</p>';return;}
+  if(!list.length){el.innerHTML='<p class="empty">Nada encontrado — tente outra palavra, como “multa”, “pensão” ou “golpe”.</p>';return;}
   el.innerHTML=list.map(p=>`
-    <button class="pcard" onclick="openProblem('${p.id}')">
+    <button class="pcard rv" onclick="openProblem('${p.id}')">
       <span class="tag">${p.tag}</span>
       <h4>${p.title}</h4>
       <p>${p.short}</p>
       <span class="law">${p.lawShort}</span>
     </button>`).join("");
+  observarCards(el);
 }
 
 function openProblem(id){
   const p=PROBLEMS.find(x=>x.id===id);
   const helpCards=p.help.map(h=>{const r=HELP[h];return `<div class="hres"><div class="nm">${r.nm}</div><div class="tp">${r.tp}</div><span class="free">${r.free}</span></div>`}).join("");
+  const fonte=p.fonte?`
+      <div class="fonte-oficial">
+        <span class="fo-k">Fonte oficial</span>
+        <span class="fo-lei">${p.fonte.lei}</span>
+        <span class="fo-art">${p.fonte.art}</span>
+        <a href="${p.fonte.url}" target="_blank" rel="noopener">texto integral ↗</a>
+      </div>`:"";
   document.getElementById("pdetail").innerHTML=`
     <span class="tag">${p.tag}</span>
     <h2>${p.title}</h2>
@@ -545,6 +519,7 @@ function openProblem(id){
         <div class="art">§ ${p.law.art}</div>
         <div class="txt">${p.law.txt}</div>
       </div>
+      ${fonte}
     </div>
 
     <div class="block">
@@ -582,13 +557,14 @@ function renderCodes(){
     <div class="cat">
       <div class="cat-h">${g.cat}</div>
       ${g.items.map(c=>`
-        <button class="ccard">
+        <button class="ccard rv">
           <span class="name">${c.name}</span>
           <span class="status ${c.status}">${c.status==="vig"?"VIGENTE":c.status==="rev"?"REVOGADO":"PARCIAL"}</span>
           <span class="num">${c.num}</span>
           <span class="desc">${c.desc}</span>
         </button>`).join("")}
     </div>`).join("");
+  observarCards(document.getElementById("clist"));
 }
 
 function renderGlossary(){
@@ -601,14 +577,71 @@ function renderHelp(){
     <div class="hres"><div class="nm">${r.nm}</div><div class="tp">${r.tp}</div><span class="free">${r.free}</span></div>`).join("");
 }
 
-/* busca simples na home */
+/* ============================================================
+   ESTATÍSTICAS — via API; fallback local sem backend
+   ============================================================ */
+function statCard(n,l,s){return `<div class="stat rv"><div class="n">${n}</div><div class="l">${l}</div>${s?`<div class="s">${s}</div>`:""}</div>`}
+async function renderStats(){
+  const grid=document.getElementById("stats-grid");
+  const nota=document.getElementById("stats-note");
+  const upd=document.getElementById("stats-updated");
+  const locais = [
+    statCard(PROBLEMS.length,"situações explicadas","passo a passo + modelo"),
+    statCard(CODES.reduce((a,g)=>a+g.items.length,0),"códigos catalogados","com status de vigência"),
+    statCard(GLOSSARY.length,"termos no glossário","juridiquês → português"),
+  ];
+  try{
+    const r=await fetch("/api/estatisticas");
+    if(!r.ok) throw 0;
+    const d=await r.json();
+    grid.innerHTML=[
+      statCard(d.leis_indexadas,"leis indexadas","na base de RAG"),
+      statCard(d.artigos_indexados,"artigos indexados","com fonte oficial"),
+      statCard(d.consultas_realizadas,"consultas realizadas","desde o último deploy"),
+      ...locais
+    ].join("");
+    upd.textContent="base atualizada em "+new Date(d.base_atualizada_em).toLocaleDateString("pt-BR");
+    nota.textContent="Números da base de RAG vindos da API ("+d.temas.length+" áreas temáticas: "+d.temas.join(", ")+").";
+  }catch{
+    grid.innerHTML=locais.join("");
+    upd.textContent="modo estático (sem backend)";
+    nota.textContent="Rode o backend (uvicorn app.main:app) para ver também leis indexadas, artigos e consultas da base de RAG.";
+  }
+  observarCards(grid);
+}
+
+/* ============================================================
+   BUSCA local + histórico
+   ============================================================ */
 function search(term){
   term=term.trim().toLowerCase();
-  const hits=term?PROBLEMS.filter(p=>(p.title+p.short+p.tag+p.lawShort).toLowerCase().includes(term)):PROBLEMS;
+  const base=filtrar(PROBLEMS);
+  const hits=term?base.filter(p=>(p.title+p.short+p.tag+p.lawShort).toLowerCase().includes(term)):base;
   if(term){renderProblems(hits);go("problemas");document.getElementById("q").value=term;document.getElementById("q").focus();}
 }
-const CHIPS=["Produto com defeito","Fui demitido","Multa injusta","Nome negativado","Aluguel","Comprei e me arrependi"];
+const CHIPS=["Produto com defeito","Pensão alimentícia","Golpe do PIX","Voo cancelado","INSS negou","Fui demitido"];
 document.getElementById("chips").innerHTML=CHIPS.map(c=>`<button class="chip" onclick="search('${c.toLowerCase()}')">${c}</button>`).join("");
+
+function historico(){ try{return JSON.parse(localStorage.getItem("da-hist")||"[]")}catch{return []} }
+function salvarHistorico(q){
+  const h=[q, ...historico().filter(x=>x!==q)].slice(0,6);
+  localStorage.setItem("da-hist", JSON.stringify(h));
+  renderHistorico();
+}
+function limparHistorico(){ localStorage.removeItem("da-hist"); renderHistorico(); }
+function renderHistorico(){
+  const h=historico();
+  document.getElementById("hist").innerHTML = h.length
+    ? `<span class="hist-label">RECENTES</span>`+
+      h.map(q=>`<button class="chip hist" onclick="reperguntar(${JSON.stringify(q).replace(/"/g,"&quot;")})">${q}</button>`).join("")+
+      `<button class="chip hist" onclick="limparHistorico()" title="Limpar histórico">✕ limpar</button>`
+    : "";
+}
+function reperguntar(q){
+  document.getElementById("q").value=q;
+  search(q);
+  perguntarAPI(q);
+}
 
 /* ============================================================
    INTEGRAÇÃO COM A API DE RAG (backend/FastAPI)
@@ -621,13 +654,10 @@ fetch("/api/saude").then(r=>{
   if(r.ok) document.getElementById("qhint").hidden=false;
 }).catch(()=>{});
 
-document.getElementById("q").addEventListener("keydown", async e=>{
-  if(e.key!=="Enter") return;
-  const pergunta=e.target.value.trim();
-  if(pergunta.length<4) return;
+async function perguntarAPI(pergunta){
   const panel=document.getElementById("ai-panel");
   panel.hidden=false;
-  panel.innerHTML='<div class="ai-k">⚖ Consultando a base jurídica…</div>';
+  panel.innerHTML='<div class="ai-k"><span class="pulse"></span> Consultando a base jurídica…</div>';
   go("problemas");
   try{
     const r=await fetch("/api/perguntar",{
@@ -637,11 +667,12 @@ document.getElementById("q").addEventListener("keydown", async e=>{
     });
     if(!r.ok) throw new Error(r.status);
     const d=await r.json();
+    salvarHistorico(pergunta);
     const arts=(d.artigos||[]).map(a=>`
       <div class="ai-art">
         <div class="art">§ ${esc(a.lei)} · ${esc(a.artigo)}</div>
         <div class="txt">${esc(a.resumo)}</div>
-        <a href="${esc(a.fonte)}" target="_blank" rel="noopener">ver texto oficial ↗</a>
+        <a href="${esc(a.fonte)}" target="_blank" rel="noopener">fonte oficial ↗</a>
       </div>`).join("");
     panel.innerHTML=`
       <div class="ai-k">⚖ Resposta da base jurídica ${d.gerado_por_llm?"· gerada por IA":"· modo extrativo"}</div>
@@ -651,13 +682,22 @@ document.getElementById("q").addEventListener("keydown", async e=>{
   }catch(err){
     panel.hidden=true; // sem backend: fica só a busca local, que já rodou
   }
+}
+
+document.getElementById("q").addEventListener("keydown", e=>{
+  if(e.key!=="Enter") return;
+  const pergunta=e.target.value.trim();
+  if(pergunta.length<4) return;
+  perguntarAPI(pergunta);
 });
 
 /* init */
+renderFilters();
 renderProblems(PROBLEMS);
 renderCodes();
 renderGlossary();
 renderHelp();
+renderHistorico();
 </script>
 </body>
 </html>

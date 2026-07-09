@@ -76,6 +76,41 @@ SINONIMOS: dict[str, list[str]] = {
     "cnh": ["trânsito", "penalidade", "pontos"],
     "injusta": ["defesa", "recurso"],
     "injusto": ["defesa", "recurso"],
+    "pensão": ["alimentos", "alimentícia"],
+    "alimentícia": ["alimentos", "pensão"],
+    "divorciar": ["divórcio", "casamento"],
+    "separar": ["divórcio", "separação"],
+    "ex": ["cônjuge", "pensão"],
+    "filho": ["guarda", "alimentos"],
+    "filha": ["guarda", "alimentos"],
+    "convênio": ["plano", "saúde", "operadora"],
+    "negou": ["negativa", "cobertura", "indeferido"],
+    "negaram": ["negativa", "cobertura", "indeferido"],
+    "cirurgia": ["cobertura", "saúde", "urgência"],
+    "exame": ["cobertura", "saúde"],
+    "aposentadoria": ["inss", "benefício", "previdência"],
+    "auxílio": ["inss", "benefício", "previdência"],
+    "bpc": ["inss", "benefício", "loas"],
+    "golpe": ["fraude", "estelionato"],
+    "golpista": ["fraude", "estelionato"],
+    "pix": ["fraude", "banco", "transferência", "med"],
+    "clonaram": ["fraude", "golpe", "banco"],
+    "voo": ["aéreo", "passageiro", "companhia"],
+    "avião": ["aéreo", "passageiro", "voo"],
+    "aéreo": ["voo", "passageiro"],
+    "atrasou": ["atraso", "assistência"],
+    "cancelaram": ["cancelamento", "reembolso"],
+    "cancelou": ["cancelamento", "reembolso"],
+    "mala": ["bagagem", "aéreo"],
+    "síndico": ["condomínio", "condômino"],
+    "condominial": ["condomínio", "cota"],
+    "vizinho": ["condomínio", "sossego", "barulho"],
+    "iptu": ["imposto", "tributo", "prefeitura"],
+    "herança": ["inventário", "sucessão", "herdeiro"],
+    "inventário": ["herança", "sucessão", "partilha"],
+    "faleceu": ["herança", "inventário", "falecimento", "sucessão"],
+    "morreu": ["herança", "inventário", "falecimento", "sucessão"],
+    "testamento": ["herança", "sucessão"],
 }
 
 
@@ -160,10 +195,21 @@ class Retriever:
             expandidos.extend(_SINONIMOS_NORM.get(tok, []))
         return expandidos
 
-    def buscar(self, pergunta: str, top_k: int = 4, score_minimo: float = 1.0) -> list[Resultado]:
+    def temas(self) -> list[str]:
+        return sorted({art["tema"] for art in self.artigos})
+
+    def buscar(
+        self,
+        pergunta: str,
+        top_k: int = 4,
+        score_minimo: float = 1.0,
+        tema: str | None = None,
+    ) -> list[Resultado]:
         consulta = self._expandir_consulta(pergunta)
         resultados = []
         for i, art in enumerate(self.artigos):
+            if tema and art["tema"] != tema:
+                continue
             freqs = self._doc_freqs[i]
             dl = self._doc_lens[i]
             score = 0.0
