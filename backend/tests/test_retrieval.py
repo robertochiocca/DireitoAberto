@@ -35,6 +35,10 @@ CASOS = [
     ("O condomínio me multou e o vizinho faz barulho de madrugada", "cc-1336"),
     ("A prefeitura cobrou IPTU de dez anos atrás", "ctn-174"),
     ("Meu pai faleceu, como faço o inventário da herança?", "cc-1784"),
+    ("O plano quer limitar os dias de internação na UTI", "stj-sumula302"),
+    ("Não recebo horas extras e a empresa não mostra o ponto", "tst-sumula338"),
+    ("Fui demitido por causa de doença grave, é discriminação?", "tst-sumula443"),
+    ("Podem me prender por dívida no cartão de crédito?", "stf-sv25"),
 ]
 
 

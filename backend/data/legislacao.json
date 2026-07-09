@@ -253,6 +253,8 @@
     },
     {
       "id": "stj-sumula479",
+      "tipo": "jurisprudencia",
+      "tribunal": "STJ",
       "lei": "Súmula nº 479 do Superior Tribunal de Justiça",
       "artigo": "Súmula 479 (c/ Resolução BCB nº 103/2021 — MED)",
       "tema": "consumidor",
@@ -300,6 +302,78 @@
       "resumo": "Herança: transmite-se aos herdeiros no momento da morte; metade dos bens é reservada aos herdeiros necessários; o inventário deve começar em até 2 meses e pode ser feito em cartório quando há consenso.",
       "palavras_chave": ["herança", "inventário", "herdeiro", "sucessão", "testamento", "partilha", "falecimento", "cartório", "legítima", "bens"],
       "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+    },
+    {
+      "id": "stf-sv25",
+      "tipo": "jurisprudencia",
+      "tribunal": "STF",
+      "lei": "Súmula Vinculante nº 25 do Supremo Tribunal Federal",
+      "artigo": "Súmula Vinculante 25",
+      "tema": "civel",
+      "texto": "É ilícita a prisão civil de depositário infiel, qualquer que seja a modalidade do depósito. Na prática, a única prisão por dívida admitida no Brasil é a do devedor de pensão alimentícia (CF, art. 5º, LXVII).",
+      "resumo": "Ninguém pode ser preso por dívida no Brasil — a única exceção é o devedor de pensão alimentícia. Ameaça de prisão por dívida comum é ilegal.",
+      "palavras_chave": ["prisão", "dívida", "depositário", "infiel", "ameaça", "cobrança", "devedor"],
+      "fonte": "https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=26&sumula=1268"
+    },
+    {
+      "id": "stj-sumula297",
+      "tipo": "jurisprudencia",
+      "tribunal": "STJ",
+      "lei": "Súmula nº 297 do Superior Tribunal de Justiça",
+      "artigo": "Súmula 297",
+      "tema": "consumidor",
+      "texto": "O Código de Defesa do Consumidor é aplicável às instituições financeiras. Bancos, financeiras e administradoras de cartão respondem pelas regras do CDC nas relações com seus clientes: dever de informação, revisão de cláusulas abusivas, inversão do ônus da prova e responsabilidade objetiva.",
+      "resumo": "Bancos e financeiras também se submetem ao CDC: cliente de banco é consumidor, com todos os direitos do código (informação, cláusulas abusivas, ônus da prova).",
+      "palavras_chave": ["banco", "financeira", "cartão", "cdc", "consumidor", "juros", "tarifa", "cláusula", "abusiva", "empréstimo"],
+      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2011_23_capSumula297.pdf"
+    },
+    {
+      "id": "stj-sumula385",
+      "tipo": "jurisprudencia",
+      "tribunal": "STJ",
+      "lei": "Súmula nº 385 do Superior Tribunal de Justiça",
+      "artigo": "Súmula 385",
+      "tema": "consumidor",
+      "texto": "Da anotação irregular em cadastro de proteção ao crédito, não cabe indenização por dano moral, quando preexistente legítima inscrição, ressalvado o direito ao cancelamento. Ou seja: quem já tinha negativação legítima anterior não recebe dano moral por uma nova negativação indevida — mas mantém o direito de cancelá-la.",
+      "resumo": "Negativação indevida gera dano moral — exceto para quem já tinha outra negativação legítima anterior; nesse caso, resta o direito de cancelar a inscrição errada.",
+      "palavras_chave": ["negativação", "dano", "moral", "indenização", "cadastro", "serasa", "spc", "inscrição", "indevida"],
+      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2013_34_capSumula385.pdf"
+    },
+    {
+      "id": "stj-sumula302",
+      "tipo": "jurisprudencia",
+      "tribunal": "STJ",
+      "lei": "Súmula nº 302 do Superior Tribunal de Justiça",
+      "artigo": "Súmula 302",
+      "tema": "saude",
+      "texto": "É abusiva a cláusula contratual de plano de saúde que limita no tempo a internação hospitalar do segurado. O plano não pode fixar número máximo de dias de internação (inclusive em UTI): enquanto houver indicação médica, a cobertura deve continuar.",
+      "resumo": "Plano de saúde não pode limitar dias de internação (nem de UTI): cláusulas desse tipo são abusivas e a cobertura vale enquanto houver indicação médica.",
+      "palavras_chave": ["plano", "saúde", "internação", "uti", "limite", "dias", "cláusula", "abusiva", "hospital", "cobertura"],
+      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2011_24_capSumula302.pdf"
+    },
+    {
+      "id": "tst-sumula443",
+      "tipo": "jurisprudencia",
+      "tribunal": "TST",
+      "lei": "Súmula nº 443 do Tribunal Superior do Trabalho",
+      "artigo": "Súmula 443",
+      "tema": "trabalho",
+      "texto": "Presume-se discriminatória a despedida de empregado portador do vírus HIV ou de outra doença grave que suscite estigma ou preconceito. Inválido o ato, o empregado tem direito à reintegração no emprego.",
+      "resumo": "Demissão de trabalhador com HIV ou doença grave estigmatizante presume-se discriminatória: o empregado pode ser reintegrado ao emprego.",
+      "palavras_chave": ["demissão", "discriminatória", "doença", "grave", "hiv", "câncer", "reintegração", "despedida", "preconceito", "estigma"],
+      "fonte": "https://jurisprudencia.tst.jus.br/#void"
+    },
+    {
+      "id": "tst-sumula338",
+      "tipo": "jurisprudencia",
+      "tribunal": "TST",
+      "lei": "Súmula nº 338 do Tribunal Superior do Trabalho",
+      "artigo": "Súmula 338, I",
+      "tema": "trabalho",
+      "texto": "É ônus do empregador que conta com mais de 10 empregados o registro da jornada de trabalho na forma do art. 74, § 2º, da CLT. A não apresentação injustificada dos controles de frequência gera presunção relativa de veracidade da jornada de trabalho alegada pelo empregado, a qual pode ser elidida por prova em contrário.",
+      "resumo": "Horas extras: em empresas com mais de 10 empregados, é o patrão quem deve provar a jornada (cartão de ponto); se não apresentar os controles, presume-se verdadeira a jornada que o trabalhador alegar.",
+      "palavras_chave": ["hora", "extra", "jornada", "ponto", "cartão", "controle", "registro", "prova", "empregador", "trabalho"],
+      "fonte": "https://jurisprudencia.tst.jus.br/#void"
     }
   ]
 }

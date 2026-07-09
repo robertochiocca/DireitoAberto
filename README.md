@@ -24,10 +24,13 @@ O DireitoAberto ataca o problema em duas camadas:
 | Camada | Stack |
 |---|---|
 | Backend | Python 3.10+, FastAPI, Pydantic |
-| Recuperação | BM25 implementado em Python puro (normalização PT-BR, stopwords, expansão de sinônimos) |
+| Recuperação | BM25 em Python puro (padrão) ou embeddings + ChromaDB (opt-in), atrás da mesma interface `Retriever` |
+| Persistência | SQLAlchemy — SQLite por padrão, PostgreSQL via `DIREITO_ABERTO_DATABASE_URL` |
+| Autenticação | PBKDF2 (stdlib) + tokens de sessão opacos (Bearer) |
+| Documentos | pypdf (upload de nota fiscal/contrato em PDF ou TXT) |
 | Geração | API de LLM (pacote `anthropic`), opcional |
 | Frontend | HTML/CSS/JS estático (sem build), integrado à API quando servido pelo backend |
-| Testes | pytest + TestClient (httpx) |
+| Testes | pytest + TestClient (httpx) — 50 testes |
 
 ## Arquitetura
 
@@ -52,14 +55,35 @@ resposta + artigos + fontes oficiais + aviso legal
 - `backend/app/llm.py` — camada de geração com prompt que exige linguagem cautelosa, proíbe inventar dispositivos e sempre encaminha para a Defensoria/Procon.
 - `backend/app/main.py` — API FastAPI e serving do frontend.
 
-### Endpoints
+### API pública (v1)
+
+A API é versionada em **`/api/v1`** (os caminhos `/api/...` são aliases de compatibilidade). Documentação interativa em `/docs` (OpenAPI).
 
 | Endpoint | Descrição |
 |---|---|
-| `POST /api/perguntar` | Pergunta em linguagem natural (aceita filtro opcional `tema`) → resposta + artigos + fontes |
-| `GET /api/artigos` | Lista o corpus; filtros `?tema=familia` e `?busca=8.078` (por lei ou artigo) |
-| `GET /api/estatisticas` | Leis e artigos indexados, áreas temáticas, consultas realizadas e data de atualização da base |
-| `GET /api/saude` | Health check |
+| `POST /api/v1/perguntar` | Pergunta em linguagem natural (filtro opcional `tema`) → resposta + artigos + fontes |
+| `POST /api/v1/perguntar-documento` | Multipart: pergunta + arquivo `.pdf`/`.txt` (nota fiscal, contrato) usado como contexto da busca |
+| `GET /api/v1/artigos` | Lista o corpus; filtros `?tema=familia`, `?tribunal=STJ` e `?busca=8.078` |
+| `GET /api/v1/estatisticas` | Leis, artigos e jurisprudências indexados, temas, consultas realizadas (persistente) e atualização da base |
+| `POST /api/v1/auth/registrar` | Cria conta (e-mail + senha) e devolve token Bearer |
+| `POST /api/v1/auth/entrar` | Login → token Bearer |
+| `GET /api/v1/historico` | Consultas do usuário autenticado (as perguntas feitas com token ficam registradas) |
+| `GET /api/v1/saude` | Health check |
+
+- **Autenticação é opcional**: sem token, tudo funciona anonimamente; com `Authorization: Bearer <token>`, as consultas entram no histórico do usuário.
+- **Retriever semântico (experimental)**: `pip install chromadb` e `DIREITO_ABERTO_RETRIEVER=semantico`. O embedding padrão (MiniLM/ONNX, baixado na 1ª execução) tem qualidade limitada em português — por isso o BM25 continua sendo o padrão; a interface é a mesma e a troca não afeta a API.
+- **Banco**: SQLite em `backend/data/direitoaberto.db` por padrão; para PostgreSQL, `DIREITO_ABERTO_DATABASE_URL=postgresql+psycopg://usuario:senha@host/db`.
+
+### Ingestão do Planalto (semiautomatizada)
+
+```bash
+python scripts/ingerir_planalto.py \
+  --url https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm \
+  --lei "Código de Defesa do Consumidor — Lei nº 8.078/1990" \
+  --tema consumidor --artigos 18 26 49 > novos_artigos.json
+```
+
+O script extrai os artigos e gera esqueletos no formato do corpus com `"revisado": false` e resumo marcado como TODO. **A revisão humana é parte do fluxo por desenho**: ninguém publica dispositivo sem escrever o resumo em linguagem simples e conferir a vigência — essa é a camada de revisão jurídica do projeto.
 
 ## Como rodar
 
@@ -104,19 +128,22 @@ curl -s localhost:8000/api/perguntar \
 - ✅ Filtros por área, busca por lei/artigo e histórico de pesquisas
 - ✅ Estatísticas da base (`/api/estatisticas` + página no frontend)
 - ✅ Modo escuro, animações e design responsivo
-- ⬜ Embeddings (busca semântica atrás da mesma interface `Retriever`)
-- ⬜ ChromaDB (ou FAISS) como índice vetorial
-- ⬜ PostgreSQL (corpus, histórico e telemetria persistentes)
-- ⬜ Ingestão automatizada do Planalto/LexML
-- ⬜ Jurisprudência STF
-- ⬜ Jurisprudência STJ
-- ⬜ Jurisprudência TST
-- ⬜ Login
-- ⬜ Histórico por usuário
-- ⬜ API pública documentada e versionada
-- ⬜ Upload de documentos (nota fiscal, contrato) com extração de contexto
-- ⬜ Frontend em React/Next.js
-- ⬜ Camada de revisão jurídica contínua (validação por profissional)
+- ✅ Embeddings (busca semântica atrás da mesma interface `Retriever`)
+- ✅ ChromaDB como índice vetorial (opt-in via `DIREITO_ABERTO_RETRIEVER=semantico`)
+- ✅ PostgreSQL-ready (SQLAlchemy; SQLite por padrão, PostgreSQL via variável de ambiente)
+- ✅ Ingestão semiautomatizada do Planalto (`scripts/ingerir_planalto.py` + revisão humana)
+- ✅ Jurisprudência STF (Súmula Vinculante 25 — curadoria inicial)
+- ✅ Jurisprudência STJ (Súmulas 297, 385, 302 e 479 — curadoria inicial)
+- ✅ Jurisprudência TST (Súmulas 338 e 443 — curadoria inicial)
+- ✅ Login (registro/entrada com token Bearer)
+- ✅ Histórico por usuário (`/api/v1/historico`)
+- ✅ API pública documentada e versionada (`/api/v1` + OpenAPI em `/docs`)
+- ✅ Upload de documentos (nota fiscal, contrato) com extração de contexto (PDF/TXT)
+- ⬜ Embeddings multilíngues de qualidade (modelo PT-BR; o MiniLM padrão é limitado)
+- ⬜ Ingestão automatizada de jurisprudência (APIs dos tribunais) — hoje a curadoria é manual
+- ⬜ Migrações de banco (Alembic) e deploy com PostgreSQL gerenciado
+- ⬜ Frontend em React/Next.js (com telas de login/histórico)
+- ⬜ Camada de revisão jurídica contínua com profissional (o fluxo `revisado: false` já existe)
 
 ### A visão de longo prazo
 

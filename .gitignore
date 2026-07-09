@@ -1,4 +1,6 @@
 __pycache__/
+*.db
+.chroma/
 *.py[cod]
 .venv/
 venv/

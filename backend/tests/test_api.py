@@ -1,7 +1,3 @@
-import os
-
-os.environ["DIREITO_ABERTO_USAR_LLM"] = "0"  # testes não chamam a API de LLM
-
 from fastapi.testclient import TestClient
 
 from app.main import app
@@ -81,5 +77,20 @@ def test_estatisticas():
     assert depois["consultas_realizadas"] == antes["consultas_realizadas"] + 1
     assert depois["artigos_indexados"] >= 25
     assert depois["leis_indexadas"] > 5
+    assert depois["jurisprudencias_indexadas"] >= 6
     assert depois["base_atualizada_em"]
     assert "familia" in depois["temas"]
+
+
+def test_api_v1_e_alias_respondem_igual():
+    v1 = client.get("/api/v1/saude").json()
+    alias = client.get("/api/saude").json()
+    assert v1 == alias
+
+
+def test_listar_jurisprudencia_por_tribunal():
+    resp = client.get("/api/v1/artigos", params={"tribunal": "stj"})
+    body = resp.json()
+    assert body["total"] >= 3
+    assert all(a["tribunal"] == "STJ" for a in body["artigos"])
+    assert all(a["tipo"] == "jurisprudencia" for a in body["artigos"])
