@@ -1,0 +1,185 @@
+{
+  "aviso": "Textos consolidados a partir das publicações oficiais no Planalto. Alguns dispositivos foram condensados (caput + parágrafos relevantes). Confira sempre a fonte oficial antes de usar em petições.",
+  "artigos": [
+    {
+      "id": "cdc-18",
+      "lei": "Código de Defesa do Consumidor — Lei nº 8.078/1990",
+      "artigo": "Art. 18, caput e § 1º",
+      "tema": "consumidor",
+      "texto": "Os fornecedores de produtos de consumo duráveis ou não duráveis respondem solidariamente pelos vícios de qualidade ou quantidade que os tornem impróprios ou inadequados ao consumo a que se destinam ou lhes diminuam o valor. § 1º Não sendo o vício sanado no prazo máximo de trinta dias, pode o consumidor exigir, alternativamente e à sua escolha: I — a substituição do produto por outro da mesma espécie, em perfeitas condições de uso; II — a restituição imediata da quantia paga, monetariamente atualizada, sem prejuízo de eventuais perdas e danos; III — o abatimento proporcional do preço.",
+      "resumo": "Produto com defeito: o fornecedor tem 30 dias para consertar. Se não resolver, o consumidor escolhe entre troca, devolução do dinheiro ou abatimento do preço.",
+      "palavras_chave": ["produto", "defeito", "vício", "troca", "substituição", "conserto", "devolução", "dinheiro", "loja", "fabricante", "garantia", "notebook", "celular", "eletrônico", "eletrodoméstico"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    {
+      "id": "cdc-26",
+      "lei": "Código de Defesa do Consumidor — Lei nº 8.078/1990",
+      "artigo": "Art. 26",
+      "tema": "consumidor",
+      "texto": "O direito de reclamar pelos vícios aparentes ou de fácil constatação caduca em: I — trinta dias, tratando-se de fornecimento de serviço e de produtos não duráveis; II — noventa dias, tratando-se de fornecimento de serviço e de produtos duráveis. § 1º Inicia-se a contagem do prazo decadencial a partir da entrega efetiva do produto ou do término da execução dos serviços. § 3º Tratando-se de vício oculto, o prazo decadencial inicia-se no momento em que ficar evidenciado o defeito.",
+      "resumo": "Prazo para reclamar de defeito: 30 dias (produtos não duráveis) ou 90 dias (duráveis), contados da entrega — ou de quando o defeito oculto aparecer.",
+      "palavras_chave": ["prazo", "reclamar", "garantia", "legal", "defeito", "vício", "oculto", "produto", "durável", "decadência"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    {
+      "id": "cdc-42",
+      "lei": "Código de Defesa do Consumidor — Lei nº 8.078/1990",
+      "artigo": "Art. 42",
+      "tema": "consumidor",
+      "texto": "Na cobrança de débitos, o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça. Parágrafo único. O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.",
+      "resumo": "Cobrança indevida: quem pagou o que não devia tem direito a receber de volta o dobro, com correção — salvo engano justificável do fornecedor.",
+      "palavras_chave": ["cobrança", "indevida", "dívida", "dobro", "repetição", "indébito", "constrangimento", "ameaça"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    {
+      "id": "cdc-43",
+      "lei": "Código de Defesa do Consumidor — Lei nº 8.078/1990",
+      "artigo": "Art. 43, §§ 1º e 2º",
+      "tema": "consumidor",
+      "texto": "O consumidor terá acesso às informações existentes em cadastros, fichas, registros e dados pessoais e de consumo arquivados sobre ele. § 1º Os cadastros e dados de consumidores devem ser objetivos, claros, verdadeiros e em linguagem de fácil compreensão, não podendo conter informações negativas referentes a período superior a cinco anos. § 2º A abertura de cadastro, ficha, registro e dados pessoais e de consumo deverá ser comunicada por escrito ao consumidor, quando não solicitada por ele.",
+      "resumo": "Negativação: o consumidor deve ser avisado por escrito antes da inscrição em cadastros como Serasa/SPC, e nenhum registro negativo pode durar mais de 5 anos.",
+      "palavras_chave": ["negativação", "nome", "sujo", "serasa", "spc", "cadastro", "inadimplente", "comunicação", "cinco", "anos", "dívida"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    {
+      "id": "cdc-49",
+      "lei": "Código de Defesa do Consumidor — Lei nº 8.078/1990",
+      "artigo": "Art. 49",
+      "tema": "consumidor",
+      "texto": "O consumidor pode desistir do contrato, no prazo de 7 dias a contar de sua assinatura ou do ato de recebimento do produto ou serviço, sempre que a contratação de fornecimento de produtos e serviços ocorrer fora do estabelecimento comercial, especialmente por telefone ou a domicílio. Parágrafo único. Se o consumidor exercitar o direito de arrependimento previsto neste artigo, os valores eventualmente pagos, a qualquer título, durante o prazo de reflexão, serão devolvidos, de imediato, monetariamente atualizados.",
+      "resumo": "Direito de arrependimento: compras feitas fora da loja física (internet, telefone) podem ser desistidas em 7 dias, com devolução integral e atualizada dos valores pagos.",
+      "palavras_chave": ["arrependimento", "desistir", "internet", "compra", "online", "telefone", "sete", "dias", "reembolso", "devolução", "frete"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    {
+      "id": "clt-477",
+      "lei": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943",
+      "artigo": "Art. 477, caput e § 6º",
+      "tema": "trabalho",
+      "texto": "Na extinção do contrato de trabalho, o empregador deverá proceder à anotação na Carteira de Trabalho e Previdência Social, comunicar a dispensa aos órgãos competentes e realizar o pagamento das verbas rescisórias no prazo e na forma estabelecidos neste artigo. § 6º A entrega ao empregado de documentos que comprovem a comunicação da extinção contratual aos órgãos competentes bem como o pagamento dos valores constantes do instrumento de rescisão contratual deverão ser efetuados até dez dias contados a partir do término do contrato.",
+      "resumo": "Rescisão: as verbas rescisórias e os documentos da demissão devem ser pagos/entregues em até 10 dias corridos após o fim do contrato.",
+      "palavras_chave": ["demissão", "rescisão", "verbas", "rescisórias", "pagamento", "prazo", "dez", "dias", "carteira", "trabalho", "demitido"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+    },
+    {
+      "id": "clt-487",
+      "lei": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943 (c/ Lei nº 12.506/2011)",
+      "artigo": "Art. 487, II (e aviso prévio proporcional)",
+      "tema": "trabalho",
+      "texto": "Não havendo prazo estipulado, a parte que, sem justo motivo, quiser rescindir o contrato deverá avisar a outra da sua resolução com a antecedência mínima de trinta dias aos que perceberem por quinzena ou mês, ou que tenham mais de 12 meses de serviço na empresa. A Lei nº 12.506/2011 acresce 3 dias por ano de serviço prestado na mesma empresa, até o máximo de 60 dias adicionais, perfazendo um total de até 90 dias.",
+      "resumo": "Aviso prévio: mínimo de 30 dias, acrescidos de 3 dias por ano trabalhado na mesma empresa (até 90 dias no total).",
+      "palavras_chave": ["aviso", "prévio", "demissão", "trinta", "dias", "proporcional", "rescisão", "demitido"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+    },
+    {
+      "id": "cf-7",
+      "lei": "Constituição Federal de 1988",
+      "artigo": "Art. 7º, I, III, XXI e XXIX",
+      "tema": "trabalho",
+      "texto": "São direitos dos trabalhadores urbanos e rurais, além de outros que visem à melhoria de sua condição social: I — relação de emprego protegida contra despedida arbitrária ou sem justa causa, nos termos de lei complementar, que preverá indenização compensatória, dentre outros direitos; III — fundo de garantia do tempo de serviço; XXI — aviso prévio proporcional ao tempo de serviço, sendo no mínimo de trinta dias, nos termos da lei; XXIX — ação, quanto aos créditos resultantes das relações de trabalho, com prazo prescricional de cinco anos para os trabalhadores urbanos e rurais, até o limite de dois anos após a extinção do contrato de trabalho.",
+      "resumo": "Direitos constitucionais do trabalhador: proteção contra dispensa arbitrária, FGTS, aviso prévio de no mínimo 30 dias e prazo de 2 anos após a saída para cobrar na Justiça (alcançando os últimos 5 anos).",
+      "palavras_chave": ["trabalhador", "fgts", "aviso", "prévio", "prescrição", "dois", "anos", "cinco", "justiça", "trabalho", "demissão", "justa", "causa"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+    },
+    {
+      "id": "lei8036-18",
+      "lei": "Lei do FGTS — Lei nº 8.036/1990",
+      "artigo": "Art. 18, § 1º",
+      "tema": "trabalho",
+      "texto": "Na hipótese de despedida pelo empregador sem justa causa, depositará este, na conta vinculada do trabalhador no FGTS, importância igual a quarenta por cento do montante de todos os depósitos realizados na conta vinculada durante a vigência do contrato de trabalho, atualizados monetariamente e acrescidos dos respectivos juros.",
+      "resumo": "Demissão sem justa causa: a empresa deve depositar multa de 40% sobre todos os depósitos do FGTS feitos durante o contrato.",
+      "palavras_chave": ["fgts", "multa", "quarenta", "por", "cento", "demissão", "justa", "causa", "saque", "depósito"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8036consol.htm"
+    },
+    {
+      "id": "ctb-281",
+      "lei": "Código de Trânsito Brasileiro — Lei nº 9.503/1997",
+      "artigo": "Art. 281, caput e parágrafo único",
+      "tema": "transito",
+      "texto": "A autoridade de trânsito, na esfera da competência estabelecida neste Código e dentro de sua circunscrição, julgará a consistência do auto de infração e aplicará a penalidade cabível. Parágrafo único. O auto de infração será arquivado e seu registro julgado insubsistente: I — se considerado inconsistente ou irregular; II — se, no prazo máximo de trinta dias, não for expedida a notificação da autuação.",
+      "resumo": "Multa de trânsito: se a notificação da autuação não for expedida em até 30 dias, o auto de infração deve ser arquivado.",
+      "palavras_chave": ["multa", "trânsito", "auto", "infração", "notificação", "trinta", "dias", "arquivamento", "autuação"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm"
+    },
+    {
+      "id": "ctb-282",
+      "lei": "Código de Trânsito Brasileiro — Lei nº 9.503/1997",
+      "artigo": "Arts. 282 e 285 a 288 (síntese)",
+      "tema": "transito",
+      "texto": "Aplicada a penalidade, será expedida notificação ao proprietário do veículo ou ao infrator, com indicação do prazo para apresentação de defesa e para interposição de recurso. Da penalidade cabe defesa prévia perante o órgão autuador e, mantida a autuação, recurso à Junta Administrativa de Recursos de Infrações (JARI) no prazo indicado na notificação; da decisão da JARI cabe recurso à instância superior (CETRAN, no âmbito estadual).",
+      "resumo": "Defesa da multa em etapas: defesa prévia no órgão autuador, recurso à JARI e, se negado, recurso ao CETRAN — sempre dentro dos prazos indicados na própria notificação.",
+      "palavras_chave": ["multa", "recurso", "jari", "cetran", "defesa", "prévia", "notificação", "prazo", "trânsito", "penalidade", "cnh", "pontos", "injusta"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm"
+    },
+    {
+      "id": "lei8245-18",
+      "lei": "Lei do Inquilinato — Lei nº 8.245/1991",
+      "artigo": "Arts. 18 e 19",
+      "tema": "moradia",
+      "texto": "É livre a convenção do aluguel, vedada a sua estipulação em moeda estrangeira e a sua vinculação à variação cambial ou ao salário mínimo (art. 17). Art. 18. É lícito às partes fixar, de comum acordo, novo valor para o aluguel, bem como inserir ou modificar cláusula de reajuste. Art. 19. Não havendo acordo, o locador ou locatário, após três anos de vigência do contrato ou do acordo anteriormente realizado, poderão pedir revisão judicial do aluguel, a fim de ajustá-lo ao preço de mercado.",
+      "resumo": "Aluguel: o valor e a cláusula de reajuste são livremente acordados; sem acordo, a revisão judicial do valor só cabe após 3 anos de vigência.",
+      "palavras_chave": ["aluguel", "reajuste", "revisão", "locador", "locatário", "inquilino", "contrato", "aumento", "valor"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm"
+    },
+    {
+      "id": "lei10192-2",
+      "lei": "Lei nº 10.192/2001 (medidas complementares ao Plano Real)",
+      "artigo": "Art. 2º, § 1º",
+      "tema": "moradia",
+      "texto": "É admitida a estipulação de correção monetária ou de reajuste por índices de preços gerais, setoriais ou que reflitam a variação dos custos de produção ou dos insumos utilizados nos contratos de prazo de duração igual ou superior a um ano. § 1º É nula de pleno direito qualquer estipulação de reajuste ou correção monetária de periodicidade inferior a um ano.",
+      "resumo": "Reajuste de contratos (inclusive aluguel): é nula qualquer cláusula que preveja reajuste em período menor que 12 meses.",
+      "palavras_chave": ["reajuste", "anual", "correção", "monetária", "aluguel", "contrato", "doze", "meses", "nulo", "aumento", "índice", "igpm", "ipca"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10192.htm"
+    },
+    {
+      "id": "lei8245-46",
+      "lei": "Lei do Inquilinato — Lei nº 8.245/1991",
+      "artigo": "Art. 46, §§ 1º e 2º",
+      "tema": "moradia",
+      "texto": "Nas locações ajustadas por escrito e por prazo igual ou superior a trinta meses, a resolução do contrato ocorrerá findo o prazo estipulado, independentemente de notificação ou aviso. § 1º Findo o prazo ajustado, se o locatário continuar na posse do imóvel alugado por mais de trinta dias sem oposição do locador, presumir-se-á prorrogada a locação por prazo indeterminado. § 2º Ocorrendo a prorrogação, o locador poderá denunciar o contrato a qualquer tempo, concedido o prazo de trinta dias para desocupação.",
+      "resumo": "Despejo em contrato prorrogado por prazo indeterminado: o locador pode denunciar o contrato, mas deve conceder 30 dias para desocupação.",
+      "palavras_chave": ["despejo", "desocupação", "trinta", "dias", "locação", "prorrogação", "denúncia", "inquilino", "sair", "imóvel", "dono", "aluguel"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm"
+    },
+    {
+      "id": "lei9099-3",
+      "lei": "Lei dos Juizados Especiais — Lei nº 9.099/1995",
+      "artigo": "Art. 3º, I",
+      "tema": "acesso-justica",
+      "texto": "O Juizado Especial Cível tem competência para conciliação, processo e julgamento das causas cíveis de menor complexidade, assim consideradas: I — as causas cujo valor não exceda a quarenta vezes o salário mínimo.",
+      "resumo": "Juizado Especial Cível: recebe causas de até 40 salários mínimos.",
+      "palavras_chave": ["juizado", "especial", "cível", "pequenas", "causas", "quarenta", "salários", "mínimos", "competência", "processo"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm"
+    },
+    {
+      "id": "lei9099-9",
+      "lei": "Lei dos Juizados Especiais — Lei nº 9.099/1995",
+      "artigo": "Art. 9º",
+      "tema": "acesso-justica",
+      "texto": "Nas causas de valor até vinte salários mínimos, as partes comparecerão pessoalmente, podendo ser assistidas por advogado; nas de valor superior, a assistência é obrigatória.",
+      "resumo": "No Juizado Especial Cível, causas de até 20 salários mínimos dispensam advogado; acima disso (até o teto de 40), a assistência por advogado é obrigatória.",
+      "palavras_chave": ["juizado", "advogado", "vinte", "salários", "mínimos", "sem", "dispensa", "assistência", "processo", "causa"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm"
+    },
+    {
+      "id": "cc-206",
+      "lei": "Código Civil — Lei nº 10.406/2002",
+      "artigo": "Art. 206, § 3º, V e § 5º, I",
+      "tema": "civel",
+      "texto": "Prescreve: § 3º Em três anos: V — a pretensão de reparação civil. § 5º Em cinco anos: I — a pretensão de cobrança de dívidas líquidas constantes de instrumento público ou particular.",
+      "resumo": "Prescrição: indenizações (reparação civil) prescrevem em 3 anos; cobrança de dívidas documentadas, em 5 anos.",
+      "palavras_chave": ["prescrição", "prazo", "indenização", "reparação", "dívida", "cobrança", "três", "cinco", "anos"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+    },
+    {
+      "id": "cdc-14",
+      "lei": "Código de Defesa do Consumidor — Lei nº 8.078/1990",
+      "artigo": "Art. 14, caput",
+      "tema": "consumidor",
+      "texto": "O fornecedor de serviços responde, independentemente da existência de culpa, pela reparação dos danos causados aos consumidores por defeitos relativos à prestação dos serviços, bem como por informações insuficientes ou inadequadas sobre sua fruição e riscos.",
+      "resumo": "Serviço mal prestado: o fornecedor responde pelos danos causados ao consumidor independentemente de culpa (responsabilidade objetiva).",
+      "palavras_chave": ["serviço", "defeito", "dano", "responsabilidade", "objetiva", "reparação", "fornecedor", "prestação", "má", "qualidade"],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    }
+  ]
+}
