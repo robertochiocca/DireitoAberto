@@ -180,6 +180,10 @@ Integrar **STF, STJ, TST e Planalto num único mecanismo de busca cidadã**: o u
 
 `python` · `fastapi` · `artificial-intelligence` · `natural-language-processing` · `rag` · `legal-tech` · `brazilian-law` · `education`
 
+## Licença
+
+Distribuído sob a licença [MIT](LICENSE) — © 2026 Roberto Chiocca.
+
 ---
 
 **DireitoAberto** — *a lei em código aberto.* Este projeto oferece informação jurídica geral e não substitui a orientação de um advogado ou da Defensoria Pública.
