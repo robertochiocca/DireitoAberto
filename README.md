@@ -98,7 +98,20 @@ python scripts/ingerir_planalto.py \
   --tema consumidor --artigos 18 26 49 > novos_artigos.json
 ```
 
-O script extrai os artigos e gera esqueletos no formato do corpus com `"revisado": false` e resumo marcado como TODO. **A revisão humana é parte do fluxo por desenho**: ninguém publica dispositivo sem escrever o resumo em linguagem simples e conferir a vigência — essa é a camada de revisão jurídica do projeto.
+### Ingestão de jurisprudência (STF/STJ/TST)
+
+```bash
+# a partir da URL do portal (quando ele permitir robôs)…
+python scripts/ingerir_jurisprudencia.py --tribunal stf --numeros 25
+
+# …ou de um HTML salvo do navegador (contorna o WAF dos portais)
+python scripts/ingerir_jurisprudencia.py --tribunal stj \
+  --arquivo sumulas-stj.html --numeros 297 385 --tema consumidor > novas_sumulas.json
+```
+
+O parser reconhece os três formatos de cabeçalho ("Súmula Vinculante Nº 25", "Súmula N. 479", "SUM-443") e gera entradas já com `tipo`, `tribunal` e ids na convenção do corpus (`stf-sv25`, `stj-sumula479`…). Como os portais dos tribunais ficam atrás de proteção anti-robô, o modo `--arquivo` é o caminho garantido.
+
+Em ambos os scripts, os esqueletos saem com `"revisado": false` e resumo marcado como TODO. **A revisão humana é parte do fluxo por desenho**: ninguém publica dispositivo sem escrever o resumo em linguagem simples e conferir a vigência — essa é a camada de revisão jurídica do projeto.
 
 ## Como rodar
 
@@ -181,7 +194,7 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - ✅ API pública documentada e versionada (`/api/v1` + OpenAPI em `/docs`)
 - ✅ Upload de documentos (nota fiscal, contrato) com extração de contexto (PDF/TXT)
 - ✅ Embeddings multilíngues de qualidade (multilingual-e5-small em ONNX; 19/21 no top-1 do benchmark interno, contra 13/21 do MiniLM padrão)
-- ⬜ Ingestão automatizada de jurisprudência (APIs dos tribunais) — hoje a curadoria é manual
+- ✅ Ingestão de jurisprudência STF/STJ/TST (`scripts/ingerir_jurisprudencia.py`, por URL ou HTML salvo — os portais bloqueiam robôs)
 - ⬜ Migrações de banco (Alembic) e deploy com PostgreSQL gerenciado
 - ✅ Frontend em React/Next.js (`web/`: perguntar, login, histórico e base legal, com modo escuro)
 - ⬜ Camada de revisão jurídica contínua com profissional (o fluxo `revisado: false` já existe)
