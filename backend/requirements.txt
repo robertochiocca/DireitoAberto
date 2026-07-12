@@ -10,8 +10,9 @@ httpx>=0.27
 # opcional: retriever semântico (DIREITO_ABERTO_RETRIEVER=semantico)
 # chromadb>=1.0
 
-# opcional: PostgreSQL (DIREITO_ABERTO_DATABASE_URL=postgresql+psycopg://...)
-# psycopg[binary]>=3
+# PostgreSQL (usado quando DIREITO_ABERTO_DATABASE_URL aponta para Postgres;
+# sem a variável, o app usa SQLite e este driver fica ocioso)
+psycopg[binary]>=3
 
 # desenvolvimento / testes
 pytest>=8

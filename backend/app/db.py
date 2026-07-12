@@ -20,6 +20,13 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship,
 _DEFAULT_SQLITE = f"sqlite:///{Path(__file__).resolve().parent.parent / 'data' / 'direitoaberto.db'}"
 DATABASE_URL = os.environ.get("DIREITO_ABERTO_DATABASE_URL", _DEFAULT_SQLITE)
 
+# Provedores gerenciados (Render, Railway, Heroku…) entregam URLs "postgres://"
+# ou "postgresql://"; o SQLAlchemy precisa do driver explícito (psycopg 3).
+for _prefixo in ("postgres://", "postgresql://"):
+    if DATABASE_URL.startswith(_prefixo):
+        DATABASE_URL = "postgresql+psycopg://" + DATABASE_URL[len(_prefixo):]
+        break
+
 engine = create_engine(
     DATABASE_URL,
     connect_args={"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {},

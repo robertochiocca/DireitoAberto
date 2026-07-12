@@ -1,0 +1,24 @@
+# Blueprint do Render: https://render.com/docs/blueprint-spec
+# Deploy: dashboard.render.com -> New -> Blueprint -> selecionar este repositório.
+services:
+  - type: web
+    name: direitoaberto-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/saude
+    envVars:
+      - key: DIREITO_ABERTO_DATABASE_URL
+        fromDatabase:
+          name: direitoaberto-db
+          property: connectionString
+      # Descomente (e preencha no painel) para respostas geradas por LLM:
+      # - key: ANTHROPIC_API_KEY
+      #   sync: false
+
+databases:
+  - name: direitoaberto-db
+    plan: free # atenção: o Postgres gratuito do Render expira em 30 dias;
+               # sem ele, o app cai no SQLite (efêmero no plano free)

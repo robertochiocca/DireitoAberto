@@ -119,6 +119,24 @@ curl -s localhost:8000/api/perguntar \
   -d '{"pergunta": "A empresa não quer trocar meu notebook defeituoso"}'
 ```
 
+## Deploy (link público em ~5 minutos)
+
+O repositório já traz `render.yaml` (API) e `web/vercel.json` (frontend). Os cliques:
+
+**1. Backend no Render** (gratuito)
+1. [dashboard.render.com](https://dashboard.render.com) → **New → Blueprint** → selecione este repositório.
+2. O blueprint cria o serviço `direitoaberto-api` **e** um PostgreSQL gratuito já conectado (`DIREITO_ABERTO_DATABASE_URL`).
+3. Ao final, copie a URL do serviço (ex.: `https://direitoaberto-api.onrender.com`).
+4. Opcional: defina `ANTHROPIC_API_KEY` no painel para respostas geradas por LLM — sem ela, o modo extrativo responde normalmente.
+
+**2. Frontend na Vercel** (gratuito)
+1. [vercel.com/new](https://vercel.com/new) → importe este repositório.
+2. **Root Directory**: `web` (o framework Next.js é detectado sozinho).
+3. Em *Environment Variables*, adicione `API_URL` = URL do Render (passo 1.3).
+4. Deploy → o site sai em `https://<projeto>.vercel.app`.
+
+Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a primeira requisição demora ~1 min) e o PostgreSQL free expira em 30 dias — sem ele o app cai no SQLite, que é efêmero no free tier (o histórico zera a cada redeploy).
+
 ## Limitações (leia antes de usar)
 
 - **Não é aconselhamento jurídico.** O sistema informa a regra geral; detalhes do caso concreto mudam a resposta. Toda resposta encaminha para a Defensoria Pública (gratuita), Procon ou advogado.
