@@ -38,7 +38,7 @@ O DireitoAberto ataca o problema em duas camadas:
 | Camada | Stack |
 |---|---|
 | Backend | Python 3.10+, FastAPI, Pydantic |
-| Recuperação | BM25 em Python puro (padrão) ou embeddings + ChromaDB (opt-in), atrás da mesma interface `Retriever` |
+| Recuperação | BM25 em Python puro (padrão) ou embeddings multilíngues (multilingual-e5-small/ONNX) + ChromaDB, atrás da mesma interface `Retriever` |
 | Persistência | SQLAlchemy — SQLite por padrão, PostgreSQL via `DIREITO_ABERTO_DATABASE_URL` |
 | Autenticação | PBKDF2 (stdlib) + tokens de sessão opacos (Bearer) |
 | Documentos | pypdf (upload de nota fiscal/contrato em PDF ou TXT) |
@@ -86,7 +86,7 @@ A API é versionada em **`/api/v1`** (os caminhos `/api/...` são aliases de com
 | `GET /api/v1/saude` | Health check |
 
 - **Autenticação é opcional**: sem token, tudo funciona anonimamente; com `Authorization: Bearer <token>`, as consultas entram no histórico do usuário.
-- **Retriever semântico (experimental)**: `pip install chromadb` e `DIREITO_ABERTO_RETRIEVER=semantico`. O embedding padrão (MiniLM/ONNX, baixado na 1ª execução) tem qualidade limitada em português — por isso o BM25 continua sendo o padrão; a interface é a mesma e a troca não afeta a API.
+- **Retriever semântico**: `pip install chromadb` e `DIREITO_ABERTO_RETRIEVER=semantico`. Usa o **multilingual-e5-small** (ONNX, ~130 MB baixados do Hugging Face na 1ª execução, sem PyTorch), com prefixos assimétricos `query:`/`passage:` e vetores L2-normalizados. No benchmark interno de 21 casos: **e5 19/21 no top-1** vs BM25 18/21 vs MiniLM padrão do Chroma 13/21 — e o e5 acerta parafrases sem nenhuma palavra do corpus ("a companhia aérea me deixou na mão" → Resolução ANAC 400). `DIREITO_ABERTO_EMBEDDING=padrao` força o embedding nativo do Chroma; sem dependências ou sem rede, o fallback é o BM25.
 - **Banco**: SQLite em `backend/data/direitoaberto.db` por padrão; para PostgreSQL, `DIREITO_ABERTO_DATABASE_URL=postgresql+psycopg://usuario:senha@host/db`.
 
 ### Ingestão do Planalto (semiautomatizada)
@@ -180,7 +180,7 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - ✅ Histórico por usuário (`/api/v1/historico`)
 - ✅ API pública documentada e versionada (`/api/v1` + OpenAPI em `/docs`)
 - ✅ Upload de documentos (nota fiscal, contrato) com extração de contexto (PDF/TXT)
-- ⬜ Embeddings multilíngues de qualidade (modelo PT-BR; o MiniLM padrão é limitado)
+- ✅ Embeddings multilíngues de qualidade (multilingual-e5-small em ONNX; 19/21 no top-1 do benchmark interno, contra 13/21 do MiniLM padrão)
 - ⬜ Ingestão automatizada de jurisprudência (APIs dos tribunais) — hoje a curadoria é manual
 - ⬜ Migrações de banco (Alembic) e deploy com PostgreSQL gerenciado
 - ✅ Frontend em React/Next.js (`web/`: perguntar, login, histórico e base legal, com modo escuro)
