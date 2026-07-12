@@ -4,6 +4,20 @@
 
 > *"A lei foi escrita pra você. Só faltava alguém traduzir."*
 
+## Como funciona
+
+O cidadão descreve o problema em linguagem comum e recebe a regra aplicável, os artigos de lei com fonte oficial e o caminho prático — como no caso abaixo, respondido com o art. 18 do CDC:
+
+![Resposta do RAG citando o CDC art. 18, com fonte oficial](docs/screenshots/2-resposta-rag.png)
+
+| Home | Modo escuro |
+|---|---|
+| ![Página inicial](docs/screenshots/1-home.png) | ![Home no modo escuro](docs/screenshots/6-modo-escuro.png) |
+
+| Login | Histórico do usuário | Base legal (filtro STJ) |
+|---|---|---|
+| ![Tela de login](docs/screenshots/3-login.png) | ![Histórico de consultas](docs/screenshots/4-historico.png) | ![Base legal filtrada por STJ](docs/screenshots/5-base-legal.png) |
+
 ## O problema
 
 A legislação brasileira é escrita para operadores do Direito, não para o cidadão. Quem tem um produto com defeito, foi demitido, recebeu uma multa injusta ou teve o nome negativado raramente sabe **qual lei protege o seu caso, quais são os prazos e onde buscar ajuda gratuita** — e o juridiquês afasta exatamente quem mais precisa da informação.
