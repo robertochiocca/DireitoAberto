@@ -17,6 +17,17 @@ def test_normalizar_remove_acentos_stopwords_e_plural():
     assert "os" not in tokens
 
 
+def test_expansao_nao_repete_sinonimo_alcancavel_por_dois_caminhos(retriever):
+    """"dono" e "aluguel" expandem os dois para "locador".
+
+    Sem deduplicação o termo pontuava em dobro e bastava um artigo citar
+    muito o locador para enterrar o dispositivo que responde à pergunta.
+    """
+    termos = retriever._expandir_consulta("o dono quer aumentar o aluguel")
+    assert len(termos) == len(set(termos)), f"termos repetidos: {termos}"
+    assert "locador" in termos
+
+
 CASOS = [
     ("A empresa não quer trocar meu notebook defeituoso", "cdc-18"),
     ("Comprei pela internet e me arrependi da compra", "cdc-49"),
@@ -39,6 +50,52 @@ CASOS = [
     ("Não recebo horas extras e a empresa não mostra o ponto", "tst-sumula338"),
     ("Fui demitido por causa de doença grave, é discriminação?", "tst-sumula443"),
     ("Podem me prender por dívida no cartão de crédito?", "stf-sv25"),
+]
+
+# Um caso por dispositivo acrescentado na expansão do corpus. Serve de rede:
+# cada novo artigo entra competindo com os demais e pode enterrar um vizinho.
+CASOS += [
+    ("Quais são os direitos sociais na Constituição?", "cf-6"),
+    ("Pessoa com deficiência pode assinar contrato sozinha?", "cc-3-4"),
+    ("União estável entre duas mulheres é reconhecida?", "cc-1723"),
+    ("Herdei junto com a companheira do meu pai, como divide?", "cc-1790"),
+    ("Qual o juros de uma dívida atrasada sem contrato?", "cc-389-406"),
+    ("Posso alegar que não sabia da lei?", "lindb-3"),
+    ("Quantos pontos na carteira dão suspensão?", "ctb-259-261"),
+    ("Não era eu dirigindo, como indico o condutor da multa?", "ctb-257"),
+    ("Posso recusar o bafômetro?", "ctb-165"),
+    ("Tenho desconto se pagar a multa antes do vencimento?", "ctb-284"),
+    ("O carro fica apreendido 30 dias no pátio?", "ctb-262"),
+    ("Crime de pequena gravidade vai para qual juizado?", "lei9099-61"),
+    ("Prazo no juizado conta em dias úteis?", "lei9099-12a"),
+    ("Posso trocar meu primeiro nome no cartório?", "lei6015-56"),
+    ("Quero tirar o sobrenome do meu ex-marido", "lei6015-57"),
+    ("Meu nome saiu escrito errado na certidão", "lei6015-110"),
+    ("Nunca fui registrado, como tiro certidão de nascimento?", "lei6015-46"),
+    ("Quanto tempo dura o mandato de conselheiro tutelar?", "eca-132"),
+    ("Pedi vaga em creche para meu filho de 3 anos", "eca-54"),
+    ("Rede social pode deixar criança criar conta sozinha?", "eca-digital"),
+    ("Qual a lei do código florestal hoje?", "lei12651-1"),
+    ("Quanto tempo o órgão público tem para decidir?", "lei9784-49"),
+    ("Pedi informação na prefeitura e não responderam", "lai-10-11"),
+    ("Reclamei na ouvidoria e ninguém me respondeu", "lei13460-16"),
+    ("Quero que a empresa apague meus dados pessoais", "lgpd-18"),
+    ("Recebi uma cobrança sem dizer quem está cobrando", "cdc-42a"),
+    ("Minhas dívidas passaram do que ganho, dá para renegociar tudo?", "cdc-54a"),
+    ("Comprei num site e quero cancelar, como estornam?", "decreto7962-5"),
+    ("Podem tomar minha casa por causa de dívida?", "lei8009-1"),
+    ("O dono exige fiador e depósito ao mesmo tempo", "lei8245-37"),
+    ("Estou devendo aluguel e vou ser despejado, posso pagar?", "lei8245-62"),
+    ("Não tenho dinheiro para pagar as custas do processo", "cpc-98"),
+    ("Onde consigo advogado gratuito?", "lc80-1"),
+    ("Quero processar a prefeitura, qual o valor máximo?", "lei12153-2"),
+    ("Fui demitido por justa causa, isso é legal?", "clt-482"),
+    ("Meu patrão não deposita o FGTS, posso sair com direitos?", "clt-483"),
+    ("Preciso de advogado para entrar na justiça do trabalho?", "clt-791"),
+    ("Como pedir medida protetiva contra meu marido?", "lei11340-22"),
+    ("Com quantos anos o ônibus é gratuito para idoso?", "lei10741-39"),
+    ("Posso receber o BPC sem nunca ter contribuído?", "loas-20"),
+    ("A curatela tira todos os direitos da pessoa?", "lei13146-84"),
 ]
 
 

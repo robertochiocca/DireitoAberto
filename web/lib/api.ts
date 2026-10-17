@@ -1,7 +1,7 @@
 /** Cliente da API do DireitoAberto (/api/v1, proxiada pelo Next via rewrites). */
 
 export type Vigencia = {
-  status: "vigente" | "em_vacatio" | "revogada";
+  status: "vigente" | "em_vacatio" | "revogada" | "inconstitucional";
   entra_em_vigor_em: string | null;
   alterada_por: string[];
   nota: string | null;
@@ -159,6 +159,8 @@ export const filaDeVigencia = (dias = 180) =>
 export function rotuloVigencia(v?: Vigencia): { texto: string; tom: string } | null {
   if (!v || v.status === "vigente") return null;
   if (v.status === "revogada") return { texto: "revogado", tom: "revogada" };
+  if (v.status === "inconstitucional")
+    return { texto: "declarado inconstitucional", tom: "revogada" };
   const data = v.entra_em_vigor_em
     ? new Date(`${v.entra_em_vigor_em}T00:00:00`).toLocaleDateString("pt-BR")
     : null;

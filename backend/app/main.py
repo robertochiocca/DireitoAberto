@@ -75,7 +75,11 @@ class Pergunta(BaseModel):
 
 class Vigencia(BaseModel):
     status: str = Field(
-        "vigente", description="vigente · em_vacatio (publicada, ainda sem efeito) · revogada"
+        "vigente",
+        description=(
+            "vigente · em_vacatio (publicada, ainda sem efeito) · revogada · "
+            "inconstitucional (declarada pelo STF)"
+        ),
     )
     entra_em_vigor_em: str | None = None
     alterada_por: list[str] = []
@@ -180,7 +184,9 @@ def estatisticas(db: Session = Depends(get_db)):
         "consultas_realizadas": total_consultas,
         "base_atualizada_em": atualizado_em.isoformat(),
         "dispositivos_por_status": dict(por_status),
-        "vigencia_conferida_em": max(conferidas) if conferidas else None,
+        # A data mais ANTIGA, não a mais recente: o campo serve para dizer o
+        # quanto a base pode estar velha, e o agregado honesto é o pior caso.
+        "vigencia_conferida_em": min(conferidas) if conferidas else None,
     }
 
 
@@ -232,7 +238,8 @@ def listar_artigos(
     tema: str | None = Query(None, description="Filtra por área temática."),
     tribunal: str | None = Query(None, description="Filtra jurisprudência por tribunal (STF, STJ, TST)."),
     status: str | None = Query(
-        None, description="Filtra por situação: vigente, em_vacatio ou revogada."
+        None,
+        description="Filtra por situação: vigente, em_vacatio, revogada ou inconstitucional.",
     ),
     busca: str | None = Query(
         None, description="Filtra por trecho do nome da lei ou do artigo (ex.: '8.078' ou 'art. 18')."

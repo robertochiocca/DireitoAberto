@@ -2,6 +2,596 @@
   "aviso": "Textos consolidados a partir das publicações oficiais no Planalto. Alguns dispositivos foram condensados (caput + parágrafos relevantes). Cada entrada traz o bloco `vigencia` com a situação do dispositivo e a data em que ela foi conferida pela última vez (2026-10-16). Confira sempre a fonte oficial antes de usar em petições.",
   "artigos": [
     {
+      "id": "cpc-98",
+      "lei": "Código de Processo Civil — Lei nº 13.105/2015",
+      "artigo": "Arts. 98 e 99",
+      "tema": "acesso-justica",
+      "texto": "A pessoa natural ou jurídica, brasileira ou estrangeira, com insuficiência de recursos para pagar as custas, as despesas processuais e os honorários advocatícios tem direito à gratuidade da justiça, na forma da lei. O pedido pode ser formulado na petição inicial, na contestação, na petição para ingresso de terceiro no processo ou em recurso. Presume-se verdadeira a alegação de insuficiência deduzida exclusivamente por pessoa natural. A gratuidade pode ser concedida em relação a alguns atos, reduzida percentualmente ou parcelada.",
+      "resumo": "Quem não tem condições de pagar custas e honorários pede gratuidade no próprio pedido inicial. Para pessoa física, a palavra basta: presume-se verdadeira a declaração.",
+      "palavras_chave": [
+        "gratuidade",
+        "justiça",
+        "custas",
+        "hipossuficiente",
+        "pobreza",
+        "declaração",
+        "isenção",
+        "honorários",
+        "processo",
+        "dinheiro",
+        "assistência",
+        "judiciária"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "O CPC/2015 substituiu a Lei 1.060/1950, cujos arts. 2º a 4º e 6º a 9º foram revogados; a 'declaração de pobreza' da lei antiga virou a presunção do art. 99, § 3º.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei12153-2",
+      "lei": "Juizados Especiais da Fazenda Pública — Lei nº 12.153/2009",
+      "artigo": "Arts. 2º e 5º",
+      "tema": "acesso-justica",
+      "texto": "É de competência dos Juizados Especiais da Fazenda Pública processar, conciliar e julgar causas cíveis de interesse dos Estados, do Distrito Federal, dos Territórios e dos Municípios, até o valor de 60 salários mínimos. Podem ser partes, como autores, as pessoas físicas e as microempresas e empresas de pequeno porte; como réus, os Estados, o Distrito Federal, os Territórios e os Municípios, bem como autarquias, fundações e empresas públicas a eles vinculadas.",
+      "resumo": "Para processar Estado ou Município em causa de até 60 salários mínimos existe um juizado próprio, sem necessidade de advogado em causas de até 20 salários. Contra a União e o INSS, o caminho é o Juizado Especial Federal (Lei 10.259/2001), com o mesmo limite.",
+      "palavras_chave": [
+        "juizado",
+        "fazenda",
+        "pública",
+        "estado",
+        "município",
+        "processar",
+        "governo",
+        "sessenta",
+        "salários",
+        "mínimos",
+        "federal",
+        "inss",
+        "autarquia",
+        "prefeitura"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12153.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "Nesses juizados a competência é absoluta: dentro do limite de valor, a causa não pode ser ajuizada na vara comum.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lc80-1",
+      "lei": "Lei Orgânica da Defensoria Pública — LC nº 80/1994",
+      "artigo": "Arts. 1º e 4º (síntese)",
+      "tema": "acesso-justica",
+      "texto": "A Defensoria Pública é instituição permanente, essencial à função jurisdicional do Estado, incumbindo-lhe, como expressão e instrumento do regime democrático, fundamentalmente, a orientação jurídica, a promoção dos direitos humanos e a defesa, em todos os graus, judicial e extrajudicial, dos direitos individuais e coletivos, de forma integral e gratuita, aos necessitados. São funções institucionais, entre outras, prestar orientação jurídica e exercer a defesa dos necessitados; promover prioritariamente a solução extrajudicial dos litígios, por meio de mediação e conciliação; e atuar na preservação e reparação dos direitos de vítimas de tortura, discriminação e violência doméstica.",
+      "resumo": "A Defensoria Pública atende de graça quem não pode pagar advogado — inclusive fora do processo, orientando, negociando e mediando acordos.",
+      "palavras_chave": [
+        "defensoria",
+        "pública",
+        "defensor",
+        "gratuito",
+        "advogado",
+        "necessitado",
+        "orientação",
+        "jurídica",
+        "atendimento",
+        "mediação",
+        "conciliação"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp80.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "LC 132/2009",
+          "EC 80/2014"
+        ],
+        "nota": "A LC 132/2009 ampliou as funções institucionais e a EC 80/2014 deu à Defensoria status constitucional próprio (art. 134 da CF).",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei9099-3",
+      "lei": "Lei dos Juizados Especiais — Lei nº 9.099/1995",
+      "artigo": "Art. 3º, I",
+      "tema": "acesso-justica",
+      "texto": "O Juizado Especial Cível tem competência para conciliação, processo e julgamento das causas cíveis de menor complexidade, assim consideradas: I — as causas cujo valor não exceda a quarenta vezes o salário mínimo.",
+      "resumo": "Juizado Especial Cível: recebe causas de até 40 salários mínimos.",
+      "palavras_chave": [
+        "juizado",
+        "especial",
+        "cível",
+        "pequenas",
+        "causas",
+        "quarenta",
+        "salários",
+        "mínimos",
+        "competência",
+        "processo"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "Os prazos processuais do Juizado correm em dias úteis (art. 12-A, incluído pela Lei 13.728/2018).",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei9099-9",
+      "lei": "Lei dos Juizados Especiais — Lei nº 9.099/1995",
+      "artigo": "Art. 9º",
+      "tema": "acesso-justica",
+      "texto": "Nas causas de valor até vinte salários mínimos, as partes comparecerão pessoalmente, podendo ser assistidas por advogado; nas de valor superior, a assistência é obrigatória.",
+      "resumo": "No Juizado Especial Cível, causas de até 20 salários mínimos dispensam advogado; acima disso (até o teto de 40), a assistência por advogado é obrigatória.",
+      "palavras_chave": [
+        "juizado",
+        "advogado",
+        "vinte",
+        "salários",
+        "mínimos",
+        "sem",
+        "dispensa",
+        "assistência",
+        "processo",
+        "causa"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "Os prazos processuais do Juizado correm em dias úteis (art. 12-A, incluído pela Lei 13.728/2018).",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei9099-61",
+      "lei": "Lei dos Juizados Especiais — Lei nº 9.099/1995 (c/ Lei nº 11.313/2006)",
+      "artigo": "Art. 61",
+      "tema": "acesso-justica",
+      "texto": "Consideram-se infrações penais de menor potencial ofensivo, para os efeitos desta Lei, as contravenções penais e os crimes a que a lei comine pena máxima não superior a 2 (dois) anos, cumulada ou não com multa.",
+      "resumo": "Crimes com pena máxima de até 2 anos e contravenções vão para o Juizado Especial Criminal, onde cabem acordos que evitam o processo.",
+      "palavras_chave": [
+        "menor",
+        "potencial",
+        "ofensivo",
+        "juizado",
+        "criminal",
+        "contravenção",
+        "pena",
+        "máxima",
+        "dois",
+        "anos",
+        "crime",
+        "transação",
+        "penal"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 11.313/2006"
+        ],
+        "nota": "O limite era de 1 ano na redação original de 1995.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei9099-12a",
+      "lei": "Lei dos Juizados Especiais — Lei nº 9.099/1995 (c/ Lei nº 13.728/2018)",
+      "artigo": "Art. 12-A",
+      "tema": "acesso-justica",
+      "texto": "Na contagem de prazo para a prática de qualquer ato processual, inclusive para a interposição de recursos, serão computados somente os dias úteis.",
+      "resumo": "No Juizado Especial, prazos processuais contam só em dias úteis — fins de semana e feriados não entram. Atenção: isso vale para os prazos do processo, não para prazos de direito material como os 7 dias do arrependimento.",
+      "palavras_chave": [
+        "prazo",
+        "dias",
+        "úteis",
+        "corridos",
+        "contagem",
+        "recurso",
+        "processual",
+        "juizado",
+        "feriado",
+        "fim",
+        "semana"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.728/2018"
+        ],
+        "nota": "Antes de 2018 a lei não tinha regra própria e os prazos corriam em dias corridos.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei12651-1",
+      "lei": "Código Florestal — Lei nº 12.651/2012",
+      "artigo": "Arts. 3º, 4º e 12 (síntese)",
+      "tema": "ambiental",
+      "texto": "Estabelece normas gerais sobre a proteção da vegetação nativa. Define Área de Preservação Permanente (APP) — faixas às margens de rios, nascentes, encostas e topos de morro, protegidas independentemente de cobertura vegetal — e Reserva Legal, percentual de cada imóvel rural que deve manter vegetação nativa (80% na Amazônia Legal em área de floresta, 35% em cerrado, 20% nas demais regiões). Substituiu integralmente a Lei nº 4.771/1965.",
+      "resumo": "O Código Florestal em vigor é a Lei 12.651/2012 — a de 1965 foi revogada. Ela define as áreas de preservação às margens de rios e nascentes e o percentual de reserva legal de cada propriedade rural.",
+      "palavras_chave": [
+        "código",
+        "florestal",
+        "app",
+        "área",
+        "preservação",
+        "permanente",
+        "reserva",
+        "legal",
+        "vegetação",
+        "nativa",
+        "rural",
+        "ambiental",
+        "nascente",
+        "rio",
+        "desmatamento"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 12.727/2012"
+        ],
+        "nota": "Revogou a Lei 4.771/1965. As infrações ambientais seguem o Decreto 6.514/2008, que substituiu o Decreto 3.179/1999.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cc-206",
+      "lei": "Código Civil — Lei nº 10.406/2002",
+      "artigo": "Art. 206, § 3º, V e § 5º, I",
+      "tema": "civel",
+      "texto": "Prescreve: § 3º Em três anos: V — a pretensão de reparação civil. § 5º Em cinco anos: I — a pretensão de cobrança de dívidas líquidas constantes de instrumento público ou particular.",
+      "resumo": "Prescrição: indenizações (reparação civil) prescrevem em 3 anos; cobrança de dívidas documentadas, em 5 anos.",
+      "palavras_chave": [
+        "prescrição",
+        "prazo",
+        "indenização",
+        "reparação",
+        "dívida",
+        "cobrança",
+        "três",
+        "cinco",
+        "anos"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cc-3-4",
+      "lei": "Código Civil — Lei nº 10.406/2002",
+      "artigo": "Arts. 3º e 4º",
+      "tema": "civel",
+      "texto": "São absolutamente incapazes de exercer pessoalmente os atos da vida civil os menores de 16 anos. São incapazes, relativamente a certos atos ou à maneira de os exercer: os maiores de dezesseis e menores de dezoito anos; os ébrios habituais e os viciados em tóxico; aqueles que, por causa transitória ou permanente, não puderem exprimir sua vontade; e os pródigos. A deficiência, por si só, não afeta a plena capacidade civil (Lei 13.146/2015).",
+      "resumo": "Só menores de 16 anos são absolutamente incapazes. Ter deficiência não retira a capacidade de uma pessoa decidir sobre a própria vida — a regra mudou em 2015.",
+      "palavras_chave": [
+        "capacidade",
+        "incapaz",
+        "deficiência",
+        "curatela",
+        "mental",
+        "interdição",
+        "assinar",
+        "contrato",
+        "menor",
+        "dezesseis",
+        "apoio",
+        "autonomia"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.146/2015 (Estatuto da Pessoa com Deficiência)"
+        ],
+        "nota": "Até 2015, a lei listava as pessoas com deficiência mental entre os absolutamente incapazes — redação revogada.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cc-389-406",
+      "lei": "Código Civil — Lei nº 10.406/2002 (c/ Lei nº 14.905/2024)",
+      "artigo": "Arts. 389, 395 e 406",
+      "tema": "civel",
+      "texto": "Não cumprida a obrigação, responde o devedor por perdas e danos, mais juros e atualização monetária segundo índices oficiais regularmente estabelecidos, e honorários de advogado. Quando não convencionados, a atualização monetária far-se-á pela variação do IPCA e os juros corresponderão à taxa legal, apurada pela subtração do IPCA em relação à taxa Selic; se o resultado for negativo, a taxa será zero.",
+      "resumo": "Dívida em atraso sem índice no contrato: a correção é pelo IPCA e os juros pela taxa legal (Selic menos IPCA). A regra mudou em 2024 — antes usava-se a taxa dos impostos federais.",
+      "palavras_chave": [
+        "juros",
+        "mora",
+        "correção",
+        "monetária",
+        "índice",
+        "taxa",
+        "legal",
+        "selic",
+        "ipca",
+        "atraso",
+        "dívida",
+        "contrato",
+        "perdas",
+        "danos"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 14.905/2024"
+        ],
+        "nota": "Antes da Lei 14.905/2024 os juros legais seguiam a taxa de mora dos impostos federais, sem índice de correção definido.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei13146-84",
+      "lei": "Estatuto da Pessoa com Deficiência — Lei nº 13.146/2015",
+      "artigo": "Arts. 2º, 84 e 85",
+      "tema": "civel",
+      "texto": "Considera-se pessoa com deficiência aquela que tem impedimento de longo prazo de natureza física, mental, intelectual ou sensorial que, em interação com uma ou mais barreiras, obstrua sua participação plena e efetiva na sociedade em igualdade de condições com as demais pessoas; a avaliação da deficiência, quando necessária, será biopsicossocial. A pessoa com deficiência tem assegurado o direito ao exercício de sua capacidade legal em igualdade de condições com as demais pessoas. A curatela constitui medida extraordinária, proporcional às necessidades e circunstâncias de cada caso, e afetará tão somente os atos relacionados aos direitos de natureza patrimonial e negocial — facultado à pessoa com deficiência adotar o processo de tomada de decisão apoiada.",
+      "resumo": "Ter deficiência não retira a capacidade de decidir sobre a própria vida. A curatela é excepcional, atinge só dinheiro e negócios, e nunca casamento, trabalho, voto ou escolhas sobre o próprio corpo.",
+      "palavras_chave": [
+        "deficiência",
+        "pessoa",
+        "estatuto",
+        "lbi",
+        "curatela",
+        "capacidade",
+        "interdição",
+        "tomada",
+        "decisão",
+        "apoiada",
+        "avaliação",
+        "biopsicossocial",
+        "barreiras",
+        "acessibilidade",
+        "autonomia"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.146/2015 (alterou o Código Civil)"
+        ],
+        "nota": "Em vigor desde 03/01/2016. Substituiu o regime de interdição total do Código Civil; a tomada de decisão apoiada está no art. 1.783-A do CC.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lindb-3",
+      "lei": "Lei de Introdução às Normas do Direito Brasileiro — Decreto-Lei nº 4.657/1942",
+      "artigo": "Arts. 1º, 3º e 6º",
+      "tema": "civel",
+      "texto": "Salvo disposição contrária, a lei começa a vigorar em todo o país 45 dias depois de oficialmente publicada. Art. 3º Ninguém se escusa de cumprir a lei, alegando que não a conhece. Art. 6º A Lei em vigor terá efeito imediato e geral, respeitados o ato jurídico perfeito, o direito adquirido e a coisa julgada.",
+      "resumo": "A lei presume que todo mundo a conhece — ninguém pode se defender dizendo que não sabia. É justamente essa ficção que o DireitoAberto tenta aproximar da realidade.",
+      "palavras_chave": [
+        "lindb",
+        "licc",
+        "introdução",
+        "normas",
+        "direito",
+        "brasileiro",
+        "desconhecimento",
+        "vigência",
+        "quarenta",
+        "cinco",
+        "dias",
+        "adquirido"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del4657compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 12.376/2010",
+          "Lei 13.655/2018"
+        ],
+        "nota": "Chamava-se 'Lei de Introdução ao Código Civil' (LICC) até 2010; em 2018 ganhou os arts. 20 a 30 sobre segurança jurídica nas decisões públicas.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "stf-sv25",
+      "tipo": "jurisprudencia",
+      "tribunal": "STF",
+      "lei": "Súmula Vinculante nº 25 do Supremo Tribunal Federal",
+      "artigo": "Súmula Vinculante 25",
+      "tema": "civel",
+      "texto": "É ilícita a prisão civil de depositário infiel, qualquer que seja a modalidade do depósito. Na prática, a única prisão por dívida admitida no Brasil é a do devedor de pensão alimentícia (CF, art. 5º, LXVII).",
+      "resumo": "Ninguém pode ser preso por dívida no Brasil — a única exceção é o devedor de pensão alimentícia. Ameaça de prisão por dívida comum é ilegal.",
+      "palavras_chave": [
+        "prisão",
+        "dívida",
+        "depositário",
+        "infiel",
+        "ameaça",
+        "cobrança",
+        "devedor"
+      ],
+      "fonte": "https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=26&sumula=1268",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei6015-46",
+      "lei": "Lei de Registros Públicos — Lei nº 6.015/1973 (c/ Lei nº 11.790/2008)",
+      "artigo": "Art. 46",
+      "tema": "civil-registro",
+      "texto": "As declarações de nascimento feitas após o prazo legal serão registradas no lugar de residência do interessado. O registro de nascimento, quando requerido após os 16 anos, será feito diretamente perante o oficial de registro civil, que suspenderá o ato e remeterá os autos ao juiz competente apenas se suspeitar de falsidade da declaração.",
+      "resumo": "Quem nunca foi registrado tira a certidão de nascimento direto no cartório, em qualquer idade. O juiz só entra se houver suspeita de falsidade.",
+      "palavras_chave": [
+        "registro",
+        "tardio",
+        "nascimento",
+        "certidão",
+        "cartório",
+        "adulto",
+        "nunca",
+        "registrado",
+        "fora",
+        "prazo",
+        "documento"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l6015compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 11.790/2008"
+        ],
+        "nota": "Até 2008 o registro tardio de maiores de 12 anos dependia de despacho do juiz.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei6015-110",
+      "lei": "Lei de Registros Públicos — Lei nº 6.015/1973 (c/ Lei nº 13.484/2017)",
+      "artigo": "Art. 110",
+      "tema": "civil-registro",
+      "texto": "O oficial de registro civil das pessoas naturais corrigirá o erro, de ofício ou a requerimento do interessado, mediante petição assinada pelo interessado ou procurador, independentemente de pagamento de selos e taxas, nos casos de erros que não exijam qualquer indagação para a constatação imediata de necessidade de sua correção — como erros de grafia, inexatidão da ordem de sobrenomes e omissão de sobrenome em assento.",
+      "resumo": "Nome escrito errado na certidão se corrige no próprio cartório, sem juiz, sem Ministério Público e sem advogado.",
+      "palavras_chave": [
+        "erro",
+        "grafia",
+        "certidão",
+        "retificação",
+        "corrigir",
+        "cartório",
+        "nome",
+        "errado",
+        "escrito",
+        "registro",
+        "ofício"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l6015compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.484/2017"
+        ],
+        "nota": "Antes de 2017 a correção passava pelo Ministério Público e por decisão do juiz.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei6015-56",
+      "lei": "Lei de Registros Públicos — Lei nº 6.015/1973 (c/ Lei nº 14.382/2022)",
+      "artigo": "Art. 56",
+      "tema": "civil-registro",
+      "texto": "A pessoa registrada poderá, após atingir a maioridade civil, requerer pessoalmente e imotivadamente a alteração de seu prenome, independentemente de decisão judicial, e a alteração será averbada e publicada em meio eletrônico. A alteração imotivada de prenome poderá ser feita uma única vez, e sua desconstituição dependerá de sentença judicial.",
+      "resumo": "Depois dos 18 anos dá para trocar o primeiro nome direto no cartório, sem explicar o motivo e sem advogado — mas só uma vez.",
+      "palavras_chave": [
+        "mudar",
+        "trocar",
+        "nome",
+        "prenome",
+        "cartório",
+        "maioridade",
+        "imotivada",
+        "alteração",
+        "registro",
+        "averbação",
+        "dezoito"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l6015compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 14.382/2022"
+        ],
+        "nota": "Até 2022 a troca imotivada só era possível no primeiro ano após a maioridade.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei6015-57",
+      "lei": "Lei de Registros Públicos — Lei nº 6.015/1973 (c/ Lei nº 14.382/2022)",
+      "artigo": "Art. 57",
+      "tema": "civil-registro",
+      "texto": "A alteração posterior de sobrenomes poderá ser requerida pessoalmente perante o oficial de registro civil, com a apresentação de certidões e documentos necessários, e será averbada nos assentos de nascimento e casamento, independentemente de autorização judicial, a fim de: inclusão de sobrenomes familiares; inclusão ou exclusão de sobrenome do cônjuge, na constância do casamento; exclusão de sobrenome do ex-cônjuge, após a dissolução; inclusão ou exclusão de sobrenomes em razão de alteração das relações de filiação, inclusive de padrasto ou madrasta.",
+      "resumo": "Incluir ou tirar sobrenome — da família, do cônjuge, do ex, do padrasto ou da madrasta — é feito no cartório, sem precisar de processo judicial.",
+      "palavras_chave": [
+        "sobrenome",
+        "incluir",
+        "excluir",
+        "nome",
+        "família",
+        "cônjuge",
+        "padrasto",
+        "madrasta",
+        "casamento",
+        "divórcio",
+        "cartório",
+        "averbação"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l6015compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 14.382/2022"
+        ],
+        "nota": "Antes de 2022, alterações de sobrenome em regra exigiam sentença judicial.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cdc-14",
+      "lei": "Código de Defesa do Consumidor — Lei nº 8.078/1990",
+      "artigo": "Art. 14, caput",
+      "tema": "consumidor",
+      "texto": "O fornecedor de serviços responde, independentemente da existência de culpa, pela reparação dos danos causados aos consumidores por defeitos relativos à prestação dos serviços, bem como por informações insuficientes ou inadequadas sobre sua fruição e riscos.",
+      "resumo": "Serviço mal prestado: o fornecedor responde pelos danos causados ao consumidor independentemente de culpa (responsabilidade objetiva).",
+      "palavras_chave": [
+        "serviço",
+        "defeito",
+        "dano",
+        "responsabilidade",
+        "objetiva",
+        "reparação",
+        "fornecedor",
+        "prestação",
+        "má",
+        "qualidade"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
       "id": "cdc-18",
       "lei": "Código de Defesa do Consumidor — Lei nº 8.078/1990",
       "artigo": "Art. 18, caput e § 1º",
@@ -89,6 +679,38 @@
       }
     },
     {
+      "id": "cdc-42a",
+      "lei": "Código de Defesa do Consumidor — Lei nº 8.078/1990",
+      "artigo": "Art. 42-A",
+      "tema": "consumidor",
+      "texto": "Em todos os documentos de cobrança de débitos apresentados ao consumidor, deverão constar o nome, o endereço e o número de inscrição no Cadastro de Pessoas Físicas (CPF) ou no Cadastro Nacional de Pessoa Jurídica (CNPJ) do fornecedor do produto ou serviço correspondente.",
+      "resumo": "Toda cobrança tem de identificar quem está cobrando, com nome, endereço e CPF ou CNPJ. Cobrança anônima ou de origem obscura não atende à lei.",
+      "palavras_chave": [
+        "cobrança",
+        "documento",
+        "boleto",
+        "cpf",
+        "cnpj",
+        "fornecedor",
+        "identificação",
+        "dívida",
+        "golpe",
+        "quem",
+        "está",
+        "cobrando"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 12.039/2009"
+        ],
+        "nota": "Artigo acrescentado em 2009; não consta de edições anteriores do CDC.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
       "id": "cdc-43",
       "lei": "Código de Defesa do Consumidor — Lei nº 8.078/1990",
       "artigo": "Art. 43, §§ 1º e 2º",
@@ -149,619 +771,101 @@
       }
     },
     {
-      "id": "clt-477",
-      "lei": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943",
-      "artigo": "Art. 477, caput e § 6º",
-      "tema": "trabalho",
-      "texto": "Na extinção do contrato de trabalho, o empregador deverá proceder à anotação na Carteira de Trabalho e Previdência Social, comunicar a dispensa aos órgãos competentes e realizar o pagamento das verbas rescisórias no prazo e na forma estabelecidos neste artigo. § 6º A entrega ao empregado de documentos que comprovem a comunicação da extinção contratual aos órgãos competentes bem como o pagamento dos valores constantes do instrumento de rescisão contratual deverão ser efetuados até dez dias contados a partir do término do contrato.",
-      "resumo": "Rescisão: as verbas rescisórias e os documentos da demissão devem ser pagos/entregues em até 10 dias corridos após o fim do contrato.",
-      "palavras_chave": [
-        "demissão",
-        "rescisão",
-        "verbas",
-        "rescisórias",
-        "pagamento",
-        "prazo",
-        "dez",
-        "dias",
-        "carteira",
-        "trabalho",
-        "demitido"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [
-          "Lei 13.467/2017"
-        ],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "clt-487",
-      "lei": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943 (c/ Lei nº 12.506/2011)",
-      "artigo": "Art. 487, II (e aviso prévio proporcional)",
-      "tema": "trabalho",
-      "texto": "Não havendo prazo estipulado, a parte que, sem justo motivo, quiser rescindir o contrato deverá avisar a outra da sua resolução com a antecedência mínima de trinta dias aos que perceberem por quinzena ou mês, ou que tenham mais de 12 meses de serviço na empresa. A Lei nº 12.506/2011 acresce 3 dias por ano de serviço prestado na mesma empresa, até o máximo de 60 dias adicionais, perfazendo um total de até 90 dias.",
-      "resumo": "Aviso prévio: mínimo de 30 dias, acrescidos de 3 dias por ano trabalhado na mesma empresa (até 90 dias no total).",
-      "palavras_chave": [
-        "aviso",
-        "prévio",
-        "demissão",
-        "trinta",
-        "dias",
-        "proporcional",
-        "rescisão",
-        "demitido"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [
-          "Lei 12.506/2011"
-        ],
-        "nota": "O acréscimo de 3 dias por ano trabalhado vem da Lei 12.506/2011, não do texto original da CLT.",
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "cf-7",
-      "lei": "Constituição Federal de 1988",
-      "artigo": "Art. 7º, I, III, XXI e XXIX",
-      "tema": "trabalho",
-      "texto": "São direitos dos trabalhadores urbanos e rurais, além de outros que visem à melhoria de sua condição social: I — relação de emprego protegida contra despedida arbitrária ou sem justa causa, nos termos de lei complementar, que preverá indenização compensatória, dentre outros direitos; III — fundo de garantia do tempo de serviço; XXI — aviso prévio proporcional ao tempo de serviço, sendo no mínimo de trinta dias, nos termos da lei; XXIX — ação, quanto aos créditos resultantes das relações de trabalho, com prazo prescricional de cinco anos para os trabalhadores urbanos e rurais, até o limite de dois anos após a extinção do contrato de trabalho.",
-      "resumo": "Direitos constitucionais do trabalhador: proteção contra dispensa arbitrária, FGTS, aviso prévio de no mínimo 30 dias e prazo de 2 anos após a saída para cobrar na Justiça (alcançando os últimos 5 anos).",
-      "palavras_chave": [
-        "trabalhador",
-        "fgts",
-        "aviso",
-        "prévio",
-        "prescrição",
-        "dois",
-        "anos",
-        "cinco",
-        "justiça",
-        "trabalho",
-        "demissão",
-        "justa",
-        "causa"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": "Os incisos citados aqui (I, III, XXI e XXIX) seguem com a redação original. Atenção: o inciso XIII (jornada) foi alterado pela EC 141/2026 — ver dispositivo próprio.",
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "lei8036-18",
-      "lei": "Lei do FGTS — Lei nº 8.036/1990",
-      "artigo": "Art. 18, § 1º",
-      "tema": "trabalho",
-      "texto": "Na hipótese de despedida pelo empregador sem justa causa, depositará este, na conta vinculada do trabalhador no FGTS, importância igual a quarenta por cento do montante de todos os depósitos realizados na conta vinculada durante a vigência do contrato de trabalho, atualizados monetariamente e acrescidos dos respectivos juros.",
-      "resumo": "Demissão sem justa causa: a empresa deve depositar multa de 40% sobre todos os depósitos do FGTS feitos durante o contrato.",
-      "palavras_chave": [
-        "fgts",
-        "multa",
-        "quarenta",
-        "por",
-        "cento",
-        "demissão",
-        "justa",
-        "causa",
-        "saque",
-        "depósito"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8036consol.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "ctb-281",
-      "lei": "Código de Trânsito Brasileiro — Lei nº 9.503/1997",
-      "artigo": "Art. 281, caput e parágrafo único",
-      "tema": "transito",
-      "texto": "A autoridade de trânsito, na esfera da competência estabelecida neste Código e dentro de sua circunscrição, julgará a consistência do auto de infração e aplicará a penalidade cabível. Parágrafo único. O auto de infração será arquivado e seu registro julgado insubsistente: I — se considerado inconsistente ou irregular; II — se, no prazo máximo de trinta dias, não for expedida a notificação da autuação.",
-      "resumo": "Multa de trânsito: se a notificação da autuação não for expedida em até 30 dias, o auto de infração deve ser arquivado.",
-      "palavras_chave": [
-        "multa",
-        "trânsito",
-        "auto",
-        "infração",
-        "notificação",
-        "trinta",
-        "dias",
-        "arquivamento",
-        "autuação"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "ctb-282",
-      "lei": "Código de Trânsito Brasileiro — Lei nº 9.503/1997",
-      "artigo": "Arts. 282 e 285 a 288 (síntese)",
-      "tema": "transito",
-      "texto": "Aplicada a penalidade, será expedida notificação ao proprietário do veículo ou ao infrator, com indicação do prazo para apresentação de defesa e para interposição de recurso. Da penalidade cabe defesa prévia perante o órgão autuador e, mantida a autuação, recurso à Junta Administrativa de Recursos de Infrações (JARI) no prazo indicado na notificação; da decisão da JARI cabe recurso à instância superior (CETRAN, no âmbito estadual).",
-      "resumo": "Defesa da multa em etapas: defesa prévia no órgão autuador, recurso à JARI e, se negado, recurso ao CETRAN — sempre dentro dos prazos indicados na própria notificação.",
-      "palavras_chave": [
-        "multa",
-        "recurso",
-        "jari",
-        "cetran",
-        "defesa",
-        "prévia",
-        "notificação",
-        "prazo",
-        "trânsito",
-        "penalidade",
-        "cnh",
-        "pontos",
-        "injusta"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [
-          "Lei 13.281/2016",
-          "Lei 14.071/2020"
-        ],
-        "nota": "Prazos e descontos mudaram em 2016 e 2020; o prazo para recorrer nunca é inferior a 30 dias (art. 282, § 4º) e vem na notificação.",
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "lei8245-18",
-      "lei": "Lei do Inquilinato — Lei nº 8.245/1991",
-      "artigo": "Arts. 18 e 19",
-      "tema": "moradia",
-      "texto": "É livre a convenção do aluguel, vedada a sua estipulação em moeda estrangeira e a sua vinculação à variação cambial ou ao salário mínimo (art. 17). Art. 18. É lícito às partes fixar, de comum acordo, novo valor para o aluguel, bem como inserir ou modificar cláusula de reajuste. Art. 19. Não havendo acordo, o locador ou locatário, após três anos de vigência do contrato ou do acordo anteriormente realizado, poderão pedir revisão judicial do aluguel, a fim de ajustá-lo ao preço de mercado.",
-      "resumo": "Aluguel: o valor e a cláusula de reajuste são livremente acordados; sem acordo, a revisão judicial do valor só cabe após 3 anos de vigência.",
-      "palavras_chave": [
-        "aluguel",
-        "reajuste",
-        "revisão",
-        "locador",
-        "locatário",
-        "inquilino",
-        "contrato",
-        "aumento",
-        "valor"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "lei10192-2",
-      "lei": "Lei nº 10.192/2001 (medidas complementares ao Plano Real)",
-      "artigo": "Art. 2º, § 1º",
-      "tema": "moradia",
-      "texto": "É admitida a estipulação de correção monetária ou de reajuste por índices de preços gerais, setoriais ou que reflitam a variação dos custos de produção ou dos insumos utilizados nos contratos de prazo de duração igual ou superior a um ano. § 1º É nula de pleno direito qualquer estipulação de reajuste ou correção monetária de periodicidade inferior a um ano.",
-      "resumo": "Reajuste de contratos (inclusive aluguel): é nula qualquer cláusula que preveja reajuste em período menor que 12 meses.",
-      "palavras_chave": [
-        "reajuste",
-        "anual",
-        "correção",
-        "monetária",
-        "aluguel",
-        "contrato",
-        "doze",
-        "meses",
-        "nulo",
-        "aumento",
-        "índice",
-        "igpm",
-        "ipca"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10192.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "lei8245-46",
-      "lei": "Lei do Inquilinato — Lei nº 8.245/1991",
-      "artigo": "Art. 46, §§ 1º e 2º",
-      "tema": "moradia",
-      "texto": "Nas locações ajustadas por escrito e por prazo igual ou superior a trinta meses, a resolução do contrato ocorrerá findo o prazo estipulado, independentemente de notificação ou aviso. § 1º Findo o prazo ajustado, se o locatário continuar na posse do imóvel alugado por mais de trinta dias sem oposição do locador, presumir-se-á prorrogada a locação por prazo indeterminado. § 2º Ocorrendo a prorrogação, o locador poderá denunciar o contrato a qualquer tempo, concedido o prazo de trinta dias para desocupação.",
-      "resumo": "Despejo em contrato prorrogado por prazo indeterminado: o locador pode denunciar o contrato, mas deve conceder 30 dias para desocupação.",
-      "palavras_chave": [
-        "despejo",
-        "desocupação",
-        "trinta",
-        "dias",
-        "locação",
-        "prorrogação",
-        "denúncia",
-        "inquilino",
-        "sair",
-        "imóvel",
-        "dono",
-        "aluguel"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "lei9099-3",
-      "lei": "Lei dos Juizados Especiais — Lei nº 9.099/1995",
-      "artigo": "Art. 3º, I",
-      "tema": "acesso-justica",
-      "texto": "O Juizado Especial Cível tem competência para conciliação, processo e julgamento das causas cíveis de menor complexidade, assim consideradas: I — as causas cujo valor não exceda a quarenta vezes o salário mínimo.",
-      "resumo": "Juizado Especial Cível: recebe causas de até 40 salários mínimos.",
-      "palavras_chave": [
-        "juizado",
-        "especial",
-        "cível",
-        "pequenas",
-        "causas",
-        "quarenta",
-        "salários",
-        "mínimos",
-        "competência",
-        "processo"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": "Os prazos processuais do Juizado correm em dias úteis (art. 12-A, incluído pela Lei 13.728/2018).",
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "lei9099-9",
-      "lei": "Lei dos Juizados Especiais — Lei nº 9.099/1995",
-      "artigo": "Art. 9º",
-      "tema": "acesso-justica",
-      "texto": "Nas causas de valor até vinte salários mínimos, as partes comparecerão pessoalmente, podendo ser assistidas por advogado; nas de valor superior, a assistência é obrigatória.",
-      "resumo": "No Juizado Especial Cível, causas de até 20 salários mínimos dispensam advogado; acima disso (até o teto de 40), a assistência por advogado é obrigatória.",
-      "palavras_chave": [
-        "juizado",
-        "advogado",
-        "vinte",
-        "salários",
-        "mínimos",
-        "sem",
-        "dispensa",
-        "assistência",
-        "processo",
-        "causa"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": "Os prazos processuais do Juizado correm em dias úteis (art. 12-A, incluído pela Lei 13.728/2018).",
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "cc-206",
-      "lei": "Código Civil — Lei nº 10.406/2002",
-      "artigo": "Art. 206, § 3º, V e § 5º, I",
-      "tema": "civel",
-      "texto": "Prescreve: § 3º Em três anos: V — a pretensão de reparação civil. § 5º Em cinco anos: I — a pretensão de cobrança de dívidas líquidas constantes de instrumento público ou particular.",
-      "resumo": "Prescrição: indenizações (reparação civil) prescrevem em 3 anos; cobrança de dívidas documentadas, em 5 anos.",
-      "palavras_chave": [
-        "prescrição",
-        "prazo",
-        "indenização",
-        "reparação",
-        "dívida",
-        "cobrança",
-        "três",
-        "cinco",
-        "anos"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "cdc-14",
-      "lei": "Código de Defesa do Consumidor — Lei nº 8.078/1990",
-      "artigo": "Art. 14, caput",
+      "id": "cdc-54a",
+      "lei": "Código de Defesa do Consumidor — Lei nº 8.078/1990 (c/ Lei nº 14.181/2021)",
+      "artigo": "Arts. 54-A e 104-A",
       "tema": "consumidor",
-      "texto": "O fornecedor de serviços responde, independentemente da existência de culpa, pela reparação dos danos causados aos consumidores por defeitos relativos à prestação dos serviços, bem como por informações insuficientes ou inadequadas sobre sua fruição e riscos.",
-      "resumo": "Serviço mal prestado: o fornecedor responde pelos danos causados ao consumidor independentemente de culpa (responsabilidade objetiva).",
+      "texto": "Entende-se por superendividamento a impossibilidade manifesta de o consumidor pessoa natural, de boa-fé, pagar a totalidade de suas dívidas de consumo, exigíveis e vincendas, sem comprometer seu mínimo existencial. A requerimento do consumidor superendividado, o juiz poderá instaurar processo de repactuação de dívidas, com a citação de todos os credores, em audiência conciliatória na qual o consumidor apresentará proposta de plano de pagamento com prazo máximo de 5 anos, preservados o mínimo existencial e as garantias e formas de pagamento originalmente pactuadas.",
+      "resumo": "Quem não consegue pagar todas as dívidas sem ficar sem o essencial pode pedir na Justiça uma renegociação com todos os credores de uma vez, em plano de até 5 anos.",
       "palavras_chave": [
-        "serviço",
-        "defeito",
-        "dano",
-        "responsabilidade",
-        "objetiva",
-        "reparação",
-        "fornecedor",
-        "prestação",
-        "má",
-        "qualidade"
+        "superendividamento",
+        "dívidas",
+        "renegociação",
+        "repactuação",
+        "mínimo",
+        "existencial",
+        "credores",
+        "plano",
+        "pagamento",
+        "endividado",
+        "consignado",
+        "empréstimo",
+        "boa-fé"
       ],
       "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
       "vigencia": {
         "status": "vigente",
         "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "cc-1694",
-      "lei": "Código Civil — Lei nº 10.406/2002",
-      "artigo": "Arts. 1.694 e 1.695",
-      "tema": "familia",
-      "texto": "Podem os parentes, os cônjuges ou companheiros pedir uns aos outros os alimentos de que necessitem para viver de modo compatível com a sua condição social, inclusive para atender às necessidades de sua educação. § 1º Os alimentos devem ser fixados na proporção das necessidades do reclamante e dos recursos da pessoa obrigada. Art. 1.695. São devidos os alimentos quando quem os pretende não tem bens suficientes, nem pode prover, pelo seu trabalho, à própria mantença, e aquele de quem se reclamam pode fornecê-los, sem desfalque do necessário ao seu sustento.",
-      "resumo": "Pensão alimentícia: o valor é fixado caso a caso, no equilíbrio entre a necessidade de quem pede e a possibilidade de quem paga — não existe percentual fixo em lei.",
-      "palavras_chave": [
-        "pensão",
-        "alimentícia",
-        "alimentos",
-        "filho",
-        "filhos",
-        "pai",
-        "mãe",
-        "valor",
-        "necessidade",
-        "possibilidade",
-        "revisão"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "cpc-528",
-      "lei": "Código de Processo Civil — Lei nº 13.105/2015",
-      "artigo": "Art. 528, §§ 3º e 7º",
-      "tema": "familia",
-      "texto": "No cumprimento de sentença que condene ao pagamento de prestação alimentícia, o juiz mandará intimar o executado para, em 3 dias, pagar o débito, provar que o fez ou justificar a impossibilidade de efetuá-lo. § 3º Se o executado não pagar ou se a justificativa apresentada não for aceita, o juiz, além de mandar protestar o pronunciamento judicial, decretar-lhe-á a prisão pelo prazo de 1 a 3 meses. § 7º O débito alimentar que autoriza a prisão civil do alimentando é o que compreende até as 3 prestações anteriores ao ajuizamento da execução e as que se vencerem no curso do processo.",
-      "resumo": "Pensão atrasada: a cobrança das 3 últimas parcelas (e das que vencerem durante o processo) pode levar à prisão civil do devedor, de 1 a 3 meses.",
-      "palavras_chave": [
-        "pensão",
-        "atrasada",
-        "alimentos",
-        "prisão",
-        "execução",
-        "devedor",
-        "cobrança",
-        "parcelas",
-        "não",
-        "paga"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "cf-226",
-      "lei": "Constituição Federal de 1988 (c/ CPC, art. 733)",
-      "artigo": "Art. 226, § 6º",
-      "tema": "familia",
-      "texto": "O casamento civil pode ser dissolvido pelo divórcio. Não há prazo mínimo nem necessidade de separação prévia. Pelo art. 733 do CPC, o divórcio consensual pode ser feito por escritura pública em cartório, sem processo judicial, desde que não haja filhos menores ou incapazes nem gravidez, e que os cônjuges estejam assistidos por advogado ou defensor público.",
-      "resumo": "Divórcio: é direito que não exige prazo nem justificativa. Se houver consenso e não houver filhos menores/incapazes, pode ser feito direto em cartório, com advogado ou defensor.",
-      "palavras_chave": [
-        "divórcio",
-        "casamento",
-        "separação",
-        "cartório",
-        "consensual",
-        "escritura",
-        "cônjuge",
-        "dissolução"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
         "alterada_por": [
-          "EC 66/2010"
+          "Lei 14.181/2021"
         ],
-        "nota": "A EC 66/2010 acabou com a exigência de separação prévia; o texto aqui já é o atual.",
-        "conferida_em": "2026-10-16"
+        "nota": "O mínimo existencial foi fixado em 25% do salário mínimo pelo Decreto 11.150/2022 e alterado para o valor fixo de R$ 600 pelo Decreto 11.567/2023; em abril de 2026 o STF determinou sua revisão periódica. Confirme o valor vigente antes de usar. Conferida em 17/10/2026.",
+        "conferida_em": "2026-10-17"
       }
     },
     {
-      "id": "cc-1583",
-      "lei": "Código Civil — Lei nº 10.406/2002",
-      "artigo": "Arts. 1.583 e 1.584, § 2º",
-      "tema": "familia",
-      "texto": "A guarda será unilateral ou compartilhada. Compreende-se por guarda compartilhada a responsabilização conjunta e o exercício de direitos e deveres do pai e da mãe que não vivam sob o mesmo teto, concernentes ao poder familiar dos filhos comuns. Art. 1.584, § 2º Quando não houver acordo entre a mãe e o pai quanto à guarda do filho, encontrando-se ambos os genitores aptos a exercer o poder familiar, será aplicada a guarda compartilhada, salvo se um dos genitores declarar ao magistrado que não deseja a guarda do menor.",
-      "resumo": "Guarda dos filhos: a regra é a guarda compartilhada, mesmo sem acordo entre os pais — desde que ambos estejam aptos. Guarda, convivência e pensão são questões independentes.",
-      "palavras_chave": [
-        "guarda",
-        "compartilhada",
-        "filho",
-        "filhos",
-        "pai",
-        "mãe",
-        "convivência",
-        "visitas",
-        "poder",
-        "familiar"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [
-          "Lei 11.698/2008",
-          "Lei 13.058/2014"
-        ],
-        "nota": "A guarda compartilhada como regra, mesmo sem acordo, veio com a Lei 13.058/2014.",
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "lei9656-35c",
-      "lei": "Lei dos Planos de Saúde — Lei nº 9.656/1998",
-      "artigo": "Art. 35-C",
-      "tema": "saude",
-      "texto": "É obrigatória a cobertura do atendimento nos casos: I — de emergência, como tal definidos os que implicarem risco imediato de vida ou de lesões irreparáveis para o paciente, caracterizado em declaração do médico assistente; II — de urgência, assim entendidos os resultantes de acidentes pessoais ou de complicações no processo gestacional. A ANS (RN nº 566/2022) fixa prazos máximos para a operadora garantir o atendimento e obriga a entrega de negativa de cobertura por escrito quando solicitada.",
-      "resumo": "Plano de saúde: atendimento de urgência e emergência tem cobertura obrigatória; negativas devem ser dadas por escrito e há prazos máximos de atendimento fixados pela ANS.",
-      "palavras_chave": [
-        "plano",
-        "saúde",
-        "negou",
-        "negativa",
-        "cobertura",
-        "urgência",
-        "emergência",
-        "exame",
-        "cirurgia",
-        "internação",
-        "ans",
-        "operadora",
-        "convênio"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9656compilado.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "lei8213-126",
-      "lei": "Lei de Benefícios da Previdência Social — Lei nº 8.213/1991",
-      "artigo": "Art. 126 (c/ Regimento do CRPS)",
-      "tema": "previdencia",
-      "texto": "Das decisões do INSS nos processos de interesse dos beneficiários caberá recurso para o Conselho de Recursos da Previdência Social (CRPS). O prazo para interposição do recurso ordinário pelo segurado é de trinta dias contados da ciência da decisão. O recurso administrativo é gratuito e não exige advogado, podendo ser apresentado pelo Meu INSS ou pela Central 135.",
-      "resumo": "Benefício negado pelo INSS: cabe recurso gratuito ao CRPS em 30 dias, sem necessidade de advogado — pelo Meu INSS ou pela Central 135.",
-      "palavras_chave": [
-        "inss",
-        "benefício",
-        "negado",
-        "indeferido",
-        "recurso",
-        "aposentadoria",
-        "auxílio",
-        "bpc",
-        "loas",
-        "previdência",
-        "trinta",
-        "dias",
-        "crps"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [
-          "Regimento Interno do CRPS"
-        ],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "lei10259-3",
-      "lei": "Lei dos Juizados Especiais Federais — Lei nº 10.259/2001",
-      "artigo": "Art. 3º",
-      "tema": "previdencia",
-      "texto": "Compete ao Juizado Especial Federal Cível processar, conciliar e julgar causas de competência da Justiça Federal até o valor de sessenta salários mínimos, bem como executar as suas sentenças. As ações contra o INSS de até esse valor correm no JEF, onde a parte pode atuar sem advogado em primeiro grau (art. 10).",
-      "resumo": "Ações contra o INSS de até 60 salários mínimos correm no Juizado Especial Federal, onde é possível entrar sem advogado em primeiro grau.",
-      "palavras_chave": [
-        "juizado",
-        "federal",
-        "jef",
-        "inss",
-        "sessenta",
-        "salários",
-        "mínimos",
-        "advogado",
-        "ação",
-        "benefício"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10259.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "stj-sumula479",
-      "tipo": "jurisprudencia",
-      "tribunal": "STJ",
-      "lei": "Súmula nº 479 do Superior Tribunal de Justiça",
-      "artigo": "Súmula 479 (c/ Resolução BCB nº 103/2021 — MED)",
+      "id": "decreto13135-sac",
+      "lei": "Decreto nº 13.135/2026 (novo SAC)",
+      "artigo": "Decreto 13.135/2026 (síntese)",
       "tema": "consumidor",
-      "texto": "As instituições financeiras respondem objetivamente pelos danos gerados por fortuito interno relativo a fraudes e delitos praticados por terceiros no âmbito de operações bancárias. Em golpes envolvendo Pix, a Resolução BCB nº 103/2021 criou o Mecanismo Especial de Devolução (MED): a vítima deve comunicar o banco imediatamente, que pode bloquear os valores na conta do golpista e devolvê-los em até 96 horas, com análise em até 7 dias.",
-      "resumo": "Golpe bancário/Pix: o banco responde por falhas de segurança em suas operações, e a vítima pode acionar o MED (devolução do Pix) comunicando a instituição imediatamente.",
+      "texto": "Regulamenta o Serviço de Atendimento ao Consumidor (SAC) das empresas reguladas pelo poder público federal: atendimento humano disponível das 8h às 20h, todos os dias; pedido de cancelamento aceito em qualquer canal de atendimento, com efeito imediato; resposta às demandas não urgentes em até 7 dias corridos; histórico do atendimento entregue ao consumidor em até 5 dias úteis. Revoga o Decreto nº 11.034/2022.",
+      "resumo": "Novo SAC: atendimento humano das 8h às 20h todos os dias, cancelamento por qualquer canal, resposta em até 7 dias corridos e histórico do atendimento em até 5 dias úteis.",
       "palavras_chave": [
-        "golpe",
-        "pix",
-        "fraude",
+        "sac",
+        "atendimento",
+        "call",
+        "center",
+        "telefone",
+        "cancelar",
+        "cancelamento",
+        "operadora",
+        "assinatura",
+        "protocolo",
+        "reclamação",
+        "telefonia",
+        "internet",
+        "plano",
         "banco",
-        "transferência",
-        "estelionato",
-        "med",
-        "devolução",
-        "conta",
-        "vítima",
-        "clonado"
+        "consumidor",
+        "chat",
+        "ouvidoria"
       ],
-      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2017_44_capSumulas479-483.pdf",
+      "fonte": "https://www.gov.br/mj/pt-br/assuntos/noticias-1/novo-decreto-do-sac-amplia-protecao-ao-consumidor-e-estabelece-regras-de-atendimento",
+      "vigencia": {
+        "status": "em_vacatio",
+        "entra_em_vigor_em": "2026-11-02",
+        "alterada_por": [],
+        "nota": "Publicado em 13/10/2026, entra em vigor 20 dias depois. Até lá vale o Decreto 11.034/2022.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "decreto7962-5",
+      "lei": "Decreto nº 7.962/2013 — comércio eletrônico",
+      "artigo": "Arts. 2º, 4º e 5º",
+      "tema": "consumidor",
+      "texto": "Os sítios eletrônicos de comércio devem disponibilizar, em local de destaque e fácil visualização, o nome empresarial e o número de inscrição no CNPJ ou CPF, o endereço físico e eletrônico e as características essenciais do produto, incluídos os riscos à saúde e à segurança. O fornecedor deve manter serviço adequado e eficaz de atendimento eletrônico e confirmar imediatamente o recebimento da demanda. Deve informar meios adequados e eficazes para o exercício do direito de arrependimento, que poderá ser exercido pela mesma ferramenta utilizada na contratação; exercido o direito, o fornecedor comunicará imediatamente a instituição financeira ou a administradora do cartão para que a transação não seja lançada na fatura ou seja estornada.",
+      "resumo": "Loja virtual tem de mostrar CNPJ e endereço, responder ao atendimento e aceitar o cancelamento pelo mesmo canal da compra — além de mandar estornar o cartão na hora.",
+      "palavras_chave": [
+        "comércio",
+        "eletrônico",
+        "site",
+        "loja",
+        "virtual",
+        "online",
+        "internet",
+        "arrependimento",
+        "cancelar",
+        "estorno",
+        "cnpj",
+        "atendimento"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7962.htm",
       "vigencia": {
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [],
-        "nota": "O Mecanismo Especial de Devolução do Pix (MED) é da Resolução BCB 103/2021, posterior à súmula.",
+        "nota": "Regulamenta o CDC; o prazo de 7 dias do arrependimento está no art. 49 do CDC, não neste decreto.",
         "conferida_em": "2026-10-16"
       }
     },
@@ -788,120 +892,6 @@
         "bagagem"
       ],
       "fonte": "https://www.anac.gov.br/assuntos/legislacao/legislacao-1/resolucoes/resolucoes-2016/resolucao-no-400-13-07-2016",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "cc-1336",
-      "lei": "Código Civil — Lei nº 10.406/2002",
-      "artigo": "Arts. 1.336, 1.337 e 1.277",
-      "tema": "moradia",
-      "texto": "São deveres do condômino: contribuir para as despesas do condomínio; não realizar obras que comprometam a segurança da edificação; não alterar a forma e a cor da fachada; dar às suas partes a mesma destinação que tem a edificação e não as utilizar de maneira prejudicial ao sossego, salubridade e segurança dos possuidores. § 1º O condômino que não pagar a sua contribuição ficará sujeito aos juros moratórios convencionados ou, não sendo previstos, os de 1% ao mês e multa de até 2% sobre o débito. Art. 1.337. O condômino que reiteradamente descumprir seus deveres poderá ser condenado a pagar multa de até o quíntuplo do valor da cota condominial. Art. 1.277. O proprietário ou possuidor tem o direito de fazer cessar as interferências prejudiciais ao sossego, à segurança e à saúde provocadas por vizinho.",
-      "resumo": "Condomínio: atraso na cota gera multa de no máximo 2% + juros; multas por infração têm limites legais e exigem procedimento; barulho e perturbação do sossego podem ser exigidos de cessar judicialmente.",
-      "palavras_chave": [
-        "condomínio",
-        "condômino",
-        "síndico",
-        "multa",
-        "cota",
-        "taxa",
-        "barulho",
-        "sossego",
-        "vizinho",
-        "fachada",
-        "assembleia"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "ctn-174",
-      "lei": "Código Tributário Nacional — Lei nº 5.172/1966",
-      "artigo": "Arts. 34 e 174",
-      "tema": "tributos",
-      "texto": "Art. 34. Contribuinte do imposto (IPTU) é o proprietário do imóvel, o titular do seu domínio útil, ou o seu possuidor a qualquer título. Art. 174. A ação para a cobrança do crédito tributário prescreve em cinco anos, contados da data da sua constituição definitiva. O lançamento do IPTU pode ser impugnado administrativamente perante a prefeitura, inclusive quanto ao valor venal atribuído ao imóvel.",
-      "resumo": "IPTU: quem responde é o proprietário ou possuidor; a cobrança prescreve em 5 anos; erros de valor venal ou de lançamento podem ser impugnados na própria prefeitura, sem processo judicial.",
-      "palavras_chave": [
-        "iptu",
-        "imposto",
-        "tributo",
-        "prefeitura",
-        "cobrança",
-        "prescrição",
-        "cinco",
-        "anos",
-        "valor",
-        "venal",
-        "lançamento",
-        "imóvel"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l5172compilado.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": "A contagem da prescrição pode ser interrompida pela execução fiscal — confira as datas do seu caso.",
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "cc-1784",
-      "lei": "Código Civil — Lei nº 10.406/2002 (c/ CPC, art. 611)",
-      "artigo": "Arts. 1.784, 1.845 e 1.846",
-      "tema": "familia",
-      "texto": "Aberta a sucessão, a herança transmite-se, desde logo, aos herdeiros legítimos e testamentários. Art. 1.845. São herdeiros necessários os descendentes, os ascendentes e o cônjuge. Art. 1.846. Pertence aos herdeiros necessários, de pleno direito, a metade dos bens da herança, constituindo a legítima. Pelo art. 611 do CPC, o inventário deve ser instaurado em até 2 meses da abertura da sucessão; havendo consenso entre herdeiros capazes e sem testamento, pode ser feito por escritura pública em cartório.",
-      "resumo": "Herança: transmite-se aos herdeiros no momento da morte; metade dos bens é reservada aos herdeiros necessários; o inventário deve começar em até 2 meses e pode ser feito em cartório quando há consenso.",
-      "palavras_chave": [
-        "herança",
-        "inventário",
-        "herdeiro",
-        "sucessão",
-        "testamento",
-        "partilha",
-        "falecimento",
-        "cartório",
-        "legítima",
-        "bens"
-      ],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
-      "vigencia": {
-        "status": "vigente",
-        "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
-      }
-    },
-    {
-      "id": "stf-sv25",
-      "tipo": "jurisprudencia",
-      "tribunal": "STF",
-      "lei": "Súmula Vinculante nº 25 do Supremo Tribunal Federal",
-      "artigo": "Súmula Vinculante 25",
-      "tema": "civel",
-      "texto": "É ilícita a prisão civil de depositário infiel, qualquer que seja a modalidade do depósito. Na prática, a única prisão por dívida admitida no Brasil é a do devedor de pensão alimentícia (CF, art. 5º, LXVII).",
-      "resumo": "Ninguém pode ser preso por dívida no Brasil — a única exceção é o devedor de pensão alimentícia. Ameaça de prisão por dívida comum é ilegal.",
-      "palavras_chave": [
-        "prisão",
-        "dívida",
-        "depositário",
-        "infiel",
-        "ameaça",
-        "cobrança",
-        "devedor"
-      ],
-      "fonte": "https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=26&sumula=1268",
       "vigencia": {
         "status": "vigente",
         "entra_em_vigor_em": null,
@@ -970,6 +960,806 @@
       }
     },
     {
+      "id": "stj-sumula479",
+      "tipo": "jurisprudencia",
+      "tribunal": "STJ",
+      "lei": "Súmula nº 479 do Superior Tribunal de Justiça",
+      "artigo": "Súmula 479 (c/ Resolução BCB nº 103/2021 — MED)",
+      "tema": "consumidor",
+      "texto": "As instituições financeiras respondem objetivamente pelos danos gerados por fortuito interno relativo a fraudes e delitos praticados por terceiros no âmbito de operações bancárias. Em golpes envolvendo Pix, a Resolução BCB nº 103/2021 criou o Mecanismo Especial de Devolução (MED): a vítima deve comunicar o banco imediatamente, que pode bloquear os valores na conta do golpista e devolvê-los em até 96 horas, com análise em até 7 dias.",
+      "resumo": "Golpe bancário/Pix: o banco responde por falhas de segurança em suas operações, e a vítima pode acionar o MED (devolução do Pix) comunicando a instituição imediatamente.",
+      "palavras_chave": [
+        "golpe",
+        "pix",
+        "fraude",
+        "banco",
+        "transferência",
+        "estelionato",
+        "med",
+        "devolução",
+        "conta",
+        "vítima",
+        "clonado"
+      ],
+      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2017_44_capSumulas479-483.pdf",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "O Mecanismo Especial de Devolução do Pix (MED) é da Resolução BCB 103/2021, posterior à súmula.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "eca-digital",
+      "lei": "Estatuto Digital da Criança e do Adolescente — Lei nº 15.211/2025",
+      "artigo": "Arts. 1º a 6º (síntese)",
+      "tema": "crianca-adolescente",
+      "texto": "Dispõe sobre a adequação dos produtos e serviços de tecnologia da informação destinados a crianças e adolescentes ou a eles acessíveis. Impõe aos fornecedores o dever de cuidado: prevenir e mitigar riscos de exploração e abuso sexual, violência, assédio, aliciamento, exposição a conteúdo impróprio e publicidade predatória. Exige verificação de idade confiável, vinculação da conta de criança ou adolescente à de um responsável legal, configuração dos perfis com o maior nível de privacidade por padrão e remoção de conteúdo ilícito mediante notificação, sob fiscalização de autoridade autônoma.",
+      "resumo": "Lei de 2025 que obriga plataformas e jogos a verificar idade, ligar a conta de uma criança à de um responsável e remover conteúdo nocivo. Está em vigor desde 17 de março de 2026.",
+      "palavras_chave": [
+        "eca",
+        "digital",
+        "criança",
+        "adolescente",
+        "plataforma",
+        "rede",
+        "social",
+        "jogo",
+        "idade",
+        "verificação",
+        "conta",
+        "responsável",
+        "internet",
+        "conteúdo",
+        "aliciamento",
+        "adultização"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15211.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Medida Provisória 1.319/2025"
+        ],
+        "nota": "Sancionada em 17/09/2025 com vacatio de 1 ano; o prazo foi vetado e reduzido a 6 meses pela MP 1.319/2025, de modo que a lei vigora desde 17/03/2026. Conferida em 17/10/2026.",
+        "conferida_em": "2026-10-17"
+      }
+    },
+    {
+      "id": "eca-132",
+      "lei": "Estatuto da Criança e do Adolescente — Lei nº 8.069/1990",
+      "artigo": "Art. 132",
+      "tema": "crianca-adolescente",
+      "texto": "Em cada Município e em cada Região Administrativa do Distrito Federal haverá, no mínimo, 1 (um) Conselho Tutelar como órgão integrante da administração pública local, composto de 5 (cinco) membros, escolhidos pela população local para mandato de 4 (quatro) anos, permitida recondução por novos processos de escolha.",
+      "resumo": "Todo município tem pelo menos um Conselho Tutelar, com 5 conselheiros eleitos pela população para mandato de 4 anos.",
+      "palavras_chave": [
+        "conselho",
+        "tutelar",
+        "conselheiro",
+        "mandato",
+        "anos",
+        "recondução",
+        "eleição",
+        "município",
+        "criança",
+        "denúncia"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 12.696/2012",
+          "Lei 13.824/2019"
+        ],
+        "nota": "O mandato era de 3 anos com uma única recondução até 2012.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "eca-54",
+      "lei": "Estatuto da Criança e do Adolescente — Lei nº 8.069/1990",
+      "artigo": "Art. 54, I e IV",
+      "tema": "crianca-adolescente",
+      "texto": "É dever do Estado assegurar à criança e ao adolescente: I — ensino fundamental, obrigatório e gratuito, inclusive para os que a ele não tiveram acesso na idade própria; IV — atendimento em creche e pré-escola às crianças de zero a cinco anos de idade. § 1º O acesso ao ensino obrigatório e gratuito é direito público subjetivo. § 2º O não oferecimento do ensino obrigatório pelo poder público ou sua oferta irregular importa responsabilidade da autoridade competente.",
+      "resumo": "Vaga em creche e pré-escola para crianças de 0 a 5 anos é dever do Estado e pode ser exigida na Justiça — o STF confirmou isso em 2022.",
+      "palavras_chave": [
+        "creche",
+        "pré-escola",
+        "vaga",
+        "criança",
+        "idade",
+        "zero",
+        "cinco",
+        "anos",
+        "ensino",
+        "fundamental",
+        "escola",
+        "matrícula",
+        "educação"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.306/2016"
+        ],
+        "nota": "A faixa era de 0 a 6 anos até 2016. O STF (Tema 548, 2022) confirmou que a vaga pode ser exigida judicialmente.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lgpd-18",
+      "lei": "Lei Geral de Proteção de Dados — Lei nº 13.709/2018",
+      "artigo": "Arts. 18, 19 e 52",
+      "tema": "dados",
+      "texto": "O titular dos dados pessoais tem direito a obter do controlador, a qualquer momento e mediante requisição: confirmação da existência de tratamento; acesso aos dados; correção de dados incompletos, inexatos ou desatualizados; anonimização, bloqueio ou eliminação de dados desnecessários ou tratados em desconformidade; portabilidade; eliminação dos dados tratados com consentimento; informação sobre compartilhamento; e revogação do consentimento. O controlador deve responder por declaração clara e completa no prazo de até 15 dias. A ANPD pode aplicar advertência e multa simples de até 2% do faturamento, limitada a R$ 50 milhões por infração.",
+      "resumo": "Você pode exigir de qualquer empresa saber quais dados ela tem sobre você, corrigi-los, levá-los para outro lugar ou apagá-los — e ela tem 15 dias para responder de forma completa.",
+      "palavras_chave": [
+        "lgpd",
+        "dados",
+        "pessoais",
+        "titular",
+        "privacidade",
+        "consentimento",
+        "eliminação",
+        "apagar",
+        "correção",
+        "portabilidade",
+        "anpd",
+        "vazamento",
+        "cadastro",
+        "empresa"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.853/2019",
+          "Lei 14.460/2022"
+        ],
+        "nota": "As sanções do art. 52 só passaram a ser aplicáveis em 01/08/2021; textos de 2020 ainda as tratam como futuras.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cf-226",
+      "lei": "Constituição Federal de 1988 (c/ CPC, art. 733)",
+      "artigo": "Art. 226, § 6º",
+      "tema": "familia",
+      "texto": "O casamento civil pode ser dissolvido pelo divórcio. Não há prazo mínimo nem necessidade de separação prévia. Pelo art. 733 do CPC, o divórcio consensual pode ser feito por escritura pública em cartório, sem processo judicial, desde que não haja filhos menores ou incapazes nem gravidez, e que os cônjuges estejam assistidos por advogado ou defensor público.",
+      "resumo": "Divórcio: é direito que não exige prazo nem justificativa. Se houver consenso e não houver filhos menores/incapazes, pode ser feito direto em cartório, com advogado ou defensor.",
+      "palavras_chave": [
+        "divórcio",
+        "casamento",
+        "separação",
+        "cartório",
+        "consensual",
+        "escritura",
+        "cônjuge",
+        "dissolução"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "EC 66/2010"
+        ],
+        "nota": "A EC 66/2010 acabou com a exigência de separação prévia; o texto aqui já é o atual.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cc-1583",
+      "lei": "Código Civil — Lei nº 10.406/2002",
+      "artigo": "Arts. 1.583 e 1.584, § 2º",
+      "tema": "familia",
+      "texto": "A guarda será unilateral ou compartilhada. Compreende-se por guarda compartilhada a responsabilização conjunta e o exercício de direitos e deveres do pai e da mãe que não vivam sob o mesmo teto, concernentes ao poder familiar dos filhos comuns. Art. 1.584, § 2º Quando não houver acordo entre a mãe e o pai quanto à guarda do filho, encontrando-se ambos os genitores aptos a exercer o poder familiar, será aplicada a guarda compartilhada, salvo se um dos genitores declarar ao magistrado que não deseja a guarda do menor.",
+      "resumo": "Guarda dos filhos: a regra é a guarda compartilhada, mesmo sem acordo entre os pais — desde que ambos estejam aptos. Guarda, convivência e pensão são questões independentes.",
+      "palavras_chave": [
+        "guarda",
+        "compartilhada",
+        "filho",
+        "filhos",
+        "pai",
+        "mãe",
+        "convivência",
+        "visitas",
+        "poder",
+        "familiar"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 11.698/2008",
+          "Lei 13.058/2014"
+        ],
+        "nota": "A guarda compartilhada como regra, mesmo sem acordo, veio com a Lei 13.058/2014.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cc-1694",
+      "lei": "Código Civil — Lei nº 10.406/2002",
+      "artigo": "Arts. 1.694 e 1.695",
+      "tema": "familia",
+      "texto": "Podem os parentes, os cônjuges ou companheiros pedir uns aos outros os alimentos de que necessitem para viver de modo compatível com a sua condição social, inclusive para atender às necessidades de sua educação. § 1º Os alimentos devem ser fixados na proporção das necessidades do reclamante e dos recursos da pessoa obrigada. Art. 1.695. São devidos os alimentos quando quem os pretende não tem bens suficientes, nem pode prover, pelo seu trabalho, à própria mantença, e aquele de quem se reclamam pode fornecê-los, sem desfalque do necessário ao seu sustento.",
+      "resumo": "Pensão alimentícia: o valor é fixado caso a caso, no equilíbrio entre a necessidade de quem pede e a possibilidade de quem paga — não existe percentual fixo em lei.",
+      "palavras_chave": [
+        "pensão",
+        "alimentícia",
+        "alimentos",
+        "filho",
+        "filhos",
+        "pai",
+        "mãe",
+        "valor",
+        "necessidade",
+        "possibilidade",
+        "revisão"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cc-1790",
+      "lei": "Código Civil — Lei nº 10.406/2002",
+      "artigo": "Art. 1.790",
+      "tema": "familia",
+      "texto": "Dispositivo que previa regime sucessório próprio para o companheiro, limitado aos bens adquiridos onerosamente na vigência da união estável e em condições piores que as do cônjuge. O Supremo Tribunal Federal (RE 878.694, Tema 809, 2017) declarou o artigo inconstitucional: à sucessão do companheiro aplica-se o art. 1.829, o mesmo regime do cônjuge.",
+      "resumo": "Quem vivia em união estável herda nas mesmas condições de quem era casado. O artigo que dava menos ao companheiro foi declarado inconstitucional pelo STF em 2017.",
+      "palavras_chave": [
+        "herança",
+        "companheiro",
+        "união",
+        "estável",
+        "sucessão",
+        "cônjuge",
+        "herdar",
+        "falecimento",
+        "inventário",
+        "inconstitucional"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "inconstitucional",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "STF, RE 878.694 — Tema 809 (2017)"
+        ],
+        "nota": "Aplica-se o art. 1.829 (regime do cônjuge). O texto continua impresso em códigos antigos, mas não deve ser usado.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cc-1784",
+      "lei": "Código Civil — Lei nº 10.406/2002 (c/ CPC, art. 611)",
+      "artigo": "Arts. 1.784, 1.845 e 1.846",
+      "tema": "familia",
+      "texto": "Aberta a sucessão, a herança transmite-se, desde logo, aos herdeiros legítimos e testamentários. Art. 1.845. São herdeiros necessários os descendentes, os ascendentes e o cônjuge. Art. 1.846. Pertence aos herdeiros necessários, de pleno direito, a metade dos bens da herança, constituindo a legítima. Pelo art. 611 do CPC, o inventário deve ser instaurado em até 2 meses da abertura da sucessão; havendo consenso entre herdeiros capazes e sem testamento, pode ser feito por escritura pública em cartório.",
+      "resumo": "Herança: transmite-se aos herdeiros no momento da morte; metade dos bens é reservada aos herdeiros necessários; o inventário deve começar em até 2 meses e pode ser feito em cartório quando há consenso.",
+      "palavras_chave": [
+        "herança",
+        "inventário",
+        "herdeiro",
+        "sucessão",
+        "testamento",
+        "partilha",
+        "falecimento",
+        "cartório",
+        "legítima",
+        "bens"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cc-1723",
+      "lei": "Código Civil — Lei nº 10.406/2002 (c/ STF, ADI 4.277 e ADPF 132)",
+      "artigo": "Art. 1.723",
+      "tema": "familia",
+      "texto": "É reconhecida como entidade familiar a união estável, configurada na convivência pública, contínua e duradoura e estabelecida com o objetivo de constituição de família. O Supremo Tribunal Federal (ADI 4.277 e ADPF 132, 2011) deu ao artigo interpretação conforme a Constituição para reconhecer a união estável entre pessoas do mesmo sexo como entidade familiar, com os mesmos direitos.",
+      "resumo": "União estável é a convivência pública, contínua e duradoura com objetivo de formar família — vale igualmente para casais do mesmo sexo, por decisão do STF de 2011. Não existe prazo mínimo em lei.",
+      "palavras_chave": [
+        "união",
+        "estável",
+        "companheiro",
+        "convivência",
+        "homoafetiva",
+        "mesmo",
+        "sexo",
+        "entidade",
+        "familiar",
+        "morar",
+        "junto",
+        "namoro",
+        "reconhecimento"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "STF, ADI 4.277 e ADPF 132 (2011)"
+        ],
+        "nota": "O texto da lei ainda diz 'entre o homem e a mulher'; o STF deu interpretação que abrange casais do mesmo sexo.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cpc-528",
+      "lei": "Código de Processo Civil — Lei nº 13.105/2015",
+      "artigo": "Art. 528, §§ 3º e 7º",
+      "tema": "familia",
+      "texto": "No cumprimento de sentença que condene ao pagamento de prestação alimentícia, o juiz mandará intimar o executado para, em 3 dias, pagar o débito, provar que o fez ou justificar a impossibilidade de efetuá-lo. § 3º Se o executado não pagar ou se a justificativa apresentada não for aceita, o juiz, além de mandar protestar o pronunciamento judicial, decretar-lhe-á a prisão pelo prazo de 1 a 3 meses. § 7º O débito alimentar que autoriza a prisão civil do alimentando é o que compreende até as 3 prestações anteriores ao ajuizamento da execução e as que se vencerem no curso do processo.",
+      "resumo": "Pensão atrasada: a cobrança das 3 últimas parcelas (e das que vencerem durante o processo) pode levar à prisão civil do devedor, de 1 a 3 meses.",
+      "palavras_chave": [
+        "pensão",
+        "atrasada",
+        "alimentos",
+        "prisão",
+        "execução",
+        "devedor",
+        "cobrança",
+        "parcelas",
+        "não",
+        "paga"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei11340-22",
+      "lei": "Lei Maria da Penha — Lei nº 11.340/2006",
+      "artigo": "Arts. 7º, 12-C, 22 e 24-A",
+      "tema": "familia",
+      "texto": "São formas de violência doméstica e familiar contra a mulher a violência física, psicológica, sexual, patrimonial e moral. Verificada a existência de risco atual ou iminente à vida ou à integridade física ou psicológica da mulher em situação de violência doméstica e familiar, o agressor será imediatamente afastado do lar, domicílio ou local de convivência, por determinação do juiz, do delegado de polícia ou, não havendo delegado disponível, do policial. Entre as medidas protetivas de urgência estão a suspensão da posse ou restrição do porte de armas, o afastamento do lar, a proibição de aproximação e de contato com a ofendida e seus familiares e a restrição ou suspensão de visitas aos dependentes. Descumprir medida protetiva é crime, com pena de detenção de 3 meses a 2 anos.",
+      "resumo": "A medida protetiva pode ser pedida na própria delegacia, sem advogado e sem custo, e o agressor pode ser afastado de casa na hora. Descumprir a medida é crime desde 2018.",
+      "palavras_chave": [
+        "maria",
+        "penha",
+        "violência",
+        "doméstica",
+        "mulher",
+        "medida",
+        "protetiva",
+        "urgência",
+        "agressor",
+        "afastamento",
+        "delegacia",
+        "proibição",
+        "aproximação",
+        "psicológica",
+        "patrimonial",
+        "denúncia",
+        "180"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.641/2018",
+          "Lei 13.827/2019",
+          "Lei 14.550/2023"
+        ],
+        "nota": "O crime de descumprimento (art. 24-A) é de 2018 e o afastamento pelo delegado, de 2019. A Lei 14.550/2023 dispensou boletim de ocorrência e processo criminal em curso para a concessão da medida protetiva.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cc-1336",
+      "lei": "Código Civil — Lei nº 10.406/2002",
+      "artigo": "Arts. 1.336, 1.337 e 1.277",
+      "tema": "moradia",
+      "texto": "São deveres do condômino: contribuir para as despesas do condomínio; não realizar obras que comprometam a segurança da edificação; não alterar a forma e a cor da fachada; dar às suas partes a mesma destinação que tem a edificação e não as utilizar de maneira prejudicial ao sossego, salubridade e segurança dos possuidores. § 1º O condômino que não pagar a sua contribuição ficará sujeito aos juros moratórios convencionados ou, não sendo previstos, os de 1% ao mês e multa de até 2% sobre o débito. Art. 1.337. O condômino que reiteradamente descumprir seus deveres poderá ser condenado a pagar multa de até o quíntuplo do valor da cota condominial. Art. 1.277. O proprietário ou possuidor tem o direito de fazer cessar as interferências prejudiciais ao sossego, à segurança e à saúde provocadas por vizinho.",
+      "resumo": "Condomínio: atraso na cota gera multa de no máximo 2% + juros; multas por infração têm limites legais e exigem procedimento; barulho e perturbação do sossego podem ser exigidos de cessar judicialmente.",
+      "palavras_chave": [
+        "condomínio",
+        "condômino",
+        "síndico",
+        "multa",
+        "cota",
+        "taxa",
+        "barulho",
+        "sossego",
+        "vizinho",
+        "fachada",
+        "assembleia"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei8009-1",
+      "lei": "Lei do Bem de Família — Lei nº 8.009/1990",
+      "artigo": "Arts. 1º e 3º",
+      "tema": "moradia",
+      "texto": "O imóvel residencial próprio do casal, ou da entidade familiar, é impenhorável e não responderá por qualquer tipo de dívida civil, comercial, fiscal, previdenciária ou de outra natureza, contraída pelos cônjuges ou pelos pais ou filhos que sejam seus proprietários e nele residam, salvo nas hipóteses previstas nesta Lei. A impenhorabilidade não se aplica, entre outras, à execução de pensão alimentícia, à cobrança de impostos e taxas do próprio imóvel, ao financiamento destinado à sua construção ou aquisição, à hipoteca oferecida como garantia real pelo casal e à obrigação decorrente de fiança em contrato de locação.",
+      "resumo": "A casa onde a família mora não pode ser tomada para pagar dívidas — com exceções, como pensão alimentícia, IPTU do próprio imóvel e o financiamento da casa. Vale também para quem mora sozinho.",
+      "palavras_chave": [
+        "bem",
+        "família",
+        "impenhorável",
+        "penhora",
+        "casa",
+        "imóvel",
+        "residencial",
+        "dívida",
+        "execução",
+        "perder",
+        "moradia",
+        "único",
+        "fiador",
+        "solteiro"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8009.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "LC 150/2015",
+          "STJ, Súmula 364",
+          "STF, RE 1.307.334 — Tema 1127 (2022)"
+        ],
+        "nota": "A Súmula 364 do STJ estendeu a proteção a quem mora sozinho. A LC 150/2015 revogou a exceção do crédito de trabalhador da própria residência. O STF (Tema 1127, 2022) confirmou que o bem de família do fiador de locação pode ser penhorado, inclusive em locação comercial.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei8245-18",
+      "lei": "Lei do Inquilinato — Lei nº 8.245/1991",
+      "artigo": "Arts. 18 e 19",
+      "tema": "moradia",
+      "texto": "É livre a convenção do aluguel, vedada a sua estipulação em moeda estrangeira e a sua vinculação à variação cambial ou ao salário mínimo (art. 17). Art. 18. É lícito às partes fixar, de comum acordo, novo valor para o aluguel, bem como inserir ou modificar cláusula de reajuste. Art. 19. Não havendo acordo, o locador ou locatário, após três anos de vigência do contrato ou do acordo anteriormente realizado, poderão pedir revisão judicial do aluguel, a fim de ajustá-lo ao preço de mercado.",
+      "resumo": "Aluguel: o valor e a cláusula de reajuste são livremente acordados; sem acordo, a revisão judicial do valor só cabe após 3 anos de vigência.",
+      "palavras_chave": [
+        "aluguel",
+        "reajuste",
+        "revisão",
+        "locador",
+        "locatário",
+        "inquilino",
+        "contrato",
+        "aumento",
+        "valor"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei8245-37",
+      "lei": "Lei do Inquilinato — Lei nº 8.245/1991",
+      "artigo": "Arts. 22 e 37",
+      "tema": "moradia",
+      "texto": "O locador é obrigado a entregar ao locatário o imóvel em estado de servir ao uso a que se destina; a responder pelos vícios ou defeitos anteriores à locação; a fornecer recibo discriminado das importâncias pagas; a pagar os impostos e taxas e o prêmio de seguro complementar contra fogo que incidam sobre o imóvel, salvo disposição expressa em contrário; e a pagar as despesas extraordinárias de condomínio. No contrato de locação pode o locador exigir caução, fiança, seguro de fiança locatícia ou cessão fiduciária de quotas de fundo de investimento — vedada, sob pena de nulidade, mais de uma dessas modalidades num mesmo contrato.",
+      "resumo": "O locador só pode exigir UMA garantia: ou fiador, ou caução em dinheiro, ou seguro-fiança — nunca duas juntas, sob pena de nulidade. As obras estruturais e as despesas extraordinárias do condomínio também são dele.",
+      "palavras_chave": [
+        "locação",
+        "locador",
+        "garantia",
+        "fiador",
+        "caução",
+        "depósito",
+        "fiança",
+        "duas",
+        "condomínio",
+        "despesas",
+        "extraordinárias",
+        "obrigações"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 11.196/2005",
+          "Lei 12.112/2009"
+        ],
+        "nota": "A cessão fiduciária de quotas de fundo entrou como garantia em 2005; o rol anterior tinha três modalidades.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei8245-46",
+      "lei": "Lei do Inquilinato — Lei nº 8.245/1991",
+      "artigo": "Art. 46, §§ 1º e 2º",
+      "tema": "moradia",
+      "texto": "Nas locações ajustadas por escrito e por prazo igual ou superior a trinta meses, a resolução do contrato ocorrerá findo o prazo estipulado, independentemente de notificação ou aviso. § 1º Findo o prazo ajustado, se o locatário continuar na posse do imóvel alugado por mais de trinta dias sem oposição do locador, presumir-se-á prorrogada a locação por prazo indeterminado. § 2º Ocorrendo a prorrogação, o locador poderá denunciar o contrato a qualquer tempo, concedido o prazo de trinta dias para desocupação.",
+      "resumo": "Despejo em contrato prorrogado por prazo indeterminado: o locador pode denunciar o contrato, mas deve conceder 30 dias para desocupação.",
+      "palavras_chave": [
+        "despejo",
+        "desocupação",
+        "trinta",
+        "dias",
+        "locação",
+        "prorrogação",
+        "denúncia",
+        "inquilino",
+        "sair",
+        "imóvel",
+        "dono",
+        "aluguel"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei8245-62",
+      "lei": "Lei do Inquilinato — Lei nº 8.245/1991 (c/ Lei nº 12.112/2009)",
+      "artigo": "Art. 62",
+      "tema": "moradia",
+      "texto": "Nas ações de despejo por falta de pagamento de aluguel e acessórios da locação, o locatário e o fiador poderão evitar a rescisão da locação requerendo, no prazo da contestação, autorização para o pagamento do débito atualizado, acrescido de multa, juros, custas e honorários — a emenda da mora deve ser efetuada no prazo de 15 dias. Não se admitirá a emenda da mora se o locatário já houver utilizado essa faculdade nos 24 meses imediatamente anteriores à propositura da ação.",
+      "resumo": "Mesmo depois de a ação de despejo começar, o inquilino pode pagar o que deve e ficar no imóvel — mas só uma vez a cada 24 meses.",
+      "palavras_chave": [
+        "despejo",
+        "falta",
+        "pagamento",
+        "aluguel",
+        "atrasado",
+        "purgação",
+        "emenda",
+        "mora",
+        "quinze",
+        "dias",
+        "vinte",
+        "quatro",
+        "meses",
+        "inquilino",
+        "sair",
+        "imóvel"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 12.112/2009"
+        ],
+        "nota": "Antes de 2009 a emenda da mora era admitida duas vezes em 12 meses; hoje é uma vez em 24 meses.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei10192-2",
+      "lei": "Lei nº 10.192/2001 (medidas complementares ao Plano Real)",
+      "artigo": "Art. 2º, § 1º",
+      "tema": "moradia",
+      "texto": "É admitida a estipulação de correção monetária ou de reajuste por índices de preços gerais, setoriais ou que reflitam a variação dos custos de produção ou dos insumos utilizados nos contratos de prazo de duração igual ou superior a um ano. § 1º É nula de pleno direito qualquer estipulação de reajuste ou correção monetária de periodicidade inferior a um ano.",
+      "resumo": "Reajuste de contratos (inclusive aluguel): é nula qualquer cláusula que preveja reajuste em período menor que 12 meses.",
+      "palavras_chave": [
+        "reajuste",
+        "anual",
+        "correção",
+        "monetária",
+        "aluguel",
+        "contrato",
+        "doze",
+        "meses",
+        "nulo",
+        "aumento",
+        "índice",
+        "igpm",
+        "ipca",
+        "ano"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10192.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei10741-39",
+      "lei": "Estatuto da Pessoa Idosa — Lei nº 10.741/2003",
+      "artigo": "Arts. 1º, 39 e 40",
+      "tema": "previdencia",
+      "texto": "É instituído o Estatuto da Pessoa Idosa, destinado a regular os direitos assegurados às pessoas com idade igual ou superior a 60 anos. Aos maiores de 65 anos fica assegurada a gratuidade dos transportes coletivos públicos urbanos e semiurbanos, bastando a apresentação de documento de identidade; entre 60 e 65 anos, a gratuidade depende da legislação local. No sistema de transporte coletivo interestadual ficam reservadas 2 vagas gratuitas por veículo para pessoas idosas com renda igual ou inferior a 2 salários mínimos e desconto de 50% no valor das passagens para as que excederem as vagas gratuitas.",
+      "resumo": "Pessoa idosa é quem tem 60 anos ou mais. O ônibus urbano é gratuito a partir dos 65; no interestadual há duas vagas gratuitas por veículo e 50% de desconto nas demais.",
+      "palavras_chave": [
+        "idoso",
+        "idosa",
+        "estatuto",
+        "sessenta",
+        "anos",
+        "gratuidade",
+        "ônibus",
+        "transporte",
+        "passe",
+        "livre",
+        "interestadual",
+        "desconto",
+        "prioridade",
+        "cinco"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2003/l10.741.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 14.423/2022"
+        ],
+        "nota": "A Lei 14.423/2022 trocou 'idoso' por 'pessoa idosa' em todo o texto: o nome 'Estatuto do Idoso' está desatualizado.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "loas-20",
+      "lei": "Lei Orgânica da Assistência Social — Lei nº 8.742/1993",
+      "artigo": "Art. 20 (BPC)",
+      "tema": "previdencia",
+      "texto": "O benefício de prestação continuada é a garantia de 1 salário mínimo mensal à pessoa com deficiência e à pessoa idosa com 65 anos ou mais que comprovem não possuir meios de prover a própria manutenção nem de tê-la provida por sua família. Considera-se incapaz de prover a manutenção a pessoa cuja renda familiar mensal per capita seja igual ou inferior a 1/4 do salário mínimo, podendo esse critério ser ampliado para até 1/2 salário mínimo diante de outros elementos que comprovem a vulnerabilidade. O benefício não pode ser acumulado com outro no âmbito da seguridade social, salvo as exceções legais, e é revisto a cada 2 anos.",
+      "resumo": "O BPC/LOAS paga um salário mínimo a pessoa idosa com 65 anos ou mais e a pessoa com deficiência de família de baixa renda. Não é aposentadoria: não exige contribuição, não tem 13º e não deixa pensão por morte.",
+      "palavras_chave": [
+        "bpc",
+        "loas",
+        "benefício",
+        "prestação",
+        "continuada",
+        "assistência",
+        "social",
+        "idoso",
+        "sessenta",
+        "cinco",
+        "deficiência",
+        "salário",
+        "mínimo",
+        "quarto",
+        "família",
+        "inss"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8742compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 12.435/2011",
+          "Lei 13.146/2015",
+          "Lei 13.982/2020",
+          "Lei 14.176/2021"
+        ],
+        "nota": "A idade mínima caiu de 70 para 67 anos (1998) e para 65 (2003); o critério de 1/2 salário mínimo foi criado pela Lei 13.982/2020 e disciplinado pela Lei 14.176/2021. Textos anteriores trazem idade e renda diferentes.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei8213-126",
+      "lei": "Lei de Benefícios da Previdência Social — Lei nº 8.213/1991",
+      "artigo": "Art. 126 (c/ Regimento do CRPS)",
+      "tema": "previdencia",
+      "texto": "Das decisões do INSS nos processos de interesse dos beneficiários caberá recurso para o Conselho de Recursos da Previdência Social (CRPS). O prazo para interposição do recurso ordinário pelo segurado é de trinta dias contados da ciência da decisão. O recurso administrativo é gratuito e não exige advogado, podendo ser apresentado pelo Meu INSS ou pela Central 135.",
+      "resumo": "Benefício negado pelo INSS: cabe recurso gratuito ao CRPS em 30 dias, sem necessidade de advogado — pelo Meu INSS ou pela Central 135.",
+      "palavras_chave": [
+        "inss",
+        "benefício",
+        "negado",
+        "indeferido",
+        "recurso",
+        "aposentadoria",
+        "auxílio",
+        "bpc",
+        "loas",
+        "previdência",
+        "trinta",
+        "dias",
+        "crps"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Regimento Interno do CRPS"
+        ],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei10259-3",
+      "lei": "Lei dos Juizados Especiais Federais — Lei nº 10.259/2001",
+      "artigo": "Art. 3º",
+      "tema": "previdencia",
+      "texto": "Compete ao Juizado Especial Federal Cível processar, conciliar e julgar causas de competência da Justiça Federal até o valor de sessenta salários mínimos, bem como executar as suas sentenças. As ações contra o INSS de até esse valor correm no JEF, onde a parte pode atuar sem advogado em primeiro grau (art. 10).",
+      "resumo": "Ações contra o INSS de até 60 salários mínimos correm no Juizado Especial Federal, onde é possível entrar sem advogado em primeiro grau.",
+      "palavras_chave": [
+        "juizado",
+        "federal",
+        "jef",
+        "inss",
+        "sessenta",
+        "salários",
+        "mínimos",
+        "advogado",
+        "ação",
+        "benefício"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10259.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei9656-35c",
+      "lei": "Lei dos Planos de Saúde — Lei nº 9.656/1998",
+      "artigo": "Art. 35-C",
+      "tema": "saude",
+      "texto": "É obrigatória a cobertura do atendimento nos casos: I — de emergência, como tal definidos os que implicarem risco imediato de vida ou de lesões irreparáveis para o paciente, caracterizado em declaração do médico assistente; II — de urgência, assim entendidos os resultantes de acidentes pessoais ou de complicações no processo gestacional. A ANS (RN nº 566/2022) fixa prazos máximos para a operadora garantir o atendimento e obriga a entrega de negativa de cobertura por escrito quando solicitada.",
+      "resumo": "Plano de saúde: atendimento de urgência e emergência tem cobertura obrigatória; negativas devem ser dadas por escrito e há prazos máximos de atendimento fixados pela ANS.",
+      "palavras_chave": [
+        "plano",
+        "saúde",
+        "negou",
+        "negativa",
+        "cobertura",
+        "urgência",
+        "emergência",
+        "exame",
+        "cirurgia",
+        "internação",
+        "ans",
+        "operadora",
+        "convênio"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9656compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
       "id": "stj-sumula302",
       "tipo": "jurisprudencia",
       "tribunal": "STJ",
@@ -1000,62 +1790,319 @@
       }
     },
     {
-      "id": "tst-sumula443",
-      "tipo": "jurisprudencia",
-      "tribunal": "TST",
-      "lei": "Súmula nº 443 do Tribunal Superior do Trabalho",
-      "artigo": "Súmula 443",
-      "tema": "trabalho",
-      "texto": "Presume-se discriminatória a despedida de empregado portador do vírus HIV ou de outra doença grave que suscite estigma ou preconceito. Inválido o ato, o empregado tem direito à reintegração no emprego.",
-      "resumo": "Demissão de trabalhador com HIV ou doença grave estigmatizante presume-se discriminatória: o empregado pode ser reintegrado ao emprego.",
+      "id": "lei13460-16",
+      "lei": "Código de Defesa do Usuário de Serviço Público — Lei nº 13.460/2017",
+      "artigo": "Arts. 7º, 10 e 16",
+      "tema": "servico-publico",
+      "texto": "Os órgãos e entidades abrangidos por esta Lei divulgarão Carta de Serviços ao Usuário, com informações claras sobre os serviços prestados, formas de acesso, compromissos e padrões de qualidade de atendimento. A manifestação do usuário — reclamação, denúncia, sugestão, elogio ou solicitação — será dirigida à ouvidoria, sendo vedada a exigência de identificação do requerente além do estritamente necessário. A ouvidoria deverá responder, de forma conclusiva, no prazo de 30 dias, prorrogável uma única vez mediante justificativa expressa.",
+      "resumo": "Reclamação na ouvidoria de um serviço público tem de receber resposta conclusiva em 30 dias — não basta um protocolo. E o órgão deve publicar uma carta dizendo o que faz e em quanto tempo.",
       "palavras_chave": [
-        "demissão",
-        "discriminatória",
-        "doença",
-        "grave",
-        "hiv",
-        "câncer",
-        "reintegração",
-        "despedida",
-        "preconceito",
-        "estigma"
+        "ouvidoria",
+        "reclamação",
+        "usuário",
+        "serviço",
+        "público",
+        "manifestação",
+        "denúncia",
+        "carta",
+        "serviços",
+        "prazo",
+        "trinta",
+        "dias",
+        "atendimento",
+        "fila"
       ],
-      "fonte": "https://jurisprudencia.tst.jus.br/#void",
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm",
       "vigencia": {
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [],
+        "nota": "Em vigor desde junho de 2018 para a União, Estados e Municípios, conforme o escalonamento do art. 25.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lai-10-11",
+      "lei": "Lei de Acesso à Informação — Lei nº 12.527/2011",
+      "artigo": "Arts. 10, 11 e 15",
+      "tema": "servico-publico",
+      "texto": "Qualquer interessado poderá apresentar pedido de acesso a informações aos órgãos e entidades públicos, por qualquer meio legítimo, devendo o pedido conter a identificação do requerente e a especificação da informação requerida. São vedadas quaisquer exigências relativas aos motivos determinantes da solicitação. Não sendo possível o acesso imediato, o órgão deverá, em prazo não superior a 20 dias, comunicar a data e o modo para a consulta, indicar as razões da negativa ou informar que não possui a informação — prazo prorrogável por mais 10 dias mediante justificativa expressa. Da negativa cabe recurso no prazo de 10 dias.",
+      "resumo": "Qualquer pessoa pode pedir informação a um órgão público sem dizer para que quer e sem pagar. O prazo de resposta é de 20 dias, prorrogável por 10; negativa dá direito a recurso em 10 dias.",
+      "palavras_chave": [
+        "lai",
+        "acesso",
+        "informação",
+        "pedido",
+        "transparência",
+        "prazo",
+        "vinte",
+        "dias",
+        "negativa",
+        "recurso",
+        "órgão",
+        "público",
+        "dados",
+        "gratuito"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 14.129/2021"
+        ],
+        "nota": "O Decreto 11.529/2023 reorganizou a regulamentação federal; os prazos da lei seguem os mesmos.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "lei9784-49",
+      "lei": "Lei do Processo Administrativo — Lei nº 9.784/1999",
+      "artigo": "Arts. 48, 49 e 59",
+      "tema": "servico-publico",
+      "texto": "A Administração tem o dever de explicitamente emitir decisão nos processos administrativos e sobre solicitações ou reclamações, em matéria de sua competência. Concluída a instrução de processo administrativo, a Administração tem o prazo de até 30 dias para decidir, salvo prorrogação por igual período expressamente motivada. Salvo disposição legal específica, é de 10 dias o prazo para interposição de recurso administrativo, contado a partir da ciência ou divulgação oficial da decisão recorrida.",
+      "resumo": "O órgão público é obrigado a decidir — e tem 30 dias depois de instruir o processo, prorrogáveis por outros 30 com justificativa. Se a decisão for contrária, o recurso tem prazo de 10 dias.",
+      "palavras_chave": [
+        "processo",
+        "administrativo",
+        "prazo",
+        "decidir",
+        "trinta",
+        "dias",
+        "recurso",
+        "órgão",
+        "público",
+        "requerimento",
+        "silêncio",
+        "resposta",
+        "prefeitura"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9784.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "Vale para a administração federal; Estados e Municípios com lei própria seguem a sua, e muitos a repetem.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "clt-477",
+      "lei": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943",
+      "artigo": "Art. 477, caput e § 6º",
+      "tema": "trabalho",
+      "texto": "Na extinção do contrato de trabalho, o empregador deverá proceder à anotação na Carteira de Trabalho e Previdência Social, comunicar a dispensa aos órgãos competentes e realizar o pagamento das verbas rescisórias no prazo e na forma estabelecidos neste artigo. § 6º A entrega ao empregado de documentos que comprovem a comunicação da extinção contratual aos órgãos competentes bem como o pagamento dos valores constantes do instrumento de rescisão contratual deverão ser efetuados até dez dias contados a partir do término do contrato.",
+      "resumo": "Rescisão: as verbas rescisórias e os documentos da demissão devem ser pagos/entregues em até 10 dias corridos após o fim do contrato.",
+      "palavras_chave": [
+        "demissão",
+        "rescisão",
+        "verbas",
+        "rescisórias",
+        "pagamento",
+        "prazo",
+        "dez",
+        "dias",
+        "carteira",
+        "trabalho",
+        "demitido"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.467/2017"
+        ],
         "nota": null,
         "conferida_em": "2026-10-16"
       }
     },
     {
-      "id": "tst-sumula338",
-      "tipo": "jurisprudencia",
-      "tribunal": "TST",
-      "lei": "Súmula nº 338 do Tribunal Superior do Trabalho",
-      "artigo": "Súmula 338, I",
+      "id": "clt-482",
+      "lei": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943",
+      "artigo": "Art. 482",
       "tema": "trabalho",
-      "texto": "É ônus do empregador que conta com mais de 10 empregados o registro da jornada de trabalho na forma do art. 74, § 2º, da CLT. A não apresentação injustificada dos controles de frequência gera presunção relativa de veracidade da jornada de trabalho alegada pelo empregado, a qual pode ser elidida por prova em contrário.",
-      "resumo": "Horas extras: em empresas com mais de 10 empregados, é o patrão quem deve provar a jornada (cartão de ponto); se não apresentar os controles, presume-se verdadeira a jornada que o trabalhador alegar.",
+      "texto": "Constituem justa causa para rescisão do contrato de trabalho pelo empregador: ato de improbidade; incontinência de conduta ou mau procedimento; negociação habitual por conta própria ou alheia sem permissão do empregador; condenação criminal com trânsito em julgado; desídia no desempenho das funções; embriaguez habitual ou em serviço; violação de segredo da empresa; ato de indisciplina ou de insubordinação; abandono de emprego; ato lesivo da honra ou da boa fama; ofensas físicas; prática constante de jogos de azar; e perda da habilitação ou dos requisitos para o exercício da profissão em razão de conduta dolosa do empregado.",
+      "resumo": "A justa causa só existe nas hipóteses desta lista — e o empregador precisa provar o fato. Demitido por justa causa, o trabalhador perde aviso prévio, multa de 40% do FGTS e seguro-desemprego.",
       "palavras_chave": [
-        "hora",
-        "extra",
-        "jornada",
-        "ponto",
-        "cartão",
-        "controle",
-        "registro",
-        "prova",
-        "empregador",
-        "trabalho"
+        "justa",
+        "causa",
+        "rescisão",
+        "falta",
+        "grave",
+        "abandono",
+        "emprego",
+        "desídia",
+        "insubordinação",
+        "improbidade"
       ],
-      "fonte": "https://jurisprudencia.tst.jus.br/#void",
+      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.467/2017"
+        ],
+        "nota": "A reforma de 2017 acrescentou a perda da habilitação profissional por conduta dolosa (alínea m).",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "clt-483",
+      "lei": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943",
+      "artigo": "Art. 483",
+      "tema": "trabalho",
+      "texto": "O empregado poderá considerar rescindido o contrato e pleitear a devida indenização quando: forem exigidos serviços superiores às suas forças, defesos por lei, contrários aos bons costumes, ou alheios ao contrato; for tratado pelo empregador ou por seus superiores hierárquicos com rigor excessivo; correr perigo manifesto de mal considerável; não cumprir o empregador as obrigações do contrato; praticar o empregador ou seus prepostos ato lesivo da honra e boa fama do empregado ou de pessoas de sua família; ofender fisicamente o empregado; ou reduzir o seu trabalho, sendo este por peça ou tarefa, de forma a afetar sensivelmente a importância dos salários.",
+      "resumo": "Rescisão indireta: quando é o patrão que comete a falta grave — assédio, salário atrasado, FGTS não depositado — o trabalhador pode pedir na Justiça a saída com todos os direitos de uma demissão sem justa causa.",
+      "palavras_chave": [
+        "rescisão",
+        "indireta",
+        "justa",
+        "causa",
+        "patrão",
+        "empregador",
+        "assédio",
+        "salário",
+        "atrasado",
+        "fgts",
+        "depositado",
+        "pedir",
+        "rigor",
+        "excessivo"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm",
       "vigencia": {
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [],
-        "nota": null,
+        "nota": "Redação estável; o cálculo das verbas segue as regras da demissão sem justa causa.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "clt-791",
+      "lei": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943",
+      "artigo": "Arts. 791, 791-A e 790-B",
+      "tema": "trabalho",
+      "texto": "Os empregados e os empregadores poderão reclamar pessoalmente perante a Justiça do Trabalho e acompanhar as suas reclamações até o final. Ao advogado, ainda que atue em causa própria, serão devidos honorários de sucumbência fixados entre o mínimo de 5% e o máximo de 15% sobre o valor que resultar da liquidação da sentença. O Supremo Tribunal Federal (ADI 5.766, 2021) declarou inconstitucionais os dispositivos que impunham ao beneficiário da justiça gratuita o pagamento de honorários periciais e de sucumbência com créditos obtidos no processo.",
+      "resumo": "Dá para entrar sozinho na Justiça do Trabalho, sem advogado, nas varas e nos tribunais regionais. Quem tem justiça gratuita não paga honorários da parte vencedora — o STF derrubou essa cobrança em 2021.",
+      "palavras_chave": [
+        "justiça",
+        "trabalho",
+        "advogado",
+        "jus",
+        "postulandi",
+        "reclamação",
+        "trabalhista",
+        "honorários",
+        "sucumbência",
+        "gratuidade",
+        "perícia",
+        "sozinho",
+        "reclamar"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.467/2017",
+          "STF, ADI 5.766 (2021)",
+          "TST, Súmula 425"
+        ],
+        "nota": "A Súmula 425 do TST limita o jus postulandi às varas e aos TRTs — recursos ao TST e ação rescisória exigem advogado. Textos de 2018 a 2021 ainda descrevem a cobrança de honorários do beneficiário da gratuidade.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "clt-487",
+      "lei": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943 (c/ Lei nº 12.506/2011)",
+      "artigo": "Art. 487, II (e aviso prévio proporcional)",
+      "tema": "trabalho",
+      "texto": "Não havendo prazo estipulado, a parte que, sem justo motivo, quiser rescindir o contrato deverá avisar a outra da sua resolução com a antecedência mínima de trinta dias aos que perceberem por quinzena ou mês, ou que tenham mais de 12 meses de serviço na empresa. A Lei nº 12.506/2011 acresce 3 dias por ano de serviço prestado na mesma empresa, até o máximo de 60 dias adicionais, perfazendo um total de até 90 dias.",
+      "resumo": "Aviso prévio: mínimo de 30 dias, acrescidos de 3 dias por ano trabalhado na mesma empresa (até 90 dias no total).",
+      "palavras_chave": [
+        "aviso",
+        "prévio",
+        "demissão",
+        "trinta",
+        "dias",
+        "proporcional",
+        "rescisão",
+        "demitido"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 12.506/2011"
+        ],
+        "nota": "O acréscimo de 3 dias por ano trabalhado vem da Lei 12.506/2011, não do texto original da CLT.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cf-6",
+      "lei": "Constituição Federal de 1988",
+      "artigo": "Art. 6º",
+      "tema": "trabalho",
+      "texto": "São direitos sociais a educação, a saúde, a alimentação, o trabalho, a moradia, o transporte, o lazer, a segurança, a previdência social, a proteção à maternidade e à infância e a assistência aos desamparados, na forma desta Constituição.",
+      "resumo": "A lista dos direitos sociais do brasileiro. Alimentação e transporte foram acrescentados depois (2010 e 2015) e hoje fazem parte dela.",
+      "palavras_chave": [
+        "direitos",
+        "sociais",
+        "educação",
+        "saúde",
+        "alimentação",
+        "moradia",
+        "transporte",
+        "lazer",
+        "segurança",
+        "previdência",
+        "assistência",
+        "constituição"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "EC 64/2010",
+          "EC 90/2015"
+        ],
+        "nota": "A alimentação entrou com a EC 64/2010 e o transporte com a EC 90/2015; textos anteriores a 2015 trazem a lista incompleta.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cf-7",
+      "lei": "Constituição Federal de 1988",
+      "artigo": "Art. 7º, I, III, XXI e XXIX",
+      "tema": "trabalho",
+      "texto": "São direitos dos trabalhadores urbanos e rurais, além de outros que visem à melhoria de sua condição social: I — relação de emprego protegida contra despedida arbitrária ou sem justa causa, nos termos de lei complementar, que preverá indenização compensatória, dentre outros direitos; III — fundo de garantia do tempo de serviço; XXI — aviso prévio proporcional ao tempo de serviço, sendo no mínimo de trinta dias, nos termos da lei; XXIX — ação, quanto aos créditos resultantes das relações de trabalho, com prazo prescricional de cinco anos para os trabalhadores urbanos e rurais, até o limite de dois anos após a extinção do contrato de trabalho.",
+      "resumo": "Direitos constitucionais do trabalhador: proteção contra dispensa arbitrária, FGTS, aviso prévio de no mínimo 30 dias e prazo de 2 anos após a saída para cobrar na Justiça (alcançando os últimos 5 anos).",
+      "palavras_chave": [
+        "trabalhador",
+        "fgts",
+        "aviso",
+        "prévio",
+        "prescrição",
+        "dois",
+        "anos",
+        "cinco",
+        "justiça",
+        "trabalho",
+        "demissão",
+        "justa",
+        "causa"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "Os incisos citados aqui (I, III, XXI e XXIX) seguem com a redação original. Atenção: o inciso XIII (jornada) foi alterado pela EC 141/2026 — ver dispositivo próprio.",
         "conferida_em": "2026-10-16"
       }
     },
@@ -1096,38 +2143,350 @@
       }
     },
     {
-      "id": "decreto13135-sac",
-      "lei": "Decreto nº 13.135/2026 (novo SAC)",
-      "artigo": "Decreto 13.135/2026 (síntese)",
-      "tema": "consumidor",
-      "texto": "Regulamenta o Serviço de Atendimento ao Consumidor (SAC) das empresas reguladas pelo poder público federal: atendimento humano disponível das 8h às 20h, todos os dias; pedido de cancelamento aceito em qualquer canal de atendimento, com efeito imediato; resposta às demandas não urgentes em até 7 dias corridos; histórico do atendimento entregue ao consumidor em até 5 dias úteis. Revoga o Decreto nº 11.034/2022.",
-      "resumo": "Novo SAC: atendimento humano das 8h às 20h todos os dias, cancelamento por qualquer canal, resposta em até 7 dias corridos e histórico do atendimento em até 5 dias úteis.",
+      "id": "lei8036-18",
+      "lei": "Lei do FGTS — Lei nº 8.036/1990",
+      "artigo": "Art. 18, § 1º",
+      "tema": "trabalho",
+      "texto": "Na hipótese de despedida pelo empregador sem justa causa, depositará este, na conta vinculada do trabalhador no FGTS, importância igual a quarenta por cento do montante de todos os depósitos realizados na conta vinculada durante a vigência do contrato de trabalho, atualizados monetariamente e acrescidos dos respectivos juros.",
+      "resumo": "Demissão sem justa causa: a empresa deve depositar multa de 40% sobre todos os depósitos do FGTS feitos durante o contrato.",
       "palavras_chave": [
-        "sac",
-        "atendimento",
-        "call",
-        "center",
-        "telefone",
-        "cancelar",
-        "cancelamento",
-        "operadora",
-        "assinatura",
-        "protocolo",
-        "reclamação",
-        "telefonia",
-        "internet",
-        "plano",
-        "banco",
-        "consumidor",
-        "chat",
-        "ouvidoria"
+        "fgts",
+        "multa",
+        "quarenta",
+        "por",
+        "cento",
+        "demissão",
+        "justa",
+        "causa",
+        "saque",
+        "depósito"
       ],
-      "fonte": "https://www.gov.br/mj/pt-br/assuntos/noticias-1/novo-decreto-do-sac-amplia-protecao-ao-consumidor-e-estabelece-regras-de-atendimento",
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8036consol.htm",
       "vigencia": {
-        "status": "em_vacatio",
-        "entra_em_vigor_em": "2026-11-02",
+        "status": "vigente",
+        "entra_em_vigor_em": null,
         "alterada_por": [],
-        "nota": "Publicado em 13/10/2026, entra em vigor 20 dias depois. Até lá vale o Decreto 11.034/2022.",
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "tst-sumula338",
+      "tipo": "jurisprudencia",
+      "tribunal": "TST",
+      "lei": "Súmula nº 338 do Tribunal Superior do Trabalho",
+      "artigo": "Súmula 338, I",
+      "tema": "trabalho",
+      "texto": "É ônus do empregador que conta com mais de 10 empregados o registro da jornada de trabalho na forma do art. 74, § 2º, da CLT. A não apresentação injustificada dos controles de frequência gera presunção relativa de veracidade da jornada de trabalho alegada pelo empregado, a qual pode ser elidida por prova em contrário.",
+      "resumo": "Horas extras: em empresas com mais de 10 empregados, é o patrão quem deve provar a jornada (cartão de ponto); se não apresentar os controles, presume-se verdadeira a jornada que o trabalhador alegar.",
+      "palavras_chave": [
+        "hora",
+        "extra",
+        "jornada",
+        "ponto",
+        "cartão",
+        "controle",
+        "registro",
+        "prova",
+        "empregador",
+        "trabalho"
+      ],
+      "fonte": "https://jurisprudencia.tst.jus.br/#void",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "tst-sumula443",
+      "tipo": "jurisprudencia",
+      "tribunal": "TST",
+      "lei": "Súmula nº 443 do Tribunal Superior do Trabalho",
+      "artigo": "Súmula 443",
+      "tema": "trabalho",
+      "texto": "Presume-se discriminatória a despedida de empregado portador do vírus HIV ou de outra doença grave que suscite estigma ou preconceito. Inválido o ato, o empregado tem direito à reintegração no emprego.",
+      "resumo": "Demissão de trabalhador com HIV ou doença grave estigmatizante presume-se discriminatória: o empregado pode ser reintegrado ao emprego.",
+      "palavras_chave": [
+        "demissão",
+        "discriminatória",
+        "doença",
+        "grave",
+        "hiv",
+        "câncer",
+        "reintegração",
+        "despedida",
+        "preconceito",
+        "estigma"
+      ],
+      "fonte": "https://jurisprudencia.tst.jus.br/#void",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "ctb-165",
+      "lei": "Código de Trânsito Brasileiro — Lei nº 9.503/1997",
+      "artigo": "Arts. 165 e 165-A",
+      "tema": "transito",
+      "texto": "Dirigir sob a influência de álcool ou de qualquer outra substância psicoativa que determine dependência: infração gravíssima, penalidade de multa (dez vezes) e suspensão do direito de dirigir por 12 meses, com medida administrativa de recolhimento da CNH e retenção do veículo. Art. 165-A: recusar-se a submeter-se a teste, exame clínico, perícia ou outro procedimento que permita certificar influência de álcool sujeita o condutor às mesmas penalidades.",
+      "resumo": "Tolerância zero: dirigir sob efeito de álcool dá multa de dez vezes o valor e suspensão da CNH por 12 meses. Recusar o bafômetro tem exatamente a mesma punição.",
+      "palavras_chave": [
+        "álcool",
+        "bafômetro",
+        "beber",
+        "embriaguez",
+        "dirigir",
+        "bebida",
+        "recusa",
+        "teste",
+        "suspensão",
+        "multa",
+        "lei",
+        "seca",
+        "tolerância",
+        "zero"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 11.705/2008",
+          "Lei 12.760/2012",
+          "Lei 13.281/2016"
+        ],
+        "nota": "Até 2008 a multa era de cinco vezes o valor e não havia penalidade específica para a recusa ao teste.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "ctb-262",
+      "lei": "Código de Trânsito Brasileiro — Lei nº 9.503/1997",
+      "artigo": "Art. 262 (revogado)",
+      "tema": "transito",
+      "texto": "Dispositivo que previa o recolhimento do veículo ao depósito e sua permanência sob custódia pelo prazo de até 30 dias como penalidade. Revogado pela Lei nº 13.281/2016: a apreensão deixou de existir como penalidade de trânsito, restando a remoção como medida administrativa, com liberação após a regularização e o pagamento das despesas.",
+      "resumo": "A apreensão do veículo por 30 dias como castigo não existe mais desde 2016. Hoje o carro pode ser removido ao pátio, mas é liberado assim que a irregularidade é sanada e as despesas pagas.",
+      "palavras_chave": [
+        "apreensão",
+        "veículo",
+        "depósito",
+        "pátio",
+        "trinta",
+        "dias",
+        "remoção",
+        "guincho",
+        "liberação",
+        "carro",
+        "apreendido",
+        "revogado"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm",
+      "vigencia": {
+        "status": "revogada",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.281/2016"
+        ],
+        "nota": "Mantido no corpus como marcador histórico: textos anteriores a 2016 ainda descrevem a apreensão por 30 dias.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "ctb-281",
+      "lei": "Código de Trânsito Brasileiro — Lei nº 9.503/1997",
+      "artigo": "Art. 281, caput e parágrafo único",
+      "tema": "transito",
+      "texto": "A autoridade de trânsito, na esfera da competência estabelecida neste Código e dentro de sua circunscrição, julgará a consistência do auto de infração e aplicará a penalidade cabível. Parágrafo único. O auto de infração será arquivado e seu registro julgado insubsistente: I — se considerado inconsistente ou irregular; II — se, no prazo máximo de trinta dias, não for expedida a notificação da autuação.",
+      "resumo": "Multa de trânsito: se a notificação da autuação não for expedida em até 30 dias, o auto de infração deve ser arquivado.",
+      "palavras_chave": [
+        "multa",
+        "trânsito",
+        "auto",
+        "infração",
+        "notificação",
+        "trinta",
+        "dias",
+        "arquivamento",
+        "autuação"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "ctb-282",
+      "lei": "Código de Trânsito Brasileiro — Lei nº 9.503/1997",
+      "artigo": "Arts. 282 e 285 a 288 (síntese)",
+      "tema": "transito",
+      "texto": "Aplicada a penalidade, será expedida notificação ao proprietário do veículo ou ao infrator, com indicação do prazo para apresentação de defesa e para interposição de recurso. Da penalidade cabe defesa prévia perante o órgão autuador e, mantida a autuação, recurso à Junta Administrativa de Recursos de Infrações (JARI) no prazo indicado na notificação; da decisão da JARI cabe recurso à instância superior (CETRAN, no âmbito estadual).",
+      "resumo": "Defesa da multa em etapas: defesa prévia no órgão autuador, recurso à JARI e, se negado, recurso ao CETRAN — sempre dentro dos prazos indicados na própria notificação.",
+      "palavras_chave": [
+        "multa",
+        "recurso",
+        "jari",
+        "cetran",
+        "defesa",
+        "prévia",
+        "notificação",
+        "prazo",
+        "trânsito",
+        "penalidade",
+        "cnh",
+        "pontos",
+        "injusta"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.281/2016",
+          "Lei 14.071/2020"
+        ],
+        "nota": "Prazos e descontos mudaram em 2016 e 2020; o prazo para recorrer nunca é inferior a 30 dias (art. 282, § 4º) e vem na notificação.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "ctb-284",
+      "lei": "Código de Trânsito Brasileiro — Lei nº 9.503/1997 (c/ Lei nº 13.281/2016)",
+      "artigo": "Art. 284 e § 1º",
+      "tema": "transito",
+      "texto": "O pagamento da multa poderá ser efetuado até a data do vencimento expressa na notificação, por 80% do seu valor. § 1º No caso de infração cometida com veículo licenciado em outra unidade da Federação, o pagamento da multa poderá ser feito até a data do vencimento. Ao condutor que optar pelo Sistema de Notificação Eletrônica (SNE) e reconhecer o cometimento da infração, efetuando o pagamento sem apresentar defesa ou recurso, será concedido desconto de 40% sobre o valor da multa.",
+      "resumo": "Dois descontos possíveis: 20% pagando até o vencimento, ou 40% para quem aderiu à notificação eletrônica (SNE), reconhece a infração e não recorre.",
+      "palavras_chave": [
+        "desconto",
+        "multa",
+        "pagamento",
+        "vencimento",
+        "sne",
+        "notificação",
+        "eletrônica",
+        "quarenta",
+        "por",
+        "cento",
+        "abatimento",
+        "recorrer"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.281/2016"
+        ],
+        "nota": "O desconto de 40% pelo SNE não existia antes de 2016.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "ctb-257",
+      "lei": "Código de Trânsito Brasileiro — Lei nº 9.503/1997 (c/ Lei nº 14.071/2020)",
+      "artigo": "Art. 257, §§ 7º e 8º",
+      "tema": "transito",
+      "texto": "Não sendo imediata a identificação do infrator, o proprietário do veículo terá o prazo de 30 dias, contado da notificação da autuação, para apresentá-lo, na forma em que dispuser o Contran. Não o fazendo, será considerado responsável pela infração o proprietário do veículo.",
+      "resumo": "Quem não estava dirigindo tem 30 dias, contados da notificação, para indicar o verdadeiro condutor. Sem a indicação, a multa e os pontos ficam com o dono do carro.",
+      "palavras_chave": [
+        "indicar",
+        "condutor",
+        "identificação",
+        "infrator",
+        "proprietário",
+        "multa",
+        "pontos",
+        "prazo",
+        "trinta",
+        "dias",
+        "notificação",
+        "não",
+        "estava",
+        "dirigindo"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 14.071/2020"
+        ],
+        "nota": "O prazo era de 15 dias até a Lei 14.071/2020.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "ctb-259-261",
+      "lei": "Código de Trânsito Brasileiro — Lei nº 9.503/1997 (c/ Lei nº 14.071/2020)",
+      "artigo": "Arts. 259 e 261, § 1º",
+      "tema": "transito",
+      "texto": "A cada infração cometida são computados pontos na Carteira Nacional de Habilitação, na seguinte escala: gravíssima, 7 pontos; grave, 5; média, 4; leve, 3. A suspensão do direito de dirigir será aplicada quando o infrator atingir, no período de 12 meses: 20 pontos, se houver 2 ou mais infrações gravíssimas; 30 pontos, se houver 1 infração gravíssima; ou 40 pontos, se não houver nenhuma infração gravíssima. Para quem exerce atividade remunerada ao volante, o limite é de 40 pontos, independentemente da natureza das infrações.",
+      "resumo": "A CNH não é mais suspensa sempre aos 20 pontos: o limite é 20, 30 ou 40 pontos em 12 meses, conforme o número de infrações gravíssimas. Motorista profissional tem limite de 40.",
+      "palavras_chave": [
+        "pontos",
+        "cnh",
+        "suspensão",
+        "carteira",
+        "habilitação",
+        "pontuação",
+        "gravíssima",
+        "grave",
+        "média",
+        "leve",
+        "vinte",
+        "trinta",
+        "quarenta",
+        "motorista",
+        "profissional"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 14.071/2020"
+        ],
+        "nota": "Regra em vigor desde 12/04/2021. Antes, a suspensão vinha sempre aos 20 pontos.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "ctn-174",
+      "lei": "Código Tributário Nacional — Lei nº 5.172/1966",
+      "artigo": "Arts. 34 e 174",
+      "tema": "tributos",
+      "texto": "Art. 34. Contribuinte do imposto (IPTU) é o proprietário do imóvel, o titular do seu domínio útil, ou o seu possuidor a qualquer título. Art. 174. A ação para a cobrança do crédito tributário prescreve em cinco anos, contados da data da sua constituição definitiva. O lançamento do IPTU pode ser impugnado administrativamente perante a prefeitura, inclusive quanto ao valor venal atribuído ao imóvel.",
+      "resumo": "IPTU: quem responde é o proprietário ou possuidor; a cobrança prescreve em 5 anos; erros de valor venal ou de lançamento podem ser impugnados na própria prefeitura, sem processo judicial.",
+      "palavras_chave": [
+        "iptu",
+        "imposto",
+        "tributo",
+        "prefeitura",
+        "cobrança",
+        "prescrição",
+        "cinco",
+        "anos",
+        "valor",
+        "venal",
+        "lançamento",
+        "imóvel"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l5172compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "A contagem da prescrição pode ser interrompida pela execução fiscal — confira as datas do seu caso.",
         "conferida_em": "2026-10-16"
       }
     }

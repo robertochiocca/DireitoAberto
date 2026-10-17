@@ -65,7 +65,7 @@ LLM (via API) ── indisponível? ──► resposta extrativa
 resposta + artigos + fontes oficiais + aviso legal
 ```
 
-- `backend/data/legislacao.json` — corpus com 38 dispositivos legais (CDC, CLT, CF/88, CTB, Código Civil, CPC, Lei do Inquilinato, Lei dos Juizados Especiais e Federais, Lei do FGTS, Lei dos Planos de Saúde, Lei de Benefícios do INSS, CTN, Resolução ANAC 400 e 7 súmulas de STF/STJ/TST), cada um com texto, resumo em linguagem simples, tema, palavras-chave, fonte oficial e **bloco de vigência**.
+- `backend/data/legislacao.json` — corpus com 79 dispositivos legais (CF/88, Código Civil, LINDB, CDC e Decreto 7.962/2013, CLT, CTB, CPC, Lei do Inquilinato, Lei do Bem de Família, Lei dos Juizados Especiais, Federais e da Fazenda Pública, LC 80/1994 da Defensoria, Lei de Registros Públicos, ECA e ECA Digital, Maria da Penha, Estatuto da Pessoa Idosa e da Pessoa com Deficiência, LOAS/BPC, Lei do FGTS, Lei dos Planos de Saúde, Lei de Benefícios do INSS, CTN, Lei do Processo Administrativo, LAI, Lei 13.460/2017, LGPD, Código Florestal, Resolução ANAC 400 e 7 súmulas de STF/STJ/TST), cada um com texto, resumo em linguagem simples, tema, palavras-chave, fonte oficial e **bloco de vigência**.
 - `backend/app/retrieval.py` — índice BM25 com filtro por área temática; a interface `Retriever.buscar()` permite trocar o motor por busca semântica (embeddings) sem alterar a API.
 - `backend/app/llm.py` — camada de geração com prompt que exige linguagem cautelosa, proíbe inventar dispositivos e sempre encaminha para a Defensoria/Procon.
 - `backend/app/main.py` — API FastAPI e serving do frontend.
@@ -105,7 +105,7 @@ O maior risco de um RAG jurídico não é não achar o artigo — é achar o art
 
 ```json
 "vigencia": {
-  "status": "em_vacatio",            // vigente · em_vacatio · revogada
+  "status": "em_vacatio",            // vigente · em_vacatio · revogada · inconstitucional
   "entra_em_vigor_em": "2026-12-15",
   "alterada_por": ["EC 141/2026"],
   "nota": "Promulgada em 16/10/2026. A regra de 42 horas vale 60 dias após a publicação…",
@@ -113,7 +113,9 @@ O maior risco de um RAG jurídico não é não achar o artigo — é achar o art
 }
 ```
 
-A informação atravessa o sistema inteiro: entra no contexto do LLM (com regra explícita no prompt de nunca apresentar norma futura como vigente), aparece no modo extrativo, vira badge na resposta e na base legal, e alimenta o endpoint `/api/v1/vigencia`. Hoje a base tem duas normas publicadas e ainda sem efeito — a **EC 141/2026** (fim da escala 6x1: 42h em 15/12/2026, 40h em 14 meses) e o **Decreto 13.135/2026** (novo SAC, a partir de 02/11/2026).
+A informação atravessa o sistema inteiro: entra no contexto do LLM (com regra explícita no prompt de nunca apresentar norma futura como vigente), aparece no modo extrativo, vira badge na resposta e na base legal, e alimenta o endpoint `/api/v1/vigencia`. Hoje a base tem duas normas publicadas e ainda sem efeito — a **EC 141/2026** (fim da escala 6x1: 42h em 15/12/2026, 40h em 14 meses) e o **Decreto 13.135/2026** (novo SAC, a partir de 02/11/2026) —, um dispositivo **revogado** mantido como marcador histórico (CTB art. 262, apreensão do veículo por 30 dias, extinta em 2016) e um **declarado inconstitucional** (CC art. 1.790, sucessão do companheiro, STF Tema 809).
+
+Os quatro status não são redundantes entre si, e é por isso que `revogada` não dá conta do caso: um artigo inconstitucional continua impresso no Código, nunca foi revogado pelo Legislativo e ainda assim não deve ser aplicado. Quem lê o código em papel não tem como saber.
 
 ### Benchmark de armadilha temporal
 
@@ -134,20 +136,20 @@ python3 scripts/benchmark_temporal.py --casos          # BM25
 python3 scripts/benchmark_temporal.py --retriever semantico --json resultado.json
 ```
 
-**Resultado (top-3, corpus de 38 dispositivos):**
+**Resultado (top-3, corpus de 79 dispositivos):**
 
 | Métrica | BM25 | Semântico (e5) |
 |---|---|---|
-| dispositivo vigente no corpus | 4/24 (16,7%) | 4/24 (16,7%) |
-| recuperado quando existe | 4/4 (100%) | 4/4 (100%) |
-| texto de 2006 recuperado | **24/24 (100%)** | **23/24 (95,8%)** |
-| texto de 2006 **acima** do vigente | **3/4 (75%)** | **2/4 (50%)** |
-| resposta final cita o texto de 2006 | **24/24 (100%)** | **23/24 (95,8%)** |
-| …com aviso de revogação, após rotular | **24/24 (100%)** | **23/23 (100%)** |
+| dispositivo vigente no corpus | 24/24 (100%) | 24/24 (100%) |
+| recuperado quando existe | 24/24 (100%) | 23/24 (95,8%) |
+| texto de 2006 recuperado | **23/24 (95,8%)** | **21/24 (87,5%)** |
+| texto de 2006 **acima** do vigente | **10/24 (41,7%)** | **5/24 (20,8%)** |
+| resposta final cita o texto de 2006 | **23/24 (95,8%)** | **21/24 (87,5%)** |
+| …com aviso de revogação, após rotular | **23/23 (100%)** | **21/21 (100%)** |
 
-**Leitura.** Recuperação não resolve validade temporal. O texto de 2006 foi recuperado em praticamente todos os casos e venceu a redação vigente na maioria das perguntas em que as duas competiam — a fonte velha é *melhor escrita* para a pergunta do cidadão, porque foi feita exatamente para ele. Trocar BM25 por embeddings multilíngues melhora pouco (100% → 95,8% de contaminação; 75% → 50% de inversão) e não muda o quadro: **nenhum avanço no motor de busca resolve o problema, porque ele não é de semântica — é de metadado**. O que resolve é o rótulo: com `status: revogada`, o distrator continua sendo recuperado, mas toda resposta passa a trazer o aviso (100% nos dois motores). Daí a decisão de arquitetura do projeto — **a vigência é um campo do corpus, não um detalhe do conteúdo**.
+**Leitura.** Recuperação não resolve validade temporal. Com o corpus fechando os 24 casos, a redação vigente está lá e é recuperada — e **o texto de 2006 continua sendo recuperado junto em 88% a 96% das perguntas, e ainda vence a redação vigente em 21% a 42% delas**. A fonte velha é *melhor escrita* para a pergunta do cidadão, porque foi feita exatamente para ele: ela compete em pé de igualdade mesmo quando a resposta correta está indexada ao lado. Trocar BM25 por embeddings multilíngues reduz o dano (96% → 88% de contaminação; 42% → 21% de inversão) mas não muda o quadro: **nenhum avanço no motor de busca resolve o problema, porque ele não é de semântica — é de metadado**. O que resolve é o rótulo: com `status: revogada`, o distrator continua sendo recuperado, mas toda resposta passa a trazer o aviso (100% nos dois motores). Daí a decisão de arquitetura do projeto — **a vigência é um campo do corpus, não um detalhe do conteúdo**.
 
-A cobertura de 16,7% é um achado honesto e não um defeito escondido: ela mede o tamanho da lacuna do corpus e se conecta diretamente à lista de leis faltantes do dossiê de fontes (ECA, Lei 6.015, CTB em detalhe, LINDB). Conforme o corpus cresce, o número sobe — e o benchmark é a régua.
+A cobertura saiu de 16,7% (corpus de 38) para 100% (corpus de 79) com a entrada das leis que o dossiê de fontes apontava como faltantes — ECA, Lei 6.015, CTB em detalhe, LINDB, Código Florestal e o regime sucessório do companheiro. O ganho foi medido, não presumido: o benchmark é a régua. E o resultado mais interessante é o que **não** melhorou — a inversão caiu de 75% para 42% no BM25 porque passou a ser medida sobre 24 casos em vez de 4, e a contaminação quase não se moveu. Fechar a lacuna do corpus era necessário e não foi suficiente.
 
 *Nota metodológica:* os distratores recebem as mesmas palavras-chave curadas que o corpus dá aos seus dispositivos. Sem isso seriam penalizados de graça pelo peso que o BM25 atribui às palavras-chave, e o resultado seria otimista demais; o benchmark adota o pior caso. Os textos em `obsoleto` são paráfrases da redação antiga conforme o dossiê, não transcrições literais.
 
@@ -220,11 +222,11 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 ## Limitações (leia antes de usar)
 
 - **Não é aconselhamento jurídico.** O sistema informa a regra geral; detalhes do caso concreto mudam a resposta. Toda resposta encaminha para a Defensoria Pública (gratuita), Procon ou advogado.
-- O corpus é **curado e pequeno** (38 dispositivos legais): cobre consumidor, trabalho, trânsito, moradia, família, saúde, previdência, tributos e acesso à Justiça, e nada além disso.
+- O corpus é **curado e pequeno** (79 dispositivos legais): cobre consumidor, trabalho, trânsito, moradia, família, cível, registros públicos, criança e adolescente, saúde, previdência e assistência, tributos, proteção de dados, serviço público, ambiental e acesso à Justiça — e nada além disso.
 - A vigência é **conferida manualmente**, não monitorada em tempo real: cada dispositivo carrega a data da última conferência (`vigencia.conferida_em`) e o `GET /api/v1/vigencia` mostra o que está prestes a mudar. Uma norma alterada entre duas conferências continuaria sendo respondida com a redação antiga — por isso a data aparece junto da resposta.
-- A busca é **lexical** (BM25 + sinônimos), não semântica — perguntas muito distantes do vocabulário indexado podem não encontrar nada (o sistema diz isso em vez de inventar).
-- Os textos legais foram consolidados manualmente a partir do Planalto e podem não refletir alterações legislativas posteriores; cada artigo traz o link para a fonte oficial.
-- Sem jurisprudência por enquanto (ver roadmap).
+- A busca é **lexical por padrão** (BM25 + sinônimos PT-BR); o índice semântico existe, mas é opt-in (`DIREITO_ABERTO_RETRIEVER=semantico`). Perguntas muito distantes do vocabulário indexado podem não encontrar nada — e o sistema diz isso em vez de inventar.
+- Os textos legais foram consolidados manualmente a partir do Planalto e podem não refletir alterações legislativas posteriores; cada artigo traz o link para a fonte oficial. Textos marcados como "(síntese)" condensam caput e parágrafos relevantes em vez de transcrevê-los na íntegra.
+- A jurisprudência é uma **curadoria inicial de 7 súmulas** de STF, STJ e TST — não um índice de precedentes.
 
 ## Roadmap
 
@@ -254,6 +256,7 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - ⬜ Migrações de banco (Alembic) e deploy com PostgreSQL gerenciado
 - ✅ Frontend em React/Next.js (`web/`: perguntar, login, histórico e base legal, com modo escuro)
 - ✅ Benchmark de armadilha temporal (24 casos, três índices; mede cobertura, contaminação por fonte desatualizada e eficácia do rótulo de vigência)
+- ✅ Expansão do corpus para 100% de cobertura do benchmark (38 → 79 dispositivos; fechou as lacunas que o próprio benchmark mediu)
 - ⬜ Valores dinâmicos (tetos dos Juizados calculados a partir do salário mínimo vigente, em vez de fixos no conteúdo)
 - ⬜ Camada de revisão jurídica contínua com profissional (o fluxo `revisado: false` já existe)
 

@@ -47,6 +47,8 @@ def rotulo_vigencia(vigencia: dict) -> str:
         return f"AINDA NÃO ESTÁ EM VIGOR.{quando}"
     if status == "revogada":
         return "REVOGADO — não vale mais."
+    if status == "inconstitucional":
+        return "DECLARADO INCONSTITUCIONAL pelo STF — não deve ser aplicado."
     return "Em vigor."
 
 

@@ -660,6 +660,8 @@ const esc=s=>{const d=document.createElement("div");d.textContent=s;return d.inn
 function rotuloVigencia(v){
   if(!v || v.status==="vigente") return "";
   if(v.status==="revogada") return ` <span class="vig vig-revogada">⚠ revogado</span>`;
+  if(v.status==="inconstitucional")
+    return ` <span class="vig vig-revogada">⚠ declarado inconstitucional</span>`;
   const d=v.entra_em_vigor_em
     ? new Date(v.entra_em_vigor_em+"T00:00:00").toLocaleDateString("pt-BR") : null;
   const txt=d?`em vigor a partir de ${d}`:"ainda não está em vigor";

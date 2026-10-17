@@ -16,7 +16,7 @@ from app.retrieval import Retriever
 
 client = TestClient(app)
 
-STATUS_VALIDOS = {"vigente", "em_vacatio", "revogada"}
+STATUS_VALIDOS = {"vigente", "em_vacatio", "revogada", "inconstitucional"}
 
 
 @pytest.fixture(scope="module")
@@ -119,3 +119,15 @@ def test_estatisticas_reportam_status_e_conferencia():
     assert body["dispositivos_por_status"]["em_vacatio"] >= 2
     assert body["dispositivos_por_status"]["vigente"] > 0
     assert body["vigencia_conferida_em"]
+
+
+def test_conferencia_agregada_reporta_o_pior_caso():
+    """A data do corpus é a mais antiga, não a mais recente.
+
+    O campo existe para dizer o quanto a base pode estar velha; usar a
+    conferência mais recente anunciaria um frescor que a base não tem.
+    """
+    body = client.get("/api/v1/estatisticas").json()
+    datas = [a["vigencia"]["conferida_em"]
+             for a in client.get("/api/v1/artigos").json()["artigos"]]
+    assert body["vigencia_conferida_em"] == min(datas)

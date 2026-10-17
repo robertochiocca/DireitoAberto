@@ -111,6 +111,9 @@ SINONIMOS: dict[str, list[str]] = {
     "faleceu": ["herança", "inventário", "falecimento", "sucessão"],
     "morreu": ["herança", "inventário", "falecimento", "sucessão"],
     "testamento": ["herança", "sucessão"],
+    "herdei": ["herança", "sucessão", "herdar"],
+    "herdar": ["herança", "sucessão"],
+    "companheira": ["companheiro", "união", "estável"],
 }
 
 
@@ -218,11 +221,18 @@ class Retriever:
             self._idf[termo] = math.log(1 + (n - freq + 0.5) / (freq + 0.5))
 
     def _expandir_consulta(self, pergunta: str) -> list[str]:
+        """Tokens da pergunta mais os sinônimos, sem repetir termos.
+
+        A deduplicação importa: "dono" e "aluguel" expandem os dois para
+        "locador", e sem ela esse termo pontuaria em dobro — bastaria um
+        artigo citar muito o locador para superar o dispositivo que de fato
+        responde à pergunta.
+        """
         tokens = normalizar(pergunta)
-        expandidos = list(tokens)
+        expandidos = dict.fromkeys(tokens)
         for tok in tokens:
-            expandidos.extend(_SINONIMOS_NORM.get(tok, []))
-        return expandidos
+            expandidos.update(dict.fromkeys(_SINONIMOS_NORM.get(tok, [])))
+        return list(expandidos)
 
     def temas(self) -> list[str]:
         return sorted({art["tema"] for art in self.artigos})

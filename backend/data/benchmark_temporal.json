@@ -11,18 +11,36 @@
       "vigente": "A EC 141/2026 fixa 42 horas semanais com dois dias de descanso (60 dias após a publicação) e 40 horas após 14 meses; até lá vale o limite de 44 horas.",
       "obsoleto": "A jornada normal de trabalho é de até 8 horas por dia e 44 horas por semana, facultada a compensação de horários.",
       "mudou_por": "EC 141/2026",
-      "palavras_chave": ["jornada", "horas", "semanais", "trabalho", "escala", "descanso", "folga", "semana"]
+      "palavras_chave": [
+        "jornada",
+        "horas",
+        "semanais",
+        "trabalho",
+        "escala",
+        "descanso",
+        "folga",
+        "semana"
+      ]
     },
     {
       "id": "direitos-sociais",
       "pergunta": "quais são os direitos sociais garantidos pela Constituição?",
       "dispositivo": "CF, art. 6º",
-      "id_corpus": null,
+      "id_corpus": "cf-6",
       "tema": "trabalho",
       "vigente": "São direitos sociais a educação, a saúde, a alimentação, o trabalho, a moradia, o transporte, o lazer, a segurança, a previdência social, a proteção à maternidade e à infância e a assistência aos desamparados.",
       "obsoleto": "São direitos sociais a educação, a saúde, o trabalho, a moradia, o lazer, a segurança, a previdência social, a proteção à maternidade e à infância e a assistência aos desamparados.",
       "mudou_por": "EC 64/2010 e EC 90/2015",
-      "palavras_chave": ["direitos", "sociais", "educação", "saúde", "alimentação", "moradia", "transporte", "constituição"]
+      "palavras_chave": [
+        "direitos",
+        "sociais",
+        "educação",
+        "saúde",
+        "alimentação",
+        "moradia",
+        "transporte",
+        "constituição"
+      ]
     },
     {
       "id": "divorcio-prazo",
@@ -33,40 +51,77 @@
       "vigente": "O divórcio é direto: não existe prazo mínimo nem exigência de separação prévia.",
       "obsoleto": "O casamento civil pode ser dissolvido pelo divórcio após prévia separação judicial por mais de um ano ou comprovada separação de fato por mais de dois anos.",
       "mudou_por": "EC 66/2010",
-      "palavras_chave": ["divórcio", "separação", "prazo", "casamento", "dissolver", "um", "ano", "dois", "anos"]
+      "palavras_chave": [
+        "divórcio",
+        "separação",
+        "prazo",
+        "casamento",
+        "dissolver",
+        "um",
+        "ano",
+        "dois",
+        "anos"
+      ]
     },
     {
       "id": "capacidade-deficiencia",
       "pergunta": "uma pessoa com deficiência mental pode assinar contratos sozinha?",
       "dispositivo": "CC, arts. 3º e 4º",
-      "id_corpus": null,
+      "id_corpus": "cc-3-4",
       "tema": "civel",
       "vigente": "Só os menores de 16 anos são absolutamente incapazes. A deficiência, por si só, não retira a capacidade civil (Estatuto da Pessoa com Deficiência).",
       "obsoleto": "São absolutamente incapazes os menores de 16 anos e os que, por enfermidade ou deficiência mental, não tiverem o necessário discernimento para a prática dos atos da vida civil.",
       "mudou_por": "Lei 13.146/2015 (Estatuto da Pessoa com Deficiência)",
-      "palavras_chave": ["capacidade", "incapaz", "deficiência", "mental", "curatela", "contrato", "assinar", "civil"]
+      "palavras_chave": [
+        "capacidade",
+        "incapaz",
+        "deficiência",
+        "mental",
+        "curatela",
+        "contrato",
+        "assinar",
+        "civil"
+      ]
     },
     {
       "id": "uniao-estavel-mesmo-sexo",
       "pergunta": "casais do mesmo sexo podem ter união estável reconhecida?",
       "dispositivo": "CC, art. 1.723",
-      "id_corpus": null,
+      "id_corpus": "cc-1723",
       "tema": "familia",
       "vigente": "Sim. O STF (ADI 4.277 e ADPF 132, 2011) reconheceu a união estável entre pessoas do mesmo sexo como entidade familiar.",
       "obsoleto": "É reconhecida como entidade familiar a união estável entre o homem e a mulher, configurada na convivência pública, contínua e duradoura.",
       "mudou_por": "STF, ADI 4.277 e ADPF 132 (2011)",
-      "palavras_chave": ["união", "estável", "homoafetiva", "mesmo", "sexo", "companheiro", "entidade", "familiar"]
+      "palavras_chave": [
+        "união",
+        "estável",
+        "homoafetiva",
+        "mesmo",
+        "sexo",
+        "companheiro",
+        "entidade",
+        "familiar"
+      ]
     },
     {
       "id": "heranca-companheiro",
       "pergunta": "meu companheiro morreu; eu herdo menos do que se fôssemos casados?",
       "dispositivo": "CC, art. 1.790",
-      "id_corpus": null,
+      "id_corpus": "cc-1790",
       "tema": "familia",
       "vigente": "Não. O STF (RE 878.694, 2017) declarou inconstitucional o regime diferenciado: o companheiro herda nas mesmas condições do cônjuge (art. 1.829).",
       "obsoleto": "O companheiro participa da sucessão do outro quanto aos bens adquiridos onerosamente na vigência da união estável, em condições diferentes das do cônjuge.",
       "mudou_por": "STF, RE 878.694 (2017)",
-      "palavras_chave": ["herança", "companheiro", "união", "estável", "sucessão", "cônjuge", "herdar", "falecimento"]
+      "palavras_chave": [
+        "herança",
+        "companheiro",
+        "união",
+        "estável",
+        "sucessão",
+        "cônjuge",
+        "herdar",
+        "falecimento"
+      ]
     },
     {
       "id": "guarda-sem-acordo",
@@ -77,95 +132,180 @@
       "vigente": "A guarda compartilhada é a regra, mesmo sem acordo entre os pais, desde que ambos estejam aptos a exercer o poder familiar.",
       "obsoleto": "Não havendo acordo entre os pais, a guarda será atribuída a quem revelar melhores condições para exercê-la.",
       "mudou_por": "Leis 11.698/2008 e 13.058/2014",
-      "palavras_chave": ["guarda", "filho", "pais", "acordo", "compartilhada", "unilateral", "melhores", "condições"]
+      "palavras_chave": [
+        "guarda",
+        "filho",
+        "pais",
+        "acordo",
+        "compartilhada",
+        "unilateral",
+        "melhores",
+        "condições"
+      ]
     },
     {
       "id": "juros-correcao",
       "pergunta": "qual índice de juros e correção se aplica quando o contrato não diz nada?",
       "dispositivo": "CC, arts. 389 e 406",
-      "id_corpus": null,
+      "id_corpus": "cc-389-406",
       "tema": "civel",
       "vigente": "Sem índice no contrato, a correção é pelo IPCA e os juros pela taxa legal (Selic menos IPCA), conforme a Lei 14.905/2024.",
       "obsoleto": "Os juros moratórios, quando não convencionados, serão fixados segundo a taxa que estiver em vigor para a mora do pagamento de impostos devidos à Fazenda Nacional, e a correção por índices oficiais.",
       "mudou_por": "Lei 14.905/2024",
-      "palavras_chave": ["juros", "mora", "correção", "monetária", "índice", "taxa", "legal", "contrato", "dívida"]
+      "palavras_chave": [
+        "juros",
+        "mora",
+        "correção",
+        "monetária",
+        "índice",
+        "taxa",
+        "legal",
+        "contrato",
+        "dívida"
+      ]
     },
     {
       "id": "pontos-cnh",
       "pergunta": "com quantos pontos a minha CNH é suspensa?",
       "dispositivo": "CTB, arts. 259 e 261, § 1º",
-      "id_corpus": null,
+      "id_corpus": "ctb-259-261",
       "tema": "transito",
       "vigente": "Depende das infrações gravíssimas no período de 12 meses: 20, 30 ou 40 pontos. Quem exerce atividade remunerada tem limite de 40 pontos.",
       "obsoleto": "A suspensão do direito de dirigir ocorre quando o infrator atinge 20 pontos no período de 12 meses.",
       "mudou_por": "Lei 14.071/2020",
-      "palavras_chave": ["pontos", "cnh", "suspensão", "carteira", "habilitação", "vinte", "pontuação", "infrações"]
+      "palavras_chave": [
+        "pontos",
+        "cnh",
+        "suspensão",
+        "carteira",
+        "habilitação",
+        "vinte",
+        "pontuação",
+        "infrações"
+      ]
     },
     {
       "id": "indicar-condutor",
       "pergunta": "quanto tempo tenho para indicar quem estava dirigindo o carro na multa?",
       "dispositivo": "CTB, art. 257, § 7º",
-      "id_corpus": null,
+      "id_corpus": "ctb-257",
       "tema": "transito",
       "vigente": "30 dias contados da notificação da autuação.",
       "obsoleto": "O proprietário tem 15 dias, contados da notificação da autuação, para identificar o condutor infrator.",
       "mudou_por": "Lei 14.071/2020",
-      "palavras_chave": ["indicar", "condutor", "multa", "prazo", "notificação", "proprietário", "quinze", "dias", "identificação"]
+      "palavras_chave": [
+        "indicar",
+        "condutor",
+        "multa",
+        "prazo",
+        "notificação",
+        "proprietário",
+        "quinze",
+        "dias",
+        "identificação"
+      ]
     },
     {
       "id": "alcool-direcao",
       "pergunta": "qual a punição por dirigir depois de beber?",
       "dispositivo": "CTB, arts. 165 e 165-A",
-      "id_corpus": null,
+      "id_corpus": "ctb-165",
       "tema": "transito",
       "vigente": "Tolerância zero: multa de dez vezes o valor e suspensão por 12 meses. Recusar o bafômetro tem a mesma penalidade (art. 165-A).",
       "obsoleto": "Dirigir sob a influência de álcool em nível superior ao permitido: multa de cinco vezes o valor e suspensão do direito de dirigir.",
       "mudou_por": "Leis 11.705/2008, 12.760/2012 e 13.281/2016",
-      "palavras_chave": ["álcool", "beber", "bafômetro", "embriaguez", "dirigir", "multa", "suspensão", "lei", "seca"]
+      "palavras_chave": [
+        "álcool",
+        "beber",
+        "bafômetro",
+        "embriaguez",
+        "dirigir",
+        "multa",
+        "suspensão",
+        "lei",
+        "seca"
+      ]
     },
     {
       "id": "desconto-multa",
       "pergunta": "tem desconto se eu pagar a multa sem recorrer?",
       "dispositivo": "CTB, art. 284",
-      "id_corpus": null,
+      "id_corpus": "ctb-284",
       "tema": "transito",
       "vigente": "Além de 20% de desconto pelo pagamento até o vencimento, há 40% de desconto para quem adere à notificação eletrônica (SNE) e não recorre.",
       "obsoleto": "A multa poderá ser paga por 80% do seu valor se o infrator optar pelo pagamento até a data do vencimento.",
       "mudou_por": "Lei 13.281/2016",
-      "palavras_chave": ["desconto", "multa", "pagamento", "vencimento", "sne", "notificação", "eletrônica", "oitenta"]
+      "palavras_chave": [
+        "desconto",
+        "multa",
+        "pagamento",
+        "vencimento",
+        "sne",
+        "notificação",
+        "eletrônica",
+        "oitenta"
+      ]
     },
     {
       "id": "apreensao-veiculo",
       "pergunta": "a polícia pode apreender meu veículo por 30 dias como penalidade?",
       "dispositivo": "CTB, art. 262",
-      "id_corpus": null,
+      "id_corpus": "ctb-262",
       "tema": "transito",
       "vigente": "Não: a penalidade de apreensão do veículo foi revogada pela Lei 13.281/2016.",
       "obsoleto": "O veículo apreendido é recolhido ao depósito e nele permanece sob custódia pelo prazo de até trinta dias.",
       "mudou_por": "Lei 13.281/2016",
-      "palavras_chave": ["apreensão", "veículo", "depósito", "trinta", "dias", "recolhido", "carro", "penalidade"]
+      "palavras_chave": [
+        "apreensão",
+        "veículo",
+        "depósito",
+        "trinta",
+        "dias",
+        "recolhido",
+        "carro",
+        "penalidade"
+      ]
     },
     {
       "id": "menor-potencial-ofensivo",
       "pergunta": "quais crimes vão para o juizado criminal?",
       "dispositivo": "Lei 9.099, art. 61",
-      "id_corpus": null,
+      "id_corpus": "lei9099-61",
       "tema": "acesso-justica",
       "vigente": "Infrações de menor potencial ofensivo são as contravenções e os crimes com pena máxima não superior a 2 anos.",
       "obsoleto": "Consideram-se infrações de menor potencial ofensivo as contravenções penais e os crimes a que a lei comine pena máxima não superior a um ano.",
       "mudou_por": "Lei 11.313/2006",
-      "palavras_chave": ["menor", "potencial", "ofensivo", "juizado", "criminal", "pena", "máxima", "ano", "contravenção"]
+      "palavras_chave": [
+        "menor",
+        "potencial",
+        "ofensivo",
+        "juizado",
+        "criminal",
+        "pena",
+        "máxima",
+        "ano",
+        "contravenção"
+      ]
     },
     {
       "id": "prazos-juizado",
       "pergunta": "os prazos do juizado especial contam em dias corridos ou úteis?",
       "dispositivo": "Lei 9.099, art. 12-A",
-      "id_corpus": null,
+      "id_corpus": "lei9099-12a",
       "tema": "acesso-justica",
       "vigente": "Na contagem dos prazos processuais do Juizado Especial Cível computam-se somente os dias úteis.",
       "obsoleto": "A lei do Juizado não traz regra própria de contagem; os prazos processuais correm em dias corridos.",
       "mudou_por": "Lei 13.728/2018",
-      "palavras_chave": ["prazo", "dias", "úteis", "corridos", "contagem", "juizado", "processual", "recurso"]
+      "palavras_chave": [
+        "prazo",
+        "dias",
+        "úteis",
+        "corridos",
+        "contagem",
+        "juizado",
+        "processual",
+        "recurso"
+      ]
     },
     {
       "id": "competencia-juizado",
@@ -176,95 +316,177 @@
       "vigente": "A competência que remetia ao art. 275, II, do CPC de 1973 foi mantida pelo art. 1.063 do CPC/2015, confirmada pela Lei 14.976/2024.",
       "obsoleto": "Compete ao Juizado Especial Cível julgar as causas enumeradas no art. 275, inciso II, do Código de Processo Civil de 1973.",
       "mudou_por": "Lei 14.976/2024 (c/ CPC/2015, art. 1.063)",
-      "palavras_chave": ["competência", "juizado", "cível", "causas", "procedimento", "sumário", "cpc"]
+      "palavras_chave": [
+        "competência",
+        "juizado",
+        "cível",
+        "causas",
+        "procedimento",
+        "sumário",
+        "cpc"
+      ]
     },
     {
       "id": "mudar-prenome",
       "pergunta": "posso mudar meu primeiro nome sem processo judicial?",
       "dispositivo": "Lei 6.015, art. 56",
-      "id_corpus": null,
+      "id_corpus": "lei6015-56",
       "tema": "civil-registro",
       "vigente": "Sim: depois dos 18 anos, a qualquer tempo e sem precisar justificar, diretamente no cartório — uma vez.",
       "obsoleto": "O interessado poderá alterar o prenome no primeiro ano após atingir a maioridade civil, desde que não prejudique os apelidos de família.",
       "mudou_por": "Lei 14.382/2022",
-      "palavras_chave": ["mudar", "nome", "prenome", "cartório", "maioridade", "primeiro", "ano", "alterar", "registro"]
+      "palavras_chave": [
+        "mudar",
+        "nome",
+        "prenome",
+        "cartório",
+        "maioridade",
+        "primeiro",
+        "ano",
+        "alterar",
+        "registro"
+      ]
     },
     {
       "id": "mudar-sobrenome",
       "pergunta": "como incluo o sobrenome do meu padrasto no meu nome?",
       "dispositivo": "Lei 6.015, art. 57",
-      "id_corpus": null,
+      "id_corpus": "lei6015-57",
       "tema": "civil-registro",
       "vigente": "A inclusão e a exclusão de sobrenomes podem ser feitas diretamente no cartório, sem processo judicial.",
       "obsoleto": "Qualquer alteração posterior de nome somente por exceção e motivadamente será permitida, por sentença do juiz.",
       "mudou_por": "Lei 14.382/2022",
-      "palavras_chave": ["sobrenome", "incluir", "excluir", "nome", "padrasto", "cartório", "sentença", "alteração"]
+      "palavras_chave": [
+        "sobrenome",
+        "incluir",
+        "excluir",
+        "nome",
+        "padrasto",
+        "cartório",
+        "sentença",
+        "alteração"
+      ]
     },
     {
       "id": "erro-grafia-registro",
       "pergunta": "meu nome saiu escrito errado na certidão; preciso de advogado para corrigir?",
       "dispositivo": "Lei 6.015, art. 110",
-      "id_corpus": null,
+      "id_corpus": "lei6015-110",
       "tema": "civil-registro",
       "vigente": "Não: erros de grafia e outros erros evidentes são retificados pelo próprio cartório, nas hipóteses do artigo.",
       "obsoleto": "A correção de erros de grafia poderá ser processada mediante petição, ouvido o Ministério Público e com decisão do juiz.",
       "mudou_por": "Lei 13.484/2017",
-      "palavras_chave": ["erro", "grafia", "certidão", "retificação", "cartório", "corrigir", "juiz", "ministério", "público"]
+      "palavras_chave": [
+        "erro",
+        "grafia",
+        "certidão",
+        "retificação",
+        "cartório",
+        "corrigir",
+        "juiz",
+        "ministério",
+        "público"
+      ]
     },
     {
       "id": "registro-tardio",
       "pergunta": "sou adulto e nunca fui registrado; como tiro minha certidão de nascimento?",
       "dispositivo": "Lei 6.015, art. 46",
-      "id_corpus": null,
+      "id_corpus": "lei6015-46",
       "tema": "civil-registro",
       "vigente": "O registro tardio é feito diretamente no cartório; o juiz só intervém se houver suspeita de falsidade.",
       "obsoleto": "O registro de nascimento fora do prazo, para maiores de 12 anos, depende de despacho do juiz competente.",
       "mudou_por": "Lei 11.790/2008",
-      "palavras_chave": ["registro", "tardio", "nascimento", "certidão", "cartório", "juiz", "despacho", "adulto"]
+      "palavras_chave": [
+        "registro",
+        "tardio",
+        "nascimento",
+        "certidão",
+        "cartório",
+        "juiz",
+        "despacho",
+        "adulto"
+      ]
     },
     {
       "id": "conselho-tutelar",
       "pergunta": "quanto tempo dura o mandato do conselheiro tutelar?",
       "dispositivo": "ECA, art. 132",
-      "id_corpus": null,
+      "id_corpus": "eca-132",
       "tema": "crianca-adolescente",
       "vigente": "Mandato de 4 anos, permitida recondução por novos processos de escolha.",
       "obsoleto": "O mandato dos membros do Conselho Tutelar é de três anos, permitida uma recondução.",
       "mudou_por": "Leis 12.696/2012 e 13.824/2019",
-      "palavras_chave": ["conselho", "tutelar", "mandato", "conselheiro", "anos", "recondução", "eleição"]
+      "palavras_chave": [
+        "conselho",
+        "tutelar",
+        "mandato",
+        "conselheiro",
+        "anos",
+        "recondução",
+        "eleição"
+      ]
     },
     {
       "id": "creche-idade",
       "pergunta": "até que idade meu filho tem direito a creche e pré-escola?",
       "dispositivo": "ECA, art. 54, IV",
-      "id_corpus": null,
+      "id_corpus": "eca-54",
       "tema": "crianca-adolescente",
       "vigente": "Atendimento em creche e pré-escola às crianças de zero a cinco anos de idade.",
       "obsoleto": "Atendimento em creche e pré-escola às crianças de zero a seis anos de idade.",
       "mudou_por": "Lei 13.306/2016",
-      "palavras_chave": ["creche", "pré-escola", "idade", "criança", "vaga", "zero", "seis", "anos", "educação"]
+      "palavras_chave": [
+        "creche",
+        "pré-escola",
+        "idade",
+        "criança",
+        "vaga",
+        "zero",
+        "seis",
+        "anos",
+        "educação"
+      ]
     },
     {
       "id": "lindb-nome",
       "pergunta": "o que é a lei de introdução que vem antes do Código Civil?",
       "dispositivo": "Decreto-Lei 4.657/1942",
-      "id_corpus": null,
+      "id_corpus": "lindb-3",
       "tema": "civel",
       "vigente": "Chama-se Lei de Introdução às Normas do Direito Brasileiro (LINDB) e ganhou os arts. 20 a 30 sobre segurança jurídica nas decisões públicas.",
       "obsoleto": "O Decreto-Lei 4.657/1942 é a Lei de Introdução ao Código Civil (LICC), com 19 artigos.",
       "mudou_por": "Leis 12.376/2010 e 13.655/2018",
-      "palavras_chave": ["lindb", "licc", "introdução", "normas", "direito", "brasileiro", "código", "civil"]
+      "palavras_chave": [
+        "lindb",
+        "licc",
+        "introdução",
+        "normas",
+        "direito",
+        "brasileiro",
+        "código",
+        "civil"
+      ]
     },
     {
       "id": "codigo-florestal",
       "pergunta": "qual é o código florestal em vigor no Brasil?",
       "dispositivo": "Lei 4.771/1965 e Decreto 3.179/1999",
-      "id_corpus": null,
+      "id_corpus": "lei12651-1",
       "tema": "ambiental",
       "vigente": "A Lei 4.771/1965 foi revogada: vale a Lei 12.651/2012, e as infrações ambientais seguem o Decreto 6.514/2008.",
       "obsoleto": "O Código Florestal brasileiro é a Lei 4.771/1965, regulamentada quanto às infrações pelo Decreto 3.179/1999.",
       "mudou_por": "Lei 12.651/2012 e Decreto 6.514/2008",
-      "palavras_chave": ["código", "florestal", "app", "reserva", "legal", "ambiental", "vegetação", "infração"]
+      "palavras_chave": [
+        "código",
+        "florestal",
+        "app",
+        "reserva",
+        "legal",
+        "ambiental",
+        "vegetação",
+        "infração"
+      ]
     }
   ]
 }

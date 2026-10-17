@@ -16,6 +16,7 @@ const SITUACOES = [
   { valor: "vigente", rotulo: "Em vigor hoje" },
   { valor: "em_vacatio", rotulo: "Ainda não em vigor" },
   { valor: "revogada", rotulo: "Revogado" },
+  { valor: "inconstitucional", rotulo: "Inconstitucional" },
 ];
 
 export default function BaseLegalPage() {
