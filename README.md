@@ -115,6 +115,42 @@ O maior risco de um RAG jurídico não é não achar o artigo — é achar o art
 
 A informação atravessa o sistema inteiro: entra no contexto do LLM (com regra explícita no prompt de nunca apresentar norma futura como vigente), aparece no modo extrativo, vira badge na resposta e na base legal, e alimenta o endpoint `/api/v1/vigencia`. Hoje a base tem duas normas publicadas e ainda sem efeito — a **EC 141/2026** (fim da escala 6x1: 42h em 15/12/2026, 40h em 14 meses) e o **Decreto 13.135/2026** (novo SAC, a partir de 02/11/2026).
 
+### Benchmark de armadilha temporal
+
+Um RAG jurídico erra de dois jeitos: não achando o dispositivo, ou achando **a redação errada no tempo**. O segundo é mais perigoso, porque a resposta sai fluente e confiante. Este benchmark mede exatamente isso.
+
+**Dataset** (`data/benchmark_temporal.json`): 24 dispositivos cuja redação mudou depois de 10/04/2006 — data em que o texto do *Livro do Cidadão* (AGU/MJ), publicação oficial e gratuita do governo, parou. Cada caso traz a pergunta do cidadão, o que vale hoje e o que aquela fonte responderia.
+
+**Experimento** — três índices:
+
+| Índice | O que contém | O que mede |
+|---|---|---|
+| limpo | o corpus atual | cobertura: temos a redação vigente? |
+| contaminado | corpus + os 24 textos de 2006, **sem marca de obsolescência** | o dano de indexar uma fonte envelhecida |
+| mitigado | os mesmos textos, agora com `vigencia.status: revogada` | se o rótulo de vigência basta para neutralizar o dano |
+
+```bash
+python3 scripts/benchmark_temporal.py --casos          # BM25
+python3 scripts/benchmark_temporal.py --retriever semantico --json resultado.json
+```
+
+**Resultado (top-3, corpus de 38 dispositivos):**
+
+| Métrica | BM25 | Semântico (e5) |
+|---|---|---|
+| dispositivo vigente no corpus | 4/24 (16,7%) | 4/24 (16,7%) |
+| recuperado quando existe | 4/4 (100%) | 4/4 (100%) |
+| texto de 2006 recuperado | **24/24 (100%)** | **23/24 (95,8%)** |
+| texto de 2006 **acima** do vigente | **3/4 (75%)** | **2/4 (50%)** |
+| resposta final cita o texto de 2006 | **24/24 (100%)** | **23/24 (95,8%)** |
+| …com aviso de revogação, após rotular | **24/24 (100%)** | **23/23 (100%)** |
+
+**Leitura.** Recuperação não resolve validade temporal. O texto de 2006 foi recuperado em praticamente todos os casos e venceu a redação vigente na maioria das perguntas em que as duas competiam — a fonte velha é *melhor escrita* para a pergunta do cidadão, porque foi feita exatamente para ele. Trocar BM25 por embeddings multilíngues melhora pouco (100% → 95,8% de contaminação; 75% → 50% de inversão) e não muda o quadro: **nenhum avanço no motor de busca resolve o problema, porque ele não é de semântica — é de metadado**. O que resolve é o rótulo: com `status: revogada`, o distrator continua sendo recuperado, mas toda resposta passa a trazer o aviso (100% nos dois motores). Daí a decisão de arquitetura do projeto — **a vigência é um campo do corpus, não um detalhe do conteúdo**.
+
+A cobertura de 16,7% é um achado honesto e não um defeito escondido: ela mede o tamanho da lacuna do corpus e se conecta diretamente à lista de leis faltantes do dossiê de fontes (ECA, Lei 6.015, CTB em detalhe, LINDB). Conforme o corpus cresce, o número sobe — e o benchmark é a régua.
+
+*Nota metodológica:* os distratores recebem as mesmas palavras-chave curadas que o corpus dá aos seus dispositivos. Sem isso seriam penalizados de graça pelo peso que o BM25 atribui às palavras-chave, e o resultado seria otimista demais; o benchmark adota o pior caso. Os textos em `obsoleto` são paráfrases da redação antiga conforme o dossiê, não transcrições literais.
+
 ### Ingestão de jurisprudência (STF/STJ/TST)
 
 ```bash
@@ -217,7 +253,7 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - ✅ Fila de monitoramento de normas em vacatio legis (`/api/v1/vigencia`)
 - ⬜ Migrações de banco (Alembic) e deploy com PostgreSQL gerenciado
 - ✅ Frontend em React/Next.js (`web/`: perguntar, login, histórico e base legal, com modo escuro)
-- ⬜ Benchmark de "armadilha temporal": medir se o RAG responde com a redação vigente quando confrontado com texto legal desatualizado
+- ✅ Benchmark de armadilha temporal (24 casos, três índices; mede cobertura, contaminação por fonte desatualizada e eficácia do rótulo de vigência)
 - ⬜ Valores dinâmicos (tetos dos Juizados calculados a partir do salário mínimo vigente, em vez de fixos no conteúdo)
 - ⬜ Camada de revisão jurídica contínua com profissional (o fluxo `revisado: false` já existe)
 
