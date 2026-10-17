@@ -1,6 +1,6 @@
 import pytest
 
-from app.comparacao import carregar_casos_busca
+from app.comparacao import carregar_casos_busca, perguntas_com_gabarito
 from app.retrieval import Retriever, normalizar
 
 
@@ -89,3 +89,29 @@ def test_scores_ordenados_decrescentes(retriever):
     scores = [r.score for r in resultados]
     assert scores == sorted(scores, reverse=True)
     assert resultados, "consulta típica deveria retornar resultados"
+
+
+# ----------------------------------------------------------- busca adaptativa
+def test_busca_adaptativa_mantem_o_artigo_certo_em_todas_as_perguntas(retriever):
+    """Devolver menos artigos não pode custar o artigo certo."""
+    perdidos = [
+        (q, esperado) for q, esperado in perguntas_com_gabarito()
+        if esperado not in [r.id for r in retriever.buscar(q, adaptativo=True)]
+    ]
+    assert not perdidos, perdidos
+
+
+def test_busca_adaptativa_corta_a_cauda_fraca(retriever):
+    # O 3º e o 4º colocados (art. 6º da CF e superendividamento) têm 15% da
+    # nota do 1º: entravam só para preencher as vagas.
+    ids = [r.id for r in retriever.buscar("o plano de saúde negou minha cirurgia", adaptativo=True)]
+    assert ids == ["lei9656-35c", "stj-sumula302"]
+    assert len(retriever.buscar("o plano de saúde negou minha cirurgia")) == 4  # padrão: fixo
+
+
+def test_busca_adaptativa_respeita_minimo_e_maximo(retriever):
+    for q, _ in perguntas_com_gabarito():
+        fixa = retriever.buscar(q)
+        adaptativa = retriever.buscar(q, adaptativo=True)
+        assert min(Retriever.MINIMO_ARTIGOS, len(fixa)) <= len(adaptativa) <= len(fixa), q
+        assert [r.id for r in adaptativa] == [r.id for r in fixa][: len(adaptativa)], q

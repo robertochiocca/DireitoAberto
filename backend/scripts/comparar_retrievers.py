@@ -49,20 +49,25 @@ def main() -> None:
 
     buscadores = {
         "BM25": lambda q, k: [r.id for r in bm25.buscar(q, top_k=k)],
+        # O que a API devolve: até top-k, menos quando os demais são fracos.
+        "BM25 adaptativo": lambda q, k: [
+            r.id for r in bm25.buscar(q, top_k=args.top_k, adaptativo=True)
+        ],
         "semântico": lambda q, k: [r.id for r in semantico.buscar(q, top_k=k)],
     }
     tema = {a["id"]: a["tema"] for a in bm25.artigos}
     julgamentos = carregar_julgamentos()
-    medicoes = comparar(buscadores, tema, top_k=args.top_k, julgamentos=julgamentos)
+    medicoes = comparar(buscadores, tema, top_k=args.top_k, julgamentos=julgamentos,
+                       fundir=["BM25", "semântico"])
 
     n = medicoes[0].perguntas
     print(f"\n{'COMPARAÇÃO DE MOTORES DE BUSCA':^78}")
     print(f"{CINZA}{f'top-{args.top_k} · {n} perguntas com gabarito · {len(julgamentos)} julgadas à mão':^78}{FIM}\n")
 
-    cab = f"  {'':<15}{'certo no top-3':>15}{'certo em 1º':>13}{'extras de':>12}"
+    cab = f"  {'':<17}{'artigos':>8}{'certo no top-3':>15}{'certo em 1º':>13}{'extras de':>12}"
     cab += f"{'relev.':>9}{'tang.':>8}{'ruído':>8}{'ms/busca':>10}"
     print(cab)
-    print(f"  {'':<15}{'':>15}{'':>13}{'outra área':>12}{CINZA}{'── julgamento manual ──':>25}{FIM}")
+    print(f"  {'':<17}{'(média)':>8}{'':>15}{'':>13}{'outra área':>12}{CINZA}{'── julgamento manual ──':>25}{FIM}")
     melhor_top3 = max(m.esperado_top3 for m in medicoes)
     menor_ruido = min(m.julgados["ruido"] for m in medicoes)
     for m in medicoes:
@@ -70,7 +75,7 @@ def main() -> None:
         corr = VERDE if m.julgados["ruido"] == menor_ruido else AMARELO
         ms = f"{m.ms_por_pergunta:.1f}" if m.ms_por_pergunta is not None else "—"
         vagas = m.vagas_julgadas
-        print(f"  {m.motor:<15}{cor3}{m.esperado_top3:>10}/{n:<4}{FIM}{m.primeiro_lugar:>8}/{n:<4}"
+        print(f"  {m.motor:<17}{m.media_resultados:>8.2f}{cor3}{m.esperado_top3:>10}/{n:<4}{FIM}{m.primeiro_lugar:>8}/{n:<4}"
               f"{m.outro_tema_pct:>10.0f}% "
               f"{m.julgados['relevante']:>8}{m.julgados['tangencial']:>8}"
               f"{corr}{m.julgados['ruido']:>5}/{vagas:<2}{FIM}{ms:>10}")
@@ -84,14 +89,14 @@ def main() -> None:
         print(f"\n{CINZA}  Artigo certo fora do top-3:{FIM}")
         for motor, lst in perdidos.items():
             for q, esperado in lst:
-                print(f"    {motor:<15} {esperado:<14} ← {q}")
+                print(f"    {motor:<17} {esperado:<14} ← {q}")
 
     if args.casos:
         for q, rotulos in julgamentos.items():
             print(f"\n  {q}")
             for m in medicoes:
                 itens = [f"{MARCA.get(rotulos.get(a), '?')} {a}" for a in m.resultados[q]]
-                print(f"    {CINZA}{m.motor:<14}{FIM} " + "   ".join(itens))
+                print(f"    {CINZA}{m.motor:<16}{FIM} " + "   ".join(itens))
 
     nao_julgados = sorted({x for m in medicoes for x in m.nao_julgados})
     if nao_julgados:

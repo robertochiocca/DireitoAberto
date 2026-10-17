@@ -62,3 +62,9 @@ def test_duas_instancias_no_mesmo_processo():
     emb = EmbedderMultilingue()
     EmbeddingRetriever(embedder=emb)
     EmbeddingRetriever(embedder=emb)
+
+
+def test_busca_adaptativa_nao_muda_o_semantico(retriever):
+    """O corte relativo é calibrado para o BM25; no cosseno do e5 não corta nada."""
+    q = "o plano de saúde negou minha cirurgia"
+    assert [r.id for r in retriever.buscar(q, adaptativo=True)] == [r.id for r in retriever.buscar(q)]

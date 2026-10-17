@@ -94,3 +94,10 @@ def test_listar_jurisprudencia_por_tribunal():
     assert body["total"] >= 3
     assert all(a["tribunal"] == "STJ" for a in body["artigos"])
     assert all(a["tipo"] == "jurisprudencia" for a in body["artigos"])
+
+
+def test_perguntar_devolve_menos_artigos_quando_os_demais_sao_fracos():
+    """A API usa a busca adaptativa: sem completar as vagas com outro assunto."""
+    resp = client.post("/api/perguntar", json={"pergunta": "o plano de saúde negou minha cirurgia"})
+    ids = [a["id"] for a in resp.json()["artigos"]]
+    assert ids == ["lei9656-35c", "stj-sumula302"]

@@ -68,7 +68,13 @@ class EmbeddingRetriever:
         top_k: int = 4,
         score_minimo: float = 0.2,
         tema: str | None = None,
+        adaptativo: bool = False,
     ) -> list[Resultado]:
+        # `adaptativo` existe para manter a interface do BM25, mas não tem
+        # efeito aqui: a similaridade de cosseno do e5 é concentrada (nas 86
+        # perguntas com gabarito, o 4º colocado tem de 91% a 99% da nota do
+        # 1º), e o corte relativo do BM25 nunca cortaria nada.
+        del adaptativo
         consulta = (
             {"query_embeddings": [self._embedder.embed_consulta(pergunta)]}
             if self._embedder

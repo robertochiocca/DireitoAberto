@@ -73,6 +73,7 @@ class Medicao:
     perguntas: int = 0
     esperado_top3: int = 0
     primeiro_lugar: int = 0
+    total_resultados: int = 0
     extras: int = 0
     extras_outro_tema: int = 0
     ms_por_pergunta: float | None = None
@@ -85,6 +86,10 @@ class Medicao:
         return sum(self.julgados.values())
 
     @property
+    def media_resultados(self) -> float:
+        return self.total_resultados / self.perguntas if self.perguntas else 0.0
+
+    @property
     def outro_tema_pct(self) -> float:
         return 100.0 * self.extras_outro_tema / self.extras if self.extras else 0.0
 
@@ -94,6 +99,7 @@ class Medicao:
             "perguntas": self.perguntas,
             "esperado_top3": self.esperado_top3,
             "primeiro_lugar": self.primeiro_lugar,
+            "media_resultados": round(self.media_resultados, 2),
             "extras_outro_tema_pct": round(self.outro_tema_pct, 1),
             "ms_por_pergunta": self.ms_por_pergunta,
             "julgados": {r: self.julgados.get(r, 0) for r in ROTULOS},
@@ -108,8 +114,10 @@ def comparar(
     top_k: int = TOP_K_PADRAO,
     perguntas: list[tuple[str, str]] | None = None,
     julgamentos: dict[str, dict[str, str]] | None = None,
+    fundir: list[str] | None = None,
 ) -> list[Medicao]:
-    """Roda cada motor nas perguntas; com dois ou mais, acrescenta a fusão RRF."""
+    """Roda cada motor nas perguntas e acrescenta a fusão RRF dos motores em
+    `fundir` (por padrão, todos), se forem dois ou mais."""
     perguntas = perguntas if perguntas is not None else perguntas_com_gabarito()
     julgamentos = julgamentos if julgamentos is not None else carregar_julgamentos()
     # As perguntas julgadas entram mesmo que não estejam no gabarito.
@@ -124,9 +132,10 @@ def comparar(
             tempos[nome] += time.perf_counter() - t0
 
     finais = {nome: {q: lst[:top_k] for q, lst in por_q.items()} for nome, por_q in listas.items()}
-    if len(buscadores) >= 2:
+    fundir = list(buscadores) if fundir is None else fundir
+    if len(fundir) >= 2:
         finais["híbrido (RRF)"] = {
-            q: fundir_rrf([listas[n][q] for n in buscadores], top=top_k)
+            q: fundir_rrf([listas[n][q] for n in fundir], top=top_k)
             for q, _ in perguntas + sem_gabarito
         }
 
@@ -138,6 +147,7 @@ def comparar(
             m.ms_por_pergunta = round(1000 * tempos[nome] / n_buscas, 2)
         for q, esperado in perguntas:
             res = por_q[q]
+            m.total_resultados += len(res)
             m.esperado_top3 += esperado in res[:3]
             m.primeiro_lugar += res[:1] == [esperado]
             for aid in res:

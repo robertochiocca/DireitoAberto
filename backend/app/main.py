@@ -134,7 +134,9 @@ def _responder(
     contexto_documento: str | None = None,
 ) -> Resposta:
     consulta_busca = f"{pergunta} {contexto_documento}" if contexto_documento else pergunta
-    artigos = retriever.buscar(consulta_busca, tema=tema)
+    # Adaptativa: devolve menos artigos quando os demais são fracos, em vez de
+    # completar as vagas com lei de outro assunto.
+    artigos = retriever.buscar(consulta_busca, tema=tema, adaptativo=True)
     pergunta_llm = (
         f"{pergunta}\n\nTrecho do documento enviado pelo cidadão:\n{contexto_documento}"
         if contexto_documento

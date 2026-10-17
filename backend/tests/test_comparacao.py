@@ -86,3 +86,11 @@ def test_com_dois_motores_entra_a_fusao(bm25, tema):
     assert [m.motor for m in medicoes] == ["BM25", "outro", "híbrido (RRF)"]
     assert medicoes[-1].ms_por_pergunta is None
     assert all(len(r) <= 4 for r in medicoes[-1].resultados.values())
+
+
+def test_fusao_usa_so_os_motores_indicados(bm25, tema):
+    buscar = _buscador(bm25)
+    so_um = comparar({"BM25": buscar, "cópia": buscar}, tema, fundir=["BM25"])
+    assert [m.motor for m in so_um] == ["BM25", "cópia"]  # um motor só não se funde
+    dois = comparar({"BM25": buscar, "cópia": buscar, "extra": buscar}, tema, fundir=["BM25", "cópia"])
+    assert dois[-1].motor == "híbrido (RRF)"

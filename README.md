@@ -49,7 +49,7 @@ O DireitoAberto ataca o problema em duas camadas:
 | Geração | API de LLM (pacote `anthropic`), opcional |
 | Frontend (produto) | React/Next.js 15 + TypeScript (`web/`): perguntar, base legal, histórico, ajuda gratuita e login |
 | Frontend (MVP) | HTML/CSS/JS estático (`frontend/`), servido pelo próprio backend |
-| Testes | pytest + TestClient (httpx) — 137 testes |
+| Testes | pytest + TestClient (httpx) — 143 testes |
 
 ## Arquitetura
 
@@ -70,7 +70,7 @@ resposta + artigos + fontes oficiais + aviso legal
 ```
 
 - `backend/data/legislacao.json` — corpus com 79 dispositivos legais (CF/88, Código Civil, LINDB, CDC e Decreto 7.962/2013, CLT, CTB, CPC, Lei do Inquilinato, Lei do Bem de Família, Lei dos Juizados Especiais, Federais e da Fazenda Pública, LC 80/1994 da Defensoria, Lei de Registros Públicos, ECA e ECA Digital, Maria da Penha, Estatuto da Pessoa Idosa e da Pessoa com Deficiência, LOAS/BPC, Lei do FGTS, Lei dos Planos de Saúde, Lei de Benefícios do INSS, CTN, Lei do Processo Administrativo, LAI, Lei 13.460/2017, LGPD, Código Florestal, Resolução ANAC 400 e 7 súmulas de STF/STJ/TST), cada um com texto, resumo em linguagem simples, tema, palavras-chave, fonte oficial e **bloco de vigência**.
-- `backend/app/retrieval.py` — índice BM25 com filtro por área temática. Os sinônimos que traduzem o vocabulário do cidadão entram na consulta com **peso 0,6**, abaixo das palavras que ele de fato escreveu: com peso cheio, um sinônimo solto trazia lei de outro assunto ("o plano negou minha cirurgia" expandia "negou" para "negativa" e puxava a Lei de Acesso à Informação). A interface `Retriever.buscar()` permite trocar o motor por busca semântica (embeddings) sem alterar a API.
+- `backend/app/retrieval.py` — índice BM25 com filtro por área temática. Os sinônimos que traduzem o vocabulário do cidadão entram na consulta com **peso 0,6**, abaixo das palavras que ele de fato escreveu: com peso cheio, um sinônimo solto trazia lei de outro assunto ("o plano negou minha cirurgia" expandia "negou" para "negativa" e puxava a Lei de Acesso à Informação). Na API, a busca é **adaptativa**: devolve de 2 a 4 artigos, cortando os que têm menos de um terço da nota do 1º colocado (ver *Comparação de motores de busca*). A interface `Retriever.buscar()` permite trocar o motor por busca semântica (embeddings) sem alterar a API.
 - `backend/app/llm.py` — camada de geração com prompt que exige linguagem cautelosa, proíbe inventar dispositivos e sempre encaminha para a Defensoria/Procon.
 - `backend/app/main.py` — API FastAPI e serving do frontend.
 
@@ -197,17 +197,24 @@ O híbrido funde as duas listas por posição (*Reciprocal Rank Fusion*), sem de
 
 **Resultado (top-4):**
 
-| | BM25 | Semântico (e5) | Híbrido (RRF) |
-|---|---|---|---|
-| artigo certo no top-3 | **86/86** | 83/86 | 84/86 |
-| artigo certo em 1º lugar | 76/86 | 72/86 | **78/86** |
-| extras de outra área (aproximação) | 53% | 45% | 44% |
-| julgamento manual: relevante · tangencial · **ruído** (44 vagas) | 14 · 14 · **16** | 14 · 15 · **15** | 13 · 16 · **15** |
-| tempo por busca | 0,2 ms | 6,1 ms | — |
+| | BM25 | BM25 adaptativo (o que a API devolve) | Semântico (e5) | Híbrido (RRF) |
+|---|---|---|---|---|
+| artigos por resposta (média) | 3,92 | **2,91** | 4,00 | 4,00 |
+| artigo certo no top-3 | **86/86** | **86/86** | 83/86 | 84/86 |
+| artigo certo em 1º lugar | 76/86 | 76/86 | 72/86 | **78/86** |
+| extras de outra área (aproximação) | 53% | 46% | 45% | 44% |
+| julgamento manual: relevante · tangencial · **ruído** | 14 · 14 · **16** de 44 | 14 · 11 · **7** de 32 | 14 · 15 · **15** de 44 | 13 · 16 · **15** de 44 |
+| tempo por busca | 0,2 ms | igual ao BM25 | 6,1 ms | — |
 
-**Leitura.** No ruído julgado, empate: 16, 15 e 15 em 44 vagas. O que muda é **o tipo de erro**. O BM25 confunde palavras escritas iguais ("trocar o nome" puxa troca de produto; "caí" casa com a jornada que "cai") — ruído óbvio. O semântico traz o que *parece* do assunto e não é: a LGPD em 1º lugar para "notebook defeituoso", a súmula de negativação em perguntas de voo, INSS e plano de saúde — ruído que engana mais. O semântico ganha onde a pergunta não usa as palavras da lei ("posso ser preso por dívida?" sai limpa, com a súmula certa em 1º), mas **perde a Defensoria Pública em "onde consigo advogado gratuito?"** — e o híbrido também. Para uma plataforma cujo propósito é encaminhar o cidadão à ajuda gratuita, é a falha que mais pesa.
+**Leitura.** Entre os motores com 4 vagas fixas, o ruído julgado empata: 16, 15 e 15 em 44 vagas. O que muda é **o tipo de erro**. O BM25 confunde palavras escritas iguais ("trocar o nome" puxa troca de produto; "caí" casa com a jornada que "cai") — ruído óbvio. O semântico traz o que *parece* do assunto e não é: a LGPD em 1º lugar para "notebook defeituoso", a súmula de negativação em perguntas de voo, INSS e plano de saúde — ruído que engana mais. O semântico ganha onde a pergunta não usa as palavras da lei ("posso ser preso por dívida?" sai limpa, com a súmula certa em 1º), mas **perde a Defensoria Pública em "onde consigo advogado gratuito?"** — e o híbrido também. Para uma plataforma cujo propósito é encaminhar o cidadão à ajuda gratuita, é a falha que mais pesa.
 
-**Decisão: o BM25 continua o padrão.** O ruído não é do motor, é estrutural: preencher sempre 4 vagas quando há uns 2 artigos relevantes. Trocar de motor troca o tipo de ruído e custa cobertura e implantação (modelo de ~135 MB, ChromaDB). A alavanca é o número de vagas — devolver menos artigos quando a nota cai muito, ou deixar o LLM descartar os irrelevantes —, e os julgamentos manuais são o começo do conjunto de avaliação para calibrar isso.
+**Decisão: o BM25 continua o padrão.** O ruído não é do motor, é estrutural: preencher sempre 4 vagas quando há uns 2 artigos relevantes. Trocar de motor troca o tipo de ruído e custa cobertura e implantação (modelo de ~135 MB, ChromaDB). A alavanca é o número de vagas.
+
+**Número de artigos por resposta.** A API usa a busca adaptativa: os 2 primeiros artigos sempre entram e, depois deles, só quem tem **ao menos um terço da nota do 1º colocado** — de 2 a 4 artigos por resposta, 2,91 em média. O ruído julgado cai de 16 para 7, os 14 artigos relevantes ficam todos e o artigo certo continua em todas as 86 perguntas; o custo são 3 tangenciais a menos. A calibração saiu da mesma grade: com mínimo de 1 artigo já se perdiam relevantes (às vezes o 2º colocado é relevante e fraco — a súmula 297 no golpe do PIX tem 16% da nota do 1º); com mínimo de 2, qualquer corte entre 30% e 35% dá o mesmo resultado, e um terço fica nessa faixa. No semântico a regra não teria efeito — o 4º colocado tem de 91% a 99% da nota do 1º —, e o parâmetro é aceito, mas ignorado.
+
+O que a regra não resolve: (1) ruído que pontua perto do artigo certo — em "posso ser preso por dívida?" os quatro têm notas parecidas e ficam todos; (2) o mínimo de 2 protege o 2º colocado mesmo quando ele é ruído; (3) secundário útil fraco sai junto com o ruído — o art. 42 do CDC (cobrança indevida) na pergunta sobre nome negativado tem 25% da nota do 1º. Também quase não muda a armadilha temporal: com a busca adaptativa, o texto de 2006 ainda chega à resposta em 23 dos 24 casos, porque o distrator carrega as palavras da própria pergunta e não é cauda fraca — quem protege o cidadão continua sendo o rótulo de vigência. E o ganho foi medido nas mesmas 11 perguntas usadas para calibrar: é otimista até os julgamentos crescerem.
+
+Benchmark e comparação medem com número fixo de resultados, para continuarem comparáveis entre si; a coluna adaptativa mostra o que o cidadão de fato recebe.
 
 Se um motor passar a devolver um artigo ainda não julgado, o script o lista para ser rotulado; um teste trava os julgamentos em sincronia com o BM25.
 
@@ -282,7 +289,7 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - **Não é aconselhamento jurídico.** O sistema informa a regra geral; detalhes do caso concreto mudam a resposta. Toda resposta encaminha para a Defensoria Pública (gratuita), Procon ou advogado.
 - O corpus é **curado e pequeno** (79 dispositivos legais): cobre consumidor, trabalho, trânsito, moradia, família, cível, registros públicos, criança e adolescente, saúde, previdência e assistência, tributos, proteção de dados, serviço público, ambiental e acesso à Justiça — e nada além disso.
 - A vigência é **conferida manualmente**, não monitorada em tempo real: cada dispositivo carrega a data da última conferência (`vigencia.conferida_em`) e o `GET /api/v1/vigencia` mostra o que está prestes a mudar. Uma norma alterada entre duas conferências continuaria sendo respondida com a redação antiga — por isso a data aparece junto da resposta.
-- A busca é **lexical por padrão** (BM25 + sinônimos PT-BR); o índice semântico existe, mas é opt-in (`DIREITO_ABERTO_RETRIEVER=semantico`). Perguntas muito distantes do vocabulário indexado podem não encontrar nada — e o sistema diz isso em vez de inventar. No outro extremo, as últimas vagas do top-4 podem trazer um artigo fraco de outro assunto que casa uma palavra ambígua ("plano" de saúde × plano de pagamento); um corte relativo à nota do 1º colocado foi medido e descartado por ora, porque derrubava também secundários úteis, e trocar o BM25 pela busca semântica também não resolve (ver *Comparação de motores de busca*).
+- A busca é **lexical por padrão** (BM25 + sinônimos PT-BR); o índice semântico existe, mas é opt-in (`DIREITO_ABERTO_RETRIEVER=semantico`). Perguntas muito distantes do vocabulário indexado podem não encontrar nada — e o sistema diz isso em vez de inventar. No outro extremo, a busca ainda pode trazer artigo de outro assunto que casa uma palavra ambígua ("plano" de saúde × plano de pagamento). A busca adaptativa corta esse ruído quando ele é fraco, mas não quando pontua perto do artigo certo, e trocar o BM25 pela busca semântica também não resolve (ver *Comparação de motores de busca*).
 - Os textos legais foram consolidados manualmente a partir do Planalto e podem não refletir alterações legislativas posteriores; cada artigo traz o link para a fonte oficial. Textos marcados como "(síntese)" condensam caput e parágrafos relevantes em vez de transcrevê-los na íntegra.
 - A jurisprudência é uma **curadoria inicial de 7 súmulas** de STF, STJ e TST — não um índice de precedentes.
 
@@ -318,7 +325,8 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - ✅ Comparação BM25 × semântico × híbrido, com julgamento manual de relevância (`scripts/comparar_retrievers.py`)
 - ✅ Expansão do corpus para 100% de cobertura do benchmark (38 → 79 dispositivos; fechou as lacunas que o próprio benchmark mediu)
 - ⬜ Valores dinâmicos (tetos dos Juizados calculados a partir do salário mínimo vigente, em vez de fixos no conteúdo)
-- ⬜ Número de artigos por resposta ajustado à pergunta (hoje são sempre 4), calibrado com o conjunto de julgamentos
+- ✅ Número de artigos por resposta ajustado à pergunta (2 a 4; corte em um terço da nota do 1º colocado, calibrado com os julgamentos manuais)
+- ⬜ Ampliar os julgamentos manuais de relevância (hoje 11 perguntas) para medir a busca fora da amostra usada na calibração
 - ⬜ Camada de revisão jurídica contínua com profissional (o fluxo `revisado: false` já existe)
 
 ### A visão de longo prazo

@@ -216,6 +216,14 @@ class Retriever:
     # qualquer peso entre 0,5 e 0,7 mantém o artigo esperado no top-3 em
     # todas e põe mais artigos certos em 1º lugar; 0,6 fica no meio da faixa.
     PESO_SINONIMO = 0.6
+    # Nem toda pergunta tem 4 artigos relevantes, e preencher as vagas com o
+    # que estiver mais perto traz lei de outro assunto. Na busca adaptativa,
+    # os 2 primeiros sempre entram; depois deles, só quem tem ao menos um terço
+    # da nota do 1º colocado. Calibrado em scripts/comparar_retrievers.py: com
+    # mínimo 1 já se perdiam artigos relevantes; com mínimo 2, qualquer corte
+    # entre 30% e 35% dá o mesmo resultado nas perguntas julgadas.
+    MINIMO_ARTIGOS = 2
+    CORTE_RELATIVO = 1 / 3
 
     def __init__(self, data_path: Path = DATA_PATH):
         raw = json.loads(Path(data_path).read_text(encoding="utf-8"))
@@ -267,7 +275,13 @@ class Retriever:
         top_k: int = 4,
         score_minimo: float = 1.0,
         tema: str | None = None,
+        adaptativo: bool = False,
     ) -> list[Resultado]:
+        """Até `top_k` artigos; com `adaptativo`, menos quando os demais são fracos.
+
+        A API usa a busca adaptativa. Benchmark e comparação medem com número
+        fixo de resultados, para continuarem comparáveis entre si.
+        """
         consulta = self._expandir_consulta(pergunta)
         resultados = []
         for i, art in enumerate(self.artigos):
@@ -287,4 +301,11 @@ class Retriever:
             if score >= score_minimo:
                 resultados.append(Resultado.de_artigo(art, score))
         resultados.sort(key=lambda r: r.score, reverse=True)
-        return resultados[:top_k]
+        resultados = resultados[:top_k]
+        if adaptativo and resultados:
+            piso = self.CORTE_RELATIVO * resultados[0].score
+            resultados = [
+                r for i, r in enumerate(resultados)
+                if i < self.MINIMO_ARTIGOS or r.score >= piso
+            ]
+        return resultados
