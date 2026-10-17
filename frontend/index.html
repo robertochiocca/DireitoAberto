@@ -21,6 +21,7 @@
     --brand:#0f5a4a;        /* deep pine — the institutional voice */
     --brand-ink:#0f5a4a;    /* brand usable as text on paper */
     --brand-soft:#e2ede8;   /* pine tint */
+    --brand-fill:#0f5a4a;   /* filled surfaces that carry white text */
     --right:#b5541f;        /* "seu direito" signal */
     --right-soft:#f6e7dc;
     --do:#1f6f45;
@@ -44,6 +45,7 @@
     --brand:#3fb597;
     --brand-ink:#57c5a8;
     --brand-soft:#14312a;
+    --brand-fill:#1b6c58;   /* white text stays legible; --brand here is too light */
     --right:#e08653;
     --right-soft:#39231a;
     --do:#3fb573;
@@ -81,17 +83,25 @@
 
   /* ---------- top bar ---------- */
   .bar{position:sticky;top:0;z-index:40;background:var(--bar);
-    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  /* Duas linhas em qualquer largura: logo e navegação acima, busca abaixo.
-     A navegação ocupa ~626px fixos, então numa linha só o campo ficaria com
-     ~210px — estreito demais para a interação principal da página. */
-  .bar-in{display:flex;flex-wrap:wrap;align-items:center;gap:11px 18px;padding:11px 22px}
-  .logo{order:1}
-  .bar-nav{order:2}
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  /* Desktop: tudo numa linha — marca, busca, navegação. A busca é a
+     interação principal, então é ela que estica; os rótulos da navegação
+     são curtos para caber. Só o padding vertical é definido aqui: o lateral
+     vem do .wrap e não pode ser sobrescrito. */
+  .bar-in{display:flex;align-items:center;gap:14px;min-height:64px;padding-top:10px;padding-bottom:10px}
+  .logo{display:flex;align-items:center;gap:11px;cursor:pointer;flex:none}
+  .logo-mark{width:30px;height:30px;border-radius:7px;background:var(--brand-fill);
+    position:relative;flex:none;transition:transform .3s ease}
+  .logo:hover .logo-mark{transform:rotate(-6deg) scale(1.06)}
+  .logo-mark::before{content:"{ }";position:absolute;inset:0;display:grid;place-items:center;
+    color:#dff0e9;font-family:'Space Mono',monospace;font-size:12px;font-weight:700}
+  .logo b{font-family:'Bricolage Grotesque';font-weight:800;font-size:18px;letter-spacing:-.01em}
+  .logo span{color:var(--brand-ink);font-weight:800}
+
   /* A busca mora na barra, não na home: trocar de view não pode escondê-la
      nem tirar o foco do campo. */
-  .bar-search{order:3;flex-basis:100%;min-width:0;position:relative}
-  .bar-search input{width:100%;padding:10px 64px 10px 38px;border:1.5px solid var(--line);
+  .bar-search{flex:1 1 auto;min-width:0;position:relative}
+  .bar-search input{width:100%;padding:10px 72px 10px 38px;border:1.5px solid var(--line);
     border-radius:10px;background:var(--card);color:var(--ink);font-size:14.5px;
     font-family:inherit;transition:border-color .18s,box-shadow .18s}
   .bar-search input::placeholder{color:var(--dead)}
@@ -100,25 +110,82 @@
     color:var(--ink-2);pointer-events:none}
   .bar-search .hint{position:absolute;right:9px;top:50%;transform:translateY(-50%);
     font-family:'Space Mono',monospace;font-size:10.5px;color:var(--dead);
-    border:1px solid var(--line);border-radius:5px;padding:2px 5px;pointer-events:none}
-  .logo{display:flex;align-items:center;gap:11px;cursor:pointer}
-  .logo-mark{width:30px;height:30px;border-radius:7px;background:var(--brand);
-    position:relative;flex:none;transition:transform .3s ease}
-  .logo:hover .logo-mark{transform:rotate(-6deg) scale(1.06)}
-  .logo-mark::before{content:"{ }";position:absolute;inset:0;display:grid;place-items:center;
-    color:#dff0e9;font-family:'Space Mono',monospace;font-size:12px;font-weight:700}
-  .logo b{font-family:'Bricolage Grotesque';font-weight:800;font-size:18px;letter-spacing:-.01em}
-  .logo span{color:var(--brand-ink);font-weight:800}
-  .bar-nav{margin-left:auto;display:flex;gap:6px;align-items:center}
-  .bar-nav button{padding:8px 13px;border-radius:9px;font-size:14px;font-weight:500;color:var(--ink-2);transition:background .15s,color .15s}
+    border:1px solid var(--line);border-radius:5px;padding:2px 6px;pointer-events:none;white-space:nowrap}
+
+  .bar-nav{display:flex;align-items:center;gap:2px;flex:none}
+  .bar-nav button{position:relative;padding:8px 10px;border-radius:9px;font-size:14px;font-weight:500;
+    color:var(--ink-2);white-space:nowrap;transition:background .15s,color .15s}
   .bar-nav button:hover{background:var(--hover);color:var(--ink)}
-  .bar-nav button.on{color:var(--brand-ink);font-weight:600}
+  /* Seção atual: traço sob o rótulo, não só a cor. */
+  .bar-nav button.on{color:var(--ink);font-weight:600}
+  .bar-nav button.on::after{content:"";position:absolute;left:10px;right:10px;bottom:3px;height:2px;
+    border-radius:2px;background:var(--brand)}
+  /* Ajuda gratuita é a saída do problema: o único item com peso próprio,
+     na cor de "seu direito". */
+  .bar-nav .nav-cta{margin-left:8px;display:inline-flex;align-items:center;gap:8px;padding:7px 13px;
+    border:1.5px solid var(--right);background:var(--right-soft);color:var(--right);font-weight:600}
+  .bar-nav .nav-cta:hover{background:var(--right);color:#fff}
+  .bar-nav .nav-cta.on{color:var(--right)}
+  .bar-nav .nav-cta.on:hover{color:#fff}
+  .bar-nav .nav-cta.on::after{display:none}
+  .cta-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none;
+    animation:respira 2.6s ease-in-out infinite}
+  @keyframes respira{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--right) 45%,transparent)}
+    50%{box-shadow:0 0 0 4px color-mix(in srgb,var(--right) 0%,transparent)}}
+
+  .bar-tools{display:flex;align-items:center;gap:8px;flex:none}
   .theme-btn{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;
     border:1px solid var(--line);background:var(--card);font-size:15px;transition:transform .2s}
   .theme-btn:hover{transform:rotate(15deg)}
+  .menu-btn{display:none;height:36px;padding:0 13px 0 11px;border:1px solid var(--line);border-radius:9px;
+    background:var(--card);align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--ink);
+    transition:border-color .15s,background .15s}
+  .menu-btn:hover{border-color:var(--ink-2)}
+  .menu-btn[aria-expanded="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .burger{display:grid;gap:3px;width:15px}
+  .burger i{display:block;height:2px;border-radius:2px;background:currentColor;transition:transform .2s,opacity .2s}
+  .menu-btn[aria-expanded="true"] .burger i:nth-child(1){transform:translateY(5px) rotate(45deg)}
+  .menu-btn[aria-expanded="true"] .burger i:nth-child(2){opacity:0}
+  .menu-btn[aria-expanded="true"] .burger i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+
+  /* ---------- menu compacto (tablet e celular) ---------- */
+  .menu{border-top:1px solid var(--line);background:var(--paper);
+    max-height:calc(100vh - 110px);max-height:calc(100dvh - 110px);overflow:auto;
+    overscroll-behavior:contain;animation:drop .22s cubic-bezier(.2,.7,.3,1)}
+  .menu[hidden],.menu-veil[hidden]{display:none}
+  @keyframes drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+  .menu-in{padding-top:16px;padding-bottom:22px;display:grid;gap:10px}
+  .menu-k{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dead);margin-top:6px}
+  .mi{position:relative;text-align:left;border-radius:var(--radius);padding:16px 46px 16px 18px;
+    display:grid;gap:3px;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow);
+    transition:transform .15s,border-color .15s}
+  .mi:hover{transform:translateY(-1px)}
+  .mi-t{font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;letter-spacing:-.01em;line-height:1.2}
+  .mi-d{font-size:13.5px;color:var(--ink-2);line-height:1.4}
+  .mi-go{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:18px;transition:right .2s}
+  .mi:hover .mi-go{right:14px}
+  .mi-primary{background:var(--brand-fill);border-color:var(--brand-fill);color:#fff}
+  .mi-primary .mi-d{color:#cfe6dd}
+  .mi-help{border:1.5px solid var(--right);background:var(--right-soft)}
+  .mi-help .mi-t,.mi-help .mi-go{color:var(--right)}
+  .mi-list{display:grid;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);overflow:hidden}
+  .mi-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px;text-align:left;
+    padding:13px 18px;border-top:1px solid var(--line);font-size:15px;transition:background .15s}
+  .mi-row:first-child{border-top:none}
+  .mi-row b{font-weight:600;color:var(--ink);white-space:nowrap}
+  .mi-row span{font-size:13px;color:var(--dead);text-align:right}
+  .mi-row:hover{background:var(--hover)}
+  .mi-row.on b{color:var(--brand-ink)}
+  .mi-row.on b::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
+    background:var(--brand);margin-right:8px;vertical-align:middle}
+  .menu-veil{position:fixed;inset:0;z-index:30;background:rgba(20,29,43,.38);animation:fade .2s ease}
+  .menu-aberto,.menu-aberto body{overflow:hidden}
 
   /* ---------- hero ---------- */
-  .hero{padding:66px 0 30px;position:relative}
+  /* Só o vertical: o lateral vem do .wrap (o atalho `padding:66px 0` o zerava
+     e colava o conteúdo da home nas bordas da tela no celular). */
+  .hero{padding-top:66px;padding-bottom:30px;position:relative}
   .eyebrow{font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.08em;
     text-transform:uppercase;color:var(--brand-ink);margin-bottom:20px}
   .hero h1{font-family:'Bricolage Grotesque';font-weight:800;letter-spacing:-.025em;
@@ -151,11 +218,39 @@
   .door p{font-size:14.5px;color:var(--ink-2);max-width:34ch}
   .door .go{margin-top:18px;color:var(--brand-ink);font-weight:600;font-size:14.5px;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
   .door:hover .go{gap:11px}
-  .door.primary{background:var(--brand);color:#eef7f2}
+  .door.primary{background:var(--brand-fill);color:#eef7f2}
   .door.primary .door-k{color:#8fc4b3}
   .door.primary p{color:#cfe6dd}
   .door.primary .go{color:#fff}
-  .door.primary:hover{border-color:var(--brand)}
+  .door.primary:hover{border-color:var(--brand-fill)}
+
+  /* ---------- do problema à solução ---------- */
+  .path{margin-top:60px}
+  .path-head{max-width:780px}
+  .path-head .eyebrow{margin-bottom:12px}
+  .path-head h2{font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(24px,3.4vw,34px);
+    letter-spacing:-.02em;line-height:1.1}
+  .path-head p{font-family:'Newsreader';font-size:17.5px;color:var(--ink-2);margin-top:10px;line-height:1.45;max-width:58ch}
+  .path-steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+  .path-steps li{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 18px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px}
+  /* conector entre degraus: ocupa o vão entre um cartão e o próximo */
+  .path-steps li:not(:last-child)::after{content:"";position:absolute;top:35px;right:-17px;width:18px;height:2px;
+    background:var(--line)}
+  .ps-n{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+    font-family:'Space Mono',monospace;font-weight:700;font-size:14px;background:var(--ink);color:var(--paper)}
+  .path-steps h3{font-family:'Bricolage Grotesque';font-weight:600;font-size:17px;line-height:1.2;margin-top:4px}
+  .path-steps p{font-size:14px;color:var(--ink-2);line-height:1.5}
+  .path-steps p b{color:var(--ink)}
+  .ps-go{margin-top:auto;align-self:flex-start;padding-top:6px;font-size:13.5px;font-weight:600;color:var(--brand-ink)}
+  .ps-go:hover{text-decoration:underline}
+  /* o último degrau é onde a ajuda gratuita entra: mesma cor do atalho da barra */
+  .path-steps .ps-last{border:1.5px solid var(--right)}
+  .ps-last .ps-n{background:var(--right);color:#fff}
+  .ps-last .ps-go{color:var(--right)}
+  .path-urgent{margin-top:16px;font-size:14px;color:var(--ink-2);line-height:1.5;
+    border-left:3px solid var(--right);background:var(--right-soft);padding:11px 15px;border-radius:0 10px 10px 0}
+  .path-urgent b{color:var(--ink)}
 
   /* ---------- section scaffolding ---------- */
   .view{display:none;padding:38px 0 90px}
@@ -173,7 +268,7 @@
   .fchip{padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);
     font-size:13px;font-weight:600;color:var(--ink-2);letter-spacing:.02em;transition:all .15s}
   .fchip:hover{border-color:var(--brand);color:var(--brand-ink)}
-  .fchip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+  .fchip.on{background:var(--brand-fill);border-color:var(--brand-fill);color:#fff}
 
   /* ---------- AI answer panel ---------- */
   .ai-panel{border:1.5px solid var(--brand);border-radius:var(--radius);background:var(--card);
@@ -303,12 +398,41 @@
 
   .empty{text-align:center;color:var(--ink-2);padding:50px 0;font-family:'Newsreader';font-size:18px}
 
+  /* Compacto: a navegação vira o botão Menu; marca, busca e ferramentas
+     continuam numa linha. */
+  @media(max-width:1039px){
+    .bar-nav{display:none}
+    .menu-btn{display:inline-flex}
+  }
+  /* Na largura grande o painel não existe, mesmo que tenha ficado aberto. */
+  @media(min-width:1040px){
+    .menu,.menu-veil{display:none !important}
+  }
+  @media(max-width:960px){
+    .path-steps{grid-template-columns:1fr 1fr}
+    .path-steps li:nth-child(2)::after{display:none}
+  }
+  /* Celular: a busca desce para uma linha própria, de ponta a ponta
+     (numa linha só, abaixo disto, o campo ficaria com menos de 260px). */
+  @media(max-width:640px){
+    .bar-in{flex-wrap:wrap;row-gap:10px}
+    .bar-tools{margin-left:auto}
+    .bar-search{order:3;flex-basis:100%}
+    .bar-search input{padding-right:14px}
+    .bar-search .hint{display:none}
+    .path-steps{grid-template-columns:1fr;gap:12px}
+    .path-steps li:nth-child(2)::after{display:block}
+    .path-steps li:not(:last-child)::after{top:auto;bottom:-13px;right:auto;left:32px;width:2px;height:14px}
+  }
+  /* Telas muito estreitas: só o ícone, para marca e botões caberem numa linha. */
+  @media(max-width:359px){
+    .menu-lbl{display:none}
+    .menu-btn{padding:0 11px}
+  }
   @media(max-width:720px){
     .doors{grid-template-columns:1fr}
-    .bar-nav button:not(.theme-btn){display:none}
-    .bar-search input{padding-right:38px}
-    .bar-search .hint{display:none}
-    .hero{padding:34px 0 20px}
+    .hero{padding-top:34px;padding-bottom:20px}
+    .path{margin-top:44px}
     .ccard{grid-template-columns:1fr}
     .status{grid-column:1;grid-row:4;justify-self:start;margin-top:8px}
     .stat .n{font-size:34px}
@@ -328,20 +452,53 @@
     <div class="bar-search">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       <input id="q" type="text" autocomplete="off" spellcheck="false"
-             placeholder="Descreva seu problema: multa, pensão, golpe do PIX…"
+             placeholder="Descreva seu problema…"
              aria-label="Buscar situações e perguntar à base jurídica">
-      <div class="hint" id="qhint" hidden title="Pressione Enter para perguntar à base jurídica (RAG)">↵ RAG</div>
+      <div class="hint" id="qhint" hidden title="Pressione Enter para perguntar à base jurídica">↵ Enter</div>
     </div>
-    <nav class="bar-nav">
+    <nav class="bar-nav" aria-label="Seções">
       <button data-nav="problemas" onclick="go('problemas')">Problemas</button>
-      <button data-nav="codigos" onclick="go('codigos')">Os 18 códigos</button>
+      <button data-nav="codigos" onclick="go('codigos')">Códigos</button>
       <button data-nav="glossario" onclick="go('glossario')">Glossário</button>
-      <button data-nav="stats" onclick="go('stats')">Estatísticas</button>
-      <button data-nav="ajuda" onclick="go('ajuda')">Onde buscar ajuda</button>
-      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Alternar tema" aria-label="Alternar tema claro/escuro">🌙</button>
+      <button data-nav="stats" onclick="go('stats')">Números</button>
+      <button data-nav="ajuda" class="nav-cta" onclick="go('ajuda')"><span class="cta-dot"></span>Ajuda gratuita</button>
     </nav>
+    <div class="bar-tools">
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Alternar tema" aria-label="Alternar tema claro/escuro">🌙</button>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="menu" onclick="alternarMenu()">
+        <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span><span class="menu-lbl">Menu</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menu compacto (tablet e celular): mesmas seções, em ordem de importância.
+       Primeiro os dois caminhos que resolvem — o problema e a ajuda gratuita —,
+       depois o material de consulta. -->
+  <div class="menu" id="menu" hidden>
+    <div class="wrap menu-in">
+      <div class="menu-k">Comece por aqui</div>
+      <button class="mi mi-primary" data-nav="problemas" onclick="irPeloMenu('problemas')">
+        <span class="mi-t">Tenho um problema</span>
+        <span class="mi-d">Passo a passo, prazos e modelos prontos</span>
+        <span class="mi-go" aria-hidden="true">→</span>
+      </button>
+      <button class="mi mi-help" data-nav="ajuda" onclick="irPeloMenu('ajuda')">
+        <span class="mi-t">Ajuda gratuita</span>
+        <span class="mi-d">Defensoria, Procon, Juizado — de graça</span>
+        <span class="mi-go" aria-hidden="true">→</span>
+      </button>
+
+      <div class="menu-k">Para consultar</div>
+      <div class="mi-list">
+        <button class="mi-row on" data-nav="home" onclick="irPeloMenu('home')"><b>Início</b><span>Do problema à solução</span></button>
+        <button class="mi-row" data-nav="codigos" onclick="irPeloMenu('codigos')"><b>Códigos</b><span>Os 18 códigos e o que ainda vale</span></button>
+        <button class="mi-row" data-nav="glossario" onclick="irPeloMenu('glossario')"><b>Glossário</b><span>Juridiquês em português</span></button>
+        <button class="mi-row" data-nav="stats" onclick="irPeloMenu('stats')"><b>Números</b><span>A base em números</span></button>
+      </div>
+    </div>
   </div>
 </header>
+<div class="menu-veil" id="menuVeil" hidden onclick="fecharMenu()"></div>
 
 <!-- ============ HOME ============ -->
 <section id="home" class="view on">
@@ -367,6 +524,44 @@
         <span class="go">Abrir o índice →</span>
       </button>
     </div>
+
+    <!-- A ordem de resolução de quase todo problema com a lei: do mais
+         simples e barato ao mais formal. Cada degrau aponta para a parte do
+         site que ajuda nele. -->
+    <section class="path" aria-labelledby="path-h">
+      <div class="path-head">
+        <div class="eyebrow">Como se resolve um problema com a lei</div>
+        <h2 id="path-h">Do problema à solução, em quatro degraus</h2>
+        <p>Na maioria dos casos, a saída começa simples e só sobe de degrau se a anterior não funcionar. Nenhum deles exige pagar nada.</p>
+      </div>
+      <ol class="path-steps">
+        <li>
+          <span class="ps-n">1</span>
+          <h3>Entenda o seu direito</h3>
+          <p>Descreva o problema na busca e veja o que a lei garante — e os prazos. Alguns vencem em poucos dias.</p>
+          <button class="ps-go" onclick="go('problemas')">Ver situações →</button>
+        </li>
+        <li>
+          <span class="ps-n">2</span>
+          <h3>Tente resolver direto</h3>
+          <p>Procure a empresa, o empregador ou o órgão <b>por escrito</b>, com o modelo pronto de cada situação. Guarde o protocolo.</p>
+          <button class="ps-go" onclick="go('problemas')">Pegar um modelo →</button>
+        </li>
+        <li>
+          <span class="ps-n">3</span>
+          <h3>Reclame no canal oficial</h3>
+          <p>Procon, consumidor.gov.br, ANS, Banco Central ou a ouvidoria do órgão. Costuma destravar sem processo.</p>
+          <button class="ps-go" onclick="go('ajuda')">Ver os canais →</button>
+        </li>
+        <li class="ps-last">
+          <span class="ps-n">4</span>
+          <h3>Leve à Justiça, sem pagar</h3>
+          <p>Juizado Especial (até 20 salários mínimos, sem advogado) ou Defensoria Pública, para quem não pode pagar.</p>
+          <button class="ps-go" onclick="go('ajuda')">Ajuda gratuita →</button>
+        </li>
+      </ol>
+      <p class="path-urgent"><b>Violência ou risco à vida não espera degrau:</b> ligue <b>190</b> (Polícia) ou <b>180</b> (Central de Atendimento à Mulher). A medida protetiva pode ser pedida direto na delegacia.</p>
+    </section>
 
     <div class="disc">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
@@ -479,10 +674,39 @@ aplicarTema(localStorage.getItem("da-tema") ||
 const V = ["home","problemas","problema","codigos","glossario","stats","ajuda"];
 function go(v){
   V.forEach(x=>document.getElementById(x).classList.toggle("on",x===v));
-  document.querySelectorAll(".bar-nav button").forEach(b=>b.classList.toggle("on",b.dataset.nav===v));
+  // O detalhe de um problema pertence à seção Problemas.
+  const secao = v==="problema" ? "problemas" : v;
+  document.querySelectorAll("[data-nav]").forEach(b=>b.classList.toggle("on",b.dataset.nav===secao));
   window.scrollTo({top:0,behavior:"instant"});
   if(v==="stats") renderStats();
 }
+
+/* ============================================================
+   MENU compacto (tablet e celular)
+   ============================================================ */
+const menu=document.getElementById("menu");
+const menuBtn=document.getElementById("menuBtn");
+const menuVeil=document.getElementById("menuVeil");
+
+function abrirMenu(){
+  menu.hidden=false; menuVeil.hidden=false;
+  menuBtn.setAttribute("aria-expanded","true");
+  document.documentElement.classList.add("menu-aberto");
+  menu.querySelector(".mi").focus({preventScroll:true});
+}
+function fecharMenu(devolverFoco){
+  if(menu.hidden) return;
+  menu.hidden=true; menuVeil.hidden=true;
+  menuBtn.setAttribute("aria-expanded","false");
+  document.documentElement.classList.remove("menu-aberto");
+  if(devolverFoco) menuBtn.focus();
+}
+function alternarMenu(){ menu.hidden ? abrirMenu() : fecharMenu(true); }
+function irPeloMenu(v){ fecharMenu(false); go(v); }
+
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !menu.hidden) fecharMenu(true); });
+// Ao alargar a janela até o layout de uma linha, o painel deixa de existir.
+matchMedia("(min-width:1040px)").addEventListener("change", e=>{ if(e.matches) fecharMenu(false); });
 
 /* reveal-on-scroll */
 const observer = new IntersectionObserver(es=>{
