@@ -29,6 +29,14 @@ STOPWORDS = {
     "como", "qual", "quais", "onde", "quem", "isso", "isto", "essa", "esse",
     "ou", "mas", "também", "até", "após", "sobre", "entre", "pelo", "pela",
     "quer", "quero", "posso", "pode", "podem", "devo", "deve",
+    # Contrações e demonstrativos. Raras no corpus, tinham IDF alto: "caí num
+    # golpe do pix" casava "num" com "num mesmo contrato" e trazia a Lei do
+    # Inquilinato.
+    "num", "numa", "nuns", "numas", "dum", "duma", "duns", "dumas",
+    "este", "aquele", "aquela", "aquilo", "neste", "nesta", "nesse", "nessa",
+    "naquele", "naquela", "deste", "desta", "desse", "dessa", "daquele",
+    "daquela", "disso", "disto", "nisso", "nisto", "dele", "dela", "nele",
+    "nela", "lhe", "lhes", "você", "vocês", "pro", "pros",
 }
 
 # Vocabulário do cidadão -> vocabulário da lei. Aplicado só na consulta.
@@ -128,6 +136,9 @@ def normalizar(texto: str) -> list[str]:
             continue
         if len(tok) > 3 and tok.endswith("s"):
             tok = tok[:-1]
+            # O plural de uma stopword vira a stopword: "pelos" → "pelo".
+            if tok in _STOPWORDS_NORM:
+                continue
         resultado.append(tok)
     return resultado
 

@@ -17,6 +17,14 @@ def test_normalizar_remove_acentos_stopwords_e_plural():
     assert "os" not in tokens
 
 
+def test_contracoes_e_plural_de_stopword_nao_viram_termo_de_busca(retriever):
+    tokens = normalizar("caí num golpe pelos bancos deles nesses casos")
+    assert tokens == ["cai", "golpe", "banco", "caso"], tokens
+    # "num" tinha IDF alto e casava com "num mesmo contrato" (Lei do Inquilinato).
+    ids = [r.id for r in retriever.buscar("caí num golpe do pix")]
+    assert "lei8245-37" not in ids, ids
+
+
 def test_expansao_nao_repete_sinonimo_alcancavel_por_dois_caminhos(retriever):
     """"dono" e "aluguel" expandem os dois para "locador".
 
