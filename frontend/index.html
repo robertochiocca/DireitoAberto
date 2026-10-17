@@ -78,7 +78,25 @@
   /* ---------- top bar ---------- */
   .bar{position:sticky;top:0;z-index:40;background:var(--bar);
     backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .bar-in{display:flex;align-items:center;gap:18px;height:62px}
+  /* Duas linhas em qualquer largura: logo e navegação acima, busca abaixo.
+     A navegação ocupa ~626px fixos, então numa linha só o campo ficaria com
+     ~210px — estreito demais para a interação principal da página. */
+  .bar-in{display:flex;flex-wrap:wrap;align-items:center;gap:11px 18px;padding:11px 22px}
+  .logo{order:1}
+  .bar-nav{order:2}
+  /* A busca mora na barra, não na home: trocar de view não pode escondê-la
+     nem tirar o foco do campo. */
+  .bar-search{order:3;flex-basis:100%;min-width:0;position:relative}
+  .bar-search input{width:100%;padding:10px 64px 10px 38px;border:1.5px solid var(--line);
+    border-radius:10px;background:var(--card);color:var(--ink);font-size:14.5px;
+    font-family:inherit;transition:border-color .18s,box-shadow .18s}
+  .bar-search input::placeholder{color:var(--dead)}
+  .bar-search input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+  .bar-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);
+    color:var(--ink-2);pointer-events:none}
+  .bar-search .hint{position:absolute;right:9px;top:50%;transform:translateY(-50%);
+    font-family:'Space Mono',monospace;font-size:10.5px;color:var(--dead);
+    border:1px solid var(--line);border-radius:5px;padding:2px 5px;pointer-events:none}
   .logo{display:flex;align-items:center;gap:11px;cursor:pointer}
   .logo-mark{width:30px;height:30px;border-radius:7px;background:var(--brand);
     position:relative;flex:none;transition:transform .3s ease}
@@ -111,15 +129,8 @@
   @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
   @keyframes underline{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
-  /* search */
-  .search{margin-top:30px;max-width:560px;position:relative;animation:rise .7s .22s cubic-bezier(.2,.7,.3,1) both}
-  .search input{width:100%;padding:17px 18px 17px 50px;border:1.5px solid var(--line);
-    background:var(--card);border-radius:13px;font-size:16px;font-family:inherit;color:var(--ink);
-    box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s}
-  .search input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
-  .search svg{position:absolute;left:17px;top:26px;color:var(--ink-2)}
-  .search .hint{margin-top:8px;font-size:12.5px;color:var(--dead);font-family:'Space Mono',monospace}
-  .chips{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;animation:rise .7s .3s cubic-bezier(.2,.7,.3,1) both}
+  .chips{margin-top:30px;display:flex;flex-wrap:wrap;gap:8px;animation:rise .7s .3s cubic-bezier(.2,.7,.3,1) both}
+  .chips + .chips{margin-top:14px}
   .chip{padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:var(--card);
     font-size:13.5px;color:var(--ink-2);font-weight:500;transition:border-color .15s,color .15s,transform .15s}
   .chip:hover{border-color:var(--brand);color:var(--brand-ink);transform:translateY(-1px)}
@@ -291,7 +302,9 @@
   @media(max-width:720px){
     .doors{grid-template-columns:1fr}
     .bar-nav button:not(.theme-btn){display:none}
-    .hero{padding:44px 0 20px}
+    .bar-search input{padding-right:38px}
+    .bar-search .hint{display:none}
+    .hero{padding:34px 0 20px}
     .ccard{grid-template-columns:1fr}
     .status{grid-column:1;grid-row:4;justify-self:start;margin-top:8px}
     .stat .n{font-size:34px}
@@ -307,6 +320,13 @@
     <div class="logo" onclick="go('home')">
       <div class="logo-mark"></div>
       <b>Direito<span>Aberto</span></b>
+    </div>
+    <div class="bar-search">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="q" type="text" autocomplete="off" spellcheck="false"
+             placeholder="Descreva seu problema: multa, pensão, golpe do PIX…"
+             aria-label="Buscar situações e perguntar à base jurídica">
+      <div class="hint" id="qhint" hidden title="Pressione Enter para perguntar à base jurídica (RAG)">↵ RAG</div>
     </div>
     <nav class="bar-nav">
       <button data-nav="problemas" onclick="go('problemas')">Problemas</button>
@@ -326,11 +346,6 @@
     <h1>A lei foi escrita pra você. Só faltava alguém <em>traduzir</em>.</h1>
     <p class="lede">Os códigos brasileiros em linguagem de gente. Comece pelo seu problema — a gente mostra o que a lei garante, o que fazer e onde pedir ajuda de graça.</p>
 
-    <div class="search">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="q" type="text" placeholder="Descreva seu problema: multa, pensão, golpe do PIX, voo cancelado…" oninput="search(this.value)">
-      <div class="hint" id="qhint" hidden>↵ Enter pergunta à base jurídica (RAG)</div>
-    </div>
     <div class="chips" id="chips"></div>
     <div class="chips" id="hist"></div>
 
@@ -486,7 +501,9 @@ function renderFilters(){
 function setFiltro(t){
   filtroTag = t;
   renderFilters();
-  renderProblems(filtrar(PROBLEMS));
+  // Reaplica o texto buscado: o campo fica visível na barra, então a lista
+  // não pode ignorar o que ainda está escrito nele.
+  search(document.getElementById("q").value);
 }
 const filtrar = list => filtroTag==="TODOS" ? list : list.filter(p=>p.tag===filtroTag);
 
@@ -619,12 +636,26 @@ async function renderStats(){
 /* ============================================================
    BUSCA local + histórico
    ============================================================ */
+/* Filtra a lista de situações. Não reescreve nem refoca o campo: ele vive na
+   barra, fora das views, e `go()` não o toca — mexer nele durante a digitação
+   só atrapalharia o cursor. */
 function search(term){
-  term=term.trim().toLowerCase();
+  const t=term.trim().toLowerCase();
   const base=filtrar(PROBLEMS);
-  const hits=term?base.filter(p=>(p.title+p.short+p.tag+p.lawShort).toLowerCase().includes(term)):base;
-  if(term){renderProblems(hits);go("problemas");document.getElementById("q").value=term;document.getElementById("q").focus();}
+  renderProblems(t?base.filter(p=>(p.title+p.short+p.tag+p.lawShort).toLowerCase().includes(t)):base);
+  if(t) go("problemas");
 }
+
+/* A cada tecla a busca espera 200ms: evita filtrar e trocar de view no meio
+   de uma palavra. `flush` roda o que estiver pendente (usado no Enter). */
+const buscaDebounced=(()=>{
+  let timer=null, pendente=null;
+  const rodar=()=>{ timer=null; if(pendente!==null){ const t=pendente; pendente=null; search(t); } };
+  return {
+    agendar(term){ pendente=term; clearTimeout(timer); timer=setTimeout(rodar,200); },
+    flush(){ clearTimeout(timer); rodar(); },
+  };
+})();
 const CHIPS=["Produto com defeito","Pensão alimentícia","Golpe do PIX","Voo cancelado","INSS negou","Fui demitido"];
 document.getElementById("chips").innerHTML=CHIPS.map(c=>`<button class="chip" onclick="search('${c.toLowerCase()}')">${c}</button>`).join("");
 
@@ -703,8 +734,13 @@ async function perguntarAPI(pergunta){
   }
 }
 
-document.getElementById("q").addEventListener("keydown", e=>{
+const campoBusca=document.getElementById("q");
+
+campoBusca.addEventListener("input", e=>buscaDebounced.agendar(e.target.value));
+
+campoBusca.addEventListener("keydown", e=>{
   if(e.key!=="Enter") return;
+  buscaDebounced.flush();              // a lista acompanha o que foi digitado
   const pergunta=e.target.value.trim();
   if(pergunta.length<4) return;
   perguntarAPI(pergunta);
