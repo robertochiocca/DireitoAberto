@@ -220,7 +220,7 @@ h1.hero em{font-style:normal;color:var(--brand-ink)}
 /* ---------- ajuda: do problema à solução ---------- */
 .path-head{max-width:780px}
 .path-head .eyebrow{margin-bottom:12px}
-.path-head h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(22px,3.2vw,30px);letter-spacing:-.02em;line-height:1.1}
+.path-head .path-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(22px,3.2vw,30px);letter-spacing:-.02em;line-height:1.1}
 .path-head p{font-family:'Newsreader',Georgia,serif;font-size:17px;color:var(--ink-2);margin-top:10px;line-height:1.45;max-width:58ch}
 .path-steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
 .path-steps li{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
@@ -229,14 +229,16 @@ h1.hero em{font-style:normal;color:var(--brand-ink)}
 .path-steps li:not(:last-child)::after{content:"";position:absolute;top:35px;right:-17px;width:18px;height:2px;background:var(--line)}
 .ps-n{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-family:'Space Mono',monospace;
   font-weight:700;font-size:14px;background:var(--ink);color:var(--paper)}
-.path-steps h4{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:17px;line-height:1.2;margin-top:4px}
+.path-steps .ps-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:17px;line-height:1.2;margin-top:4px}
 .path-steps p{font-size:14px;color:var(--ink-2);line-height:1.5}
-.ps-go{margin-top:auto;align-self:flex-start;padding-top:6px;font-size:13.5px;font-weight:600;color:var(--brand-ink)}
+/* line-height explícita: o degrau 1 da home é <button>, que não a herda */
+.ps-go{margin-top:auto;align-self:flex-start;padding-top:6px;font-size:13.5px;font-weight:600;line-height:1.5;color:var(--brand-ink)}
 .ps-go:hover{text-decoration:underline}
 /* o último degrau é onde a ajuda gratuita entra: mesma cor do atalho da barra */
 .path-steps .ps-last{border:1.5px solid var(--right)}
 .ps-last .ps-n{background:var(--right);color:#fff}
 .ps-last .ps-go{color:var(--right)}
+.path-home{margin-top:56px}
 .path-urgent{margin-top:16px;font-size:14px;color:var(--ink-2);line-height:1.5;border-left:3px solid var(--right);
   background:var(--right-soft);padding:11px 15px;border-radius:0 10px 10px 0}
 .path-urgent b{color:var(--ink)}

@@ -3,6 +3,7 @@
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import AnswerPanel from "@/components/AnswerPanel";
+import Degraus from "@/components/Degraus";
 import { ApiError, perguntar, type Resposta } from "@/lib/api";
 
 const EXEMPLOS = [
@@ -70,6 +71,7 @@ function Home() {
         }}
       >
         <input
+          id="pergunta"
           value={pergunta}
           onChange={(e) => setPergunta(e.target.value)}
           placeholder="Ex.: a empresa não quer trocar meu notebook defeituoso"
@@ -89,6 +91,9 @@ function Home() {
       </div>
 
       <AnswerPanel carregando={carregando} resposta={resposta} erro={erro} />
+
+      {/* Depois da resposta, o caminho para resolver: do mais simples ao mais formal. */}
+      <Degraus naHome nivel={2} />
 
       <div className="disc">
         <b>Isto é informação, não é decisão sobre o seu caso.</b> Cada situação tem detalhes que
