@@ -197,6 +197,14 @@ class Retriever:
     # Palavras-chave descrevem o caso concreto melhor que o texto legal,
     # então entram no índice com peso maior.
     PESO_PALAVRAS_CHAVE = 3
+    # Sinônimos ampliam o alcance, mas pesam menos que as palavras que o
+    # cidadão de fato escreveu. Com peso cheio, um sinônimo solto bastava
+    # para pôr lei de outro assunto na resposta: "o plano negou minha
+    # cirurgia" expandia "negou" para "negativa" e trazia a Lei de Acesso à
+    # Informação (pedido de informação negado). Em 86 perguntas com gabarito,
+    # qualquer peso entre 0,5 e 0,7 mantém o artigo esperado no top-3 em
+    # todas e põe mais artigos certos em 1º lugar; 0,6 fica no meio da faixa.
+    PESO_SINONIMO = 0.6
 
     def __init__(self, data_path: Path = DATA_PATH):
         raw = json.loads(Path(data_path).read_text(encoding="utf-8"))
@@ -220,8 +228,12 @@ class Retriever:
         for termo, freq in df.items():
             self._idf[termo] = math.log(1 + (n - freq + 0.5) / (freq + 0.5))
 
-    def _expandir_consulta(self, pergunta: str) -> list[str]:
-        """Tokens da pergunta mais os sinônimos, sem repetir termos.
+    def _expandir_consulta(self, pergunta: str) -> dict[str, float]:
+        """Termos da consulta e o peso de cada um, sem repetir termos.
+
+        As palavras da pergunta pesam 1; os sinônimos, PESO_SINONIMO. Uma
+        palavra que o cidadão escreveu mantém o peso cheio mesmo que também
+        seja sinônimo de outra.
 
         A deduplicação importa: "dono" e "aluguel" expandem os dois para
         "locador", e sem ela esse termo pontuaria em dobro — bastaria um
@@ -229,10 +241,11 @@ class Retriever:
         responde à pergunta.
         """
         tokens = normalizar(pergunta)
-        expandidos = dict.fromkeys(tokens)
+        pesos = dict.fromkeys(tokens, 1.0)
         for tok in tokens:
-            expandidos.update(dict.fromkeys(_SINONIMOS_NORM.get(tok, [])))
-        return list(expandidos)
+            for sinonimo in _SINONIMOS_NORM.get(tok, []):
+                pesos.setdefault(sinonimo, self.PESO_SINONIMO)
+        return pesos
 
     def temas(self) -> list[str]:
         return sorted({art["tema"] for art in self.artigos})
@@ -252,12 +265,12 @@ class Retriever:
             freqs = self._doc_freqs[i]
             dl = self._doc_lens[i]
             score = 0.0
-            for termo in consulta:
+            for termo, peso in consulta.items():
                 if termo not in freqs:
                     continue
                 tf = freqs[termo]
                 idf = self._idf.get(termo, 0.0)
-                score += idf * (tf * (self.K1 + 1)) / (
+                score += peso * idf * (tf * (self.K1 + 1)) / (
                     tf + self.K1 * (1 - self.B + self.B * dl / self._avgdl)
                 )
             if score >= score_minimo:

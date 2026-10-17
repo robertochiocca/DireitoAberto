@@ -28,6 +28,25 @@ def test_expansao_nao_repete_sinonimo_alcancavel_por_dois_caminhos(retriever):
     assert "locador" in termos
 
 
+def test_sinonimo_pesa_menos_que_a_palavra_do_cidadao(retriever):
+    pesos = retriever._expandir_consulta("o plano negou a cirurgia")
+    assert pesos["negou"] == 1.0
+    assert pesos["negativa"] == Retriever.PESO_SINONIMO < 1.0
+    # Palavra escrita pelo cidadão mantém o peso cheio, mesmo sendo também
+    # sinônimo de outra ("aluguel" expande para "locador").
+    assert retriever._expandir_consulta("aluguel do locador")["locador"] == 1.0
+
+
+def test_sinonimo_solto_nao_traz_lei_de_outro_assunto(retriever):
+    """"negou" expande para "negativa", que a LAI usa no sentido de pedido de
+    informação negado, e para "indeferido", do recurso ao INSS. Casar só um
+    desses sinônimos não pode pôr essas leis na resposta sobre plano de saúde."""
+    ids = [r.id for r in retriever.buscar("O plano de saúde negou minha cirurgia")]
+    assert "lei9656-35c" in ids
+    assert "lai-10-11" not in ids, ids
+    assert "lei8213-126" not in ids, ids
+
+
 CASOS = [
     ("A empresa não quer trocar meu notebook defeituoso", "cdc-18"),
     ("Comprei pela internet e me arrependi da compra", "cdc-49"),

@@ -49,7 +49,7 @@ O DireitoAberto ataca o problema em duas camadas:
 | Geração | API de LLM (pacote `anthropic`), opcional |
 | Frontend (produto) | React/Next.js 15 + TypeScript (`web/`): perguntar, base legal, histórico, ajuda gratuita e login |
 | Frontend (MVP) | HTML/CSS/JS estático (`frontend/`), servido pelo próprio backend |
-| Testes | pytest + TestClient (httpx) — 127 testes |
+| Testes | pytest + TestClient (httpx) — 129 testes |
 
 ## Arquitetura
 
@@ -70,7 +70,7 @@ resposta + artigos + fontes oficiais + aviso legal
 ```
 
 - `backend/data/legislacao.json` — corpus com 79 dispositivos legais (CF/88, Código Civil, LINDB, CDC e Decreto 7.962/2013, CLT, CTB, CPC, Lei do Inquilinato, Lei do Bem de Família, Lei dos Juizados Especiais, Federais e da Fazenda Pública, LC 80/1994 da Defensoria, Lei de Registros Públicos, ECA e ECA Digital, Maria da Penha, Estatuto da Pessoa Idosa e da Pessoa com Deficiência, LOAS/BPC, Lei do FGTS, Lei dos Planos de Saúde, Lei de Benefícios do INSS, CTN, Lei do Processo Administrativo, LAI, Lei 13.460/2017, LGPD, Código Florestal, Resolução ANAC 400 e 7 súmulas de STF/STJ/TST), cada um com texto, resumo em linguagem simples, tema, palavras-chave, fonte oficial e **bloco de vigência**.
-- `backend/app/retrieval.py` — índice BM25 com filtro por área temática; a interface `Retriever.buscar()` permite trocar o motor por busca semântica (embeddings) sem alterar a API.
+- `backend/app/retrieval.py` — índice BM25 com filtro por área temática. Os sinônimos que traduzem o vocabulário do cidadão entram na consulta com **peso 0,6**, abaixo das palavras que ele de fato escreveu: com peso cheio, um sinônimo solto trazia lei de outro assunto ("o plano negou minha cirurgia" expandia "negou" para "negativa" e puxava a Lei de Acesso à Informação). A interface `Retriever.buscar()` permite trocar o motor por busca semântica (embeddings) sem alterar a API.
 - `backend/app/llm.py` — camada de geração com prompt que exige linguagem cautelosa, proíbe inventar dispositivos e sempre encaminha para a Defensoria/Procon.
 - `backend/app/main.py` — API FastAPI e serving do frontend.
 
@@ -166,12 +166,14 @@ python3 scripts/benchmark_temporal.py --retriever semantico --json resultado.jso
 |---|---|---|
 | dispositivo vigente no corpus | 24/24 (100%) | 24/24 (100%) |
 | recuperado quando existe | 24/24 (100%) | 23/24 (95,8%) |
-| texto de 2006 recuperado | **23/24 (95,8%)** | **21/24 (87,5%)** |
+| texto de 2006 recuperado | **24/24 (100%)** | **21/24 (87,5%)** |
 | texto de 2006 **acima** do vigente | **10/24 (41,7%)** | **5/24 (20,8%)** |
-| resposta final cita o texto de 2006 | **23/24 (95,8%)** | **21/24 (87,5%)** |
-| …com aviso de revogação, após rotular | **23/23 (100%)** | **21/21 (100%)** |
+| resposta final cita o texto de 2006 | **24/24 (100%)** | **21/24 (87,5%)** |
+| …com aviso de revogação, após rotular | **24/24 (100%)** | **21/21 (100%)** |
 
-**Leitura.** Recuperação não resolve validade temporal. Com o corpus fechando os 24 casos, a redação vigente está lá e é recuperada — e **o texto de 2006 continua sendo recuperado junto em 88% a 96% das perguntas, e ainda vence a redação vigente em 21% a 42% delas**. A fonte velha é *melhor escrita* para a pergunta do cidadão, porque foi feita exatamente para ele: ela compete em pé de igualdade mesmo quando a resposta correta está indexada ao lado. Trocar BM25 por embeddings multilíngues reduz o dano (96% → 88% de contaminação; 42% → 21% de inversão) mas não muda o quadro: **nenhum avanço no motor de busca resolve o problema, porque ele não é de semântica — é de metadado**. O que resolve é o rótulo: com `status: revogada`, o distrator continua sendo recuperado, mas toda resposta passa a trazer o aviso (100% nos dois motores). Daí a decisão de arquitetura do projeto — **a vigência é um campo do corpus, não um detalhe do conteúdo**.
+**Leitura.** Recuperação não resolve validade temporal. Com o corpus fechando os 24 casos, a redação vigente está lá e é recuperada — e **o texto de 2006 continua sendo recuperado junto em 88% a 100% das perguntas, e ainda vence a redação vigente em 21% a 42% delas**. A fonte velha é *melhor escrita* para a pergunta do cidadão, porque foi feita exatamente para ele: ela compete em pé de igualdade mesmo quando a resposta correta está indexada ao lado. Trocar BM25 por embeddings multilíngues reduz o dano (100% → 88% de contaminação; 42% → 21% de inversão) mas não muda o quadro: **nenhum avanço no motor de busca resolve o problema, porque ele não é de semântica — é de metadado**. O que resolve é o rótulo: com `status: revogada`, o distrator continua sendo recuperado, mas toda resposta passa a trazer o aviso (100% nos dois motores). Daí a decisão de arquitetura do projeto — **a vigência é um campo do corpus, não um detalhe do conteúdo**.
+
+Ao dar peso menor aos sinônimos, a contaminação do BM25 subiu de 23/24 para 24/24: no caso "indicar o condutor", a vaga que um artigo ocupava só por sinônimo passou ao texto de 2006, que carrega as palavras-chave da própria pergunta. É o desenho de pior caso funcionando — o distrator é feito para casar com o que o cidadão escreve, e qualquer ajuste que favoreça as palavras literais o favorece também.
 
 A cobertura saiu de 16,7% (corpus de 38) para 100% (corpus de 79) com a entrada das leis que o dossiê de fontes apontava como faltantes — ECA, Lei 6.015, CTB em detalhe, LINDB, Código Florestal e o regime sucessório do companheiro. O ganho foi medido, não presumido: o benchmark é a régua. E o resultado mais interessante é o que **não** melhorou — a inversão caiu de 75% para 42% no BM25 porque passou a ser medida sobre 24 casos em vez de 4, e a contaminação quase não se moveu. Fechar a lacuna do corpus era necessário e não foi suficiente.
 
@@ -248,7 +250,7 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - **Não é aconselhamento jurídico.** O sistema informa a regra geral; detalhes do caso concreto mudam a resposta. Toda resposta encaminha para a Defensoria Pública (gratuita), Procon ou advogado.
 - O corpus é **curado e pequeno** (79 dispositivos legais): cobre consumidor, trabalho, trânsito, moradia, família, cível, registros públicos, criança e adolescente, saúde, previdência e assistência, tributos, proteção de dados, serviço público, ambiental e acesso à Justiça — e nada além disso.
 - A vigência é **conferida manualmente**, não monitorada em tempo real: cada dispositivo carrega a data da última conferência (`vigencia.conferida_em`) e o `GET /api/v1/vigencia` mostra o que está prestes a mudar. Uma norma alterada entre duas conferências continuaria sendo respondida com a redação antiga — por isso a data aparece junto da resposta.
-- A busca é **lexical por padrão** (BM25 + sinônimos PT-BR); o índice semântico existe, mas é opt-in (`DIREITO_ABERTO_RETRIEVER=semantico`). Perguntas muito distantes do vocabulário indexado podem não encontrar nada — e o sistema diz isso em vez de inventar.
+- A busca é **lexical por padrão** (BM25 + sinônimos PT-BR); o índice semântico existe, mas é opt-in (`DIREITO_ABERTO_RETRIEVER=semantico`). Perguntas muito distantes do vocabulário indexado podem não encontrar nada — e o sistema diz isso em vez de inventar. No outro extremo, as últimas vagas do top-4 podem trazer um artigo fraco de outro assunto que casa uma palavra ambígua ("plano" de saúde × plano de pagamento); um corte relativo à nota do 1º colocado foi medido e descartado por ora, porque derrubava também secundários úteis.
 - Os textos legais foram consolidados manualmente a partir do Planalto e podem não refletir alterações legislativas posteriores; cada artigo traz o link para a fonte oficial. Textos marcados como "(síntese)" condensam caput e parágrafos relevantes em vez de transcrevê-los na íntegra.
 - A jurisprudência é uma **curadoria inicial de 7 súmulas** de STF, STJ e TST — não um índice de precedentes.
 
