@@ -7,6 +7,7 @@
   --brand:#0f5a4a;
   --brand-ink:#0f5a4a;
   --brand-soft:#e2ede8;
+  --brand-fill:#0f5a4a;
   --right:#b5541f;
   --right-soft:#f6e7dc;
   --warn:#8a6d1a;
@@ -27,6 +28,7 @@
   --brand:#3fb597;
   --brand-ink:#57c5a8;
   --brand-soft:#14312a;
+  --brand-fill:#1b6c58;   /* --brand aqui é claro demais para texto branco */
   --right:#e08653;
   --right-soft:#39231a;
   --warn:#cfa93c;
@@ -52,22 +54,92 @@ a{color:inherit;text-decoration:none}
 input,select{font-family:inherit;color:var(--ink)}
 
 /* ---------- nav ---------- */
-.bar{position:sticky;top:0;z-index:40;background:var(--bar);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.bar-in{display:flex;align-items:center;gap:14px;height:62px}
-.logo{display:flex;align-items:center;gap:11px}
-.logo-mark{width:30px;height:30px;border-radius:7px;background:var(--brand);position:relative;flex:none}
+.bar{position:sticky;top:0;z-index:40;background:var(--bar);backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+/* Só o padding vertical: o lateral vem do .wrap e não pode ser sobrescrito. */
+.bar-in{display:flex;align-items:center;gap:14px;min-height:62px;padding-top:10px;padding-bottom:10px}
+.logo{display:flex;align-items:center;gap:11px;flex:none}
+.logo-mark{width:30px;height:30px;border-radius:7px;background:var(--brand-fill);position:relative;flex:none;
+  transition:transform .3s ease}
+.logo:hover .logo-mark{transform:rotate(-6deg) scale(1.06)}
 .logo-mark::before{content:"{ }";position:absolute;inset:0;display:grid;place-items:center;color:#dff0e9;font-family:'Space Mono',monospace;font-size:12px;font-weight:700}
 .logo b{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.01em}
 .logo span{color:var(--brand-ink)}
-.bar-nav{margin-left:auto;display:flex;gap:4px;align-items:center;flex-wrap:wrap}
-.bar-nav a,.bar-nav button.linklike{padding:8px 12px;border-radius:9px;font-size:14px;font-weight:500;color:var(--ink-2)}
-.bar-nav a:hover,.bar-nav button.linklike:hover{background:var(--hover);color:var(--ink)}
-.bar-nav a.on{color:var(--brand-ink);font-weight:600}
-.theme-btn{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;border:1px solid var(--line);background:var(--card);font-size:15px}
-.user-chip{font-family:'Space Mono',monospace;font-size:11.5px;color:var(--brand-ink);background:var(--brand-soft);border-radius:999px;padding:5px 11px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.bar-nav{margin-left:auto;display:flex;gap:2px;align-items:center;flex:none}
+.bar-nav a{position:relative;padding:8px 11px;border-radius:9px;font-size:14px;font-weight:500;color:var(--ink-2);
+  white-space:nowrap;transition:background .15s,color .15s}
+.bar-nav a:hover{background:var(--hover);color:var(--ink)}
+/* Seção atual: traço sob o rótulo, não só a cor. */
+.bar-nav a.on{color:var(--ink);font-weight:600}
+.bar-nav a.on::after{content:"";position:absolute;left:11px;right:11px;bottom:3px;height:2px;border-radius:2px;background:var(--brand)}
+/* Ajuda gratuita é a saída do problema: o único item com peso próprio,
+   na cor de "seu direito". */
+.bar-nav .nav-cta{margin-left:8px;display:inline-flex;align-items:center;gap:8px;padding:7px 13px;
+  border:1.5px solid var(--right);background:var(--right-soft);color:var(--right);font-weight:600}
+.bar-nav .nav-cta:hover,.bar-nav .nav-cta.on:hover{background:var(--right);color:#fff}
+.bar-nav .nav-cta.on{color:var(--right)}
+.bar-nav .nav-cta.on::after{display:none}
+.cta-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none;animation:respira 2.6s ease-in-out infinite}
+@keyframes respira{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--right) 45%,transparent)}
+  50%{box-shadow:0 0 0 4px color-mix(in srgb,var(--right) 0%,transparent)}}
+@media (prefers-reduced-motion: reduce){.cta-dot{animation:none}}
+
+.bar-tools{display:flex;align-items:center;gap:8px;flex:none}
+.bar-tools .linklike{padding:8px 11px;border-radius:9px;font-size:14px;font-weight:500;color:var(--ink-2);white-space:nowrap}
+.bar-tools .linklike:hover{background:var(--hover);color:var(--ink)}
+.bar-tools .linklike.on{color:var(--ink);font-weight:600}
+.user-chip{font-family:'Space Mono',monospace;font-size:11.5px;color:var(--brand-ink);background:var(--brand-soft);border-radius:999px;padding:5px 11px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.theme-btn{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;border:1px solid var(--line);background:var(--card);font-size:15px;transition:transform .2s}
+.theme-btn:hover{transform:rotate(15deg)}
+.menu-btn{display:none;height:36px;padding:0 13px 0 11px;border:1px solid var(--line);border-radius:9px;
+  background:var(--card);align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--ink);
+  transition:border-color .15s,background .15s}
+.menu-btn:hover{border-color:var(--ink-2)}
+.menu-btn[aria-expanded="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.burger{display:grid;gap:3px;width:15px}
+.burger i{display:block;height:2px;border-radius:2px;background:currentColor;transition:transform .2s,opacity .2s}
+.menu-btn[aria-expanded="true"] .burger i:nth-child(1){transform:translateY(5px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] .burger i:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] .burger i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+
+/* ---------- menu compacto (tablet e celular) ---------- */
+.menu{border-top:1px solid var(--line);background:var(--paper);
+  max-height:calc(100vh - 64px);max-height:calc(100dvh - 64px);overflow:auto;
+  overscroll-behavior:contain;animation:drop .22s cubic-bezier(.2,.7,.3,1)}
+.menu[hidden]{display:none}
+@keyframes drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.menu-in{padding-top:16px;padding-bottom:22px;display:grid;gap:10px}
+.menu-k{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dead);margin-top:6px}
+.mi{position:relative;text-align:left;border-radius:var(--radius);padding:16px 46px 16px 18px;
+  display:grid;gap:3px;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow);
+  transition:transform .15s,border-color .15s}
+.mi:hover{transform:translateY(-1px)}
+.mi-t{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:19px;letter-spacing:-.01em;line-height:1.2}
+.mi-d{font-size:13.5px;color:var(--ink-2);line-height:1.4}
+.mi-go{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:18px;transition:right .2s}
+.mi:hover .mi-go{right:14px}
+.mi-primary{background:var(--brand-fill);border-color:var(--brand-fill);color:#fff}
+.mi-primary .mi-d{color:#cfe6dd}
+.mi-help{border:1.5px solid var(--right);background:var(--right-soft)}
+.mi-help .mi-t,.mi-help .mi-go{color:var(--right)}
+.mi-list{display:grid;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);overflow:hidden}
+.mi-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px;text-align:left;
+  padding:13px 18px;border-top:1px solid var(--line);font-size:15px;transition:background .15s}
+.mi-row:first-child{border-top:none}
+.mi-row b{font-weight:600;color:var(--ink);white-space:nowrap}
+.mi-row span{font-size:13px;color:var(--dead);text-align:right;min-width:0}
+.mi-row .mi-email{font-family:'Space Mono',monospace;font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mi-row:hover{background:var(--hover)}
+.mi-row.on b{color:var(--brand-ink)}
+.mi-row.on b::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--brand);margin-right:8px;vertical-align:middle}
+.menu-veil{position:fixed;inset:0;z-index:30;background:rgba(20,29,43,.38);animation:fade .2s ease}
+.menu-aberto,.menu-aberto body{overflow:hidden}
 
 /* ---------- páginas ---------- */
-.page{padding:44px 0 90px;animation:fade .35s ease}
+/* Só o vertical: o lateral vem do .wrap (o atalho `padding:44px 0` o zerava
+   e colava o conteúdo nas bordas da tela no celular). */
+.page{padding-top:44px;padding-bottom:90px;animation:fade .35s ease}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .eyebrow{font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-ink);margin-bottom:16px}
 h1.hero{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-.025em;font-size:clamp(30px,5.4vw,54px);line-height:1.05;max-width:18ch}
@@ -81,7 +153,7 @@ h1.hero em{font-style:normal;color:var(--brand-ink)}
 .ask{margin-top:28px;display:flex;gap:10px;max-width:640px}
 .ask input{flex:1;padding:15px 18px;border:1.5px solid var(--line);background:var(--card);border-radius:13px;font-size:16px;box-shadow:var(--shadow)}
 .ask input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
-.btn{padding:13px 22px;border-radius:12px;background:var(--brand);color:#fff;font-weight:600;font-size:15px;transition:transform .15s,opacity .15s}
+.btn{padding:13px 22px;border-radius:12px;background:var(--brand-fill);color:#fff;font-weight:600;font-size:15px;transition:transform .15s,opacity .15s}
 .btn:hover{transform:translateY(-1px)}
 .btn:disabled{opacity:.55;cursor:wait;transform:none}
 .btn-ghost{background:var(--card);color:var(--brand-ink);border:1px solid var(--line)}
@@ -145,12 +217,67 @@ h1.hero em{font-style:normal;color:var(--brand-ink)}
 .disc{border:1px solid var(--line);background:var(--soft);border-radius:12px;padding:14px 18px;margin-top:26px;font-size:13.5px;color:var(--ink-2);max-width:760px}
 .disc b{color:var(--ink)}
 
+/* ---------- ajuda: do problema à solução ---------- */
+.path-head{max-width:780px}
+.path-head .eyebrow{margin-bottom:12px}
+.path-head h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(22px,3.2vw,30px);letter-spacing:-.02em;line-height:1.1}
+.path-head p{font-family:'Newsreader',Georgia,serif;font-size:17px;color:var(--ink-2);margin-top:10px;line-height:1.45;max-width:58ch}
+.path-steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+.path-steps li{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px 18px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px}
+/* conector entre degraus: ocupa o vão entre um cartão e o próximo */
+.path-steps li:not(:last-child)::after{content:"";position:absolute;top:35px;right:-17px;width:18px;height:2px;background:var(--line)}
+.ps-n{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-family:'Space Mono',monospace;
+  font-weight:700;font-size:14px;background:var(--ink);color:var(--paper)}
+.path-steps h4{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:17px;line-height:1.2;margin-top:4px}
+.path-steps p{font-size:14px;color:var(--ink-2);line-height:1.5}
+.ps-go{margin-top:auto;align-self:flex-start;padding-top:6px;font-size:13.5px;font-weight:600;color:var(--brand-ink)}
+.ps-go:hover{text-decoration:underline}
+/* o último degrau é onde a ajuda gratuita entra: mesma cor do atalho da barra */
+.path-steps .ps-last{border:1.5px solid var(--right)}
+.ps-last .ps-n{background:var(--right);color:#fff}
+.ps-last .ps-go{color:var(--right)}
+.path-urgent{margin-top:16px;font-size:14px;color:var(--ink-2);line-height:1.5;border-left:3px solid var(--right);
+  background:var(--right-soft);padding:11px 15px;border-radius:0 10px 10px 0}
+.path-urgent b{color:var(--ink)}
+.help{background:#141d2b;color:#dfe4ec;border-radius:18px;padding:34px 30px;margin-top:34px;scroll-margin-top:84px}
+.help h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:23px;color:#fff;letter-spacing:-.01em}
+.help > p{font-family:'Newsreader',Georgia,serif;font-size:16px;color:#a9b3c2;margin-top:8px;max-width:56ch}
+/* 260px dá 3×3 para os nove canais na largura cheia (com 210, sobrava um sozinho) */
+.help-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:22px}
+.hres{background:#1f2a3c;border-radius:12px;padding:17px 18px;transition:transform .15s ease}
+.hres:hover{transform:translateY(-2px)}
+.hres .nm{font-weight:700;font-size:15px;color:#fff}
+.hres .tp{font-size:13.5px;color:#9aa5b6;margin-top:5px;line-height:1.4}
+.hres .free{font-family:'Space Mono',monospace;font-size:10.5px;color:#6fd3ac;margin-top:9px;display:inline-block;letter-spacing:.04em}
+
 footer{border-top:1px solid var(--line);margin-top:60px;padding:26px 0}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink-2)}
 footer .mono{color:var(--dead)}
 
+/* Compacto: a navegação e a conta vão para o painel do botão Menu.
+   Precisa bater com LARGURA_DESKTOP em components/Nav.tsx. */
+@media(max-width:959px){
+  .bar-nav,.bar-tools .conta,.user-chip{display:none}
+  .bar-tools{margin-left:auto}
+  .menu-btn{display:inline-flex}
+}
+@media(min-width:960px){
+  .menu,.menu-veil{display:none !important}
+}
+@media(max-width:900px){
+  .path-steps{grid-template-columns:1fr 1fr}
+  .path-steps li:nth-child(2)::after{display:none}
+}
 @media(max-width:640px){
   .ask{flex-direction:column}
-  .bar-nav a{padding:8px 9px;font-size:13px}
-  .user-chip{display:none}
+  .path-steps{grid-template-columns:1fr;gap:12px}
+  .path-steps li:nth-child(2)::after{display:block}
+  .path-steps li:not(:last-child)::after{top:auto;bottom:-13px;right:auto;left:32px;width:2px;height:14px}
+  .help{padding:26px 20px}
+}
+/* Telas muito estreitas: só o ícone do Menu. */
+@media(max-width:359px){
+  .menu-lbl{display:none}
+  .menu-btn{padding:0 11px}
 }
