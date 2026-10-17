@@ -18,6 +18,10 @@ O cidadão descreve o problema em linguagem comum e recebe a regra aplicável, o
 |---|---|---|
 | ![Tela de login](docs/screenshots/3-login.png) | ![Histórico de consultas](docs/screenshots/4-historico.png) | ![Base legal filtrada por STJ](docs/screenshots/5-base-legal.png) |
 
+| Ajuda gratuita: os quatro degraus e os canais | Menu no celular |
+|---|---|
+| ![Página /ajuda com o caminho de resolução em quatro degraus](docs/screenshots/7-ajuda.png) | <img src="docs/screenshots/8-menu-celular.png" alt="Menu compacto aberto no celular" width="260"> |
+
 ## O problema
 
 A legislação brasileira é escrita para operadores do Direito, não para o cidadão. Quem tem um produto com defeito, foi demitido, recebeu uma multa injusta ou teve o nome negativado raramente sabe **qual lei protege o seu caso, quais são os prazos e onde buscar ajuda gratuita** — e o juridiquês afasta exatamente quem mais precisa da informação.
@@ -26,7 +30,7 @@ A legislação brasileira é escrita para operadores do Direito, não para o cid
 
 O DireitoAberto ataca o problema em duas camadas:
 
-1. **Conteúdo curado** (frontend): 16 situações do dia a dia — consumidor, trabalho, trânsito, moradia, família, saúde, previdência e tributos — explicadas em passo a passo, com prazos, modelos de texto prontos, **fonte oficial destacada** (lei, artigo e link para o Planalto), glossário de juridiquês e canais gratuitos de ajuda (Defensoria Pública, Procon, consumidor.gov.br, ANS, INSS, Banco Central, Juizados Especiais). Interface com modo escuro, animações suaves, filtros por área e histórico de pesquisas.
+1. **Conteúdo curado** (frontend): 16 situações do dia a dia — consumidor, trabalho, trânsito, moradia, família, saúde, previdência e tributos — explicadas em passo a passo, com prazos, modelos de texto prontos, **fonte oficial destacada** (lei, artigo e link para o Planalto), glossário de juridiquês e canais gratuitos de ajuda (Defensoria Pública, Procon, consumidor.gov.br, ANS, INSS, Banco Central, Juizados Especiais). A home mostra o **caminho de resolução em quatro degraus** — entender o direito, tentar resolver direto, reclamar no canal oficial, levar à Justiça sem pagar — e a navegação destaca a ajuda gratuita em todas as páginas. Interface com modo escuro, animações suaves, filtros por área e histórico de pesquisas.
 2. **RAG jurídico** (backend): o usuário descreve o problema em linguagem natural ("*a empresa não quer trocar meu notebook defeituoso*") e o sistema:
    - normaliza a pergunta e a traduz do vocabulário do cidadão para o vocabulário da lei (sinônimos: "notebook" → "produto durável", "nome sujo" → "negativação");
    - busca no corpus de legislação (BM25) os artigos mais relevantes — ex.: CDC art. 18 e art. 26;
@@ -43,9 +47,9 @@ O DireitoAberto ataca o problema em duas camadas:
 | Autenticação | PBKDF2 (stdlib) + tokens de sessão opacos (Bearer) |
 | Documentos | pypdf (upload de nota fiscal/contrato em PDF ou TXT) |
 | Geração | API de LLM (pacote `anthropic`), opcional |
-| Frontend (produto) | React/Next.js 15 + TypeScript (`web/`): perguntar, login, histórico e base legal |
+| Frontend (produto) | React/Next.js 15 + TypeScript (`web/`): perguntar, base legal, histórico, ajuda gratuita e login |
 | Frontend (MVP) | HTML/CSS/JS estático (`frontend/`), servido pelo próprio backend |
-| Testes | pytest + TestClient (httpx) — 50 testes |
+| Testes | pytest + TestClient (httpx) — 127 testes |
 
 ## Arquitetura
 
@@ -69,6 +73,26 @@ resposta + artigos + fontes oficiais + aviso legal
 - `backend/app/retrieval.py` — índice BM25 com filtro por área temática; a interface `Retriever.buscar()` permite trocar o motor por busca semântica (embeddings) sem alterar a API.
 - `backend/app/llm.py` — camada de geração com prompt que exige linguagem cautelosa, proíbe inventar dispositivos e sempre encaminha para a Defensoria/Procon.
 - `backend/app/main.py` — API FastAPI e serving do frontend.
+
+### Navegação e caminho de resolução
+
+Os dois frontends seguem o mesmo desenho, pensado para que a saída do problema nunca passe despercebida:
+
+- **"Ajuda gratuita" é o único item da navegação com peso próprio**, em pílula na cor de "seu direito" e presente em todas as páginas. A seção atual é marcada por um traço sob o rótulo, não só pela cor.
+- **No celular e no tablet, a navegação vira um botão Menu.** O painel lista as seções em ordem de importância — primeiro "Tenho um problema" e "Ajuda gratuita", depois o material de consulta (e a conta, no Next.js). Ele fecha com Esc (o foco volta ao botão), com toque fora, ao navegar e ao alargar a janela, e trava a rolagem da página enquanto está aberto.
+- **A faixa "Do problema à solução, em quatro degraus"** ordena a resolução do mais simples ao mais formal: entender o direito → tentar resolver direto, por escrito → reclamar no canal oficial → levar à Justiça sem pagar. Cada degrau aponta para a parte do site que ajuda nele, e um aviso lembra que violência ou risco à vida não espera degrau (190 e 180).
+
+| | Frontend estático (`frontend/`) | Next.js (`web/`) |
+|---|---|---|
+| Navegação numa linha | a partir de 1040px: marca, busca e seções | a partir de 960px: marca, seções e conta |
+| Menu compacto | abaixo de 1040px | abaixo de 960px |
+| Busca | no cabeçalho, presente em todas as views | campo da home |
+| Faixa dos quatro degraus | home | home (depois da resposta) e `/ajuda` |
+| Canais gratuitos | view "Ajuda gratuita" | página `/ajuda` |
+
+No frontend estático a busca mora no cabeçalho, fora das views: trocar de view não a esconde nem tira o foco do campo. A filtragem por tecla tem *debounce* de 200 ms, e Enter pergunta à base jurídica.
+
+No Next.js, a navegação está em `web/components/Nav.tsx`, a faixa em `web/components/Degraus.tsx` (usada pela home e pela `/ajuda`, com os links adaptados a cada página) e os canais e degraus em `web/lib/ajuda.ts`. Esse arquivo espelha o `HELP` de `frontend/dados.js` e a faixa da home do estático — **ao revisar o texto de um, revise o outro**.
 
 ### API pública (v1)
 
@@ -182,7 +206,7 @@ uvicorn app.main:app --reload
 cd web
 npm install
 npm run dev
-# http://localhost:3000 -> perguntar, login, histórico e base legal
+# http://localhost:3000 -> perguntar, base legal, histórico, ajuda gratuita (/ajuda) e login
 # (o Next proxia /api/* para o FastAPI; para outra origem: API_URL=https://... npm run build)
 ```
 
@@ -236,7 +260,7 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - ✅ 16 situações em 8 áreas (família, saúde, previdência, tributos…)
 - ✅ Fonte oficial (lei + artigo + link do Planalto) em cada situação e resposta
 - ✅ Filtros por área, busca por lei/artigo e histórico de pesquisas
-- ✅ Estatísticas da base (`/api/estatisticas` + página no frontend)
+- ✅ Estatísticas da base (`/api/estatisticas` + página "Números" no frontend)
 - ✅ Modo escuro, animações e design responsivo
 - ✅ Embeddings (busca semântica atrás da mesma interface `Retriever`)
 - ✅ ChromaDB como índice vetorial (opt-in via `DIREITO_ABERTO_RETRIEVER=semantico`)
@@ -254,7 +278,8 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - ✅ Controle de vigência por dispositivo (status, data de entrada em vigor, norma alteradora e data de conferência) exposto na API, no LLM e nos dois frontends
 - ✅ Fila de monitoramento de normas em vacatio legis (`/api/v1/vigencia`)
 - ⬜ Migrações de banco (Alembic) e deploy com PostgreSQL gerenciado
-- ✅ Frontend em React/Next.js (`web/`: perguntar, login, histórico e base legal, com modo escuro)
+- ✅ Frontend em React/Next.js (`web/`: perguntar, base legal, histórico, ajuda gratuita e login, com modo escuro)
+- ✅ Navegação responsiva nos dois frontends (menu compacto no celular, "Ajuda gratuita" em destaque) e caminho de resolução em quatro degraus, com página `/ajuda` no Next.js
 - ✅ Benchmark de armadilha temporal (24 casos, três índices; mede cobertura, contaminação por fonte desatualizada e eficácia do rótulo de vigência)
 - ✅ Expansão do corpus para 100% de cobertura do benchmark (38 → 79 dispositivos; fechou as lacunas que o próprio benchmark mediu)
 - ⬜ Valores dinâmicos (tetos dos Juizados calculados a partir do salário mínimo vigente, em vez de fixos no conteúdo)
