@@ -174,6 +174,12 @@
   .ai-panel .ai-art a{font-size:12px;color:var(--brand-ink)}
   .ai-panel .ai-aviso{margin-top:14px;font-size:12.5px;color:var(--ink-2);background:var(--soft);
     border-radius:8px;padding:9px 12px}
+  .ai-panel .vig{margin-left:8px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;
+    letter-spacing:.03em;border-radius:6px;padding:2px 7px;white-space:nowrap}
+  .ai-panel .vig-vacatio{background:var(--warn-soft);color:var(--warn)}
+  .ai-panel .vig-revogada{background:var(--right-soft);color:var(--right)}
+  .ai-panel .vig-nota{font-size:12.5px;color:var(--ink-2);background:var(--warn-soft);
+    border-radius:8px;padding:8px 11px;margin-top:7px;line-height:1.45}
   .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand);
     animation:pulse 1s ease infinite}
   @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
@@ -650,6 +656,16 @@ function reperguntar(q){
    ============================================================ */
 const esc=s=>{const d=document.createElement("div");d.textContent=s;return d.innerHTML};
 
+/* Badge de vigência: só aparece quando o dispositivo NÃO está valendo hoje. */
+function rotuloVigencia(v){
+  if(!v || v.status==="vigente") return "";
+  if(v.status==="revogada") return ` <span class="vig vig-revogada">⚠ revogado</span>`;
+  const d=v.entra_em_vigor_em
+    ? new Date(v.entra_em_vigor_em+"T00:00:00").toLocaleDateString("pt-BR") : null;
+  const txt=d?`em vigor a partir de ${d}`:"ainda não está em vigor";
+  return ` <span class="vig vig-vacatio">⚠ ${esc(txt)}</span>`;
+}
+
 fetch("/api/saude").then(r=>{
   if(r.ok) document.getElementById("qhint").hidden=false;
 }).catch(()=>{});
@@ -670,8 +686,9 @@ async function perguntarAPI(pergunta){
     salvarHistorico(pergunta);
     const arts=(d.artigos||[]).map(a=>`
       <div class="ai-art">
-        <div class="art">§ ${esc(a.lei)} · ${esc(a.artigo)}</div>
+        <div class="art">§ ${esc(a.lei)} · ${esc(a.artigo)}${rotuloVigencia(a.vigencia)}</div>
         <div class="txt">${esc(a.resumo)}</div>
+        ${a.vigencia&&a.vigencia.nota?`<div class="vig-nota">${esc(a.vigencia.nota)}</div>`:""}
         <a href="${esc(a.fonte)}" target="_blank" rel="noopener">fonte oficial ↗</a>
       </div>`).join("");
     panel.innerHTML=`

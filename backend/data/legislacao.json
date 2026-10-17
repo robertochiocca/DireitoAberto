@@ -1,5 +1,5 @@
 {
-  "aviso": "Textos consolidados a partir das publicações oficiais no Planalto. Alguns dispositivos foram condensados (caput + parágrafos relevantes). Confira sempre a fonte oficial antes de usar em petições.",
+  "aviso": "Textos consolidados a partir das publicações oficiais no Planalto. Alguns dispositivos foram condensados (caput + parágrafos relevantes). Cada entrada traz o bloco `vigencia` com a situação do dispositivo e a data em que ela foi conferida pela última vez (2026-10-16). Confira sempre a fonte oficial antes de usar em petições.",
   "artigos": [
     {
       "id": "cdc-18",
@@ -8,8 +8,31 @@
       "tema": "consumidor",
       "texto": "Os fornecedores de produtos de consumo duráveis ou não duráveis respondem solidariamente pelos vícios de qualidade ou quantidade que os tornem impróprios ou inadequados ao consumo a que se destinam ou lhes diminuam o valor. § 1º Não sendo o vício sanado no prazo máximo de trinta dias, pode o consumidor exigir, alternativamente e à sua escolha: I — a substituição do produto por outro da mesma espécie, em perfeitas condições de uso; II — a restituição imediata da quantia paga, monetariamente atualizada, sem prejuízo de eventuais perdas e danos; III — o abatimento proporcional do preço.",
       "resumo": "Produto com defeito: o fornecedor tem 30 dias para consertar. Se não resolver, o consumidor escolhe entre troca, devolução do dinheiro ou abatimento do preço.",
-      "palavras_chave": ["produto", "defeito", "vício", "troca", "substituição", "conserto", "devolução", "dinheiro", "loja", "fabricante", "garantia", "notebook", "celular", "eletrônico", "eletrodoméstico"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+      "palavras_chave": [
+        "produto",
+        "defeito",
+        "vício",
+        "troca",
+        "substituição",
+        "conserto",
+        "devolução",
+        "dinheiro",
+        "loja",
+        "fabricante",
+        "garantia",
+        "notebook",
+        "celular",
+        "eletrônico",
+        "eletrodoméstico"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cdc-26",
@@ -18,8 +41,26 @@
       "tema": "consumidor",
       "texto": "O direito de reclamar pelos vícios aparentes ou de fácil constatação caduca em: I — trinta dias, tratando-se de fornecimento de serviço e de produtos não duráveis; II — noventa dias, tratando-se de fornecimento de serviço e de produtos duráveis. § 1º Inicia-se a contagem do prazo decadencial a partir da entrega efetiva do produto ou do término da execução dos serviços. § 3º Tratando-se de vício oculto, o prazo decadencial inicia-se no momento em que ficar evidenciado o defeito.",
       "resumo": "Prazo para reclamar de defeito: 30 dias (produtos não duráveis) ou 90 dias (duráveis), contados da entrega — ou de quando o defeito oculto aparecer.",
-      "palavras_chave": ["prazo", "reclamar", "garantia", "legal", "defeito", "vício", "oculto", "produto", "durável", "decadência"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+      "palavras_chave": [
+        "prazo",
+        "reclamar",
+        "garantia",
+        "legal",
+        "defeito",
+        "vício",
+        "oculto",
+        "produto",
+        "durável",
+        "decadência"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cdc-42",
@@ -28,8 +69,24 @@
       "tema": "consumidor",
       "texto": "Na cobrança de débitos, o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça. Parágrafo único. O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.",
       "resumo": "Cobrança indevida: quem pagou o que não devia tem direito a receber de volta o dobro, com correção — salvo engano justificável do fornecedor.",
-      "palavras_chave": ["cobrança", "indevida", "dívida", "dobro", "repetição", "indébito", "constrangimento", "ameaça"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+      "palavras_chave": [
+        "cobrança",
+        "indevida",
+        "dívida",
+        "dobro",
+        "repetição",
+        "indébito",
+        "constrangimento",
+        "ameaça"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cdc-43",
@@ -38,8 +95,29 @@
       "tema": "consumidor",
       "texto": "O consumidor terá acesso às informações existentes em cadastros, fichas, registros e dados pessoais e de consumo arquivados sobre ele. § 1º Os cadastros e dados de consumidores devem ser objetivos, claros, verdadeiros e em linguagem de fácil compreensão, não podendo conter informações negativas referentes a período superior a cinco anos. § 2º A abertura de cadastro, ficha, registro e dados pessoais e de consumo deverá ser comunicada por escrito ao consumidor, quando não solicitada por ele.",
       "resumo": "Negativação: o consumidor deve ser avisado por escrito antes da inscrição em cadastros como Serasa/SPC, e nenhum registro negativo pode durar mais de 5 anos.",
-      "palavras_chave": ["negativação", "nome", "sujo", "serasa", "spc", "cadastro", "inadimplente", "comunicação", "cinco", "anos", "dívida"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+      "palavras_chave": [
+        "negativação",
+        "nome",
+        "sujo",
+        "serasa",
+        "spc",
+        "cadastro",
+        "inadimplente",
+        "comunicação",
+        "cinco",
+        "anos",
+        "dívida"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 14.181/2021"
+        ],
+        "nota": "A Lei 14.181/2021 (superendividamento) acrescentou o § 5º: dívida prescrita não pode mais impedir o acesso ao crédito.",
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cdc-49",
@@ -48,8 +126,27 @@
       "tema": "consumidor",
       "texto": "O consumidor pode desistir do contrato, no prazo de 7 dias a contar de sua assinatura ou do ato de recebimento do produto ou serviço, sempre que a contratação de fornecimento de produtos e serviços ocorrer fora do estabelecimento comercial, especialmente por telefone ou a domicílio. Parágrafo único. Se o consumidor exercitar o direito de arrependimento previsto neste artigo, os valores eventualmente pagos, a qualquer título, durante o prazo de reflexão, serão devolvidos, de imediato, monetariamente atualizados.",
       "resumo": "Direito de arrependimento: compras feitas fora da loja física (internet, telefone) podem ser desistidas em 7 dias, com devolução integral e atualizada dos valores pagos.",
-      "palavras_chave": ["arrependimento", "desistir", "internet", "compra", "online", "telefone", "sete", "dias", "reembolso", "devolução", "frete"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+      "palavras_chave": [
+        "arrependimento",
+        "desistir",
+        "internet",
+        "compra",
+        "online",
+        "telefone",
+        "sete",
+        "dias",
+        "reembolso",
+        "devolução",
+        "frete"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "clt-477",
@@ -58,8 +155,29 @@
       "tema": "trabalho",
       "texto": "Na extinção do contrato de trabalho, o empregador deverá proceder à anotação na Carteira de Trabalho e Previdência Social, comunicar a dispensa aos órgãos competentes e realizar o pagamento das verbas rescisórias no prazo e na forma estabelecidos neste artigo. § 6º A entrega ao empregado de documentos que comprovem a comunicação da extinção contratual aos órgãos competentes bem como o pagamento dos valores constantes do instrumento de rescisão contratual deverão ser efetuados até dez dias contados a partir do término do contrato.",
       "resumo": "Rescisão: as verbas rescisórias e os documentos da demissão devem ser pagos/entregues em até 10 dias corridos após o fim do contrato.",
-      "palavras_chave": ["demissão", "rescisão", "verbas", "rescisórias", "pagamento", "prazo", "dez", "dias", "carteira", "trabalho", "demitido"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+      "palavras_chave": [
+        "demissão",
+        "rescisão",
+        "verbas",
+        "rescisórias",
+        "pagamento",
+        "prazo",
+        "dez",
+        "dias",
+        "carteira",
+        "trabalho",
+        "demitido"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.467/2017"
+        ],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "clt-487",
@@ -68,8 +186,26 @@
       "tema": "trabalho",
       "texto": "Não havendo prazo estipulado, a parte que, sem justo motivo, quiser rescindir o contrato deverá avisar a outra da sua resolução com a antecedência mínima de trinta dias aos que perceberem por quinzena ou mês, ou que tenham mais de 12 meses de serviço na empresa. A Lei nº 12.506/2011 acresce 3 dias por ano de serviço prestado na mesma empresa, até o máximo de 60 dias adicionais, perfazendo um total de até 90 dias.",
       "resumo": "Aviso prévio: mínimo de 30 dias, acrescidos de 3 dias por ano trabalhado na mesma empresa (até 90 dias no total).",
-      "palavras_chave": ["aviso", "prévio", "demissão", "trinta", "dias", "proporcional", "rescisão", "demitido"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+      "palavras_chave": [
+        "aviso",
+        "prévio",
+        "demissão",
+        "trinta",
+        "dias",
+        "proporcional",
+        "rescisão",
+        "demitido"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 12.506/2011"
+        ],
+        "nota": "O acréscimo de 3 dias por ano trabalhado vem da Lei 12.506/2011, não do texto original da CLT.",
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cf-7",
@@ -78,8 +214,29 @@
       "tema": "trabalho",
       "texto": "São direitos dos trabalhadores urbanos e rurais, além de outros que visem à melhoria de sua condição social: I — relação de emprego protegida contra despedida arbitrária ou sem justa causa, nos termos de lei complementar, que preverá indenização compensatória, dentre outros direitos; III — fundo de garantia do tempo de serviço; XXI — aviso prévio proporcional ao tempo de serviço, sendo no mínimo de trinta dias, nos termos da lei; XXIX — ação, quanto aos créditos resultantes das relações de trabalho, com prazo prescricional de cinco anos para os trabalhadores urbanos e rurais, até o limite de dois anos após a extinção do contrato de trabalho.",
       "resumo": "Direitos constitucionais do trabalhador: proteção contra dispensa arbitrária, FGTS, aviso prévio de no mínimo 30 dias e prazo de 2 anos após a saída para cobrar na Justiça (alcançando os últimos 5 anos).",
-      "palavras_chave": ["trabalhador", "fgts", "aviso", "prévio", "prescrição", "dois", "anos", "cinco", "justiça", "trabalho", "demissão", "justa", "causa"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+      "palavras_chave": [
+        "trabalhador",
+        "fgts",
+        "aviso",
+        "prévio",
+        "prescrição",
+        "dois",
+        "anos",
+        "cinco",
+        "justiça",
+        "trabalho",
+        "demissão",
+        "justa",
+        "causa"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "Os incisos citados aqui (I, III, XXI e XXIX) seguem com a redação original. Atenção: o inciso XIII (jornada) foi alterado pela EC 141/2026 — ver dispositivo próprio.",
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "lei8036-18",
@@ -88,8 +245,26 @@
       "tema": "trabalho",
       "texto": "Na hipótese de despedida pelo empregador sem justa causa, depositará este, na conta vinculada do trabalhador no FGTS, importância igual a quarenta por cento do montante de todos os depósitos realizados na conta vinculada durante a vigência do contrato de trabalho, atualizados monetariamente e acrescidos dos respectivos juros.",
       "resumo": "Demissão sem justa causa: a empresa deve depositar multa de 40% sobre todos os depósitos do FGTS feitos durante o contrato.",
-      "palavras_chave": ["fgts", "multa", "quarenta", "por", "cento", "demissão", "justa", "causa", "saque", "depósito"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8036consol.htm"
+      "palavras_chave": [
+        "fgts",
+        "multa",
+        "quarenta",
+        "por",
+        "cento",
+        "demissão",
+        "justa",
+        "causa",
+        "saque",
+        "depósito"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8036consol.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "ctb-281",
@@ -98,8 +273,25 @@
       "tema": "transito",
       "texto": "A autoridade de trânsito, na esfera da competência estabelecida neste Código e dentro de sua circunscrição, julgará a consistência do auto de infração e aplicará a penalidade cabível. Parágrafo único. O auto de infração será arquivado e seu registro julgado insubsistente: I — se considerado inconsistente ou irregular; II — se, no prazo máximo de trinta dias, não for expedida a notificação da autuação.",
       "resumo": "Multa de trânsito: se a notificação da autuação não for expedida em até 30 dias, o auto de infração deve ser arquivado.",
-      "palavras_chave": ["multa", "trânsito", "auto", "infração", "notificação", "trinta", "dias", "arquivamento", "autuação"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm"
+      "palavras_chave": [
+        "multa",
+        "trânsito",
+        "auto",
+        "infração",
+        "notificação",
+        "trinta",
+        "dias",
+        "arquivamento",
+        "autuação"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "ctb-282",
@@ -108,8 +300,32 @@
       "tema": "transito",
       "texto": "Aplicada a penalidade, será expedida notificação ao proprietário do veículo ou ao infrator, com indicação do prazo para apresentação de defesa e para interposição de recurso. Da penalidade cabe defesa prévia perante o órgão autuador e, mantida a autuação, recurso à Junta Administrativa de Recursos de Infrações (JARI) no prazo indicado na notificação; da decisão da JARI cabe recurso à instância superior (CETRAN, no âmbito estadual).",
       "resumo": "Defesa da multa em etapas: defesa prévia no órgão autuador, recurso à JARI e, se negado, recurso ao CETRAN — sempre dentro dos prazos indicados na própria notificação.",
-      "palavras_chave": ["multa", "recurso", "jari", "cetran", "defesa", "prévia", "notificação", "prazo", "trânsito", "penalidade", "cnh", "pontos", "injusta"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm"
+      "palavras_chave": [
+        "multa",
+        "recurso",
+        "jari",
+        "cetran",
+        "defesa",
+        "prévia",
+        "notificação",
+        "prazo",
+        "trânsito",
+        "penalidade",
+        "cnh",
+        "pontos",
+        "injusta"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 13.281/2016",
+          "Lei 14.071/2020"
+        ],
+        "nota": "Prazos e descontos mudaram em 2016 e 2020; o prazo para recorrer nunca é inferior a 30 dias (art. 282, § 4º) e vem na notificação.",
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "lei8245-18",
@@ -118,8 +334,25 @@
       "tema": "moradia",
       "texto": "É livre a convenção do aluguel, vedada a sua estipulação em moeda estrangeira e a sua vinculação à variação cambial ou ao salário mínimo (art. 17). Art. 18. É lícito às partes fixar, de comum acordo, novo valor para o aluguel, bem como inserir ou modificar cláusula de reajuste. Art. 19. Não havendo acordo, o locador ou locatário, após três anos de vigência do contrato ou do acordo anteriormente realizado, poderão pedir revisão judicial do aluguel, a fim de ajustá-lo ao preço de mercado.",
       "resumo": "Aluguel: o valor e a cláusula de reajuste são livremente acordados; sem acordo, a revisão judicial do valor só cabe após 3 anos de vigência.",
-      "palavras_chave": ["aluguel", "reajuste", "revisão", "locador", "locatário", "inquilino", "contrato", "aumento", "valor"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm"
+      "palavras_chave": [
+        "aluguel",
+        "reajuste",
+        "revisão",
+        "locador",
+        "locatário",
+        "inquilino",
+        "contrato",
+        "aumento",
+        "valor"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "lei10192-2",
@@ -128,8 +361,29 @@
       "tema": "moradia",
       "texto": "É admitida a estipulação de correção monetária ou de reajuste por índices de preços gerais, setoriais ou que reflitam a variação dos custos de produção ou dos insumos utilizados nos contratos de prazo de duração igual ou superior a um ano. § 1º É nula de pleno direito qualquer estipulação de reajuste ou correção monetária de periodicidade inferior a um ano.",
       "resumo": "Reajuste de contratos (inclusive aluguel): é nula qualquer cláusula que preveja reajuste em período menor que 12 meses.",
-      "palavras_chave": ["reajuste", "anual", "correção", "monetária", "aluguel", "contrato", "doze", "meses", "nulo", "aumento", "índice", "igpm", "ipca"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10192.htm"
+      "palavras_chave": [
+        "reajuste",
+        "anual",
+        "correção",
+        "monetária",
+        "aluguel",
+        "contrato",
+        "doze",
+        "meses",
+        "nulo",
+        "aumento",
+        "índice",
+        "igpm",
+        "ipca"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10192.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "lei8245-46",
@@ -138,8 +392,28 @@
       "tema": "moradia",
       "texto": "Nas locações ajustadas por escrito e por prazo igual ou superior a trinta meses, a resolução do contrato ocorrerá findo o prazo estipulado, independentemente de notificação ou aviso. § 1º Findo o prazo ajustado, se o locatário continuar na posse do imóvel alugado por mais de trinta dias sem oposição do locador, presumir-se-á prorrogada a locação por prazo indeterminado. § 2º Ocorrendo a prorrogação, o locador poderá denunciar o contrato a qualquer tempo, concedido o prazo de trinta dias para desocupação.",
       "resumo": "Despejo em contrato prorrogado por prazo indeterminado: o locador pode denunciar o contrato, mas deve conceder 30 dias para desocupação.",
-      "palavras_chave": ["despejo", "desocupação", "trinta", "dias", "locação", "prorrogação", "denúncia", "inquilino", "sair", "imóvel", "dono", "aluguel"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm"
+      "palavras_chave": [
+        "despejo",
+        "desocupação",
+        "trinta",
+        "dias",
+        "locação",
+        "prorrogação",
+        "denúncia",
+        "inquilino",
+        "sair",
+        "imóvel",
+        "dono",
+        "aluguel"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "lei9099-3",
@@ -148,8 +422,26 @@
       "tema": "acesso-justica",
       "texto": "O Juizado Especial Cível tem competência para conciliação, processo e julgamento das causas cíveis de menor complexidade, assim consideradas: I — as causas cujo valor não exceda a quarenta vezes o salário mínimo.",
       "resumo": "Juizado Especial Cível: recebe causas de até 40 salários mínimos.",
-      "palavras_chave": ["juizado", "especial", "cível", "pequenas", "causas", "quarenta", "salários", "mínimos", "competência", "processo"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm"
+      "palavras_chave": [
+        "juizado",
+        "especial",
+        "cível",
+        "pequenas",
+        "causas",
+        "quarenta",
+        "salários",
+        "mínimos",
+        "competência",
+        "processo"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "Os prazos processuais do Juizado correm em dias úteis (art. 12-A, incluído pela Lei 13.728/2018).",
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "lei9099-9",
@@ -158,8 +450,26 @@
       "tema": "acesso-justica",
       "texto": "Nas causas de valor até vinte salários mínimos, as partes comparecerão pessoalmente, podendo ser assistidas por advogado; nas de valor superior, a assistência é obrigatória.",
       "resumo": "No Juizado Especial Cível, causas de até 20 salários mínimos dispensam advogado; acima disso (até o teto de 40), a assistência por advogado é obrigatória.",
-      "palavras_chave": ["juizado", "advogado", "vinte", "salários", "mínimos", "sem", "dispensa", "assistência", "processo", "causa"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm"
+      "palavras_chave": [
+        "juizado",
+        "advogado",
+        "vinte",
+        "salários",
+        "mínimos",
+        "sem",
+        "dispensa",
+        "assistência",
+        "processo",
+        "causa"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "Os prazos processuais do Juizado correm em dias úteis (art. 12-A, incluído pela Lei 13.728/2018).",
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cc-206",
@@ -168,8 +478,25 @@
       "tema": "civel",
       "texto": "Prescreve: § 3º Em três anos: V — a pretensão de reparação civil. § 5º Em cinco anos: I — a pretensão de cobrança de dívidas líquidas constantes de instrumento público ou particular.",
       "resumo": "Prescrição: indenizações (reparação civil) prescrevem em 3 anos; cobrança de dívidas documentadas, em 5 anos.",
-      "palavras_chave": ["prescrição", "prazo", "indenização", "reparação", "dívida", "cobrança", "três", "cinco", "anos"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+      "palavras_chave": [
+        "prescrição",
+        "prazo",
+        "indenização",
+        "reparação",
+        "dívida",
+        "cobrança",
+        "três",
+        "cinco",
+        "anos"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cdc-14",
@@ -178,8 +505,26 @@
       "tema": "consumidor",
       "texto": "O fornecedor de serviços responde, independentemente da existência de culpa, pela reparação dos danos causados aos consumidores por defeitos relativos à prestação dos serviços, bem como por informações insuficientes ou inadequadas sobre sua fruição e riscos.",
       "resumo": "Serviço mal prestado: o fornecedor responde pelos danos causados ao consumidor independentemente de culpa (responsabilidade objetiva).",
-      "palavras_chave": ["serviço", "defeito", "dano", "responsabilidade", "objetiva", "reparação", "fornecedor", "prestação", "má", "qualidade"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+      "palavras_chave": [
+        "serviço",
+        "defeito",
+        "dano",
+        "responsabilidade",
+        "objetiva",
+        "reparação",
+        "fornecedor",
+        "prestação",
+        "má",
+        "qualidade"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cc-1694",
@@ -188,8 +533,27 @@
       "tema": "familia",
       "texto": "Podem os parentes, os cônjuges ou companheiros pedir uns aos outros os alimentos de que necessitem para viver de modo compatível com a sua condição social, inclusive para atender às necessidades de sua educação. § 1º Os alimentos devem ser fixados na proporção das necessidades do reclamante e dos recursos da pessoa obrigada. Art. 1.695. São devidos os alimentos quando quem os pretende não tem bens suficientes, nem pode prover, pelo seu trabalho, à própria mantença, e aquele de quem se reclamam pode fornecê-los, sem desfalque do necessário ao seu sustento.",
       "resumo": "Pensão alimentícia: o valor é fixado caso a caso, no equilíbrio entre a necessidade de quem pede e a possibilidade de quem paga — não existe percentual fixo em lei.",
-      "palavras_chave": ["pensão", "alimentícia", "alimentos", "filho", "filhos", "pai", "mãe", "valor", "necessidade", "possibilidade", "revisão"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+      "palavras_chave": [
+        "pensão",
+        "alimentícia",
+        "alimentos",
+        "filho",
+        "filhos",
+        "pai",
+        "mãe",
+        "valor",
+        "necessidade",
+        "possibilidade",
+        "revisão"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cpc-528",
@@ -198,8 +562,26 @@
       "tema": "familia",
       "texto": "No cumprimento de sentença que condene ao pagamento de prestação alimentícia, o juiz mandará intimar o executado para, em 3 dias, pagar o débito, provar que o fez ou justificar a impossibilidade de efetuá-lo. § 3º Se o executado não pagar ou se a justificativa apresentada não for aceita, o juiz, além de mandar protestar o pronunciamento judicial, decretar-lhe-á a prisão pelo prazo de 1 a 3 meses. § 7º O débito alimentar que autoriza a prisão civil do alimentando é o que compreende até as 3 prestações anteriores ao ajuizamento da execução e as que se vencerem no curso do processo.",
       "resumo": "Pensão atrasada: a cobrança das 3 últimas parcelas (e das que vencerem durante o processo) pode levar à prisão civil do devedor, de 1 a 3 meses.",
-      "palavras_chave": ["pensão", "atrasada", "alimentos", "prisão", "execução", "devedor", "cobrança", "parcelas", "não", "paga"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm"
+      "palavras_chave": [
+        "pensão",
+        "atrasada",
+        "alimentos",
+        "prisão",
+        "execução",
+        "devedor",
+        "cobrança",
+        "parcelas",
+        "não",
+        "paga"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cf-226",
@@ -208,8 +590,26 @@
       "tema": "familia",
       "texto": "O casamento civil pode ser dissolvido pelo divórcio. Não há prazo mínimo nem necessidade de separação prévia. Pelo art. 733 do CPC, o divórcio consensual pode ser feito por escritura pública em cartório, sem processo judicial, desde que não haja filhos menores ou incapazes nem gravidez, e que os cônjuges estejam assistidos por advogado ou defensor público.",
       "resumo": "Divórcio: é direito que não exige prazo nem justificativa. Se houver consenso e não houver filhos menores/incapazes, pode ser feito direto em cartório, com advogado ou defensor.",
-      "palavras_chave": ["divórcio", "casamento", "separação", "cartório", "consensual", "escritura", "cônjuge", "dissolução"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+      "palavras_chave": [
+        "divórcio",
+        "casamento",
+        "separação",
+        "cartório",
+        "consensual",
+        "escritura",
+        "cônjuge",
+        "dissolução"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "EC 66/2010"
+        ],
+        "nota": "A EC 66/2010 acabou com a exigência de separação prévia; o texto aqui já é o atual.",
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cc-1583",
@@ -218,8 +618,29 @@
       "tema": "familia",
       "texto": "A guarda será unilateral ou compartilhada. Compreende-se por guarda compartilhada a responsabilização conjunta e o exercício de direitos e deveres do pai e da mãe que não vivam sob o mesmo teto, concernentes ao poder familiar dos filhos comuns. Art. 1.584, § 2º Quando não houver acordo entre a mãe e o pai quanto à guarda do filho, encontrando-se ambos os genitores aptos a exercer o poder familiar, será aplicada a guarda compartilhada, salvo se um dos genitores declarar ao magistrado que não deseja a guarda do menor.",
       "resumo": "Guarda dos filhos: a regra é a guarda compartilhada, mesmo sem acordo entre os pais — desde que ambos estejam aptos. Guarda, convivência e pensão são questões independentes.",
-      "palavras_chave": ["guarda", "compartilhada", "filho", "filhos", "pai", "mãe", "convivência", "visitas", "poder", "familiar"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+      "palavras_chave": [
+        "guarda",
+        "compartilhada",
+        "filho",
+        "filhos",
+        "pai",
+        "mãe",
+        "convivência",
+        "visitas",
+        "poder",
+        "familiar"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Lei 11.698/2008",
+          "Lei 13.058/2014"
+        ],
+        "nota": "A guarda compartilhada como regra, mesmo sem acordo, veio com a Lei 13.058/2014.",
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "lei9656-35c",
@@ -228,8 +649,29 @@
       "tema": "saude",
       "texto": "É obrigatória a cobertura do atendimento nos casos: I — de emergência, como tal definidos os que implicarem risco imediato de vida ou de lesões irreparáveis para o paciente, caracterizado em declaração do médico assistente; II — de urgência, assim entendidos os resultantes de acidentes pessoais ou de complicações no processo gestacional. A ANS (RN nº 566/2022) fixa prazos máximos para a operadora garantir o atendimento e obriga a entrega de negativa de cobertura por escrito quando solicitada.",
       "resumo": "Plano de saúde: atendimento de urgência e emergência tem cobertura obrigatória; negativas devem ser dadas por escrito e há prazos máximos de atendimento fixados pela ANS.",
-      "palavras_chave": ["plano", "saúde", "negou", "negativa", "cobertura", "urgência", "emergência", "exame", "cirurgia", "internação", "ans", "operadora", "convênio"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9656compilado.htm"
+      "palavras_chave": [
+        "plano",
+        "saúde",
+        "negou",
+        "negativa",
+        "cobertura",
+        "urgência",
+        "emergência",
+        "exame",
+        "cirurgia",
+        "internação",
+        "ans",
+        "operadora",
+        "convênio"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l9656compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "lei8213-126",
@@ -238,8 +680,31 @@
       "tema": "previdencia",
       "texto": "Das decisões do INSS nos processos de interesse dos beneficiários caberá recurso para o Conselho de Recursos da Previdência Social (CRPS). O prazo para interposição do recurso ordinário pelo segurado é de trinta dias contados da ciência da decisão. O recurso administrativo é gratuito e não exige advogado, podendo ser apresentado pelo Meu INSS ou pela Central 135.",
       "resumo": "Benefício negado pelo INSS: cabe recurso gratuito ao CRPS em 30 dias, sem necessidade de advogado — pelo Meu INSS ou pela Central 135.",
-      "palavras_chave": ["inss", "benefício", "negado", "indeferido", "recurso", "aposentadoria", "auxílio", "bpc", "loas", "previdência", "trinta", "dias", "crps"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm"
+      "palavras_chave": [
+        "inss",
+        "benefício",
+        "negado",
+        "indeferido",
+        "recurso",
+        "aposentadoria",
+        "auxílio",
+        "bpc",
+        "loas",
+        "previdência",
+        "trinta",
+        "dias",
+        "crps"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [
+          "Regimento Interno do CRPS"
+        ],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "lei10259-3",
@@ -248,8 +713,26 @@
       "tema": "previdencia",
       "texto": "Compete ao Juizado Especial Federal Cível processar, conciliar e julgar causas de competência da Justiça Federal até o valor de sessenta salários mínimos, bem como executar as suas sentenças. As ações contra o INSS de até esse valor correm no JEF, onde a parte pode atuar sem advogado em primeiro grau (art. 10).",
       "resumo": "Ações contra o INSS de até 60 salários mínimos correm no Juizado Especial Federal, onde é possível entrar sem advogado em primeiro grau.",
-      "palavras_chave": ["juizado", "federal", "jef", "inss", "sessenta", "salários", "mínimos", "advogado", "ação", "benefício"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10259.htm"
+      "palavras_chave": [
+        "juizado",
+        "federal",
+        "jef",
+        "inss",
+        "sessenta",
+        "salários",
+        "mínimos",
+        "advogado",
+        "ação",
+        "benefício"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10259.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "stj-sumula479",
@@ -260,8 +743,27 @@
       "tema": "consumidor",
       "texto": "As instituições financeiras respondem objetivamente pelos danos gerados por fortuito interno relativo a fraudes e delitos praticados por terceiros no âmbito de operações bancárias. Em golpes envolvendo Pix, a Resolução BCB nº 103/2021 criou o Mecanismo Especial de Devolução (MED): a vítima deve comunicar o banco imediatamente, que pode bloquear os valores na conta do golpista e devolvê-los em até 96 horas, com análise em até 7 dias.",
       "resumo": "Golpe bancário/Pix: o banco responde por falhas de segurança em suas operações, e a vítima pode acionar o MED (devolução do Pix) comunicando a instituição imediatamente.",
-      "palavras_chave": ["golpe", "pix", "fraude", "banco", "transferência", "estelionato", "med", "devolução", "conta", "vítima", "clonado"],
-      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2017_44_capSumulas479-483.pdf"
+      "palavras_chave": [
+        "golpe",
+        "pix",
+        "fraude",
+        "banco",
+        "transferência",
+        "estelionato",
+        "med",
+        "devolução",
+        "conta",
+        "vítima",
+        "clonado"
+      ],
+      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2017_44_capSumulas479-483.pdf",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "O Mecanismo Especial de Devolução do Pix (MED) é da Resolução BCB 103/2021, posterior à súmula.",
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "anac-400",
@@ -270,8 +772,29 @@
       "tema": "consumidor",
       "texto": "Em atrasos, cancelamentos e preterição de embarque, o transportador aéreo deve prestar assistência material conforme o tempo de espera: a partir de 1 hora, facilidades de comunicação; a partir de 2 horas, alimentação; a partir de 4 horas, acomodação ou hospedagem (com traslado) para quem estiver fora do domicílio. No cancelamento ou atraso superior a 4 horas, o passageiro pode escolher entre reacomodação em outro voo, reembolso integral ou execução do serviço por outra modalidade de transporte.",
       "resumo": "Voo atrasado/cancelado: a companhia deve dar comunicação (1h), alimentação (2h) e hospedagem (4h); acima de 4 horas ou no cancelamento, o passageiro escolhe entre reacomodação, reembolso integral ou outro transporte.",
-      "palavras_chave": ["voo", "aéreo", "avião", "atraso", "cancelado", "cancelamento", "passageiro", "companhia", "assistência", "reembolso", "reacomodação", "overbooking", "bagagem"],
-      "fonte": "https://www.anac.gov.br/assuntos/legislacao/legislacao-1/resolucoes/resolucoes-2016/resolucao-no-400-13-07-2016"
+      "palavras_chave": [
+        "voo",
+        "aéreo",
+        "avião",
+        "atraso",
+        "cancelado",
+        "cancelamento",
+        "passageiro",
+        "companhia",
+        "assistência",
+        "reembolso",
+        "reacomodação",
+        "overbooking",
+        "bagagem"
+      ],
+      "fonte": "https://www.anac.gov.br/assuntos/legislacao/legislacao-1/resolucoes/resolucoes-2016/resolucao-no-400-13-07-2016",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cc-1336",
@@ -280,8 +803,27 @@
       "tema": "moradia",
       "texto": "São deveres do condômino: contribuir para as despesas do condomínio; não realizar obras que comprometam a segurança da edificação; não alterar a forma e a cor da fachada; dar às suas partes a mesma destinação que tem a edificação e não as utilizar de maneira prejudicial ao sossego, salubridade e segurança dos possuidores. § 1º O condômino que não pagar a sua contribuição ficará sujeito aos juros moratórios convencionados ou, não sendo previstos, os de 1% ao mês e multa de até 2% sobre o débito. Art. 1.337. O condômino que reiteradamente descumprir seus deveres poderá ser condenado a pagar multa de até o quíntuplo do valor da cota condominial. Art. 1.277. O proprietário ou possuidor tem o direito de fazer cessar as interferências prejudiciais ao sossego, à segurança e à saúde provocadas por vizinho.",
       "resumo": "Condomínio: atraso na cota gera multa de no máximo 2% + juros; multas por infração têm limites legais e exigem procedimento; barulho e perturbação do sossego podem ser exigidos de cessar judicialmente.",
-      "palavras_chave": ["condomínio", "condômino", "síndico", "multa", "cota", "taxa", "barulho", "sossego", "vizinho", "fachada", "assembleia"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+      "palavras_chave": [
+        "condomínio",
+        "condômino",
+        "síndico",
+        "multa",
+        "cota",
+        "taxa",
+        "barulho",
+        "sossego",
+        "vizinho",
+        "fachada",
+        "assembleia"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "ctn-174",
@@ -290,8 +832,28 @@
       "tema": "tributos",
       "texto": "Art. 34. Contribuinte do imposto (IPTU) é o proprietário do imóvel, o titular do seu domínio útil, ou o seu possuidor a qualquer título. Art. 174. A ação para a cobrança do crédito tributário prescreve em cinco anos, contados da data da sua constituição definitiva. O lançamento do IPTU pode ser impugnado administrativamente perante a prefeitura, inclusive quanto ao valor venal atribuído ao imóvel.",
       "resumo": "IPTU: quem responde é o proprietário ou possuidor; a cobrança prescreve em 5 anos; erros de valor venal ou de lançamento podem ser impugnados na própria prefeitura, sem processo judicial.",
-      "palavras_chave": ["iptu", "imposto", "tributo", "prefeitura", "cobrança", "prescrição", "cinco", "anos", "valor", "venal", "lançamento", "imóvel"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l5172compilado.htm"
+      "palavras_chave": [
+        "iptu",
+        "imposto",
+        "tributo",
+        "prefeitura",
+        "cobrança",
+        "prescrição",
+        "cinco",
+        "anos",
+        "valor",
+        "venal",
+        "lançamento",
+        "imóvel"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/l5172compilado.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": "A contagem da prescrição pode ser interrompida pela execução fiscal — confira as datas do seu caso.",
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "cc-1784",
@@ -300,8 +862,26 @@
       "tema": "familia",
       "texto": "Aberta a sucessão, a herança transmite-se, desde logo, aos herdeiros legítimos e testamentários. Art. 1.845. São herdeiros necessários os descendentes, os ascendentes e o cônjuge. Art. 1.846. Pertence aos herdeiros necessários, de pleno direito, a metade dos bens da herança, constituindo a legítima. Pelo art. 611 do CPC, o inventário deve ser instaurado em até 2 meses da abertura da sucessão; havendo consenso entre herdeiros capazes e sem testamento, pode ser feito por escritura pública em cartório.",
       "resumo": "Herança: transmite-se aos herdeiros no momento da morte; metade dos bens é reservada aos herdeiros necessários; o inventário deve começar em até 2 meses e pode ser feito em cartório quando há consenso.",
-      "palavras_chave": ["herança", "inventário", "herdeiro", "sucessão", "testamento", "partilha", "falecimento", "cartório", "legítima", "bens"],
-      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+      "palavras_chave": [
+        "herança",
+        "inventário",
+        "herdeiro",
+        "sucessão",
+        "testamento",
+        "partilha",
+        "falecimento",
+        "cartório",
+        "legítima",
+        "bens"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "stf-sv25",
@@ -312,8 +892,23 @@
       "tema": "civel",
       "texto": "É ilícita a prisão civil de depositário infiel, qualquer que seja a modalidade do depósito. Na prática, a única prisão por dívida admitida no Brasil é a do devedor de pensão alimentícia (CF, art. 5º, LXVII).",
       "resumo": "Ninguém pode ser preso por dívida no Brasil — a única exceção é o devedor de pensão alimentícia. Ameaça de prisão por dívida comum é ilegal.",
-      "palavras_chave": ["prisão", "dívida", "depositário", "infiel", "ameaça", "cobrança", "devedor"],
-      "fonte": "https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=26&sumula=1268"
+      "palavras_chave": [
+        "prisão",
+        "dívida",
+        "depositário",
+        "infiel",
+        "ameaça",
+        "cobrança",
+        "devedor"
+      ],
+      "fonte": "https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=26&sumula=1268",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "stj-sumula297",
@@ -324,8 +919,26 @@
       "tema": "consumidor",
       "texto": "O Código de Defesa do Consumidor é aplicável às instituições financeiras. Bancos, financeiras e administradoras de cartão respondem pelas regras do CDC nas relações com seus clientes: dever de informação, revisão de cláusulas abusivas, inversão do ônus da prova e responsabilidade objetiva.",
       "resumo": "Bancos e financeiras também se submetem ao CDC: cliente de banco é consumidor, com todos os direitos do código (informação, cláusulas abusivas, ônus da prova).",
-      "palavras_chave": ["banco", "financeira", "cartão", "cdc", "consumidor", "juros", "tarifa", "cláusula", "abusiva", "empréstimo"],
-      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2011_23_capSumula297.pdf"
+      "palavras_chave": [
+        "banco",
+        "financeira",
+        "cartão",
+        "cdc",
+        "consumidor",
+        "juros",
+        "tarifa",
+        "cláusula",
+        "abusiva",
+        "empréstimo"
+      ],
+      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2011_23_capSumula297.pdf",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "stj-sumula385",
@@ -336,8 +949,25 @@
       "tema": "consumidor",
       "texto": "Da anotação irregular em cadastro de proteção ao crédito, não cabe indenização por dano moral, quando preexistente legítima inscrição, ressalvado o direito ao cancelamento. Ou seja: quem já tinha negativação legítima anterior não recebe dano moral por uma nova negativação indevida — mas mantém o direito de cancelá-la.",
       "resumo": "Negativação indevida gera dano moral — exceto para quem já tinha outra negativação legítima anterior; nesse caso, resta o direito de cancelar a inscrição errada.",
-      "palavras_chave": ["negativação", "dano", "moral", "indenização", "cadastro", "serasa", "spc", "inscrição", "indevida"],
-      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2013_34_capSumula385.pdf"
+      "palavras_chave": [
+        "negativação",
+        "dano",
+        "moral",
+        "indenização",
+        "cadastro",
+        "serasa",
+        "spc",
+        "inscrição",
+        "indevida"
+      ],
+      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2013_34_capSumula385.pdf",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "stj-sumula302",
@@ -348,8 +978,26 @@
       "tema": "saude",
       "texto": "É abusiva a cláusula contratual de plano de saúde que limita no tempo a internação hospitalar do segurado. O plano não pode fixar número máximo de dias de internação (inclusive em UTI): enquanto houver indicação médica, a cobertura deve continuar.",
       "resumo": "Plano de saúde não pode limitar dias de internação (nem de UTI): cláusulas desse tipo são abusivas e a cobertura vale enquanto houver indicação médica.",
-      "palavras_chave": ["plano", "saúde", "internação", "uti", "limite", "dias", "cláusula", "abusiva", "hospital", "cobertura"],
-      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2011_24_capSumula302.pdf"
+      "palavras_chave": [
+        "plano",
+        "saúde",
+        "internação",
+        "uti",
+        "limite",
+        "dias",
+        "cláusula",
+        "abusiva",
+        "hospital",
+        "cobertura"
+      ],
+      "fonte": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2011_24_capSumula302.pdf",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "tst-sumula443",
@@ -360,8 +1008,26 @@
       "tema": "trabalho",
       "texto": "Presume-se discriminatória a despedida de empregado portador do vírus HIV ou de outra doença grave que suscite estigma ou preconceito. Inválido o ato, o empregado tem direito à reintegração no emprego.",
       "resumo": "Demissão de trabalhador com HIV ou doença grave estigmatizante presume-se discriminatória: o empregado pode ser reintegrado ao emprego.",
-      "palavras_chave": ["demissão", "discriminatória", "doença", "grave", "hiv", "câncer", "reintegração", "despedida", "preconceito", "estigma"],
-      "fonte": "https://jurisprudencia.tst.jus.br/#void"
+      "palavras_chave": [
+        "demissão",
+        "discriminatória",
+        "doença",
+        "grave",
+        "hiv",
+        "câncer",
+        "reintegração",
+        "despedida",
+        "preconceito",
+        "estigma"
+      ],
+      "fonte": "https://jurisprudencia.tst.jus.br/#void",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
     },
     {
       "id": "tst-sumula338",
@@ -372,8 +1038,99 @@
       "tema": "trabalho",
       "texto": "É ônus do empregador que conta com mais de 10 empregados o registro da jornada de trabalho na forma do art. 74, § 2º, da CLT. A não apresentação injustificada dos controles de frequência gera presunção relativa de veracidade da jornada de trabalho alegada pelo empregado, a qual pode ser elidida por prova em contrário.",
       "resumo": "Horas extras: em empresas com mais de 10 empregados, é o patrão quem deve provar a jornada (cartão de ponto); se não apresentar os controles, presume-se verdadeira a jornada que o trabalhador alegar.",
-      "palavras_chave": ["hora", "extra", "jornada", "ponto", "cartão", "controle", "registro", "prova", "empregador", "trabalho"],
-      "fonte": "https://jurisprudencia.tst.jus.br/#void"
+      "palavras_chave": [
+        "hora",
+        "extra",
+        "jornada",
+        "ponto",
+        "cartão",
+        "controle",
+        "registro",
+        "prova",
+        "empregador",
+        "trabalho"
+      ],
+      "fonte": "https://jurisprudencia.tst.jus.br/#void",
+      "vigencia": {
+        "status": "vigente",
+        "entra_em_vigor_em": null,
+        "alterada_por": [],
+        "nota": null,
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "cf-7-xiii",
+      "lei": "Constituição Federal de 1988 (redação da EC nº 141/2026)",
+      "artigo": "Art. 7º, XIII",
+      "tema": "trabalho",
+      "texto": "São direitos dos trabalhadores urbanos e rurais: XIII — duração do trabalho normal não superior a quarenta e duas horas semanais, com dois dias de descanso semanal, facultada a compensação de horários e a redução de jornada mediante acordo ou convenção coletiva de trabalho. A Emenda Constitucional nº 141/2026 fixa transição em duas etapas: o limite de 42 horas semanais com dois dias de descanso passa a valer 60 dias após a publicação da emenda, e o limite de 40 horas semanais, após quatorze meses. Até lá, continua aplicável o limite anterior de 44 horas semanais e 8 horas diárias.",
+      "resumo": "Fim da escala 6x1: a jornada máxima cai para 42 horas semanais com dois dias de descanso (60 dias após a emenda) e depois para 40 horas (em 14 meses). Até a primeira data, vale o limite antigo de 44 horas.",
+      "palavras_chave": [
+        "jornada",
+        "horas",
+        "semanais",
+        "escala",
+        "6x1",
+        "5x2",
+        "descanso",
+        "folga",
+        "quarenta",
+        "duas",
+        "semana",
+        "trabalho",
+        "emenda",
+        "141",
+        "turno",
+        "expediente"
+      ],
+      "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm",
+      "vigencia": {
+        "status": "em_vacatio",
+        "entra_em_vigor_em": "2026-12-15",
+        "alterada_por": [
+          "EC 141/2026"
+        ],
+        "nota": "Promulgada em 16/10/2026. A regra de 42 horas vale 60 dias após a publicação (por volta de 15/12/2026) e a de 40 horas, 14 meses depois. Confira a data exata da publicação no Diário Oficial antes de usar.",
+        "conferida_em": "2026-10-16"
+      }
+    },
+    {
+      "id": "decreto13135-sac",
+      "lei": "Decreto nº 13.135/2026 (novo SAC)",
+      "artigo": "Decreto 13.135/2026 (síntese)",
+      "tema": "consumidor",
+      "texto": "Regulamenta o Serviço de Atendimento ao Consumidor (SAC) das empresas reguladas pelo poder público federal: atendimento humano disponível das 8h às 20h, todos os dias; pedido de cancelamento aceito em qualquer canal de atendimento, com efeito imediato; resposta às demandas não urgentes em até 7 dias corridos; histórico do atendimento entregue ao consumidor em até 5 dias úteis. Revoga o Decreto nº 11.034/2022.",
+      "resumo": "Novo SAC: atendimento humano das 8h às 20h todos os dias, cancelamento por qualquer canal, resposta em até 7 dias corridos e histórico do atendimento em até 5 dias úteis.",
+      "palavras_chave": [
+        "sac",
+        "atendimento",
+        "call",
+        "center",
+        "telefone",
+        "cancelar",
+        "cancelamento",
+        "operadora",
+        "assinatura",
+        "protocolo",
+        "reclamação",
+        "telefonia",
+        "internet",
+        "plano",
+        "banco",
+        "consumidor",
+        "chat",
+        "ouvidoria"
+      ],
+      "fonte": "https://www.gov.br/mj/pt-br/assuntos/noticias-1/novo-decreto-do-sac-amplia-protecao-ao-consumidor-e-estabelece-regras-de-atendimento",
+      "vigencia": {
+        "status": "em_vacatio",
+        "entra_em_vigor_em": "2026-11-02",
+        "alterada_por": [],
+        "nota": "Publicado em 13/10/2026, entra em vigor 20 dias depois. Até lá vale o Decreto 11.034/2022.",
+        "conferida_em": "2026-10-16"
+      }
     }
-  ]
+  ],
+  "vigencia_conferida_em": "2026-10-16"
 }

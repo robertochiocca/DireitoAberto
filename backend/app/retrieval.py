@@ -14,7 +14,7 @@ import math
 import re
 import unicodedata
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "legislacao.json"
@@ -145,6 +145,15 @@ _SINONIMOS_NORM = {
 }
 
 
+VIGENCIA_PADRAO = {
+    "status": "vigente",
+    "entra_em_vigor_em": None,
+    "alterada_por": [],
+    "nota": None,
+    "conferida_em": None,
+}
+
+
 @dataclass
 class Resultado:
     id: str
@@ -155,6 +164,26 @@ class Resultado:
     resumo: str
     fonte: str
     score: float
+    vigencia: dict = field(default_factory=lambda: dict(VIGENCIA_PADRAO))
+
+    @classmethod
+    def de_artigo(cls, art: dict, score: float) -> "Resultado":
+        """Constrói o resultado a partir da entrada do corpus (ponto único de verdade)."""
+        return cls(
+            id=art["id"],
+            lei=art["lei"],
+            artigo=art["artigo"],
+            tema=art["tema"],
+            texto=art["texto"],
+            resumo=art["resumo"],
+            fonte=art["fonte"],
+            score=round(score, 3),
+            vigencia={**VIGENCIA_PADRAO, **art.get("vigencia", {})},
+        )
+
+    @property
+    def em_vigor(self) -> bool:
+        return self.vigencia.get("status") == "vigente"
 
 
 class Retriever:
@@ -222,17 +251,6 @@ class Retriever:
                     tf + self.K1 * (1 - self.B + self.B * dl / self._avgdl)
                 )
             if score >= score_minimo:
-                resultados.append(
-                    Resultado(
-                        id=art["id"],
-                        lei=art["lei"],
-                        artigo=art["artigo"],
-                        tema=art["tema"],
-                        texto=art["texto"],
-                        resumo=art["resumo"],
-                        fonte=art["fonte"],
-                        score=round(score, 3),
-                    )
-                )
+                resultados.append(Resultado.de_artigo(art, score))
         resultados.sort(key=lambda r: r.score, reverse=True)
         return resultados[:top_k]

@@ -65,7 +65,7 @@ LLM (via API) ── indisponível? ──► resposta extrativa
 resposta + artigos + fontes oficiais + aviso legal
 ```
 
-- `backend/data/legislacao.json` — corpus com 30 dispositivos legais (CDC, CLT, CF/88, CTB, Código Civil, CPC, Lei do Inquilinato, Lei dos Juizados Especiais e Federais, Lei do FGTS, Lei dos Planos de Saúde, Lei de Benefícios do INSS, CTN, Súmula 479/STJ e Resolução ANAC 400), cada um com texto, resumo em linguagem simples, tema, palavras-chave e link para a fonte oficial.
+- `backend/data/legislacao.json` — corpus com 38 dispositivos legais (CDC, CLT, CF/88, CTB, Código Civil, CPC, Lei do Inquilinato, Lei dos Juizados Especiais e Federais, Lei do FGTS, Lei dos Planos de Saúde, Lei de Benefícios do INSS, CTN, Resolução ANAC 400 e 7 súmulas de STF/STJ/TST), cada um com texto, resumo em linguagem simples, tema, palavras-chave, fonte oficial e **bloco de vigência**.
 - `backend/app/retrieval.py` — índice BM25 com filtro por área temática; a interface `Retriever.buscar()` permite trocar o motor por busca semântica (embeddings) sem alterar a API.
 - `backend/app/llm.py` — camada de geração com prompt que exige linguagem cautelosa, proíbe inventar dispositivos e sempre encaminha para a Defensoria/Procon.
 - `backend/app/main.py` — API FastAPI e serving do frontend.
@@ -78,8 +78,9 @@ A API é versionada em **`/api/v1`** (os caminhos `/api/...` são aliases de com
 |---|---|
 | `POST /api/v1/perguntar` | Pergunta em linguagem natural (filtro opcional `tema`) → resposta + artigos + fontes |
 | `POST /api/v1/perguntar-documento` | Multipart: pergunta + arquivo `.pdf`/`.txt` (nota fiscal, contrato) usado como contexto da busca |
-| `GET /api/v1/artigos` | Lista o corpus; filtros `?tema=familia`, `?tribunal=STJ` e `?busca=8.078` |
-| `GET /api/v1/estatisticas` | Leis, artigos e jurisprudências indexados, temas, consultas realizadas (persistente) e atualização da base |
+| `GET /api/v1/artigos` | Lista o corpus; filtros `?tema=familia`, `?tribunal=STJ`, `?status=em_vacatio` e `?busca=8.078` |
+| `GET /api/v1/vigencia` | Fila de monitoramento: normas já publicadas que ainda vão entrar em vigor, com dias restantes |
+| `GET /api/v1/estatisticas` | Leis, artigos e jurisprudências indexados, temas, consultas realizadas (persistente), dispositivos por situação e data da última conferência de vigência |
 | `POST /api/v1/auth/registrar` | Cria conta (e-mail + senha) e devolve token Bearer |
 | `POST /api/v1/auth/entrar` | Login → token Bearer |
 | `GET /api/v1/historico` | Consultas do usuário autenticado (as perguntas feitas com token ficam registradas) |
@@ -97,6 +98,22 @@ python scripts/ingerir_planalto.py \
   --lei "Código de Defesa do Consumidor — Lei nº 8.078/1990" \
   --tema consumidor --artigos 18 26 49 > novos_artigos.json
 ```
+
+### Controle de vigência
+
+O maior risco de um RAG jurídico não é não achar o artigo — é achar o artigo **errado no tempo**: citar regra revogada como se valesse, ou regra futura antes da hora. Cada dispositivo do corpus carrega um bloco próprio (o rótulo vale para o *dispositivo*, não para a lei inteira: o Código Civil está em vigor, mas o art. 1.790 é inconstitucional):
+
+```json
+"vigencia": {
+  "status": "em_vacatio",            // vigente · em_vacatio · revogada
+  "entra_em_vigor_em": "2026-12-15",
+  "alterada_por": ["EC 141/2026"],
+  "nota": "Promulgada em 16/10/2026. A regra de 42 horas vale 60 dias após a publicação…",
+  "conferida_em": "2026-10-16"
+}
+```
+
+A informação atravessa o sistema inteiro: entra no contexto do LLM (com regra explícita no prompt de nunca apresentar norma futura como vigente), aparece no modo extrativo, vira badge na resposta e na base legal, e alimenta o endpoint `/api/v1/vigencia`. Hoje a base tem duas normas publicadas e ainda sem efeito — a **EC 141/2026** (fim da escala 6x1: 42h em 15/12/2026, 40h em 14 meses) e o **Decreto 13.135/2026** (novo SAC, a partir de 02/11/2026).
 
 ### Ingestão de jurisprudência (STF/STJ/TST)
 
@@ -167,7 +184,8 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 ## Limitações (leia antes de usar)
 
 - **Não é aconselhamento jurídico.** O sistema informa a regra geral; detalhes do caso concreto mudam a resposta. Toda resposta encaminha para a Defensoria Pública (gratuita), Procon ou advogado.
-- O corpus é **curado e pequeno** (30 dispositivos legais): cobre consumidor, trabalho, trânsito, moradia, família, saúde, previdência, tributos e acesso à Justiça, e nada além disso.
+- O corpus é **curado e pequeno** (38 dispositivos legais): cobre consumidor, trabalho, trânsito, moradia, família, saúde, previdência, tributos e acesso à Justiça, e nada além disso.
+- A vigência é **conferida manualmente**, não monitorada em tempo real: cada dispositivo carrega a data da última conferência (`vigencia.conferida_em`) e o `GET /api/v1/vigencia` mostra o que está prestes a mudar. Uma norma alterada entre duas conferências continuaria sendo respondida com a redação antiga — por isso a data aparece junto da resposta.
 - A busca é **lexical** (BM25 + sinônimos), não semântica — perguntas muito distantes do vocabulário indexado podem não encontrar nada (o sistema diz isso em vez de inventar).
 - Os textos legais foram consolidados manualmente a partir do Planalto e podem não refletir alterações legislativas posteriores; cada artigo traz o link para a fonte oficial.
 - Sem jurisprudência por enquanto (ver roadmap).
@@ -195,8 +213,12 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - ✅ Upload de documentos (nota fiscal, contrato) com extração de contexto (PDF/TXT)
 - ✅ Embeddings multilíngues de qualidade (multilingual-e5-small em ONNX; 19/21 no top-1 do benchmark interno, contra 13/21 do MiniLM padrão)
 - ✅ Ingestão de jurisprudência STF/STJ/TST (`scripts/ingerir_jurisprudencia.py`, por URL ou HTML salvo — os portais bloqueiam robôs)
+- ✅ Controle de vigência por dispositivo (status, data de entrada em vigor, norma alteradora e data de conferência) exposto na API, no LLM e nos dois frontends
+- ✅ Fila de monitoramento de normas em vacatio legis (`/api/v1/vigencia`)
 - ⬜ Migrações de banco (Alembic) e deploy com PostgreSQL gerenciado
 - ✅ Frontend em React/Next.js (`web/`: perguntar, login, histórico e base legal, com modo escuro)
+- ⬜ Benchmark de "armadilha temporal": medir se o RAG responde com a redação vigente quando confrontado com texto legal desatualizado
+- ⬜ Valores dinâmicos (tetos dos Juizados calculados a partir do salário mínimo vigente, em vez de fixos no conteúdo)
 - ⬜ Camada de revisão jurídica contínua com profissional (o fluxo `revisado: false` já existe)
 
 ### A visão de longo prazo

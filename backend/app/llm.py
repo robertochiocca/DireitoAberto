@@ -28,16 +28,44 @@ não bastarem para responder, diga isso com clareza.
 - Use linguagem cautelosa ("em regra", "possivelmente", "no caso típico") — \
 detalhes do caso concreto podem mudar a resposta.
 - Cite os artigos pelo nome (ex.: "art. 18 do CDC") ao usá-los.
+- ATENÇÃO À VIGÊNCIA: cada dispositivo vem marcado com a sua situação. Se um \
+deles estiver marcado como AINDA NÃO ESTÁ EM VIGOR, diga explicitamente a \
+partir de quando ele passa a valer e o que vale até lá — nunca apresente regra \
+futura como se já valesse hoje. Se houver nota de vigência, leve-a em conta.
 - Termine SEMPRE orientando a procurar a Defensoria Pública (gratuita), o \
 Procon ou um advogado para decidir o caso concreto.
 - Não invente jurisprudência, números de lei ou prazos que não estejam no contexto.\
 """
 
 
+def rotulo_vigencia(vigencia: dict) -> str:
+    """Frase curta sobre a situação do dispositivo, para humanos e para o LLM."""
+    status = (vigencia or {}).get("status", "vigente")
+    if status == "em_vacatio":
+        data = vigencia.get("entra_em_vigor_em")
+        quando = f" Passa a valer em {_data_br(data)}." if data else ""
+        return f"AINDA NÃO ESTÁ EM VIGOR.{quando}"
+    if status == "revogada":
+        return "REVOGADO — não vale mais."
+    return "Em vigor."
+
+
+def _data_br(iso: str | None) -> str:
+    if not iso:
+        return ""
+    ano, mes, dia = iso.split("-")
+    return f"{dia}/{mes}/{ano}"
+
+
 def _montar_contexto(artigos) -> str:
     blocos = []
     for art in artigos:
-        blocos.append(f"[{art.lei} — {art.artigo}]\n{art.texto}\nFonte: {art.fonte}")
+        linhas = [f"[{art.lei} — {art.artigo}]", art.texto]
+        linhas.append(f"Situação: {rotulo_vigencia(art.vigencia)}")
+        if art.vigencia.get("nota"):
+            linhas.append(f"Nota de vigência: {art.vigencia['nota']}")
+        linhas.append(f"Fonte: {art.fonte}")
+        blocos.append("\n".join(linhas))
     return "\n\n".join(blocos)
 
 
@@ -93,6 +121,10 @@ def resposta_extrativa(pergunta: str, artigos) -> str:
     linhas = ["Encontrei possível relação da sua situação com os seguintes dispositivos legais:\n"]
     for art in artigos:
         linhas.append(f"• {art.lei}, {art.artigo}: {art.resumo}")
+        if not art.em_vigor:
+            linhas.append(f"  ⚠ {rotulo_vigencia(art.vigencia)}")
+        if art.vigencia.get("nota"):
+            linhas.append(f"  ↳ {art.vigencia['nota']}")
     linhas.append(
         "\nIsto é informação geral, não uma decisão sobre o seu caso. Para agir "
         "com segurança, procure a Defensoria Pública (gratuita), o Procon (em "

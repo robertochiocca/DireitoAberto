@@ -1,5 +1,13 @@
 /** Cliente da API do DireitoAberto (/api/v1, proxiada pelo Next via rewrites). */
 
+export type Vigencia = {
+  status: "vigente" | "em_vacatio" | "revogada";
+  entra_em_vigor_em: string | null;
+  alterada_por: string[];
+  nota: string | null;
+  conferida_em: string | null;
+};
+
 export type Artigo = {
   id: string;
   lei: string;
@@ -11,6 +19,19 @@ export type Artigo = {
   score?: number;
   tipo?: string;
   tribunal?: string | null;
+  vigencia?: Vigencia;
+};
+
+export type ItemFilaVigencia = {
+  id: string;
+  lei: string;
+  artigo: string;
+  tema: string;
+  resumo: string;
+  entra_em_vigor_em: string;
+  dias_restantes: number;
+  nota: string | null;
+  fonte: string;
 };
 
 export type Resposta = {
@@ -111,13 +132,37 @@ export const registrar = (email: string, senha: string) =>
 
 export const historico = () => api<ConsultaHistorico[]>("/historico");
 
-export const listarArtigos = (filtros: { tema?: string; tribunal?: string; busca?: string }) => {
+export const listarArtigos = (filtros: {
+  tema?: string;
+  tribunal?: string;
+  status?: string;
+  busca?: string;
+}) => {
   const params = new URLSearchParams();
   if (filtros.tema) params.set("tema", filtros.tema);
   if (filtros.tribunal) params.set("tribunal", filtros.tribunal);
+  if (filtros.status) params.set("status", filtros.status);
   if (filtros.busca) params.set("busca", filtros.busca);
   const qs = params.toString();
   return api<{ total: number; artigos: Artigo[] }>(`/artigos${qs ? `?${qs}` : ""}`);
 };
+
+export const filaDeVigencia = (dias = 180) =>
+  api<{
+    hoje: string;
+    janela_dias: number;
+    entram_em_vigor: ItemFilaVigencia[];
+    marcadas_como_futuras_mas_ja_vigentes: ItemFilaVigencia[];
+  }>(`/vigencia?dias=${dias}`);
+
+/** Rótulo curto da situação do dispositivo, para exibir ao lado do artigo. */
+export function rotuloVigencia(v?: Vigencia): { texto: string; tom: string } | null {
+  if (!v || v.status === "vigente") return null;
+  if (v.status === "revogada") return { texto: "revogado", tom: "revogada" };
+  const data = v.entra_em_vigor_em
+    ? new Date(`${v.entra_em_vigor_em}T00:00:00`).toLocaleDateString("pt-BR")
+    : null;
+  return { texto: data ? `em vigor a partir de ${data}` : "ainda não está em vigor", tom: "vacatio" };
+}
 
 export const estatisticas = () => api<Estatisticas>("/estatisticas");

@@ -1,6 +1,6 @@
 "use client";
 
-import type { Resposta } from "@/lib/api";
+import { rotuloVigencia, type Resposta } from "@/lib/api";
 
 export default function AnswerPanel({
   carregando,
@@ -38,17 +38,22 @@ export default function AnswerPanel({
       <div className="ai-answer">{resposta.resposta}</div>
       {resposta.artigos.length > 0 && (
         <div className="ai-arts">
-          {resposta.artigos.map((a) => (
-            <div className="ai-art" key={a.id}>
-              <div className="art">
-                § {a.lei} · {a.artigo}
+          {resposta.artigos.map((a) => {
+            const vig = rotuloVigencia(a.vigencia);
+            return (
+              <div className="ai-art" key={a.id}>
+                <div className="art">
+                  § {a.lei} · {a.artigo}
+                  {vig && <span className={`vig vig-${vig.tom}`}>⚠ {vig.texto}</span>}
+                </div>
+                <div className="txt">{a.resumo}</div>
+                {a.vigencia?.nota && <div className="vig-nota">{a.vigencia.nota}</div>}
+                <a href={a.fonte} target="_blank" rel="noopener noreferrer">
+                  fonte oficial ↗
+                </a>
               </div>
-              <div className="txt">{a.resumo}</div>
-              <a href={a.fonte} target="_blank" rel="noopener noreferrer">
-                fonte oficial ↗
-              </a>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
       <div className="ai-aviso">{resposta.aviso}</div>

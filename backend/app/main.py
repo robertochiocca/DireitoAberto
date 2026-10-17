@@ -6,7 +6,8 @@ são mantidos como alias de compatibilidade com o frontend/MVP.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from collections import Counter
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from fastapi import APIRouter, Depends, FastAPI, File, Form, HTTPException, Query, UploadFile
@@ -72,6 +73,16 @@ class Pergunta(BaseModel):
     )
 
 
+class Vigencia(BaseModel):
+    status: str = Field(
+        "vigente", description="vigente · em_vacatio (publicada, ainda sem efeito) · revogada"
+    )
+    entra_em_vigor_em: str | None = None
+    alterada_por: list[str] = []
+    nota: str | None = None
+    conferida_em: str | None = None
+
+
 class ArtigoEncontrado(BaseModel):
     id: str
     lei: str
@@ -81,6 +92,7 @@ class ArtigoEncontrado(BaseModel):
     resumo: str
     fonte: str
     score: float
+    vigencia: Vigencia = Vigencia()
 
 
 class Resposta(BaseModel):
@@ -148,12 +160,18 @@ def saude():
     return {"status": "ok", "artigos_no_corpus": len(retriever.artigos)}
 
 
+def _vigencia(art: dict) -> dict:
+    return art.get("vigencia") or {"status": "vigente"}
+
+
 @router.get("/estatisticas", tags=["infra"])
 def estatisticas(db: Session = Depends(get_db)):
     leis = {art["lei"] for art in retriever.artigos}
     jurisprudencias = [a for a in retriever.artigos if a.get("tipo") == "jurisprudencia"]
     atualizado_em = datetime.fromtimestamp(DATA_PATH.stat().st_mtime, tz=timezone.utc)
     total_consultas = db.scalar(select(func.count(Consulta.id))) or 0
+    por_status = Counter(_vigencia(a)["status"] for a in retriever.artigos)
+    conferidas = [c for a in retriever.artigos if (c := _vigencia(a).get("conferida_em"))]
     return {
         "leis_indexadas": len(leis),
         "artigos_indexados": len(retriever.artigos),
@@ -161,6 +179,51 @@ def estatisticas(db: Session = Depends(get_db)):
         "temas": retriever.temas(),
         "consultas_realizadas": total_consultas,
         "base_atualizada_em": atualizado_em.isoformat(),
+        "dispositivos_por_status": dict(por_status),
+        "vigencia_conferida_em": max(conferidas) if conferidas else None,
+    }
+
+
+@router.get("/vigencia", tags=["corpus"])
+def fila_de_vigencia(
+    dias: int = Query(120, ge=1, le=3650, description="Janela futura, em dias."),
+):
+    """Fila de monitoramento: o que já mudou e o que está prestes a mudar.
+
+    Normas publicadas mas ainda sem efeito (vacatio legis) são o maior risco de
+    um RAG jurídico — responder com a regra nova antes da hora é tão errado
+    quanto responder com a antiga depois dela.
+    """
+    hoje = date.today()
+    limite = hoje + timedelta(days=dias)
+    entrando, ja_valendo = [], []
+    for art in retriever.artigos:
+        v = _vigencia(art)
+        if v.get("status") != "em_vacatio" or not v.get("entra_em_vigor_em"):
+            continue
+        inicio = date.fromisoformat(v["entra_em_vigor_em"])
+        item = {
+            "id": art["id"],
+            "lei": art["lei"],
+            "artigo": art["artigo"],
+            "tema": art["tema"],
+            "resumo": art["resumo"],
+            "entra_em_vigor_em": v["entra_em_vigor_em"],
+            "dias_restantes": (inicio - hoje).days,
+            "nota": v.get("nota"),
+            "fonte": art["fonte"],
+        }
+        (ja_valendo if inicio <= hoje else entrando).append(item)
+
+    entrando = sorted(
+        (i for i in entrando if date.fromisoformat(i["entra_em_vigor_em"]) <= limite),
+        key=lambda i: i["entra_em_vigor_em"],
+    )
+    return {
+        "hoje": hoje.isoformat(),
+        "janela_dias": dias,
+        "entram_em_vigor": entrando,
+        "marcadas_como_futuras_mas_ja_vigentes": ja_valendo,
     }
 
 
@@ -168,6 +231,9 @@ def estatisticas(db: Session = Depends(get_db)):
 def listar_artigos(
     tema: str | None = Query(None, description="Filtra por área temática."),
     tribunal: str | None = Query(None, description="Filtra jurisprudência por tribunal (STF, STJ, TST)."),
+    status: str | None = Query(
+        None, description="Filtra por situação: vigente, em_vacatio ou revogada."
+    ),
     busca: str | None = Query(
         None, description="Filtra por trecho do nome da lei ou do artigo (ex.: '8.078' ou 'art. 18')."
     ),
@@ -177,6 +243,8 @@ def listar_artigos(
         artigos = [a for a in artigos if a["tema"] == tema]
     if tribunal:
         artigos = [a for a in artigos if a.get("tribunal", "").upper() == tribunal.upper()]
+    if status:
+        artigos = [a for a in artigos if _vigencia(a)["status"] == status.lower()]
     if busca:
         alvo = normalizar(busca)
         artigos = [
@@ -188,6 +256,7 @@ def listar_artigos(
         "artigos": [
             {
                 **{k: art[k] for k in ("id", "lei", "artigo", "tema", "resumo", "fonte")},
+                "vigencia": _vigencia(art),
                 **({"tipo": art["tipo"], "tribunal": art.get("tribunal")}
                    if art.get("tipo") == "jurisprudencia" else {}),
             }

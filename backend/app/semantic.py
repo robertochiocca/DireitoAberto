@@ -84,19 +84,7 @@ class EmbeddingRetriever:
             score = 1.0 - dist  # similaridade de cosseno
             if score < score_minimo:
                 continue
-            art = self._por_id[id_]
-            resultados.append(
-                Resultado(
-                    id=art["id"],
-                    lei=art["lei"],
-                    artigo=art["artigo"],
-                    tema=art["tema"],
-                    texto=art["texto"],
-                    resumo=art["resumo"],
-                    fonte=art["fonte"],
-                    score=round(score, 3),
-                )
-            )
+            resultados.append(Resultado.de_artigo(self._por_id[id_], score))
         return resultados
 
 
