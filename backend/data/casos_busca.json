@@ -1,0 +1,253 @@
+{
+  "descricao": "Gabarito de busca: pergunta do cidadão e o dispositivo que deve aparecer entre os 3 primeiros resultados. Os 21 primeiros cobrem o corpus original; os demais, um por dispositivo acrescentado na expansão do corpus — cada novo artigo entra competindo com os outros e pode enterrar um vizinho. Usado por tests/test_retrieval.py e por scripts/comparar_retrievers.py.",
+  "casos": [
+    {
+      "pergunta": "A empresa não quer trocar meu notebook defeituoso",
+      "esperado": "cdc-18"
+    },
+    {
+      "pergunta": "Comprei pela internet e me arrependi da compra",
+      "esperado": "cdc-49"
+    },
+    {
+      "pergunta": "Fui demitido sem justa causa, quais meus direitos?",
+      "esperado": "cf-7"
+    },
+    {
+      "pergunta": "Meu nome foi negativado no Serasa por dívida que não reconheço",
+      "esperado": "cdc-43"
+    },
+    {
+      "pergunta": "Recebi uma multa de trânsito injusta, como recorrer?",
+      "esperado": "ctb-282"
+    },
+    {
+      "pergunta": "O dono do imóvel quer aumentar o aluguel antes de um ano",
+      "esperado": "lei10192-2"
+    },
+    {
+      "pergunta": "Posso entrar no juizado especial sem advogado?",
+      "esperado": "lei9099-9"
+    },
+    {
+      "pergunta": "Quanto devo pagar de pensão alimentícia para meu filho?",
+      "esperado": "cc-1694"
+    },
+    {
+      "pergunta": "Quero me divorciar, preciso de processo?",
+      "esperado": "cf-226"
+    },
+    {
+      "pergunta": "Como fica a guarda compartilhada dos filhos?",
+      "esperado": "cc-1583"
+    },
+    {
+      "pergunta": "O plano de saúde negou minha cirurgia de emergência",
+      "esperado": "lei9656-35c"
+    },
+    {
+      "pergunta": "O INSS negou minha aposentadoria, como recorrer?",
+      "esperado": "lei8213-126"
+    },
+    {
+      "pergunta": "Caí num golpe do pix, o banco devolve?",
+      "esperado": "stj-sumula479"
+    },
+    {
+      "pergunta": "Meu voo foi cancelado e a companhia não deu assistência",
+      "esperado": "anac-400"
+    },
+    {
+      "pergunta": "O condomínio me multou e o vizinho faz barulho de madrugada",
+      "esperado": "cc-1336"
+    },
+    {
+      "pergunta": "A prefeitura cobrou IPTU de dez anos atrás",
+      "esperado": "ctn-174"
+    },
+    {
+      "pergunta": "Meu pai faleceu, como faço o inventário da herança?",
+      "esperado": "cc-1784"
+    },
+    {
+      "pergunta": "O plano quer limitar os dias de internação na UTI",
+      "esperado": "stj-sumula302"
+    },
+    {
+      "pergunta": "Não recebo horas extras e a empresa não mostra o ponto",
+      "esperado": "tst-sumula338"
+    },
+    {
+      "pergunta": "Fui demitido por causa de doença grave, é discriminação?",
+      "esperado": "tst-sumula443"
+    },
+    {
+      "pergunta": "Podem me prender por dívida no cartão de crédito?",
+      "esperado": "stf-sv25"
+    },
+    {
+      "pergunta": "Quais são os direitos sociais na Constituição?",
+      "esperado": "cf-6"
+    },
+    {
+      "pergunta": "Pessoa com deficiência pode assinar contrato sozinha?",
+      "esperado": "cc-3-4"
+    },
+    {
+      "pergunta": "União estável entre duas mulheres é reconhecida?",
+      "esperado": "cc-1723"
+    },
+    {
+      "pergunta": "Herdei junto com a companheira do meu pai, como divide?",
+      "esperado": "cc-1790"
+    },
+    {
+      "pergunta": "Qual o juros de uma dívida atrasada sem contrato?",
+      "esperado": "cc-389-406"
+    },
+    {
+      "pergunta": "Posso alegar que não sabia da lei?",
+      "esperado": "lindb-3"
+    },
+    {
+      "pergunta": "Quantos pontos na carteira dão suspensão?",
+      "esperado": "ctb-259-261"
+    },
+    {
+      "pergunta": "Não era eu dirigindo, como indico o condutor da multa?",
+      "esperado": "ctb-257"
+    },
+    {
+      "pergunta": "Posso recusar o bafômetro?",
+      "esperado": "ctb-165"
+    },
+    {
+      "pergunta": "Tenho desconto se pagar a multa antes do vencimento?",
+      "esperado": "ctb-284"
+    },
+    {
+      "pergunta": "O carro fica apreendido 30 dias no pátio?",
+      "esperado": "ctb-262"
+    },
+    {
+      "pergunta": "Crime de pequena gravidade vai para qual juizado?",
+      "esperado": "lei9099-61"
+    },
+    {
+      "pergunta": "Prazo no juizado conta em dias úteis?",
+      "esperado": "lei9099-12a"
+    },
+    {
+      "pergunta": "Posso trocar meu primeiro nome no cartório?",
+      "esperado": "lei6015-56"
+    },
+    {
+      "pergunta": "Quero tirar o sobrenome do meu ex-marido",
+      "esperado": "lei6015-57"
+    },
+    {
+      "pergunta": "Meu nome saiu escrito errado na certidão",
+      "esperado": "lei6015-110"
+    },
+    {
+      "pergunta": "Nunca fui registrado, como tiro certidão de nascimento?",
+      "esperado": "lei6015-46"
+    },
+    {
+      "pergunta": "Quanto tempo dura o mandato de conselheiro tutelar?",
+      "esperado": "eca-132"
+    },
+    {
+      "pergunta": "Pedi vaga em creche para meu filho de 3 anos",
+      "esperado": "eca-54"
+    },
+    {
+      "pergunta": "Rede social pode deixar criança criar conta sozinha?",
+      "esperado": "eca-digital"
+    },
+    {
+      "pergunta": "Qual a lei do código florestal hoje?",
+      "esperado": "lei12651-1"
+    },
+    {
+      "pergunta": "Quanto tempo o órgão público tem para decidir?",
+      "esperado": "lei9784-49"
+    },
+    {
+      "pergunta": "Pedi informação na prefeitura e não responderam",
+      "esperado": "lai-10-11"
+    },
+    {
+      "pergunta": "Reclamei na ouvidoria e ninguém me respondeu",
+      "esperado": "lei13460-16"
+    },
+    {
+      "pergunta": "Quero que a empresa apague meus dados pessoais",
+      "esperado": "lgpd-18"
+    },
+    {
+      "pergunta": "Recebi uma cobrança sem dizer quem está cobrando",
+      "esperado": "cdc-42a"
+    },
+    {
+      "pergunta": "Minhas dívidas passaram do que ganho, dá para renegociar tudo?",
+      "esperado": "cdc-54a"
+    },
+    {
+      "pergunta": "Comprei num site e quero cancelar, como estornam?",
+      "esperado": "decreto7962-5"
+    },
+    {
+      "pergunta": "Podem tomar minha casa por causa de dívida?",
+      "esperado": "lei8009-1"
+    },
+    {
+      "pergunta": "O dono exige fiador e depósito ao mesmo tempo",
+      "esperado": "lei8245-37"
+    },
+    {
+      "pergunta": "Estou devendo aluguel e vou ser despejado, posso pagar?",
+      "esperado": "lei8245-62"
+    },
+    {
+      "pergunta": "Não tenho dinheiro para pagar as custas do processo",
+      "esperado": "cpc-98"
+    },
+    {
+      "pergunta": "Onde consigo advogado gratuito?",
+      "esperado": "lc80-1"
+    },
+    {
+      "pergunta": "Quero processar a prefeitura, qual o valor máximo?",
+      "esperado": "lei12153-2"
+    },
+    {
+      "pergunta": "Fui demitido por justa causa, isso é legal?",
+      "esperado": "clt-482"
+    },
+    {
+      "pergunta": "Meu patrão não deposita o FGTS, posso sair com direitos?",
+      "esperado": "clt-483"
+    },
+    {
+      "pergunta": "Preciso de advogado para entrar na justiça do trabalho?",
+      "esperado": "clt-791"
+    },
+    {
+      "pergunta": "Como pedir medida protetiva contra meu marido?",
+      "esperado": "lei11340-22"
+    },
+    {
+      "pergunta": "Com quantos anos o ônibus é gratuito para idoso?",
+      "esperado": "lei10741-39"
+    },
+    {
+      "pergunta": "Posso receber o BPC sem nunca ter contribuído?",
+      "esperado": "loas-20"
+    },
+    {
+      "pergunta": "A curatela tira todos os direitos da pessoa?",
+      "esperado": "lei13146-84"
+    }
+  ]
+}

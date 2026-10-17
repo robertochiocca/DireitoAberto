@@ -1,0 +1,133 @@
+{
+  "descricao": "Julgamento manual de relevância dos resultados de busca. Para cada pergunta, todo artigo que algum motor (BM25, semântico ou híbrido) pôs no top-4 recebe um rótulo. O gabarito de casos_busca.json diz se o artigo certo aparece; estes julgamentos dizem o que mais aparece junto — é aqui que o ruído se mede. Se um motor passar a devolver um artigo ainda não julgado, scripts/comparar_retrievers.py o lista para ser rotulado.",
+  "escala": {
+    "relevante": "responde à pergunta ou a complementa diretamente",
+    "tangencial": "mesmo assunto ou próximo passo útil, mas não responde a esta pergunta",
+    "ruido": "outro assunto; não ajuda e pode confundir"
+  },
+  "julgado_em": "2026-10-17",
+  "perguntas": [
+    {
+      "pergunta": "O plano de saúde negou minha cirurgia de emergência",
+      "julgamentos": {
+        "lei9656-35c": "relevante",
+        "stj-sumula302": "relevante",
+        "cf-6": "ruido",
+        "cdc-54a": "ruido",
+        "stj-sumula385": "ruido",
+        "lei8213-126": "ruido",
+        "lei10192-2": "ruido"
+      }
+    },
+    {
+      "pergunta": "Caí num golpe do pix, o banco devolve?",
+      "julgamentos": {
+        "stj-sumula479": "relevante",
+        "stj-sumula297": "relevante",
+        "cdc-42a": "ruido",
+        "decreto13135-sac": "tangencial",
+        "cdc-49": "ruido",
+        "decreto7962-5": "ruido"
+      }
+    },
+    {
+      "pergunta": "Meu voo foi cancelado e a companhia não deu assistência",
+      "julgamentos": {
+        "anac-400": "relevante",
+        "lei9099-9": "tangencial",
+        "cf-6": "ruido",
+        "loas-20": "ruido",
+        "decreto13135-sac": "tangencial",
+        "cdc-49": "ruido",
+        "stj-sumula385": "ruido"
+      }
+    },
+    {
+      "pergunta": "A empresa não quer trocar meu notebook defeituoso",
+      "julgamentos": {
+        "cdc-18": "relevante",
+        "cdc-26": "relevante",
+        "lei6015-56": "ruido",
+        "cdc-14": "tangencial",
+        "lgpd-18": "ruido",
+        "lei8036-18": "ruido"
+      }
+    },
+    {
+      "pergunta": "Quanto devo pagar de pensão alimentícia para meu filho?",
+      "julgamentos": {
+        "cc-1694": "relevante",
+        "cc-1583": "tangencial",
+        "cpc-528": "tangencial",
+        "lei8009-1": "ruido",
+        "stf-sv25": "ruido"
+      }
+    },
+    {
+      "pergunta": "O INSS negou minha aposentadoria, como recorrer?",
+      "julgamentos": {
+        "lei8213-126": "relevante",
+        "lei9656-35c": "ruido",
+        "loas-20": "ruido",
+        "lei10259-3": "tangencial",
+        "stj-sumula385": "ruido",
+        "ctb-284": "ruido"
+      }
+    },
+    {
+      "pergunta": "Podem me prender por dívida no cartão de crédito?",
+      "julgamentos": {
+        "stf-sv25": "relevante",
+        "cdc-42": "relevante",
+        "stj-sumula297": "ruido",
+        "tst-sumula338": "ruido",
+        "cc-206": "tangencial",
+        "cdc-54a": "tangencial",
+        "cpc-528": "tangencial"
+      }
+    },
+    {
+      "pergunta": "Posso trocar meu primeiro nome no cartório?",
+      "julgamentos": {
+        "lei6015-56": "relevante",
+        "lei6015-110": "tangencial",
+        "lei6015-57": "tangencial",
+        "lei6015-46": "tangencial",
+        "cdc-18": "ruido"
+      }
+    },
+    {
+      "pergunta": "Quero tirar o sobrenome do meu ex-marido",
+      "julgamentos": {
+        "lei6015-57": "relevante",
+        "lei6015-110": "tangencial",
+        "lei6015-56": "tangencial",
+        "cf-226": "tangencial",
+        "cc-1694": "ruido",
+        "lei8009-1": "ruido",
+        "lgpd-18": "ruido",
+        "cc-1790": "ruido"
+      }
+    },
+    {
+      "pergunta": "Como fica a guarda compartilhada dos filhos?",
+      "julgamentos": {
+        "cc-1583": "relevante",
+        "cc-1694": "tangencial",
+        "cf-226": "tangencial",
+        "lei10741-39": "ruido",
+        "lei8009-1": "ruido"
+      }
+    },
+    {
+      "pergunta": "Onde consigo advogado gratuito?",
+      "julgamentos": {
+        "lc80-1": "relevante",
+        "lei9099-9": "tangencial",
+        "lei10259-3": "tangencial",
+        "clt-791": "tangencial",
+        "lei8213-126": "ruido"
+      }
+    }
+  ]
+}
