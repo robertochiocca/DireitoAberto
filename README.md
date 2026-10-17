@@ -49,7 +49,7 @@ O DireitoAberto ataca o problema em duas camadas:
 | Geração | API de LLM (pacote `anthropic`), opcional |
 | Frontend (produto) | React/Next.js 15 + TypeScript (`web/`): perguntar, base legal, histórico, ajuda gratuita e login |
 | Frontend (MVP) | HTML/CSS/JS estático (`frontend/`), servido pelo próprio backend |
-| Testes | pytest + TestClient (httpx) — 129 testes |
+| Testes | pytest + TestClient (httpx) — 130 testes |
 
 ## Arquitetura
 
