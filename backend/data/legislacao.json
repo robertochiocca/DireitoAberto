@@ -37,7 +37,7 @@
       "artigo": "Arts. 2º e 5º",
       "tema": "acesso-justica",
       "texto": "É de competência dos Juizados Especiais da Fazenda Pública processar, conciliar e julgar causas cíveis de interesse dos Estados, do Distrito Federal, dos Territórios e dos Municípios, até o valor de 60 salários mínimos. Podem ser partes, como autores, as pessoas físicas e as microempresas e empresas de pequeno porte; como réus, os Estados, o Distrito Federal, os Territórios e os Municípios, bem como autarquias, fundações e empresas públicas a eles vinculadas.",
-      "resumo": "Para processar Estado ou Município em causa de até 60 salários mínimos existe um juizado próprio, sem necessidade de advogado em causas de até 20 salários. Contra a União e o INSS, o caminho é o Juizado Especial Federal (Lei 10.259/2001), com o mesmo limite.",
+      "resumo": "Para processar Estado ou Município em causa de até 60 salários mínimos existe um juizado próprio. A lei não diz se o advogado é obrigatório: muitos tribunais o dispensam até 20 salários, como no Juizado Especial Cível, mas há quem o exija em qualquer valor — confirme no fórum ou na Defensoria. Contra a União e o INSS, o caminho é o Juizado Especial Federal (Lei 10.259/2001), também até 60 salários.",
       "palavras_chave": [
         "juizado",
         "fazenda",
@@ -59,8 +59,8 @@
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [],
-        "nota": "Nesses juizados a competência é absoluta: dentro do limite de valor, a causa não pode ser ajuizada na vara comum.",
-        "conferida_em": "2026-10-16"
+        "nota": "No foro onde houver Juizado da Fazenda Pública instalado, a competência dele é absoluta (art. 2º, § 4º): dentro do limite de valor, a causa não pode ir para a vara comum. A lei manda aplicar subsidiariamente o CPC e as Leis 9.099 e 10.259 (art. 27), sem regra própria sobre advogado.",
+        "conferida_em": "2026-10-17"
       }
     },
     {

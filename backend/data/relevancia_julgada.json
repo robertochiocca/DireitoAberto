@@ -216,6 +216,7 @@
       "conjunto": "validacao",
       "julgamentos": {
         "cf-226": "relevante",
+        "cpc-98": "tangencial",
         "lei6015-57": "tangencial",
         "cc-206": "ruido",
         "cdc-54a": "ruido",
@@ -334,6 +335,7 @@
         "cf-7-xiii": "ruido",
         "lei10741-39": "ruido",
         "lei11340-22": "ruido",
+        "lei12153-2": "ruido",
         "lei8245-37": "ruido"
       }
     },
@@ -660,10 +662,12 @@
         "cpc-98": "relevante",
         "clt-791": "tangencial",
         "lei10259-3": "tangencial",
+        "lei9099-9": "tangencial",
         "cdc-54a": "ruido",
         "cpc-528": "ruido",
         "lei8245-37": "ruido",
-        "lei8245-62": "ruido"
+        "lei8245-62": "ruido",
+        "lei9099-12a": "ruido"
       }
     },
     {
@@ -687,6 +691,7 @@
         "lei8036-18": "tangencial",
         "tst-sumula443": "tangencial",
         "clt-483": "ruido",
+        "cpc-98": "ruido",
         "lei9099-9": "ruido"
       }
     },
@@ -942,6 +947,7 @@
         "lei10259-3": "tangencial",
         "lei12153-2": "tangencial",
         "lei9099-3": "tangencial",
+        "lei9099-9": "tangencial",
         "decreto13135-sac": "ruido",
         "lei9099-61": "ruido"
       }
@@ -998,6 +1004,7 @@
       "julgamentos": {
         "lei6015-46": "relevante",
         "lei6015-110": "tangencial",
+        "cdc-43": "ruido",
         "lei6015-56": "ruido",
         "lei6015-57": "ruido",
         "lei8245-37": "ruido"
@@ -1054,7 +1061,8 @@
         "cc-206": "ruido",
         "eca-digital": "ruido",
         "lindb-3": "ruido",
-        "stf-sv25": "ruido"
+        "stf-sv25": "ruido",
+        "stj-sumula297": "ruido"
       }
     }
   ]
