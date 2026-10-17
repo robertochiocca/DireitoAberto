@@ -20,7 +20,7 @@ from pathlib import Path
 warnings.filterwarnings("ignore")
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from app.comparacao import (  # noqa: E402
-    TOP_K_PADRAO, carregar_julgamentos, comparar, perguntas_com_gabarito,
+    TOP_K_PADRAO, carregar_conjuntos, carregar_julgamentos, comparar, perguntas_com_gabarito,
 )
 from app.retrieval import Retriever  # noqa: E402
 
@@ -57,28 +57,46 @@ def main() -> None:
     }
     tema = {a["id"]: a["tema"] for a in bm25.artigos}
     julgamentos = carregar_julgamentos()
+    conjuntos = carregar_conjuntos()
     medicoes = comparar(buscadores, tema, top_k=args.top_k, julgamentos=julgamentos,
-                       fundir=["BM25", "semântico"])
+                       fundir=["BM25", "semântico"], conjuntos=conjuntos)
+    n_conj = {c: sum(1 for v in conjuntos.values() if v == c) for c in ("calibracao", "validacao")}
 
     n = medicoes[0].perguntas
     print(f"\n{'COMPARAÇÃO DE MOTORES DE BUSCA':^78}")
     print(f"{CINZA}{f'top-{args.top_k} · {n} perguntas com gabarito · {len(julgamentos)} julgadas à mão':^78}{FIM}\n")
 
+    # Tabela principal: julgamento da VALIDAÇÃO, a medida fora da amostra.
+    val = lambda m: m.julgados_por_conjunto.get("validacao", {})  # noqa: E731
     cab = f"  {'':<17}{'artigos':>8}{'certo no top-3':>15}{'certo em 1º':>13}{'extras de':>12}"
-    cab += f"{'relev.':>9}{'tang.':>8}{'ruído':>8}{'ms/busca':>10}"
+    cab += f"{'relev.':>9}{'tang.':>8}{'ruído':>10}{'ms/busca':>10}"
     print(cab)
-    print(f"  {'':<17}{'(média)':>8}{'':>15}{'':>13}{'outra área':>12}{CINZA}{'── julgamento manual ──':>25}{FIM}")
+    rotulo_val = f"── validação ({n_conj['validacao']} perguntas) ──"
+    print(f"  {'':<17}{'(média)':>8}{'':>15}{'':>13}{'outra área':>12}  {CINZA}{rotulo_val:>25}{FIM}")
     melhor_top3 = max(m.esperado_top3 for m in medicoes)
-    menor_ruido = min(m.julgados["ruido"] for m in medicoes)
+    menor_ruido = min(val(m).get("ruido", 0) for m in medicoes)
     for m in medicoes:
+        v = val(m); vagas = sum(v.values())
         cor3 = VERDE if m.esperado_top3 == melhor_top3 else VERMELHO
-        corr = VERDE if m.julgados["ruido"] == menor_ruido else AMARELO
+        corr = VERDE if v.get("ruido", 0) == menor_ruido else AMARELO
         ms = f"{m.ms_por_pergunta:.1f}" if m.ms_por_pergunta is not None else "—"
-        vagas = m.vagas_julgadas
         print(f"  {m.motor:<17}{m.media_resultados:>8.2f}{cor3}{m.esperado_top3:>10}/{n:<4}{FIM}{m.primeiro_lugar:>8}/{n:<4}"
               f"{m.outro_tema_pct:>10.0f}% "
-              f"{m.julgados['relevante']:>8}{m.julgados['tangencial']:>8}"
-              f"{corr}{m.julgados['ruido']:>5}/{vagas:<2}{FIM}{ms:>10}")
+              f"{v.get('relevante', 0):>8}{v.get('tangencial', 0):>8}"
+              f"{corr}{v.get('ruido', 0):>6}/{vagas:<3}{FIM}{ms:>10}")
+
+    # Ruído na calibração × validação: se o ganho da busca adaptativa se sustenta fora da amostra.
+    print(f"\n  {CINZA}Ruído julgado, calibração × validação:{FIM}")
+    rot_cal = f"calibração ({n_conj['calibracao']})"
+    rot_val = f"validação ({n_conj['validacao']})"
+    print(f"  {'':<17}{rot_cal:>18}{rot_val:>20}")
+    for m in medicoes:
+        cel = []
+        for c in ("calibracao", "validacao"):
+            cont = m.julgados_por_conjunto.get(c, {}); vagas = sum(cont.values())
+            pct = 100 * cont.get("ruido", 0) / vagas if vagas else 0
+            cel.append(f"{cont.get('ruido', 0):>4}/{vagas:<4} {pct:>3.0f}%")
+        print(f"  {m.motor:<17}{cel[0]:>18}{cel[1]:>20}")
 
     perdidos = {m.motor: [] for m in medicoes}
     for m in medicoes:

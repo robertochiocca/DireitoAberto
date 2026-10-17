@@ -13,6 +13,10 @@ Duas perguntas diferentes, medidas de formas diferentes:
     julgadas: cada artigo do top-k rotulado como relevante, tangencial ou
     ruído. É a medida que vale; a aproximação só mostra a tendência.
 
+Os julgamentos se dividem em dois conjuntos: *calibração* (as perguntas usadas
+para escolher o corte da busca adaptativa) e *validação* (as demais). Só a
+validação mede a busca fora da amostra em que ela foi ajustada.
+
 A fusão usa Reciprocal Rank Fusion (RRF), que combina as listas pela posição,
 sem depender da escala de nota de cada motor — o BM25 dá dezenas de pontos e
 o semântico dá similaridade de cosseno perto de 0,8.
@@ -34,6 +38,7 @@ CASOS_BUSCA_PATH = DATA_DIR / "casos_busca.json"
 JULGAMENTOS_PATH = DATA_DIR / "relevancia_julgada.json"
 
 ROTULOS = ("relevante", "tangencial", "ruido")
+CONJUNTOS = ("calibracao", "validacao")
 TOP_K_PADRAO = 4          # o que a API devolve por pergunta
 PROFUNDIDADE_FUSAO = 20   # quantos resultados de cada motor entram na fusão
 K_RRF = 60                # constante usual do RRF
@@ -58,6 +63,12 @@ def carregar_julgamentos(caminho: Path = JULGAMENTOS_PATH) -> dict[str, dict[str
     return {p["pergunta"]: p["julgamentos"] for p in dados["perguntas"]}
 
 
+def carregar_conjuntos(caminho: Path = JULGAMENTOS_PATH) -> dict[str, str]:
+    """Pergunta julgada → conjunto ("calibracao" ou "validacao")."""
+    dados = json.loads(Path(caminho).read_text(encoding="utf-8"))
+    return {p["pergunta"]: p["conjunto"] for p in dados["perguntas"]}
+
+
 def fundir_rrf(listas: list[list[str]], top: int = TOP_K_PADRAO, k: int = K_RRF) -> list[str]:
     """Reciprocal Rank Fusion: soma 1/(k + posição) de cada lista."""
     pontos: dict[str, float] = {}
@@ -78,6 +89,7 @@ class Medicao:
     extras_outro_tema: int = 0
     ms_por_pergunta: float | None = None
     julgados: Counter = field(default_factory=Counter)
+    julgados_por_conjunto: dict[str, Counter] = field(default_factory=dict)
     nao_julgados: list[tuple[str, str]] = field(default_factory=list)
     resultados: dict[str, list[str]] = field(default_factory=dict)
 
@@ -103,6 +115,10 @@ class Medicao:
             "extras_outro_tema_pct": round(self.outro_tema_pct, 1),
             "ms_por_pergunta": self.ms_por_pergunta,
             "julgados": {r: self.julgados.get(r, 0) for r in ROTULOS},
+            "julgados_por_conjunto": {
+                c: {r: cont.get(r, 0) for r in ROTULOS}
+                for c, cont in self.julgados_por_conjunto.items()
+            },
             "nao_julgados": [list(x) for x in self.nao_julgados],
             "resultados": self.resultados,
         }
@@ -115,11 +131,13 @@ def comparar(
     perguntas: list[tuple[str, str]] | None = None,
     julgamentos: dict[str, dict[str, str]] | None = None,
     fundir: list[str] | None = None,
+    conjuntos: dict[str, str] | None = None,
 ) -> list[Medicao]:
     """Roda cada motor nas perguntas e acrescenta a fusão RRF dos motores em
     `fundir` (por padrão, todos), se forem dois ou mais."""
     perguntas = perguntas if perguntas is not None else perguntas_com_gabarito()
     julgamentos = julgamentos if julgamentos is not None else carregar_julgamentos()
+    conjuntos = conjuntos if conjuntos is not None else carregar_conjuntos()
     # As perguntas julgadas entram mesmo que não estejam no gabarito.
     sem_gabarito = [(q, None) for q in julgamentos if q not in {p for p, _ in perguntas}]
 
@@ -158,6 +176,8 @@ def comparar(
             for aid in por_q[q]:
                 if aid in rotulos:
                     m.julgados[rotulos[aid]] += 1
+                    conjunto = conjuntos.get(q, "validacao")
+                    m.julgados_por_conjunto.setdefault(conjunto, Counter())[rotulos[aid]] += 1
                 else:
                     m.nao_julgados.append((q, aid))
         medicoes.append(m)

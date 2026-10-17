@@ -6,9 +6,13 @@ motores, um segundo motor de mentira.
 
 import pytest
 
+from collections import defaultdict
+
 from app.comparacao import (
+    CONJUNTOS,
     ROTULOS,
     carregar_casos_busca,
+    carregar_conjuntos,
     carregar_julgamentos,
     comparar,
     fundir_rrf,
@@ -49,6 +53,24 @@ def test_julgamentos_tem_rotulos_validos_e_ids_do_corpus(bm25):
         assert "relevante" in rotulos.values(), f"{pergunta!r} sem nenhum artigo relevante"
 
 
+def test_julgamentos_separam_calibracao_de_validacao():
+    conjuntos = carregar_conjuntos()
+    assert set(conjuntos.values()) == set(CONJUNTOS)
+    assert set(conjuntos) == set(carregar_julgamentos())
+
+
+def test_parafrases_recebem_o_mesmo_rotulo():
+    """Perguntas com o mesmo artigo no gabarito são paráfrases: um artigo
+    candidato comum às duas tem de receber o mesmo rótulo nas duas."""
+    gabarito = dict(perguntas_com_gabarito())
+    rotulos_por_par = defaultdict(dict)
+    for pergunta, rotulos in carregar_julgamentos().items():
+        for aid, rotulo in rotulos.items():
+            rotulos_por_par[(gabarito[pergunta], aid)][pergunta] = rotulo
+    divergentes = {par: r for par, r in rotulos_por_par.items() if len(set(r.values())) > 1}
+    assert not divergentes, divergentes
+
+
 def test_perguntas_julgadas_tem_gabarito():
     """Toda pergunta julgada também diz qual é o artigo certo."""
     gabarito = dict(perguntas_com_gabarito())
@@ -77,7 +99,8 @@ def test_bm25_acha_o_artigo_certo_e_tem_todo_resultado_julgado(bm25, tema):
     (m,) = comparar({"BM25": _buscador(bm25)}, tema)
     assert m.esperado_top3 == m.perguntas == 86
     assert not m.nao_julgados, f"rotule em data/relevancia_julgada.json: {m.nao_julgados}"
-    assert m.vagas_julgadas == 4 * len(carregar_julgamentos())
+    assert m.vagas_julgadas == sum(len(m.resultados[q]) for q in carregar_julgamentos())
+    assert sum(sum(c.values()) for c in m.julgados_por_conjunto.values()) == m.vagas_julgadas
 
 
 def test_com_dois_motores_entra_a_fusao(bm25, tema):

@@ -1,14 +1,20 @@
 {
-  "descricao": "Julgamento manual de relevância dos resultados de busca. Para cada pergunta, todo artigo que algum motor (BM25, semântico ou híbrido) pôs no top-4 recebe um rótulo. O gabarito de casos_busca.json diz se o artigo certo aparece; estes julgamentos dizem o que mais aparece junto — é aqui que o ruído se mede. Se um motor passar a devolver um artigo ainda não julgado, scripts/comparar_retrievers.py o lista para ser rotulado.",
+  "descricao": "Julgamento manual de relevância dos resultados de busca. Para cada pergunta, todo artigo que algum motor (BM25, semântico ou híbrido) pôs no top-4 recebe um rótulo. O gabarito de casos_busca.json diz se o artigo certo aparece; estes julgamentos dizem o que mais aparece junto — é aqui que o ruído se mede. As perguntas de 'calibracao' foram usadas para escolher o corte da busca adaptativa; as de 'validacao' não, e medem a busca fora dessa amostra. Os candidatos foram julgados sem saber qual motor trouxe cada um, e paráfrases da mesma pergunta recebem o mesmo rótulo para o mesmo artigo. Se um motor passar a devolver um artigo ainda não julgado, scripts/comparar_retrievers.py o lista para ser rotulado.",
+  "criterio": "Tangencial exige que o artigo faça parte do mesmo conflito que o cidadão plausivelmente vive (ex.: tirar o sobrenome do ex, num divórcio); ser apenas da mesma área do direito não basta e conta como ruído.",
   "escala": {
     "relevante": "responde à pergunta ou a complementa diretamente",
     "tangencial": "mesmo assunto ou próximo passo útil, mas não responde a esta pergunta",
     "ruido": "outro assunto; não ajuda e pode confundir"
   },
+  "conjuntos": {
+    "calibracao": "usadas para escolher o corte da busca adaptativa",
+    "validacao": "fora da amostra de calibração"
+  },
   "julgado_em": "2026-10-17",
   "perguntas": [
     {
       "pergunta": "O plano de saúde negou minha cirurgia de emergência",
+      "conjunto": "calibracao",
       "julgamentos": {
         "lei9656-35c": "relevante",
         "stj-sumula302": "relevante",
@@ -21,6 +27,7 @@
     },
     {
       "pergunta": "Caí num golpe do pix, o banco devolve?",
+      "conjunto": "calibracao",
       "julgamentos": {
         "stj-sumula479": "relevante",
         "stj-sumula297": "relevante",
@@ -32,6 +39,7 @@
     },
     {
       "pergunta": "Meu voo foi cancelado e a companhia não deu assistência",
+      "conjunto": "calibracao",
       "julgamentos": {
         "anac-400": "relevante",
         "lei9099-9": "tangencial",
@@ -44,6 +52,7 @@
     },
     {
       "pergunta": "A empresa não quer trocar meu notebook defeituoso",
+      "conjunto": "calibracao",
       "julgamentos": {
         "cdc-18": "relevante",
         "cdc-26": "relevante",
@@ -55,6 +64,7 @@
     },
     {
       "pergunta": "Quanto devo pagar de pensão alimentícia para meu filho?",
+      "conjunto": "calibracao",
       "julgamentos": {
         "cc-1694": "relevante",
         "cc-1583": "tangencial",
@@ -65,6 +75,7 @@
     },
     {
       "pergunta": "O INSS negou minha aposentadoria, como recorrer?",
+      "conjunto": "calibracao",
       "julgamentos": {
         "lei8213-126": "relevante",
         "lei9656-35c": "ruido",
@@ -76,6 +87,7 @@
     },
     {
       "pergunta": "Podem me prender por dívida no cartão de crédito?",
+      "conjunto": "calibracao",
       "julgamentos": {
         "stf-sv25": "relevante",
         "cdc-42": "relevante",
@@ -88,6 +100,7 @@
     },
     {
       "pergunta": "Posso trocar meu primeiro nome no cartório?",
+      "conjunto": "calibracao",
       "julgamentos": {
         "lei6015-56": "relevante",
         "lei6015-110": "tangencial",
@@ -98,6 +111,7 @@
     },
     {
       "pergunta": "Quero tirar o sobrenome do meu ex-marido",
+      "conjunto": "calibracao",
       "julgamentos": {
         "lei6015-57": "relevante",
         "lei6015-110": "tangencial",
@@ -111,6 +125,7 @@
     },
     {
       "pergunta": "Como fica a guarda compartilhada dos filhos?",
+      "conjunto": "calibracao",
       "julgamentos": {
         "cc-1583": "relevante",
         "cc-1694": "tangencial",
@@ -121,12 +136,925 @@
     },
     {
       "pergunta": "Onde consigo advogado gratuito?",
+      "conjunto": "calibracao",
       "julgamentos": {
         "lc80-1": "relevante",
         "lei9099-9": "tangencial",
         "lei10259-3": "tangencial",
         "clt-791": "tangencial",
         "lei8213-126": "ruido"
+      }
+    },
+    {
+      "pergunta": "Comprei pela internet e me arrependi da compra",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cdc-49": "relevante",
+        "decreto7962-5": "relevante",
+        "cdc-14": "ruido",
+        "cdc-18": "ruido",
+        "decreto13135-sac": "ruido",
+        "eca-digital": "ruido"
+      }
+    },
+    {
+      "pergunta": "Fui demitido sem justa causa, quais meus direitos?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cf-7": "relevante",
+        "lei8036-18": "relevante",
+        "clt-482": "tangencial",
+        "clt-483": "ruido",
+        "lei9099-3": "ruido",
+        "lei9099-9": "ruido"
+      }
+    },
+    {
+      "pergunta": "Meu nome foi negativado no Serasa por dívida que não reconheço",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cdc-43": "relevante",
+        "stj-sumula385": "relevante",
+        "cdc-42": "tangencial",
+        "cdc-42a": "tangencial",
+        "cdc-54a": "ruido"
+      }
+    },
+    {
+      "pergunta": "Recebi uma multa de trânsito injusta, como recorrer?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "ctb-281": "relevante",
+        "ctb-282": "relevante",
+        "ctb-257": "tangencial",
+        "ctb-284": "tangencial",
+        "ctb-165": "ruido"
+      }
+    },
+    {
+      "pergunta": "O dono do imóvel quer aumentar o aluguel antes de um ano",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei10192-2": "relevante",
+        "lei8245-18": "relevante",
+        "lei8245-46": "tangencial",
+        "lei8245-62": "tangencial"
+      }
+    },
+    {
+      "pergunta": "Posso entrar no juizado especial sem advogado?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei10259-3": "relevante",
+        "lei12153-2": "relevante",
+        "lei9099-3": "relevante",
+        "lei9099-9": "relevante"
+      }
+    },
+    {
+      "pergunta": "Quero me divorciar, preciso de processo?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cf-226": "relevante",
+        "lei6015-57": "tangencial",
+        "cc-206": "ruido",
+        "cdc-54a": "ruido",
+        "cpc-528": "ruido",
+        "lei9099-3": "ruido",
+        "lei9099-9": "ruido",
+        "lei9784-49": "ruido"
+      }
+    },
+    {
+      "pergunta": "O condomínio me multou e o vizinho faz barulho de madrugada",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cc-1336": "relevante",
+        "cdc-26": "ruido",
+        "lei13460-16": "ruido",
+        "lei8245-18": "ruido",
+        "lei8245-37": "ruido"
+      }
+    },
+    {
+      "pergunta": "A prefeitura cobrou IPTU de dez anos atrás",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "ctn-174": "relevante",
+        "cc-206": "tangencial",
+        "lei12153-2": "tangencial",
+        "lei8009-1": "tangencial",
+        "lei9784-49": "tangencial",
+        "clt-477": "ruido",
+        "lai-10-11": "ruido",
+        "lei10741-39": "ruido"
+      }
+    },
+    {
+      "pergunta": "Meu pai faleceu, como faço o inventário da herança?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cc-1784": "relevante",
+        "cc-1790": "tangencial",
+        "cc-1583": "ruido",
+        "cc-1694": "ruido",
+        "lei6015-56": "ruido",
+        "lei8009-1": "ruido",
+        "lgpd-18": "ruido"
+      }
+    },
+    {
+      "pergunta": "O plano quer limitar os dias de internação na UTI",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei9656-35c": "relevante",
+        "stj-sumula302": "relevante",
+        "decreto13135-sac": "tangencial",
+        "anac-400": "ruido",
+        "cdc-54a": "ruido",
+        "lei8245-46": "ruido"
+      }
+    },
+    {
+      "pergunta": "Não recebo horas extras e a empresa não mostra o ponto",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "tst-sumula338": "relevante",
+        "cf-7-xiii": "tangencial",
+        "anac-400": "ruido",
+        "clt-477": "ruido",
+        "ctb-257": "ruido",
+        "ctb-259-261": "ruido"
+      }
+    },
+    {
+      "pergunta": "Fui demitido por causa de doença grave, é discriminação?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "tst-sumula443": "relevante",
+        "clt-477": "tangencial",
+        "clt-482": "tangencial",
+        "clt-487": "tangencial",
+        "lei8036-18": "tangencial",
+        "clt-483": "ruido",
+        "lei13146-84": "ruido"
+      }
+    },
+    {
+      "pergunta": "Quais são os direitos sociais na Constituição?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cf-6": "relevante",
+        "cf-7": "relevante",
+        "cf-7-xiii": "tangencial",
+        "loas-20": "tangencial",
+        "cc-1723": "ruido",
+        "cf-226": "ruido"
+      }
+    },
+    {
+      "pergunta": "Pessoa com deficiência pode assinar contrato sozinha?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cc-3-4": "relevante",
+        "lei13146-84": "relevante",
+        "clt-483": "ruido",
+        "lei10741-39": "ruido",
+        "lei9099-9": "ruido",
+        "loas-20": "ruido"
+      }
+    },
+    {
+      "pergunta": "União estável entre duas mulheres é reconhecida?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cc-1723": "relevante",
+        "cc-1790": "tangencial",
+        "cc-1583": "ruido",
+        "cf-7-xiii": "ruido",
+        "lei10741-39": "ruido",
+        "lei11340-22": "ruido",
+        "lei8245-37": "ruido"
+      }
+    },
+    {
+      "pergunta": "Herdei junto com a companheira do meu pai, como divide?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cc-1784": "relevante",
+        "cc-1790": "relevante",
+        "cc-1723": "tangencial",
+        "cc-1583": "ruido",
+        "cc-1694": "ruido",
+        "cf-226": "ruido"
+      }
+    },
+    {
+      "pergunta": "Qual o juros de uma dívida atrasada sem contrato?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cc-389-406": "relevante",
+        "cdc-42": "tangencial",
+        "cc-1336": "ruido",
+        "cdc-54a": "ruido",
+        "cpc-528": "ruido",
+        "lei8009-1": "ruido",
+        "stj-sumula385": "ruido"
+      }
+    },
+    {
+      "pergunta": "Posso alegar que não sabia da lei?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lindb-3": "relevante",
+        "lai-10-11": "ruido",
+        "lei6015-56": "ruido",
+        "lei6015-57": "ruido",
+        "tst-sumula338": "ruido"
+      }
+    },
+    {
+      "pergunta": "Quantos pontos na carteira dão suspensão?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "ctb-259-261": "relevante",
+        "ctb-165": "tangencial",
+        "clt-477": "ruido",
+        "lei11340-22": "ruido",
+        "tst-sumula338": "ruido"
+      }
+    },
+    {
+      "pergunta": "Não era eu dirigindo, como indico o condutor da multa?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "ctb-257": "relevante",
+        "ctb-282": "tangencial",
+        "ctb-284": "tangencial",
+        "cc-1790": "ruido",
+        "ctb-165": "ruido"
+      }
+    },
+    {
+      "pergunta": "Posso recusar o bafômetro?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "ctb-165": "relevante",
+        "ctb-284": "tangencial",
+        "ctb-257": "ruido",
+        "lgpd-18": "ruido"
+      }
+    },
+    {
+      "pergunta": "Tenho desconto se pagar a multa antes do vencimento?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "ctb-284": "relevante",
+        "ctb-257": "tangencial",
+        "ctb-282": "tangencial",
+        "cc-1336": "ruido",
+        "lei10741-39": "ruido",
+        "lei8036-18": "ruido",
+        "lei8245-62": "ruido"
+      }
+    },
+    {
+      "pergunta": "O carro fica apreendido 30 dias no pátio?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "ctb-262": "relevante",
+        "ctb-257": "ruido",
+        "ctb-259-261": "ruido",
+        "ctb-281": "ruido",
+        "lei10741-39": "ruido"
+      }
+    },
+    {
+      "pergunta": "Crime de pequena gravidade vai para qual juizado?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei9099-61": "relevante",
+        "lei10259-3": "ruido",
+        "lei11340-22": "ruido",
+        "lei12153-2": "ruido",
+        "lei9099-3": "ruido",
+        "lei9099-9": "ruido"
+      }
+    },
+    {
+      "pergunta": "Prazo no juizado conta em dias úteis?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei9099-12a": "relevante",
+        "lei9099-3": "tangencial",
+        "lei9099-9": "tangencial",
+        "cpc-528": "ruido",
+        "ctb-257": "ruido",
+        "decreto13135-sac": "ruido",
+        "lei9099-61": "ruido",
+        "stj-sumula479": "ruido"
+      }
+    },
+    {
+      "pergunta": "Meu nome saiu escrito errado na certidão",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei6015-110": "relevante",
+        "lei6015-46": "tangencial",
+        "lei6015-56": "tangencial",
+        "cdc-42a": "ruido",
+        "cdc-43": "ruido"
+      }
+    },
+    {
+      "pergunta": "Nunca fui registrado, como tiro certidão de nascimento?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei6015-46": "relevante",
+        "lei6015-110": "tangencial",
+        "lei6015-56": "ruido",
+        "lei6015-57": "ruido",
+        "lei8245-37": "ruido"
+      }
+    },
+    {
+      "pergunta": "Quanto tempo dura o mandato de conselheiro tutelar?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "eca-132": "relevante",
+        "anac-400": "ruido",
+        "cc-1784": "ruido",
+        "cf-7": "ruido",
+        "cf-7-xiii": "ruido",
+        "lei13460-16": "ruido",
+        "lgpd-18": "ruido",
+        "stj-sumula302": "ruido"
+      }
+    },
+    {
+      "pergunta": "Pedi vaga em creche para meu filho de 3 anos",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "eca-54": "relevante",
+        "eca-132": "tangencial",
+        "cc-1583": "ruido",
+        "cc-1694": "ruido",
+        "cc-206": "ruido",
+        "cpc-528": "ruido",
+        "eca-digital": "ruido",
+        "lei10741-39": "ruido"
+      }
+    },
+    {
+      "pergunta": "Rede social pode deixar criança criar conta sozinha?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "eca-digital": "relevante",
+        "lgpd-18": "tangencial",
+        "eca-132": "ruido",
+        "eca-54": "ruido",
+        "lei8009-1": "ruido",
+        "loas-20": "ruido",
+        "stj-sumula479": "ruido"
+      }
+    },
+    {
+      "pergunta": "Qual a lei do código florestal hoje?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei12651-1": "relevante",
+        "cc-1336": "ruido",
+        "cc-206": "ruido",
+        "cc-389-406": "ruido",
+        "cf-6": "ruido",
+        "ctb-262": "ruido",
+        "ctb-281": "ruido",
+        "lindb-3": "ruido",
+        "stj-sumula297": "ruido"
+      }
+    },
+    {
+      "pergunta": "Quanto tempo o órgão público tem para decidir?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei9784-49": "relevante",
+        "lai-10-11": "tangencial",
+        "lei13460-16": "tangencial",
+        "cf-7": "ruido",
+        "eca-132": "ruido"
+      }
+    },
+    {
+      "pergunta": "Pedi informação na prefeitura e não responderam",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lai-10-11": "relevante",
+        "lei12153-2": "tangencial",
+        "lei13460-16": "tangencial",
+        "lei9784-49": "tangencial",
+        "cdc-43": "ruido",
+        "cpc-98": "ruido",
+        "ctn-174": "ruido",
+        "lgpd-18": "ruido"
+      }
+    },
+    {
+      "pergunta": "Reclamei na ouvidoria e ninguém me respondeu",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei13460-16": "relevante",
+        "decreto13135-sac": "tangencial",
+        "cdc-14": "ruido",
+        "cdc-26": "ruido",
+        "cdc-43": "ruido",
+        "lindb-3": "ruido",
+        "stf-sv25": "ruido"
+      }
+    },
+    {
+      "pergunta": "Quero que a empresa apague meus dados pessoais",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lgpd-18": "relevante",
+        "cdc-43": "tangencial",
+        "cdc-42a": "ruido",
+        "lai-10-11": "ruido",
+        "tst-sumula338": "ruido"
+      }
+    },
+    {
+      "pergunta": "Recebi uma cobrança sem dizer quem está cobrando",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cdc-42": "relevante",
+        "cdc-42a": "relevante",
+        "cc-206": "tangencial",
+        "cdc-14": "ruido",
+        "cdc-54a": "ruido",
+        "clt-791": "ruido",
+        "ctn-174": "ruido"
+      }
+    },
+    {
+      "pergunta": "Minhas dívidas passaram do que ganho, dá para renegociar tudo?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cdc-54a": "relevante",
+        "cc-206": "tangencial",
+        "cdc-42": "tangencial",
+        "lei8009-1": "tangencial",
+        "stf-sv25": "tangencial",
+        "lei10192-2": "ruido"
+      }
+    },
+    {
+      "pergunta": "Comprei num site e quero cancelar, como estornam?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cdc-49": "relevante",
+        "decreto7962-5": "relevante",
+        "anac-400": "ruido",
+        "cdc-18": "ruido",
+        "decreto13135-sac": "ruido",
+        "stj-sumula385": "ruido"
+      }
+    },
+    {
+      "pergunta": "Podem tomar minha casa por causa de dívida?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei8009-1": "relevante",
+        "cc-1336": "tangencial",
+        "cc-206": "tangencial",
+        "cdc-54a": "tangencial",
+        "stf-sv25": "tangencial",
+        "lei8036-18": "ruido"
+      }
+    },
+    {
+      "pergunta": "O dono exige fiador e depósito ao mesmo tempo",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei8245-37": "relevante",
+        "cdc-54a": "ruido",
+        "ctb-262": "ruido",
+        "lei8036-18": "ruido",
+        "lei8245-46": "ruido",
+        "lei8245-62": "ruido"
+      }
+    },
+    {
+      "pergunta": "Estou devendo aluguel e vou ser despejado, posso pagar?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei8245-62": "relevante",
+        "lei8245-37": "tangencial",
+        "lei8245-46": "tangencial",
+        "lei8245-18": "ruido"
+      }
+    },
+    {
+      "pergunta": "Não tenho dinheiro para pagar as custas do processo",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cpc-98": "relevante",
+        "clt-791": "tangencial",
+        "lei10259-3": "tangencial",
+        "cdc-54a": "ruido",
+        "cpc-528": "ruido",
+        "lei8245-37": "ruido",
+        "lei8245-62": "ruido"
+      }
+    },
+    {
+      "pergunta": "Quero processar a prefeitura, qual o valor máximo?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei12153-2": "relevante",
+        "lei10259-3": "tangencial",
+        "ctn-174": "ruido",
+        "lai-10-11": "ruido",
+        "lei9099-9": "ruido",
+        "lei9784-49": "ruido"
+      }
+    },
+    {
+      "pergunta": "Fui demitido por justa causa, isso é legal?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "clt-482": "relevante",
+        "cf-7": "tangencial",
+        "lei8036-18": "tangencial",
+        "tst-sumula443": "tangencial",
+        "clt-483": "ruido",
+        "lei9099-9": "ruido"
+      }
+    },
+    {
+      "pergunta": "Meu patrão não deposita o FGTS, posso sair com direitos?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "clt-483": "relevante",
+        "lei8036-18": "relevante",
+        "cf-7": "tangencial",
+        "clt-482": "tangencial",
+        "lei8213-126": "ruido",
+        "tst-sumula338": "ruido"
+      }
+    },
+    {
+      "pergunta": "Preciso de advogado para entrar na justiça do trabalho?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "clt-791": "relevante",
+        "cf-7": "ruido",
+        "clt-482": "ruido",
+        "lei10259-3": "ruido",
+        "lei9099-9": "ruido"
+      }
+    },
+    {
+      "pergunta": "Como pedir medida protetiva contra meu marido?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei11340-22": "relevante",
+        "cc-1694": "tangencial",
+        "cdc-54a": "ruido",
+        "cf-7": "ruido",
+        "clt-482": "ruido",
+        "clt-483": "ruido",
+        "lei10259-3": "ruido",
+        "lgpd-18": "ruido"
+      }
+    },
+    {
+      "pergunta": "Com quantos anos o ônibus é gratuito para idoso?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei10741-39": "relevante",
+        "ctn-174": "ruido",
+        "eca-54": "ruido",
+        "lei8213-126": "ruido",
+        "loas-20": "ruido"
+      }
+    },
+    {
+      "pergunta": "Posso receber o BPC sem nunca ter contribuído?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "loas-20": "relevante",
+        "lei10259-3": "tangencial",
+        "lei8213-126": "tangencial",
+        "cdc-42": "ruido",
+        "cdc-54a": "ruido",
+        "lei6015-46": "ruido",
+        "stj-sumula479": "ruido"
+      }
+    },
+    {
+      "pergunta": "A curatela tira todos os direitos da pessoa?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cc-3-4": "relevante",
+        "lei13146-84": "relevante",
+        "cdc-18": "ruido",
+        "cdc-42a": "ruido",
+        "cdc-54a": "ruido",
+        "lei10741-39": "ruido",
+        "lei6015-46": "ruido",
+        "lei6015-57": "ruido",
+        "lgpd-18": "ruido",
+        "lindb-3": "ruido"
+      }
+    },
+    {
+      "pergunta": "quantas horas por semana posso ser obrigado a trabalhar?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cf-7-xiii": "relevante",
+        "tst-sumula338": "tangencial",
+        "anac-400": "ruido",
+        "clt-477": "ruido",
+        "clt-487": "ruido",
+        "lei9099-12a": "ruido"
+      }
+    },
+    {
+      "pergunta": "quais são os direitos sociais garantidos pela Constituição?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cf-6": "relevante",
+        "cf-7": "relevante",
+        "cf-7-xiii": "tangencial",
+        "loas-20": "tangencial",
+        "cc-1723": "ruido",
+        "cf-226": "ruido"
+      }
+    },
+    {
+      "pergunta": "preciso esperar algum tempo separado para poder me divorciar?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cf-226": "relevante",
+        "cc-1583": "tangencial",
+        "lei6015-57": "tangencial",
+        "cdc-54a": "ruido",
+        "cf-7": "ruido",
+        "clt-487": "ruido",
+        "lei8245-46": "ruido",
+        "lei8245-62": "ruido"
+      }
+    },
+    {
+      "pergunta": "uma pessoa com deficiência mental pode assinar contratos sozinha?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cc-3-4": "relevante",
+        "lei13146-84": "relevante",
+        "clt-483": "ruido",
+        "lei10192-2": "ruido",
+        "lei10259-3": "ruido",
+        "lei9099-9": "ruido",
+        "loas-20": "ruido"
+      }
+    },
+    {
+      "pergunta": "casais do mesmo sexo podem ter união estável reconhecida?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cc-1723": "relevante",
+        "cc-1790": "tangencial",
+        "cc-1583": "ruido",
+        "lei12153-2": "ruido",
+        "lei8009-1": "ruido",
+        "lei8245-37": "ruido"
+      }
+    },
+    {
+      "pergunta": "meu companheiro morreu; eu herdo menos do que se fôssemos casados?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cc-1784": "relevante",
+        "cc-1790": "relevante",
+        "cc-1723": "tangencial",
+        "cc-1583": "ruido",
+        "cc-1694": "ruido"
+      }
+    },
+    {
+      "pergunta": "se os pais não se entendem, com quem fica a guarda do filho?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cc-1583": "relevante",
+        "cc-1694": "tangencial",
+        "cf-226": "tangencial",
+        "eca-54": "ruido",
+        "lei8009-1": "ruido"
+      }
+    },
+    {
+      "pergunta": "qual índice de juros e correção se aplica quando o contrato não diz nada?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "cc-389-406": "relevante",
+        "cdc-42": "tangencial",
+        "lei10192-2": "tangencial",
+        "lei8036-18": "ruido",
+        "lgpd-18": "ruido"
+      }
+    },
+    {
+      "pergunta": "com quantos pontos a minha CNH é suspensa?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "ctb-259-261": "relevante",
+        "ctb-165": "tangencial",
+        "ctb-257": "tangencial",
+        "ctb-282": "tangencial",
+        "ctb-284": "tangencial"
+      }
+    },
+    {
+      "pergunta": "quanto tempo tenho para indicar quem estava dirigindo o carro na multa?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "ctb-257": "relevante",
+        "ctb-281": "tangencial",
+        "ctb-282": "tangencial",
+        "ctb-284": "tangencial",
+        "ctb-165": "ruido",
+        "ctb-262": "ruido"
+      }
+    },
+    {
+      "pergunta": "qual a punição por dirigir depois de beber?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "ctb-165": "relevante",
+        "ctb-259-261": "tangencial",
+        "ctb-262": "tangencial",
+        "cf-6": "ruido",
+        "ctb-257": "ruido",
+        "lei6015-56": "ruido"
+      }
+    },
+    {
+      "pergunta": "tem desconto se eu pagar a multa sem recorrer?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "ctb-284": "relevante",
+        "ctb-281": "tangencial",
+        "ctb-282": "tangencial",
+        "cc-1336": "ruido",
+        "ctb-165": "ruido",
+        "lei10741-39": "ruido",
+        "lei8245-62": "ruido"
+      }
+    },
+    {
+      "pergunta": "a polícia pode apreender meu veículo por 30 dias como penalidade?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "ctb-262": "relevante",
+        "ctb-165": "tangencial",
+        "ctb-257": "ruido",
+        "ctb-259-261": "ruido",
+        "ctb-281": "ruido",
+        "ctb-282": "ruido"
+      }
+    },
+    {
+      "pergunta": "quais crimes vão para o juizado criminal?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei9099-61": "relevante",
+        "lei10259-3": "ruido",
+        "lei12153-2": "ruido",
+        "lei9099-3": "ruido",
+        "lei9099-9": "ruido"
+      }
+    },
+    {
+      "pergunta": "os prazos do juizado especial contam em dias corridos ou úteis?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei9099-12a": "relevante",
+        "lei10259-3": "tangencial",
+        "lei12153-2": "tangencial",
+        "lei9099-3": "tangencial",
+        "decreto13135-sac": "ruido",
+        "lei9099-61": "ruido"
+      }
+    },
+    {
+      "pergunta": "quais causas o juizado especial cível pode julgar além do valor?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei9099-3": "relevante",
+        "lei10259-3": "tangencial",
+        "lei12153-2": "tangencial",
+        "lei9099-9": "tangencial"
+      }
+    },
+    {
+      "pergunta": "posso mudar meu primeiro nome sem processo judicial?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei6015-56": "relevante",
+        "lei6015-110": "tangencial",
+        "lei6015-57": "tangencial",
+        "cpc-528": "ruido",
+        "cpc-98": "ruido",
+        "lei10259-3": "ruido"
+      }
+    },
+    {
+      "pergunta": "como incluo o sobrenome do meu padrasto no meu nome?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei6015-57": "relevante",
+        "lei6015-110": "tangencial",
+        "lei6015-56": "tangencial",
+        "cdc-42a": "ruido",
+        "cdc-43": "ruido"
+      }
+    },
+    {
+      "pergunta": "meu nome saiu escrito errado na certidão; preciso de advogado para corrigir?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei6015-110": "relevante",
+        "lei6015-56": "tangencial",
+        "lei6015-57": "tangencial",
+        "cdc-42a": "ruido",
+        "cdc-43": "ruido",
+        "lei10259-3": "ruido",
+        "lei9099-9": "ruido"
+      }
+    },
+    {
+      "pergunta": "sou adulto e nunca fui registrado; como tiro minha certidão de nascimento?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei6015-46": "relevante",
+        "lei6015-110": "tangencial",
+        "lei6015-56": "ruido",
+        "lei6015-57": "ruido",
+        "lei8245-37": "ruido"
+      }
+    },
+    {
+      "pergunta": "quanto tempo dura o mandato do conselheiro tutelar?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "eca-132": "relevante",
+        "anac-400": "ruido",
+        "cc-1784": "ruido",
+        "cf-7": "ruido",
+        "cf-7-xiii": "ruido",
+        "clt-487": "ruido",
+        "lei13460-16": "ruido",
+        "stj-sumula302": "ruido"
+      }
+    },
+    {
+      "pergunta": "até que idade meu filho tem direito a creche e pré-escola?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "eca-54": "relevante",
+        "eca-132": "tangencial",
+        "cc-1583": "ruido",
+        "cc-1694": "ruido",
+        "cf-226": "ruido",
+        "eca-digital": "ruido",
+        "lei10741-39": "ruido",
+        "lei6015-46": "ruido"
+      }
+    },
+    {
+      "pergunta": "o que é a lei de introdução que vem antes do Código Civil?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lindb-3": "relevante",
+        "cc-1784": "ruido",
+        "cc-1790": "ruido",
+        "cc-206": "ruido",
+        "cc-389-406": "ruido",
+        "cdc-43": "ruido",
+        "lei6015-57": "ruido"
+      }
+    },
+    {
+      "pergunta": "qual é o código florestal em vigor no Brasil?",
+      "conjunto": "validacao",
+      "julgamentos": {
+        "lei12651-1": "relevante",
+        "cc-1336": "ruido",
+        "cc-1723": "ruido",
+        "cc-206": "ruido",
+        "eca-digital": "ruido",
+        "lindb-3": "ruido",
+        "stf-sv25": "ruido"
       }
     }
   ]
