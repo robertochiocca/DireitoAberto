@@ -27,8 +27,8 @@
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [],
-        "nota": "O CPC/2015 substituiu a Lei 1.060/1950, cujos arts. 2º a 4º e 6º a 9º foram revogados; a 'declaração de pobreza' da lei antiga virou a presunção do art. 99, § 3º.",
-        "conferida_em": "2026-10-16"
+        "nota": "O CPC/2015 substituiu boa parte da Lei 1.060/1950, cujos arts. 2º, 3º, 4º, 6º, 7º, 11, 12 e 17 foram revogados (art. 1.072, III); a 'declaração de pobreza' da lei antiga virou a presunção do art. 99, § 3º.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -147,8 +147,8 @@
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [],
-        "nota": "Os prazos processuais do Juizado correm em dias úteis (art. 12-A, incluído pela Lei 13.728/2018).",
-        "conferida_em": "2026-10-16"
+        "nota": "Mesmo nas causas de até 20 salários mínimos, recorrer da sentença exige advogado (art. 41, § 2º). Os prazos processuais do Juizado correm em dias úteis (art. 12-A, incluído pela Lei 13.728/2018).",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -443,8 +443,8 @@
       "lei": "Lei de Registros Públicos — Lei nº 6.015/1973 (c/ Lei nº 11.790/2008)",
       "artigo": "Art. 46",
       "tema": "civil-registro",
-      "texto": "As declarações de nascimento feitas após o prazo legal serão registradas no lugar de residência do interessado. O registro de nascimento, quando requerido após os 16 anos, será feito diretamente perante o oficial de registro civil, que suspenderá o ato e remeterá os autos ao juiz competente apenas se suspeitar de falsidade da declaração.",
-      "resumo": "Quem nunca foi registrado tira a certidão de nascimento direto no cartório, em qualquer idade. O juiz só entra se houver suspeita de falsidade.",
+      "texto": "As declarações de nascimento feitas após o decurso do prazo legal serão registradas no lugar de residência do interessado, com requerimento assinado por 2 testemunhas. Se suspeitar da falsidade da declaração, o oficial do registro civil poderá exigir prova suficiente e, persistindo a suspeita, encaminhará os autos ao juiz competente.",
+      "resumo": "Quem nunca foi registrado tira a certidão de nascimento direto no cartório, em qualquer idade, com duas testemunhas. O juiz só entra se o cartório suspeitar de falsidade e a dúvida persistir.",
       "palavras_chave": [
         "registro",
         "tardio",
@@ -466,7 +466,7 @@
           "Lei 11.790/2008"
         ],
         "nota": "Até 2008 o registro tardio de maiores de 12 anos dependia de despacho do juiz.",
-        "conferida_em": "2026-10-16"
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -474,8 +474,8 @@
       "lei": "Lei de Registros Públicos — Lei nº 6.015/1973 (c/ Lei nº 13.484/2017)",
       "artigo": "Art. 110",
       "tema": "civil-registro",
-      "texto": "O oficial de registro civil das pessoas naturais corrigirá o erro, de ofício ou a requerimento do interessado, mediante petição assinada pelo interessado ou procurador, independentemente de pagamento de selos e taxas, nos casos de erros que não exijam qualquer indagação para a constatação imediata de necessidade de sua correção — como erros de grafia, inexatidão da ordem de sobrenomes e omissão de sobrenome em assento.",
-      "resumo": "Nome escrito errado na certidão se corrige no próprio cartório, sem juiz, sem Ministério Público e sem advogado.",
+      "texto": "O oficial de registro civil retificará o registro, de ofício ou a requerimento do interessado, independentemente de prévia autorização judicial ou manifestação do Ministério Público, nos casos de erros que não exijam qualquer indagação para a constatação imediata de necessidade de sua correção — como erros de grafia no nome ou no sobrenome. § 5º Quando a retificação decorrer de erro imputável ao oficial, por si ou por seus prepostos, não será devido pelos interessados o pagamento de selos e taxas.",
+      "resumo": "Nome escrito errado na certidão se corrige no próprio cartório, sem juiz, sem Ministério Público e sem advogado. Se o erro foi do cartório, a correção é gratuita.",
       "palavras_chave": [
         "erro",
         "grafia",
@@ -494,10 +494,11 @@
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [
+          "Lei 12.100/2009",
           "Lei 13.484/2017"
         ],
-        "nota": "Antes de 2017 a correção passava pelo Ministério Público e por decisão do juiz.",
-        "conferida_em": "2026-10-16"
+        "nota": "Até 2017 a correção dependia de manifestação do Ministério Público (e, antes de 2009, também de decisão do juiz). As redações anteriores dispensavam selos e taxas em qualquer caso; a atual só dispensa quando o erro é do próprio cartório.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -734,11 +735,9 @@
       "vigencia": {
         "status": "vigente",
         "entra_em_vigor_em": null,
-        "alterada_por": [
-          "Lei 14.181/2021"
-        ],
-        "nota": "A Lei 14.181/2021 (superendividamento) acrescentou o § 5º: dívida prescrita não pode mais impedir o acesso ao crédito.",
-        "conferida_em": "2026-10-16"
+        "alterada_por": [],
+        "nota": "O § 5º, também original de 1990, impede que dívida prescrita continue a barrar o crédito nos cadastros.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -874,8 +873,8 @@
       "lei": "Resolução ANAC nº 400/2016 (c/ Código Brasileiro de Aeronáutica)",
       "artigo": "Arts. 20 a 27 (síntese)",
       "tema": "consumidor",
-      "texto": "Em atrasos, cancelamentos e preterição de embarque, o transportador aéreo deve prestar assistência material conforme o tempo de espera: a partir de 1 hora, facilidades de comunicação; a partir de 2 horas, alimentação; a partir de 4 horas, acomodação ou hospedagem (com traslado) para quem estiver fora do domicílio. No cancelamento ou atraso superior a 4 horas, o passageiro pode escolher entre reacomodação em outro voo, reembolso integral ou execução do serviço por outra modalidade de transporte.",
-      "resumo": "Voo atrasado/cancelado: a companhia deve dar comunicação (1h), alimentação (2h) e hospedagem (4h); acima de 4 horas ou no cancelamento, o passageiro escolhe entre reacomodação, reembolso integral ou outro transporte.",
+      "texto": "Em atrasos, cancelamentos e preterição de embarque, o transportador aéreo deve prestar assistência material conforme o tempo de espera: a partir de 1 hora, facilidades de comunicação; a partir de 2 horas, alimentação; a partir de 4 horas, hospedagem em caso de pernoite e traslado de ida e volta — a hospedagem pode ser dispensada para quem mora na cidade do aeroporto, garantido o traslado. No cancelamento ou atraso superior a 4 horas, o passageiro pode escolher entre reacomodação em outro voo, reembolso integral ou execução do serviço por outra modalidade de transporte.",
+      "resumo": "Voo atrasado/cancelado: a companhia deve dar comunicação (1h), alimentação (2h) e, a partir de 4h, hospedagem se houver pernoite, com traslado; acima de 4 horas ou no cancelamento, o passageiro escolhe entre reacomodação, reembolso integral ou outro transporte.",
       "palavras_chave": [
         "voo",
         "aéreo",
@@ -896,8 +895,8 @@
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
+        "nota": "A atualização da Resolução 400 aprovada pela ANAC em 22/09/2026 vale 30 dias após a publicação no Diário Oficial: mantém alimentação após 2 horas e hospedagem com pernoite após 4 horas, prevê o reembolso em até 7 dias das despesas pagas pelo passageiro em situações excepcionais e amplia o dever de informar por canais digitais.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -964,10 +963,10 @@
       "tipo": "jurisprudencia",
       "tribunal": "STJ",
       "lei": "Súmula nº 479 do Superior Tribunal de Justiça",
-      "artigo": "Súmula 479 (c/ Resolução BCB nº 103/2021 — MED)",
+      "artigo": "Súmula 479 (c/ regras do Pix — MED)",
       "tema": "consumidor",
-      "texto": "As instituições financeiras respondem objetivamente pelos danos gerados por fortuito interno relativo a fraudes e delitos praticados por terceiros no âmbito de operações bancárias. Em golpes envolvendo Pix, a Resolução BCB nº 103/2021 criou o Mecanismo Especial de Devolução (MED): a vítima deve comunicar o banco imediatamente, que pode bloquear os valores na conta do golpista e devolvê-los em até 96 horas, com análise em até 7 dias.",
-      "resumo": "Golpe bancário/Pix: o banco responde por falhas de segurança em suas operações, e a vítima pode acionar o MED (devolução do Pix) comunicando a instituição imediatamente.",
+      "texto": "As instituições financeiras respondem objetivamente pelos danos gerados por fortuito interno relativo a fraudes e delitos praticados por terceiros no âmbito de operações bancárias. Em golpes envolvendo Pix, o Mecanismo Especial de Devolução (MED), criado pela Resolução BCB nº 103/2021, permite à vítima contestar a transação no próprio banco em até 80 dias: a instituição do recebedor bloqueia os valores disponíveis, analisa o caso em até 7 dias e, confirmada a fraude, devolve o que for recuperado. Desde fevereiro de 2026 (MED 2.0), o rastreio alcança também as contas para onde o dinheiro foi repassado.",
+      "resumo": "Golpe bancário/Pix: o banco responde por falhas de segurança em suas operações, e a vítima pode acionar o MED (devolução do Pix) comunicando o banco o quanto antes — o prazo máximo é de 80 dias.",
       "palavras_chave": [
         "golpe",
         "pix",
@@ -985,9 +984,11 @@
       "vigencia": {
         "status": "vigente",
         "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": "O Mecanismo Especial de Devolução do Pix (MED) é da Resolução BCB 103/2021, posterior à súmula.",
-        "conferida_em": "2026-10-16"
+        "alterada_por": [
+          "Res. BCB 493/2025 (MED 2.0)"
+        ],
+        "nota": "O MED (Resolução BCB 103/2021) é posterior à súmula. O MED 2.0 (Resolução BCB 493/2025), em vigor desde fevereiro de 2026, passou a rastrear o dinheiro também nas contas para onde o golpista o transferiu.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1096,7 +1097,7 @@
       "artigo": "Arts. 18, 19 e 52",
       "tema": "dados",
       "texto": "O titular dos dados pessoais tem direito a obter do controlador, a qualquer momento e mediante requisição: confirmação da existência de tratamento; acesso aos dados; correção de dados incompletos, inexatos ou desatualizados; anonimização, bloqueio ou eliminação de dados desnecessários ou tratados em desconformidade; portabilidade; eliminação dos dados tratados com consentimento; informação sobre compartilhamento; e revogação do consentimento. O controlador deve responder por declaração clara e completa no prazo de até 15 dias. A ANPD pode aplicar advertência e multa simples de até 2% do faturamento, limitada a R$ 50 milhões por infração.",
-      "resumo": "Você pode exigir de qualquer empresa saber quais dados ela tem sobre você, corrigi-los, levá-los para outro lugar ou apagá-los — e ela tem 15 dias para responder de forma completa.",
+      "resumo": "Você pode exigir de qualquer empresa saber quais dados ela tem sobre você, corrigi-los, levá-los para outro lugar ou apagá-los (salvo exceções legais) — e ela tem 15 dias para responder de forma completa.",
       "palavras_chave": [
         "lgpd",
         "dados",
@@ -1122,7 +1123,7 @@
           "Lei 14.460/2022"
         ],
         "nota": "As sanções do art. 52 só passaram a ser aplicáveis em 01/08/2021; textos de 2020 ainda as tratam como futuras.",
-        "conferida_em": "2026-10-16"
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1131,7 +1132,7 @@
       "artigo": "Art. 226, § 6º",
       "tema": "familia",
       "texto": "O casamento civil pode ser dissolvido pelo divórcio. Não há prazo mínimo nem necessidade de separação prévia. Pelo art. 733 do CPC, o divórcio consensual pode ser feito por escritura pública em cartório, sem processo judicial, desde que não haja filhos menores ou incapazes nem gravidez, e que os cônjuges estejam assistidos por advogado ou defensor público.",
-      "resumo": "Divórcio: é direito que não exige prazo nem justificativa. Se houver consenso e não houver filhos menores/incapazes, pode ser feito direto em cartório, com advogado ou defensor.",
+      "resumo": "Divórcio: é direito que não exige prazo nem justificativa. Se houver consenso, pode ser feito direto em cartório, com advogado ou defensor; havendo filhos menores ou incapazes, só depois que as questões deles forem resolvidas pelo juiz.",
       "palavras_chave": [
         "divórcio",
         "casamento",
@@ -1147,10 +1148,11 @@
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [
-          "EC 66/2010"
+          "EC 66/2010",
+          "Res. CNJ 571/2024"
         ],
-        "nota": "A EC 66/2010 acabou com a exigência de separação prévia; o texto aqui já é o atual.",
-        "conferida_em": "2026-10-16"
+        "nota": "A EC 66/2010 acabou com a exigência de separação prévia; o texto aqui já é o atual. Desde a Resolução CNJ 571/2024, o divórcio em cartório também é possível com filhos menores ou incapazes, se guarda, convivência e pensão já tiverem sido decididas judicialmente; antes, eles obrigavam ao processo judicial.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1158,8 +1160,8 @@
       "lei": "Código Civil — Lei nº 10.406/2002",
       "artigo": "Arts. 1.583 e 1.584, § 2º",
       "tema": "familia",
-      "texto": "A guarda será unilateral ou compartilhada. Compreende-se por guarda compartilhada a responsabilização conjunta e o exercício de direitos e deveres do pai e da mãe que não vivam sob o mesmo teto, concernentes ao poder familiar dos filhos comuns. Art. 1.584, § 2º Quando não houver acordo entre a mãe e o pai quanto à guarda do filho, encontrando-se ambos os genitores aptos a exercer o poder familiar, será aplicada a guarda compartilhada, salvo se um dos genitores declarar ao magistrado que não deseja a guarda do menor.",
-      "resumo": "Guarda dos filhos: a regra é a guarda compartilhada, mesmo sem acordo entre os pais — desde que ambos estejam aptos. Guarda, convivência e pensão são questões independentes.",
+      "texto": "A guarda será unilateral ou compartilhada. Compreende-se por guarda compartilhada a responsabilização conjunta e o exercício de direitos e deveres do pai e da mãe que não vivam sob o mesmo teto, concernentes ao poder familiar dos filhos comuns. Art. 1.584, § 2º Quando não houver acordo entre a mãe e o pai quanto à guarda do filho, encontrando-se ambos os genitores aptos a exercer o poder familiar, será aplicada a guarda compartilhada, salvo se um dos genitores declarar ao magistrado que não deseja a guarda da criança ou do adolescente ou quando houver elementos que evidenciem a probabilidade de risco de violência doméstica ou familiar.",
+      "resumo": "Guarda dos filhos: a regra é a guarda compartilhada, mesmo sem acordo entre os pais — desde que ambos estejam aptos e não haja risco de violência doméstica ou familiar. Guarda, convivência e pensão são questões independentes.",
       "palavras_chave": [
         "guarda",
         "compartilhada",
@@ -1178,10 +1180,11 @@
         "entra_em_vigor_em": null,
         "alterada_por": [
           "Lei 11.698/2008",
-          "Lei 13.058/2014"
+          "Lei 13.058/2014",
+          "Lei 14.713/2023"
         ],
-        "nota": "A guarda compartilhada como regra, mesmo sem acordo, veio com a Lei 13.058/2014.",
-        "conferida_em": "2026-10-16"
+        "nota": "A guarda compartilhada como regra, mesmo sem acordo, veio com a Lei 13.058/2014. Desde a Lei 14.713/2023, ela não se aplica quando houver indícios de risco de violência doméstica ou familiar.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1245,10 +1248,10 @@
     },
     {
       "id": "cc-1784",
-      "lei": "Código Civil — Lei nº 10.406/2002 (c/ CPC, art. 611)",
+      "lei": "Código Civil — Lei nº 10.406/2002 (c/ CPC, arts. 610 e 611)",
       "artigo": "Arts. 1.784, 1.845 e 1.846",
       "tema": "familia",
-      "texto": "Aberta a sucessão, a herança transmite-se, desde logo, aos herdeiros legítimos e testamentários. Art. 1.845. São herdeiros necessários os descendentes, os ascendentes e o cônjuge. Art. 1.846. Pertence aos herdeiros necessários, de pleno direito, a metade dos bens da herança, constituindo a legítima. Pelo art. 611 do CPC, o inventário deve ser instaurado em até 2 meses da abertura da sucessão; havendo consenso entre herdeiros capazes e sem testamento, pode ser feito por escritura pública em cartório.",
+      "texto": "Aberta a sucessão, a herança transmite-se, desde logo, aos herdeiros legítimos e testamentários. Art. 1.845. São herdeiros necessários os descendentes, os ascendentes e o cônjuge. Art. 1.846. Pertence aos herdeiros necessários, de pleno direito, a metade dos bens da herança, constituindo a legítima. Pelos arts. 610 e 611 do CPC, o inventário deve ser instaurado em até 2 meses da abertura da sucessão e, se todos os herdeiros forem capazes e estiverem de acordo, pode ser feito por escritura pública em cartório. A Resolução CNJ 571/2024 passou a admitir a escritura também havendo testamento ou herdeiro incapaz, sob condições.",
       "resumo": "Herança: transmite-se aos herdeiros no momento da morte; metade dos bens é reservada aos herdeiros necessários; o inventário deve começar em até 2 meses e pode ser feito em cartório quando há consenso.",
       "palavras_chave": [
         "herança",
@@ -1266,9 +1269,11 @@
       "vigencia": {
         "status": "vigente",
         "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
+        "alterada_por": [
+          "Res. CNJ 571/2024"
+        ],
+        "nota": "Desde a Resolução CNJ 571/2024, o inventário em cartório também é possível com testamento (com autorização do juiz no processo de cumprimento do testamento) ou com herdeiro menor ou incapaz (com parecer favorável do Ministério Público e partilha em partes ideais de cada bem). Textos anteriores dizem que esses casos exigem processo judicial.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1309,7 +1314,7 @@
       "lei": "Código de Processo Civil — Lei nº 13.105/2015",
       "artigo": "Art. 528, §§ 3º e 7º",
       "tema": "familia",
-      "texto": "No cumprimento de sentença que condene ao pagamento de prestação alimentícia, o juiz mandará intimar o executado para, em 3 dias, pagar o débito, provar que o fez ou justificar a impossibilidade de efetuá-lo. § 3º Se o executado não pagar ou se a justificativa apresentada não for aceita, o juiz, além de mandar protestar o pronunciamento judicial, decretar-lhe-á a prisão pelo prazo de 1 a 3 meses. § 7º O débito alimentar que autoriza a prisão civil do alimentando é o que compreende até as 3 prestações anteriores ao ajuizamento da execução e as que se vencerem no curso do processo.",
+      "texto": "No cumprimento de sentença que condene ao pagamento de prestação alimentícia, o juiz mandará intimar o executado para, em 3 dias, pagar o débito, provar que o fez ou justificar a impossibilidade de efetuá-lo. § 3º Se o executado não pagar ou se a justificativa apresentada não for aceita, o juiz, além de mandar protestar o pronunciamento judicial, decretar-lhe-á a prisão pelo prazo de 1 a 3 meses. § 7º O débito alimentar que autoriza a prisão civil do alimentante é o que compreende até as 3 prestações anteriores ao ajuizamento da execução e as que se vencerem no curso do processo.",
       "resumo": "Pensão atrasada: a cobrança das 3 últimas parcelas (e das que vencerem durante o processo) pode levar à prisão civil do devedor, de 1 a 3 meses.",
       "palavras_chave": [
         "pensão",
@@ -1329,7 +1334,7 @@
         "entra_em_vigor_em": null,
         "alterada_por": [],
         "nota": null,
-        "conferida_em": "2026-10-16"
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1337,8 +1342,8 @@
       "lei": "Lei Maria da Penha — Lei nº 11.340/2006",
       "artigo": "Arts. 7º, 12-C, 22 e 24-A",
       "tema": "familia",
-      "texto": "São formas de violência doméstica e familiar contra a mulher a violência física, psicológica, sexual, patrimonial e moral. Verificada a existência de risco atual ou iminente à vida ou à integridade física ou psicológica da mulher em situação de violência doméstica e familiar, o agressor será imediatamente afastado do lar, domicílio ou local de convivência, por determinação do juiz, do delegado de polícia ou, não havendo delegado disponível, do policial. Entre as medidas protetivas de urgência estão a suspensão da posse ou restrição do porte de armas, o afastamento do lar, a proibição de aproximação e de contato com a ofendida e seus familiares e a restrição ou suspensão de visitas aos dependentes. Descumprir medida protetiva é crime, com pena de detenção de 3 meses a 2 anos.",
-      "resumo": "A medida protetiva pode ser pedida na própria delegacia, sem advogado e sem custo, e o agressor pode ser afastado de casa na hora. Descumprir a medida é crime desde 2018.",
+      "texto": "São formas de violência doméstica e familiar contra a mulher a violência física, psicológica, sexual, patrimonial e moral. Verificada a existência de risco atual ou iminente à vida ou à integridade física ou psicológica da mulher em situação de violência doméstica e familiar, o agressor será imediatamente afastado do lar, domicílio ou local de convivência com a ofendida pelo juiz; pelo delegado de polícia, quando o Município não for sede de comarca; ou pelo policial, quando o Município não for sede de comarca e não houver delegado disponível no momento da denúncia. Entre as medidas protetivas de urgência estão a suspensão da posse ou restrição do porte de armas, o afastamento do lar, a proibição de aproximação e de contato com a ofendida e seus familiares e a restrição ou suspensão de visitas aos dependentes. Descumprir decisão judicial que defere medida protetiva é crime, com pena de reclusão de 2 a 5 anos e multa.",
+      "resumo": "A medida protetiva pode ser pedida na própria delegacia, sem advogado e sem custo, e o agressor pode ser afastado de casa imediatamente quando há risco à vida ou à integridade da mulher. Descumprir a medida é crime, com pena de 2 a 5 anos de reclusão.",
       "palavras_chave": [
         "maria",
         "penha",
@@ -1365,10 +1370,11 @@
         "alterada_por": [
           "Lei 13.641/2018",
           "Lei 13.827/2019",
-          "Lei 14.550/2023"
+          "Lei 14.550/2023",
+          "Lei 14.994/2024"
         ],
-        "nota": "O crime de descumprimento (art. 24-A) é de 2018 e o afastamento pelo delegado, de 2019. A Lei 14.550/2023 dispensou boletim de ocorrência e processo criminal em curso para a concessão da medida protetiva.",
-        "conferida_em": "2026-10-16"
+        "nota": "O crime de descumprimento (art. 24-A) é de 2018 e o afastamento pelo delegado, de 2019. A Lei 14.550/2023 dispensou boletim de ocorrência e processo criminal em curso para a concessão da medida protetiva. A Lei 14.994/2024 elevou a pena do descumprimento, que era de detenção de 3 meses a 2 anos; a Lei 15.280/2025 criou crime equivalente no Código Penal (art. 338-A), com a mesma pena, sem revogar o art. 24-A.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1376,7 +1382,7 @@
       "lei": "Código Civil — Lei nº 10.406/2002",
       "artigo": "Arts. 1.336, 1.337 e 1.277",
       "tema": "moradia",
-      "texto": "São deveres do condômino: contribuir para as despesas do condomínio; não realizar obras que comprometam a segurança da edificação; não alterar a forma e a cor da fachada; dar às suas partes a mesma destinação que tem a edificação e não as utilizar de maneira prejudicial ao sossego, salubridade e segurança dos possuidores. § 1º O condômino que não pagar a sua contribuição ficará sujeito aos juros moratórios convencionados ou, não sendo previstos, os de 1% ao mês e multa de até 2% sobre o débito. Art. 1.337. O condômino que reiteradamente descumprir seus deveres poderá ser condenado a pagar multa de até o quíntuplo do valor da cota condominial. Art. 1.277. O proprietário ou possuidor tem o direito de fazer cessar as interferências prejudiciais ao sossego, à segurança e à saúde provocadas por vizinho.",
+      "texto": "São deveres do condômino: contribuir para as despesas do condomínio; não realizar obras que comprometam a segurança da edificação; não alterar a forma e a cor da fachada; dar às suas partes a mesma destinação que tem a edificação e não as utilizar de maneira prejudicial ao sossego, salubridade e segurança dos possuidores. § 1º O condômino que não pagar a sua contribuição ficará sujeito à correção monetária e aos juros moratórios convencionados ou, não sendo previstos, aos juros estabelecidos no art. 406 deste Código, bem como à multa de até 2% sobre o débito. Art. 1.337. O condômino que reiteradamente descumprir seus deveres poderá ser condenado a pagar multa de até o quíntuplo do valor da cota condominial. Art. 1.277. O proprietário ou possuidor tem o direito de fazer cessar as interferências prejudiciais ao sossego, à segurança e à saúde provocadas por vizinho.",
       "resumo": "Condomínio: atraso na cota gera multa de no máximo 2% + juros; multas por infração têm limites legais e exigem procedimento; barulho e perturbação do sossego podem ser exigidos de cessar judicialmente.",
       "palavras_chave": [
         "condomínio",
@@ -1395,9 +1401,11 @@
       "vigencia": {
         "status": "vigente",
         "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
+        "alterada_por": [
+          "Lei 14.905/2024"
+        ],
+        "nota": "Até agosto de 2024, sem previsão na convenção, os juros eram de 1% ao mês; a Lei 14.905/2024 trocou esse percentual pela taxa legal do art. 406 (Selic menos a inflação) e incluiu a correção monetária. A multa continua limitada a 2%.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1489,11 +1497,10 @@
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [
-          "Lei 11.196/2005",
-          "Lei 12.112/2009"
+          "Lei 11.196/2005"
         ],
         "nota": "A cessão fiduciária de quotas de fundo entrou como garantia em 2005; o rol anterior tinha três modalidades.",
-        "conferida_em": "2026-10-16"
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1502,7 +1509,7 @@
       "artigo": "Art. 46, §§ 1º e 2º",
       "tema": "moradia",
       "texto": "Nas locações ajustadas por escrito e por prazo igual ou superior a trinta meses, a resolução do contrato ocorrerá findo o prazo estipulado, independentemente de notificação ou aviso. § 1º Findo o prazo ajustado, se o locatário continuar na posse do imóvel alugado por mais de trinta dias sem oposição do locador, presumir-se-á prorrogada a locação por prazo indeterminado. § 2º Ocorrendo a prorrogação, o locador poderá denunciar o contrato a qualquer tempo, concedido o prazo de trinta dias para desocupação.",
-      "resumo": "Despejo em contrato prorrogado por prazo indeterminado: o locador pode denunciar o contrato, mas deve conceder 30 dias para desocupação.",
+      "resumo": "Despejo em contrato escrito de 30 meses ou mais, prorrogado por prazo indeterminado: o locador pode denunciar o contrato, mas deve conceder 30 dias para desocupação. Em contratos mais curtos, a retomada só cabe nos casos do art. 47 ou depois de 5 anos.",
       "palavras_chave": [
         "despejo",
         "desocupação",
@@ -1523,7 +1530,7 @@
         "entra_em_vigor_em": null,
         "alterada_por": [],
         "nota": null,
-        "conferida_em": "2026-10-16"
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1531,8 +1538,8 @@
       "lei": "Lei do Inquilinato — Lei nº 8.245/1991 (c/ Lei nº 12.112/2009)",
       "artigo": "Art. 62",
       "tema": "moradia",
-      "texto": "Nas ações de despejo por falta de pagamento de aluguel e acessórios da locação, o locatário e o fiador poderão evitar a rescisão da locação requerendo, no prazo da contestação, autorização para o pagamento do débito atualizado, acrescido de multa, juros, custas e honorários — a emenda da mora deve ser efetuada no prazo de 15 dias. Não se admitirá a emenda da mora se o locatário já houver utilizado essa faculdade nos 24 meses imediatamente anteriores à propositura da ação.",
-      "resumo": "Mesmo depois de a ação de despejo começar, o inquilino pode pagar o que deve e ficar no imóvel — mas só uma vez a cada 24 meses.",
+      "texto": "Nas ações de despejo fundadas na falta de pagamento de aluguel e acessórios da locação, o locatário e o fiador poderão evitar a rescisão da locação efetuando, no prazo de 15 dias contado da citação, o pagamento do débito atualizado, independentemente de cálculo e mediante depósito judicial, incluídos os aluguéis que vencerem até a sua efetivação, as multas contratuais, os juros de mora, as custas e os honorários do advogado do locador. Não se admitirá a emenda da mora se o locatário já houver utilizado essa faculdade nos 24 meses imediatamente anteriores à propositura da ação.",
+      "resumo": "Mesmo depois de a ação de despejo começar, o inquilino pode pagar o que deve em 15 dias da citação e ficar no imóvel — mas só uma vez a cada 24 meses.",
       "palavras_chave": [
         "despejo",
         "falta",
@@ -1559,7 +1566,7 @@
           "Lei 12.112/2009"
         ],
         "nota": "Antes de 2009 a emenda da mora era admitida duas vezes em 12 meses; hoje é uma vez em 24 meses.",
-        "conferida_em": "2026-10-16"
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1599,8 +1606,8 @@
       "lei": "Estatuto da Pessoa Idosa — Lei nº 10.741/2003",
       "artigo": "Arts. 1º, 39 e 40",
       "tema": "previdencia",
-      "texto": "É instituído o Estatuto da Pessoa Idosa, destinado a regular os direitos assegurados às pessoas com idade igual ou superior a 60 anos. Aos maiores de 65 anos fica assegurada a gratuidade dos transportes coletivos públicos urbanos e semiurbanos, bastando a apresentação de documento de identidade; entre 60 e 65 anos, a gratuidade depende da legislação local. No sistema de transporte coletivo interestadual ficam reservadas 2 vagas gratuitas por veículo para pessoas idosas com renda igual ou inferior a 2 salários mínimos e desconto de 50% no valor das passagens para as que excederem as vagas gratuitas.",
-      "resumo": "Pessoa idosa é quem tem 60 anos ou mais. O ônibus urbano é gratuito a partir dos 65; no interestadual há duas vagas gratuitas por veículo e 50% de desconto nas demais.",
+      "texto": "É instituído o Estatuto da Pessoa Idosa, destinado a regular os direitos assegurados às pessoas com idade igual ou superior a 60 anos. Aos maiores de 65 anos fica assegurada a gratuidade dos transportes coletivos públicos urbanos e semiurbanos, bastando a apresentação de documento de identidade; entre 60 e 65 anos, a gratuidade depende da legislação local. No sistema de transporte coletivo interestadual ficam reservadas 2 vagas gratuitas por veículo para pessoas idosas com renda igual ou inferior a 2 salários mínimos e desconto de, no mínimo, 50% no valor das passagens para as que excederem as vagas gratuitas, com a mesma renda.",
+      "resumo": "Pessoa idosa é quem tem 60 anos ou mais. O ônibus urbano é gratuito a partir dos 65; no interestadual, para quem tem renda de até 2 salários mínimos, há duas vagas gratuitas por veículo e pelo menos 50% de desconto nas demais.",
       "palavras_chave": [
         "idoso",
         "idosa",
@@ -1625,7 +1632,7 @@
           "Lei 14.423/2022"
         ],
         "nota": "A Lei 14.423/2022 trocou 'idoso' por 'pessoa idosa' em todo o texto: o nome 'Estatuto do Idoso' está desatualizado.",
-        "conferida_em": "2026-10-16"
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1733,7 +1740,7 @@
       "lei": "Lei dos Planos de Saúde — Lei nº 9.656/1998",
       "artigo": "Art. 35-C",
       "tema": "saude",
-      "texto": "É obrigatória a cobertura do atendimento nos casos: I — de emergência, como tal definidos os que implicarem risco imediato de vida ou de lesões irreparáveis para o paciente, caracterizado em declaração do médico assistente; II — de urgência, assim entendidos os resultantes de acidentes pessoais ou de complicações no processo gestacional. A ANS (RN nº 566/2022) fixa prazos máximos para a operadora garantir o atendimento e obriga a entrega de negativa de cobertura por escrito quando solicitada.",
+      "texto": "É obrigatória a cobertura do atendimento nos casos: I — de emergência, como tal definidos os que implicarem risco imediato de vida ou de lesões irreparáveis para o paciente, caracterizado em declaração do médico assistente; II — de urgência, assim entendidos os resultantes de acidentes pessoais ou de complicações no processo gestacional. A ANS fixa prazos máximos para a operadora garantir o atendimento (RN nº 566/2022) e exige que a negativa de cobertura seja justificada por escrito (RN nº 623/2024).",
       "resumo": "Plano de saúde: atendimento de urgência e emergência tem cobertura obrigatória; negativas devem ser dadas por escrito e há prazos máximos de atendimento fixados pela ANS.",
       "palavras_chave": [
         "plano",
@@ -1755,8 +1762,8 @@
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
+        "nota": "As regras de resposta às solicitações dos beneficiários foram atualizadas pela RN 623/2024, em vigor desde 1º de julho de 2025.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1817,8 +1824,8 @@
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [],
-        "nota": "Em vigor desde junho de 2018 para a União, Estados e Municípios, conforme o escalonamento do art. 25.",
-        "conferida_em": "2026-10-16"
+        "nota": "Pelo escalonamento do art. 25, vale desde junho de 2018 para União, Estados, DF e municípios com mais de 500 mil habitantes; desde dezembro de 2018 para os de 100 mil a 500 mil; e desde junho de 2019 para os menores.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1827,7 +1834,7 @@
       "artigo": "Arts. 10, 11 e 15",
       "tema": "servico-publico",
       "texto": "Qualquer interessado poderá apresentar pedido de acesso a informações aos órgãos e entidades públicos, por qualquer meio legítimo, devendo o pedido conter a identificação do requerente e a especificação da informação requerida. São vedadas quaisquer exigências relativas aos motivos determinantes da solicitação. Não sendo possível o acesso imediato, o órgão deverá, em prazo não superior a 20 dias, comunicar a data e o modo para a consulta, indicar as razões da negativa ou informar que não possui a informação — prazo prorrogável por mais 10 dias mediante justificativa expressa. Da negativa cabe recurso no prazo de 10 dias.",
-      "resumo": "Qualquer pessoa pode pedir informação a um órgão público sem dizer para que quer e sem pagar. O prazo de resposta é de 20 dias, prorrogável por 10; negativa dá direito a recurso em 10 dias.",
+      "resumo": "Qualquer pessoa pode pedir informação a um órgão público sem dizer para que quer e sem pagar pela busca — só a reprodução de documentos pode ser cobrada, pelo custo. O prazo de resposta é de 20 dias, prorrogável por 10; negativa dá direito a recurso em 10 dias.",
       "palavras_chave": [
         "lai",
         "acesso",
@@ -1851,8 +1858,8 @@
         "alterada_por": [
           "Lei 14.129/2021"
         ],
-        "nota": "O Decreto 11.529/2023 reorganizou a regulamentação federal; os prazos da lei seguem os mesmos.",
-        "conferida_em": "2026-10-16"
+        "nota": "A Lei 14.129/2021 reescreveu o art. 12: a busca e o fornecimento são gratuitos, e só a reprodução de documentos pode ser cobrada, pelo custo, com isenção para quem declarar não poder pagar. Na esfera federal, a lei é regulamentada pelo Decreto 7.724/2012.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -1984,8 +1991,8 @@
       "lei": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943",
       "artigo": "Arts. 791, 791-A e 790-B",
       "tema": "trabalho",
-      "texto": "Os empregados e os empregadores poderão reclamar pessoalmente perante a Justiça do Trabalho e acompanhar as suas reclamações até o final. Ao advogado, ainda que atue em causa própria, serão devidos honorários de sucumbência fixados entre o mínimo de 5% e o máximo de 15% sobre o valor que resultar da liquidação da sentença. O Supremo Tribunal Federal (ADI 5.766, 2021) declarou inconstitucionais os dispositivos que impunham ao beneficiário da justiça gratuita o pagamento de honorários periciais e de sucumbência com créditos obtidos no processo.",
-      "resumo": "Dá para entrar sozinho na Justiça do Trabalho, sem advogado, nas varas e nos tribunais regionais. Quem tem justiça gratuita não paga honorários da parte vencedora — o STF derrubou essa cobrança em 2021.",
+      "texto": "Os empregados e os empregadores poderão reclamar pessoalmente perante a Justiça do Trabalho e acompanhar as suas reclamações até o final. Ao advogado, ainda que atue em causa própria, serão devidos honorários de sucumbência fixados entre o mínimo de 5% e o máximo de 15% sobre o valor que resultar da liquidação da sentença. O Supremo Tribunal Federal (ADI 5.766, 2021) proibiu cobrar honorários periciais do beneficiário da justiça gratuita e descontar dos créditos que ele obtiver no processo os honorários de sucumbência; estes ficam suspensos e só podem ser cobrados se, em até 2 anos, o credor provar que o beneficiário deixou de precisar da gratuidade.",
+      "resumo": "Dá para entrar sozinho na Justiça do Trabalho, sem advogado, nas varas e nos tribunais regionais. Quem tem justiça gratuita e perde pode ser condenado em honorários, mas só paga se, em até 2 anos, o credor provar que ele deixou de precisar da gratuidade.",
       "palavras_chave": [
         "justiça",
         "trabalho",
@@ -2010,8 +2017,8 @@
           "STF, ADI 5.766 (2021)",
           "TST, Súmula 425"
         ],
-        "nota": "A Súmula 425 do TST limita o jus postulandi às varas e aos TRTs — recursos ao TST e ação rescisória exigem advogado. Textos de 2018 a 2021 ainda descrevem a cobrança de honorários do beneficiário da gratuidade.",
-        "conferida_em": "2026-10-16"
+        "nota": "A Súmula 425 do TST limita o jus postulandi às varas e aos TRTs — recursos ao TST e ação rescisória exigem advogado. Textos de 2018 a 2021 dizem que os honorários do beneficiário da gratuidade podiam ser descontados dos créditos obtidos no processo; o STF derrubou esse desconto e manteve a condenação com cobrança suspensa por 2 anos. Honorários periciais, o beneficiário não paga.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -2177,8 +2184,8 @@
       "lei": "Súmula nº 338 do Tribunal Superior do Trabalho",
       "artigo": "Súmula 338, I",
       "tema": "trabalho",
-      "texto": "É ônus do empregador que conta com mais de 10 empregados o registro da jornada de trabalho na forma do art. 74, § 2º, da CLT. A não apresentação injustificada dos controles de frequência gera presunção relativa de veracidade da jornada de trabalho alegada pelo empregado, a qual pode ser elidida por prova em contrário.",
-      "resumo": "Horas extras: em empresas com mais de 10 empregados, é o patrão quem deve provar a jornada (cartão de ponto); se não apresentar os controles, presume-se verdadeira a jornada que o trabalhador alegar.",
+      "texto": "É ônus do empregador que conta com mais de 10 empregados o registro da jornada de trabalho na forma do art. 74, § 2º, da CLT. A não apresentação injustificada dos controles de frequência gera presunção relativa de veracidade da jornada de trabalho alegada pelo empregado, a qual pode ser elidida por prova em contrário. Desde a Lei 13.874/2019, o art. 74, § 2º, da CLT só exige o registro de ponto em estabelecimentos com mais de 20 trabalhadores.",
+      "resumo": "Horas extras: em estabelecimentos com mais de 20 empregados (eram 10 até 2019), é o patrão quem deve provar a jornada (cartão de ponto); se não apresentar os controles, presume-se verdadeira a jornada que o trabalhador alegar.",
       "palavras_chave": [
         "hora",
         "extra",
@@ -2195,9 +2202,11 @@
       "vigencia": {
         "status": "vigente",
         "entra_em_vigor_em": null,
-        "alterada_por": [],
-        "nota": null,
-        "conferida_em": "2026-10-16"
+        "alterada_por": [
+          "Lei 13.874/2019"
+        ],
+        "nota": "A súmula ainda fala em 'mais de 10 empregados', número do art. 74, § 2º, da CLT antes da Lei 13.874/2019 (Liberdade Econômica), que elevou o piso para mais de 20 trabalhadores; textos anteriores a setembro de 2019 trazem o número antigo.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -2364,8 +2373,8 @@
       "lei": "Código de Trânsito Brasileiro — Lei nº 9.503/1997 (c/ Lei nº 13.281/2016)",
       "artigo": "Art. 284 e § 1º",
       "tema": "transito",
-      "texto": "O pagamento da multa poderá ser efetuado até a data do vencimento expressa na notificação, por 80% do seu valor. § 1º No caso de infração cometida com veículo licenciado em outra unidade da Federação, o pagamento da multa poderá ser feito até a data do vencimento. Ao condutor que optar pelo Sistema de Notificação Eletrônica (SNE) e reconhecer o cometimento da infração, efetuando o pagamento sem apresentar defesa ou recurso, será concedido desconto de 40% sobre o valor da multa.",
-      "resumo": "Dois descontos possíveis: 20% pagando até o vencimento, ou 40% para quem aderiu à notificação eletrônica (SNE), reconhece a infração e não recorre.",
+      "texto": "O pagamento da multa poderá ser efetuado até a data do vencimento expressa na notificação, por 80% do seu valor. § 1º Caso o infrator declare pelo sistema de notificação eletrônica a opção por não apresentar defesa prévia nem recurso, reconhecendo o cometimento da infração, o pagamento da multa poderá ser efetuado por 60% do seu valor, em qualquer fase do processo, até o vencimento do prazo de pagamento da multa, desde que a adesão ao sistema seja realizada antes do correspondente envio da notificação da autuação — ou seja, desconto de 40%.",
+      "resumo": "Dois descontos possíveis: 20% pagando até o vencimento, ou 40% para quem já tinha aderido à notificação eletrônica (SNE) quando a autuação foi enviada, reconhece a infração e não recorre.",
       "palavras_chave": [
         "desconto",
         "multa",
@@ -2385,10 +2394,12 @@
         "status": "vigente",
         "entra_em_vigor_em": null,
         "alterada_por": [
-          "Lei 13.281/2016"
+          "Lei 13.281/2016",
+          "Lei 14.071/2020",
+          "Lei 14.440/2022"
         ],
-        "nota": "O desconto de 40% pelo SNE não existia antes de 2016.",
-        "conferida_em": "2026-10-16"
+        "nota": "O desconto de 40% pelo SNE não existia antes de 2016. Desde a Lei 14.440/2022, ele só vale para quem aderiu ao SNE antes de a notificação da autuação ser enviada.",
+        "conferida_em": "2026-10-18"
       }
     },
     {
@@ -2463,9 +2474,9 @@
     {
       "id": "ctn-174",
       "lei": "Código Tributário Nacional — Lei nº 5.172/1966",
-      "artigo": "Arts. 34 e 174",
+      "artigo": "Arts. 34, 145 e 174",
       "tema": "tributos",
-      "texto": "Art. 34. Contribuinte do imposto (IPTU) é o proprietário do imóvel, o titular do seu domínio útil, ou o seu possuidor a qualquer título. Art. 174. A ação para a cobrança do crédito tributário prescreve em cinco anos, contados da data da sua constituição definitiva. O lançamento do IPTU pode ser impugnado administrativamente perante a prefeitura, inclusive quanto ao valor venal atribuído ao imóvel.",
+      "texto": "Art. 34. Contribuinte do imposto (IPTU) é o proprietário do imóvel, o titular do seu domínio útil, ou o seu possuidor a qualquer título. Art. 174. A ação para a cobrança do crédito tributário prescreve em cinco anos, contados da data da sua constituição definitiva. Art. 145. O lançamento regularmente notificado ao sujeito passivo só pode ser alterado em virtude de impugnação do sujeito passivo, entre outras hipóteses — no IPTU, apresentada à prefeitura, inclusive quanto ao valor venal atribuído ao imóvel.",
       "resumo": "IPTU: quem responde é o proprietário ou possuidor; a cobrança prescreve em 5 anos; erros de valor venal ou de lançamento podem ser impugnados na própria prefeitura, sem processo judicial.",
       "palavras_chave": [
         "iptu",
@@ -2487,7 +2498,7 @@
         "entra_em_vigor_em": null,
         "alterada_por": [],
         "nota": "A contagem da prescrição pode ser interrompida pela execução fiscal — confira as datas do seu caso.",
-        "conferida_em": "2026-10-16"
+        "conferida_em": "2026-10-18"
       }
     }
   ],

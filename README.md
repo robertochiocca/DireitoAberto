@@ -191,7 +191,7 @@ python3 scripts/comparar_retrievers.py --casos   # + cada pergunta julgada, moto
 **Método.** Duas medidas, porque são duas perguntas:
 
 - **o artigo certo aparece?** — nas 86 perguntas com gabarito (`data/casos_busca.json` mais as do benchmark temporal);
-- **o que mais aparece junto?** — o ruído, que o gabarito não mede, porque só conhece um artigo certo por pergunta. Nas 86 perguntas, cada artigo que algum motor pôs no top-4 foi **julgado à mão** como relevante, tangencial ou ruído — 537 rótulos em `data/relevancia_julgada.json`. Como aproximação, conta-se também quantos resultados extras são de área diferente da do artigo esperado.
+- **o que mais aparece junto?** — o ruído, que o gabarito não mede, porque só conhece um artigo certo por pergunta. Nas 86 perguntas, cada artigo que algum motor pôs no top-4 foi **julgado à mão** como relevante, tangencial ou ruído — 577 rótulos em `data/relevancia_julgada.json`. Como aproximação, conta-se também quantos resultados extras são de área diferente da do artigo esperado.
 
 Os julgamentos seguem três regras: são feitos **sem saber qual motor trouxe cada artigo**; "tangencial" exige que o artigo faça parte do mesmo conflito que o cidadão plausivelmente vive (tirar o sobrenome do ex, num divórcio) — ser apenas da mesma área do direito conta como ruído; e paráfrases da mesma pergunta dão o mesmo rótulo ao mesmo artigo (um teste confere). As perguntas se dividem em **calibração** — as 11 usadas para escolher o corte da busca adaptativa (as do README, os atalhos da home e "onde consigo advogado gratuito?") — e **validação**, as outras 75, que medem a busca fora dessa amostra. Os rótulos foram atribuídos pelo projeto e ainda não passaram por revisão de um profissional do Direito.
 
@@ -201,20 +201,20 @@ O híbrido funde as duas listas por posição (*Reciprocal Rank Fusion*), sem de
 
 | | BM25 | BM25 adaptativo (o que a API devolve) | Semântico (e5) | Híbrido (RRF) |
 |---|---|---|---|---|
-| artigos por resposta (média) | 3,92 | **2,90** | 4,00 | 4,00 |
-| artigo certo no top-3 | **86/86** | **86/86** | 83/86 | 84/86 |
-| artigo certo em 1º lugar | 76/86 | 76/86 | 73/86 | **78/86** |
-| extras de outra área (aproximação) | 53% | 45% | 44% | 44% |
-| **ruído julgado — validação** (75 perguntas) | **130/293 (44%)** | **71/217 (33%)** | **140/300 (47%)** | **128/300 (43%)** |
-| relevantes · tangenciais — validação | 93 · 70 | 91 · 55 | 92 · 68 | 93 · 79 |
-| ruído julgado — calibração (11 perguntas) | 16/44 (36%) | 7/32 (22%) | 15/44 (34%) | 15/44 (34%) |
+| artigos por resposta (média) | 3,92 | **2,88** | 4,00 | 4,00 |
+| artigo certo no top-3 | **86/86** | **86/86** | 83/86 | 85/86 |
+| artigo certo em 1º lugar | 76/86 | 76/86 | 75/86 | **78/86** |
+| extras de outra área (aproximação) | 53% | 45% | 46% | 45% |
+| **ruído julgado — validação** (75 perguntas) | **131/293 (45%)** | **70/216 (32%)** | **144/300 (48%)** | **126/300 (42%)** |
+| relevantes · tangenciais — validação | 93 · 69 | 91 · 55 | 91 · 65 | 93 · 81 |
+| ruído julgado — calibração (11 perguntas) | 16/44 (36%) | 8/32 (25%) | 17/44 (39%) | 15/44 (34%) |
 | tempo por busca | 0,2 ms | igual ao BM25 | 6,1 ms | — |
 
-**Leitura.** Entre os motores com 4 vagas fixas, fora da amostra, BM25 e híbrido ficam em 44% e 43% de ruído e o semântico fica atrás, com 47%. Trocar de motor não reduz o ruído; muda **o tipo de erro**. O BM25 confunde palavras escritas iguais ("trocar o nome" puxa troca de produto; "caí" casa com a jornada que "cai") — ruído óbvio. O semântico traz o que *parece* do assunto e não é: a LGPD em 1º lugar para "notebook defeituoso", a súmula de negativação em perguntas de voo, INSS e plano de saúde — ruído que engana mais. O semântico ganha onde a pergunta não usa as palavras da lei ("posso ser preso por dívida?" sai limpa, com a súmula certa em 1º), mas **perde a Defensoria Pública em "onde consigo advogado gratuito?"** — e o híbrido também. Para uma plataforma cujo propósito é encaminhar o cidadão à ajuda gratuita, é a falha que mais pesa.
+**Leitura.** Entre os motores com 4 vagas fixas, fora da amostra, BM25 e híbrido ficam em 45% e 42% de ruído e o semântico fica atrás, com 48%. Trocar de motor não reduz o ruído; muda **o tipo de erro**. O BM25 confunde palavras escritas iguais ("trocar o nome" puxa troca de produto; "caí" casa com a jornada que "cai") — ruído óbvio. O semântico traz o que *parece* do assunto e não é: a LGPD logo atrás do CDC em "notebook defeituoso", a súmula de negativação em perguntas de voo, INSS e plano de saúde — ruído que engana mais. O semântico ganha onde a pergunta não usa as palavras da lei ("posso ser preso por dívida?" sai limpa, com a súmula certa em 1º), mas **perde a Defensoria Pública em "onde consigo advogado gratuito?"** — e o híbrido também. Para uma plataforma cujo propósito é encaminhar o cidadão à ajuda gratuita, é a falha que mais pesa.
 
 **Decisão: o BM25 continua o padrão.** O ruído não é do motor, é estrutural: preencher sempre 4 vagas quando há uns 2 artigos relevantes. Trocar de motor troca o tipo de ruído e custa cobertura e implantação (modelo de ~135 MB, ChromaDB). A alavanca é o número de vagas.
 
-**Número de artigos por resposta.** A API usa a busca adaptativa: os 2 primeiros artigos sempre entram e, depois deles, só quem tem **ao menos um terço da nota do 1º colocado** — de 2 a 4 artigos por resposta, 2,90 em média. Fora da amostra, nas 75 perguntas de validação, o ruído cai de 130 para 71 — de 44% para 33% das vagas —, o artigo certo continua em todas as 86 perguntas, e o custo são 15 tangenciais e 2 relevantes a menos (um só caso, contado duas vezes por ter duas paráfrases; ver limite 2 abaixo). Nas 11 perguntas de calibração o ganho parecia maior (de 36% para 22%, sem perder relevante): a calibração era otimista, como se esperava, e o corte **não** foi reajustado na validação, para que ela continue medindo fora da amostra. A calibração saiu da grade: com mínimo de 1 artigo já se perdiam relevantes (às vezes o 2º colocado é relevante e fraco — a súmula 297 no golpe do PIX tem 16% da nota do 1º); com mínimo de 2, qualquer corte entre 30% e 35% dá o mesmo resultado, e um terço fica nessa faixa. No semântico a regra não teria efeito — o 4º colocado tem de 91% a 99% da nota do 1º —, e o parâmetro é aceito, mas ignorado.
+**Número de artigos por resposta.** A API usa a busca adaptativa: os 2 primeiros artigos sempre entram e, depois deles, só quem tem **ao menos um terço da nota do 1º colocado** — de 2 a 4 artigos por resposta, 2,88 em média. Fora da amostra, nas 75 perguntas de validação, o ruído cai de 131 para 70 — de 45% para 32% das vagas —, o artigo certo continua em todas as 86 perguntas, e o custo são 14 tangenciais e 2 relevantes a menos (um só caso, contado duas vezes por ter duas paráfrases; ver limite 2 abaixo). Nas 11 perguntas de calibração a queda é parecida (de 36% para 25%, sem perder relevante), sinal de que o corte não ficou preso à amostra em que foi escolhido; ele **não** foi reajustado na validação, para que ela continue medindo fora da amostra. A calibração saiu da grade: com mínimo de 1 artigo já se perdiam relevantes (às vezes o 2º colocado é relevante e fraco — a súmula 297 no golpe do PIX tem 16% da nota do 1º); com mínimo de 2, qualquer corte entre 30% e 35% dá o mesmo resultado, e um terço fica nessa faixa. No semântico a regra não teria efeito — o 4º colocado tem de 91% a 99% da nota do 1º —, e o parâmetro é aceito, mas ignorado.
 
 O que a regra não resolve: (1) ruído que pontua perto do artigo certo — em "posso ser preso por dívida?" os quatro têm notas parecidas e ficam todos; (2) o mínimo de 2 protege o 2º colocado mesmo quando ele é ruído — em "quais são os direitos sociais na Constituição?", a união estável (ruído, 30% da nota) fica em 2º e o art. 7º da CF (relevante, 25%) sai; (3) secundário útil fraco sai junto com o ruído — o art. 42 do CDC (cobrança indevida) na pergunta sobre nome negativado tem 25% da nota do 1º. Também quase não muda a armadilha temporal: com a busca adaptativa, o texto de 2006 ainda chega à resposta em 23 dos 24 casos, porque o distrator carrega as palavras da própria pergunta e não é cauda fraca — quem protege o cidadão continua sendo o rótulo de vigência.
 
@@ -330,7 +330,7 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - ✅ Expansão do corpus para 100% de cobertura do benchmark (38 → 79 dispositivos; fechou as lacunas que o próprio benchmark mediu)
 - ⬜ Valores dinâmicos (tetos dos Juizados calculados a partir do salário mínimo vigente, em vez de fixos no conteúdo)
 - ✅ Número de artigos por resposta ajustado à pergunta (2 a 4; corte em um terço da nota do 1º colocado, calibrado com os julgamentos manuais)
-- ✅ Julgamentos manuais de relevância nas 86 perguntas do gabarito (537 rótulos, julgados sem saber o motor; 11 de calibração e 75 de validação)
+- ✅ Julgamentos manuais de relevância nas 86 perguntas do gabarito (577 rótulos, julgados sem saber o motor; 11 de calibração e 75 de validação)
 - ⬜ Revisão dos julgamentos de relevância por profissional do Direito
 - ⬜ Camada de revisão jurídica contínua com profissional (o fluxo `revisado: false` já existe)
 

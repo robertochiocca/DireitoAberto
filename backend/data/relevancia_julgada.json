@@ -10,7 +10,7 @@
     "calibracao": "usadas para escolher o corte da busca adaptativa",
     "validacao": "fora da amostra de calibração"
   },
-  "julgado_em": "2026-10-17",
+  "julgado_em": "2026-10-18",
   "perguntas": [
     {
       "pergunta": "O plano de saúde negou minha cirurgia de emergência",
@@ -34,7 +34,8 @@
         "cdc-42a": "ruido",
         "decreto13135-sac": "tangencial",
         "cdc-49": "ruido",
-        "decreto7962-5": "ruido"
+        "decreto7962-5": "ruido",
+        "cdc-42": "ruido"
       }
     },
     {
@@ -154,7 +155,8 @@
         "cdc-14": "ruido",
         "cdc-18": "ruido",
         "decreto13135-sac": "ruido",
-        "eca-digital": "ruido"
+        "eca-digital": "ruido",
+        "cdc-43": "ruido"
       }
     },
     {
@@ -223,7 +225,8 @@
         "cpc-528": "ruido",
         "lei9099-3": "ruido",
         "lei9099-9": "ruido",
-        "lei9784-49": "ruido"
+        "lei9784-49": "ruido",
+        "lei13146-84": "ruido"
       }
     },
     {
@@ -234,7 +237,8 @@
         "cdc-26": "ruido",
         "lei13460-16": "ruido",
         "lei8245-18": "ruido",
-        "lei8245-37": "ruido"
+        "lei8245-37": "ruido",
+        "ctn-174": "ruido"
       }
     },
     {
@@ -248,7 +252,8 @@
         "lei9784-49": "tangencial",
         "clt-477": "ruido",
         "lai-10-11": "ruido",
-        "lei10741-39": "ruido"
+        "lei10741-39": "ruido",
+        "eca-132": "ruido"
       }
     },
     {
@@ -261,7 +266,8 @@
         "cc-1694": "ruido",
         "lei6015-56": "ruido",
         "lei8009-1": "ruido",
-        "lgpd-18": "ruido"
+        "lgpd-18": "ruido",
+        "clt-791": "ruido"
       }
     },
     {
@@ -285,7 +291,9 @@
         "anac-400": "ruido",
         "clt-477": "ruido",
         "ctb-257": "ruido",
-        "ctb-259-261": "ruido"
+        "ctb-259-261": "ruido",
+        "clt-487": "ruido",
+        "decreto13135-sac": "ruido"
       }
     },
     {
@@ -336,7 +344,8 @@
         "lei10741-39": "ruido",
         "lei11340-22": "ruido",
         "lei12153-2": "ruido",
-        "lei8245-37": "ruido"
+        "lei8245-37": "ruido",
+        "lei6015-46": "ruido"
       }
     },
     {
@@ -372,7 +381,8 @@
         "lai-10-11": "ruido",
         "lei6015-56": "ruido",
         "lei6015-57": "ruido",
-        "tst-sumula338": "ruido"
+        "tst-sumula338": "ruido",
+        "lei6015-46": "ruido"
       }
     },
     {
@@ -394,7 +404,9 @@
         "ctb-282": "tangencial",
         "ctb-284": "tangencial",
         "cc-1790": "ruido",
-        "ctb-165": "ruido"
+        "ctb-165": "ruido",
+        "cc-1336": "ruido",
+        "ctb-281": "tangencial"
       }
     },
     {
@@ -404,7 +416,8 @@
         "ctb-165": "relevante",
         "ctb-284": "tangencial",
         "ctb-257": "ruido",
-        "lgpd-18": "ruido"
+        "lgpd-18": "ruido",
+        "ctb-282": "tangencial"
       }
     },
     {
@@ -454,7 +467,8 @@
         "ctb-257": "ruido",
         "decreto13135-sac": "ruido",
         "lei9099-61": "ruido",
-        "stj-sumula479": "ruido"
+        "stj-sumula479": "ruido",
+        "lei12153-2": "tangencial"
       }
     },
     {
@@ -490,7 +504,8 @@
         "cf-7-xiii": "ruido",
         "lei13460-16": "ruido",
         "lgpd-18": "ruido",
-        "stj-sumula302": "ruido"
+        "stj-sumula302": "ruido",
+        "clt-791": "ruido"
       }
     },
     {
@@ -504,7 +519,8 @@
         "cc-206": "ruido",
         "cpc-528": "ruido",
         "eca-digital": "ruido",
-        "lei10741-39": "ruido"
+        "lei10741-39": "ruido",
+        "clt-487": "ruido"
       }
     },
     {
@@ -517,7 +533,8 @@
         "eca-54": "ruido",
         "lei8009-1": "ruido",
         "loas-20": "ruido",
-        "stj-sumula479": "ruido"
+        "stj-sumula479": "ruido",
+        "cc-3-4": "tangencial"
       }
     },
     {
@@ -557,7 +574,8 @@
         "cdc-43": "ruido",
         "cpc-98": "ruido",
         "ctn-174": "ruido",
-        "lgpd-18": "ruido"
+        "lgpd-18": "ruido",
+        "lei6015-110": "ruido"
       }
     },
     {
@@ -570,7 +588,8 @@
         "cdc-26": "ruido",
         "cdc-43": "ruido",
         "lindb-3": "ruido",
-        "stf-sv25": "ruido"
+        "stf-sv25": "ruido",
+        "lei6015-110": "ruido"
       }
     },
     {
@@ -581,7 +600,9 @@
         "cdc-43": "tangencial",
         "cdc-42a": "ruido",
         "lai-10-11": "ruido",
-        "tst-sumula338": "ruido"
+        "tst-sumula338": "ruido",
+        "clt-482": "ruido",
+        "eca-digital": "ruido"
       }
     },
     {
@@ -606,7 +627,8 @@
         "cdc-42": "tangencial",
         "lei8009-1": "tangencial",
         "stf-sv25": "tangencial",
-        "lei10192-2": "ruido"
+        "lei10192-2": "ruido",
+        "stj-sumula385": "tangencial"
       }
     },
     {
@@ -642,7 +664,8 @@
         "ctb-262": "ruido",
         "lei8036-18": "ruido",
         "lei8245-46": "ruido",
-        "lei8245-62": "ruido"
+        "lei8245-62": "ruido",
+        "cc-1784": "ruido"
       }
     },
     {
@@ -652,7 +675,8 @@
         "lei8245-62": "relevante",
         "lei8245-37": "tangencial",
         "lei8245-46": "tangencial",
-        "lei8245-18": "ruido"
+        "lei8245-18": "ruido",
+        "cdc-49": "ruido"
       }
     },
     {
@@ -679,7 +703,8 @@
         "ctn-174": "ruido",
         "lai-10-11": "ruido",
         "lei9099-9": "ruido",
-        "lei9784-49": "ruido"
+        "lei9784-49": "ruido",
+        "lei9099-3": "ruido"
       }
     },
     {
@@ -715,7 +740,8 @@
         "cf-7": "ruido",
         "clt-482": "ruido",
         "lei10259-3": "ruido",
-        "lei9099-9": "ruido"
+        "lei9099-9": "ruido",
+        "cpc-98": "tangencial"
       }
     },
     {
@@ -753,7 +779,8 @@
         "cdc-42": "ruido",
         "cdc-54a": "ruido",
         "lei6015-46": "ruido",
-        "stj-sumula479": "ruido"
+        "stj-sumula479": "ruido",
+        "cdc-43": "ruido"
       }
     },
     {
@@ -769,7 +796,8 @@
         "lei6015-46": "ruido",
         "lei6015-57": "ruido",
         "lgpd-18": "ruido",
-        "lindb-3": "ruido"
+        "lindb-3": "ruido",
+        "cdc-26": "ruido"
       }
     },
     {
@@ -781,7 +809,8 @@
         "anac-400": "ruido",
         "clt-477": "ruido",
         "clt-487": "ruido",
-        "lei9099-12a": "ruido"
+        "lei9099-12a": "ruido",
+        "clt-791": "ruido"
       }
     },
     {
@@ -832,7 +861,8 @@
         "cc-1583": "ruido",
         "lei12153-2": "ruido",
         "lei8009-1": "ruido",
-        "lei8245-37": "ruido"
+        "lei8245-37": "ruido",
+        "cf-226": "ruido"
       }
     },
     {
@@ -843,7 +873,8 @@
         "cc-1790": "relevante",
         "cc-1723": "tangencial",
         "cc-1583": "ruido",
-        "cc-1694": "ruido"
+        "cc-1694": "ruido",
+        "clt-791": "ruido"
       }
     },
     {
@@ -865,7 +896,9 @@
         "cdc-42": "tangencial",
         "lei10192-2": "tangencial",
         "lei8036-18": "ruido",
-        "lgpd-18": "ruido"
+        "lgpd-18": "ruido",
+        "cc-1336": "ruido",
+        "lei6015-110": "ruido"
       }
     },
     {
@@ -876,7 +909,8 @@
         "ctb-165": "tangencial",
         "ctb-257": "tangencial",
         "ctb-282": "tangencial",
-        "ctb-284": "tangencial"
+        "ctb-284": "tangencial",
+        "ctb-281": "tangencial"
       }
     },
     {
@@ -982,7 +1016,8 @@
         "lei6015-110": "tangencial",
         "lei6015-56": "tangencial",
         "cdc-42a": "ruido",
-        "cdc-43": "ruido"
+        "cdc-43": "ruido",
+        "lgpd-18": "ruido"
       }
     },
     {
@@ -995,7 +1030,8 @@
         "cdc-42a": "ruido",
         "cdc-43": "ruido",
         "lei10259-3": "ruido",
-        "lei9099-9": "ruido"
+        "lei9099-9": "ruido",
+        "lei6015-46": "tangencial"
       }
     },
     {
@@ -1021,7 +1057,9 @@
         "cf-7-xiii": "ruido",
         "clt-487": "ruido",
         "lei13460-16": "ruido",
-        "stj-sumula302": "ruido"
+        "stj-sumula302": "ruido",
+        "clt-791": "ruido",
+        "ctn-174": "ruido"
       }
     },
     {
@@ -1035,7 +1073,8 @@
         "cf-226": "ruido",
         "eca-digital": "ruido",
         "lei10741-39": "ruido",
-        "lei6015-46": "ruido"
+        "lei6015-46": "ruido",
+        "cc-3-4": "ruido"
       }
     },
     {
@@ -1062,7 +1101,8 @@
         "eca-digital": "ruido",
         "lindb-3": "ruido",
         "stf-sv25": "ruido",
-        "stj-sumula297": "ruido"
+        "stj-sumula297": "ruido",
+        "ctb-262": "ruido"
       }
     }
   ]
