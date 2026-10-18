@@ -25,7 +25,7 @@ export const CANAIS: Canal[] = [
   {
     nome: "Juizado Especial Cível",
     oQueFaz:
-      "As “pequenas causas”: até 40 salários mínimos. Até 20, você pode entrar sem advogado; acima disso, o advogado é obrigatório (Lei 9.099/95).",
+      "As “pequenas causas”: até 40 salários mínimos. Até 20, você pode entrar sem advogado; acima disso, e para recorrer da sentença, o advogado é obrigatório (Lei 9.099/95).",
     custo: "GRATUITO ATÉ CERTO VALOR",
   },
   {
