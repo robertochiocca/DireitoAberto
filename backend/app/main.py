@@ -25,9 +25,10 @@ from .leitor.rotas import router as leitor_router
 from .llm import gerar_resposta, resposta_extrativa
 from .monitor.registro import Registro
 from .monitor.sinais import revisao_do_monitor
-from .retrieval import normalizar
+from .retrieval import Retriever, normalizar
 from .seguranca import CABECALHOS_SEGURANCA, limitar, origens_cors, verificar_limite
 from .semantic import criar_retriever
+from .validacao import avaliar, evidencia_insuficiente
 from .vigencia import hoje, vigencia_efetiva
 
 FRONTEND_DIR = Path(__file__).resolve().parent.parent.parent / "frontend"
@@ -132,10 +133,27 @@ class ArtigoEncontrado(BaseModel):
     revisao: Revisao | None = None
 
 
+class Verificacao(BaseModel):
+    nome: str
+    ok: bool | None = Field(None, description="None quando a verificação não se aplica")
+    detalhe: str
+
+
+class Validacao(BaseModel):
+    estado: str = Field(..., description=(
+        "fonte_e_versao_verificadas · evidencia_suficiente · fonte_localizada · revisao_humana_recomendada · "
+        "conflito_de_fontes · fonte_desatualizada_ou_indisponivel · evidencia_insuficiente"
+    ))
+    rotulo: str
+    verificacoes: list[Verificacao]
+    aviso: str
+
+
 class Resposta(BaseModel):
     resposta: str
     artigos: list[ArtigoEncontrado]
     gerado_por_llm: bool
+    validacao: Validacao
     aviso: str = AVISO_LEGAL
 
 
@@ -175,7 +193,12 @@ def _responder(
     consulta_busca = f"{pergunta} {contexto_documento}" if contexto_documento else pergunta
     # Adaptativa: devolve menos artigos quando os demais são fracos, em vez de
     # completar as vagas com lei de outro assunto.
-    artigos = retriever.buscar(consulta_busca, tema=tema, adaptativo=True)
+    encontrados = retriever.buscar(consulta_busca, tema=tema, adaptativo=True)
+    # Abaixo do limiar calibrado, a base não tem o assunto: melhor dizer isso do que responder com
+    # lei de outro assunto. O limiar vale para o BM25; o motor semântico tem outra escala de nota.
+    calibrado = isinstance(retriever, Retriever)
+    abstencao = evidencia_insuficiente(encontrados, calibrado)
+    artigos = [] if abstencao else encontrados
     for a in artigos:
         # Mudança detectada pelo monitor e ainda não revisada também deixa o dispositivo "em revisão".
         a.revisao = a.revisao or revisao_do_monitor(a.id)
@@ -197,10 +220,13 @@ def _responder(
     ))
     db.commit()
 
+    validacao = avaliar(encontrados if abstencao else artigos, hoje(), texto_gerado=texto_llm,
+                        calibrado=calibrado, abstencao=abstencao)
     return Resposta(
         resposta=texto_llm or resposta_extrativa(pergunta, artigos),
         artigos=[ArtigoEncontrado(**vars(a)) for a in artigos],
         gerado_por_llm=texto_llm is not None,
+        validacao=Validacao(**validacao),
     )
 
 

@@ -46,10 +46,25 @@ export type ItemFilaVigencia = {
   fonte: string;
 };
 
+export type Validacao = {
+  estado:
+    | "fonte_e_versao_verificadas"
+    | "evidencia_suficiente"
+    | "fonte_localizada"
+    | "revisao_humana_recomendada"
+    | "conflito_de_fontes"
+    | "fonte_desatualizada_ou_indisponivel"
+    | "evidencia_insuficiente";
+  rotulo: string;
+  verificacoes: { nome: string; ok: boolean | null; detalhe: string }[];
+  aviso: string;
+};
+
 export type Resposta = {
   resposta: string;
   artigos: Artigo[];
   gerado_por_llm: boolean;
+  validacao: Validacao;
   aviso: string;
 };
 

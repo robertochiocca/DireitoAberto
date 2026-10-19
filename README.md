@@ -156,6 +156,22 @@ A API é versionada em **`/api/v1`** (os caminhos `/api/...` são aliases de com
 - **Retriever semântico**: `pip install chromadb` e `DIREITO_ABERTO_RETRIEVER=semantico`. Usa o **multilingual-e5-small** (ONNX, ~130 MB baixados do Hugging Face na 1ª execução, sem PyTorch), com prefixos assimétricos `query:`/`passage:` e vetores L2-normalizados. Cada texto é vetorizado numa chamada própria: o modelo quantizado calcula a escala das ativações sobre a chamada inteira, e em lote o vetor de um documento dependia dos vizinhos — editar um verbete mudava a posição de outros na busca. No benchmark interno de 21 casos: **e5 19/21 no top-1** vs BM25 18/21 vs MiniLM padrão do Chroma 13/21 — e o e5 acerta parafrases sem nenhuma palavra do corpus ("a companhia aérea me deixou na mão" → Resolução ANAC 400). `DIREITO_ABERTO_EMBEDDING=padrao` força o embedding nativo do Chroma; sem dependências ou sem rede, o fallback é o BM25.
 - **Banco**: SQLite em `backend/data/direitoaberto.db` por padrão; para PostgreSQL, `DIREITO_ABERTO_DATABASE_URL=postgresql+psycopg://usuario:senha@host/db`.
 
+### Estado de validação e avaliação
+
+Toda resposta de `/perguntar` traz um **estado de validação** calculado por regras, nunca por nota dada pelo próprio modelo: força da evidência (nota do BM25 contra um limiar calibrado), fonte oficial, texto conferido com a versão oficial vigente (via monitor), vigência na data, atualidade da conferência, revisão pendente, conflito entre redações e — quando há LLM — se cada artigo ou súmula citado no texto gerado está entre os dispositivos recuperados. Os estados vão de "fonte e versão verificadas" a "evidência insuficiente"; neste último, a API **se abstém** em vez de responder com lei de outro assunto. Não são certificação jurídica.
+
+`scripts/avaliar.py` mede tudo de forma reproduzível e compara com a linha de base versionada em [docs/avaliacao/](docs/avaliacao/relatorio.md); um teste falha se alguma métrica piorar. Números atuais (validação = perguntas que não participaram de nenhum ajuste):
+
+| Medida | Resultado |
+|---|---|
+| Recall@3 · MRR@10 · nDCG@4 (75 perguntas de validação) | 100% · 94,0% · 89,0% |
+| Dispositivos da resposta da API julgados relevantes · relevantes ou tangenciais | 45,7% · 68,3% |
+| Perguntas fora do escopo com abstenção correta (validação) | 8 de 13 |
+| Perguntas legítimas com abstenção indevida (validação) | 3 de 75 |
+| Leitor: itens do gabarito encontrados · citações conferidas · afirmações proibidas | 39/39 · 79/79 · 0 |
+
+A abstenção tem custo e limite medidos: 5 das 13 perguntas fora do escopo da validação ainda recebem lei de outro assunto (ex.: "multa por não votar"), e 3 perguntas legítimas ficam sem resposta.
+
 ### Monitor legislativo
 
 `scripts/monitor.py` acompanha 9 páginas oficiais do Planalto (CF, Código Civil, CDC, CTB, CLT e outras), compara o texto vigente — sem a redação tachada — artigo por artigo, classifica cada mudança (formatação, anotação editorial, indício de alteração legislativa, indício de revogação, artigo ausente, que **não** é tratado como revogação…), aponta os dispositivos da base afetados e gera um relatório. Mudança de risco médio ou alto fica pendente até uma pessoa decidir, e enquanto isso a API mostra os dispositivos afetados como "em revisão". O mesmo módulo mede a **fidelidade do corpus ao texto oficial**: dos 46 dispositivos conferidos, 8 são transcrição literal e 15 são paráfrase ou explicação — o que motivou separar texto oficial de explicação no roadmap. Detalhes em [docs/monitor-legislativo.md](docs/monitor-legislativo.md).
@@ -344,7 +360,7 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - **Não é aconselhamento jurídico.** O sistema informa a regra geral; detalhes do caso concreto mudam a resposta. Toda resposta encaminha para a Defensoria Pública (gratuita), Procon ou advogado.
 - O corpus é **curado e pequeno** (79 dispositivos legais): cobre consumidor, trabalho, trânsito, moradia, família, cível, registros públicos, criança e adolescente, saúde, previdência e assistência, tributos, proteção de dados, serviço público, ambiental e acesso à Justiça — e nada além disso.
 - A vigência é **conferida manualmente**, não monitorada em tempo real: cada dispositivo carrega a data da última conferência (`vigencia.conferida_em`) e o `GET /api/v1/vigencia` mostra o que está prestes a mudar. Uma norma alterada entre duas conferências continuaria sendo respondida com a redação antiga — por isso a data aparece junto da resposta.
-- A busca é **lexical por padrão** (BM25 + sinônimos PT-BR); o índice semântico existe, mas é opt-in (`DIREITO_ABERTO_RETRIEVER=semantico`). Perguntas muito distantes do vocabulário indexado podem não encontrar nada — e o sistema diz isso em vez de inventar. No outro extremo, a busca ainda pode trazer artigo de outro assunto que casa uma palavra ambígua ("plano" de saúde × plano de pagamento). A busca adaptativa corta esse ruído quando ele é fraco, mas não quando pontua perto do artigo certo, e trocar o BM25 pela busca semântica também não resolve (ver *Comparação de motores de busca*).
+- A busca é **lexical por padrão** (BM25 + sinônimos PT-BR); o índice semântico existe, mas é opt-in (`DIREITO_ABERTO_RETRIEVER=semantico`). Abaixo de um limiar de evidência calibrado, a API se abstém em vez de inventar — mas o limiar não pega todas as perguntas fora do escopo (8 de 13 na validação; ver *Estado de validação e avaliação*). No outro extremo, a busca ainda pode trazer artigo de outro assunto que casa uma palavra ambígua ("plano" de saúde × plano de pagamento). A busca adaptativa corta esse ruído quando ele é fraco, mas não quando pontua perto do artigo certo, e trocar o BM25 pela busca semântica também não resolve (ver *Comparação de motores de busca*).
 - Os textos legais foram consolidados manualmente a partir do Planalto e podem não refletir alterações legislativas posteriores; cada artigo traz o link para a fonte oficial. Textos marcados como "(síntese)" condensam caput e parágrafos relevantes em vez de transcrevê-los na íntegra.
 - A jurisprudência é uma **curadoria inicial de 7 súmulas** de STF, STJ e TST — não um índice de precedentes.
 

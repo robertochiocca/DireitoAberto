@@ -288,6 +288,10 @@
     letter-spacing:.03em;border-radius:6px;padding:2px 7px;white-space:nowrap}
   .ai-panel .vig-vacatio{background:var(--warn-soft);color:var(--warn)}
   .ai-panel .vig-revogada{background:var(--right-soft);color:var(--right)}
+  .ai-panel .validacao{margin-bottom:10px;font-size:13px;color:var(--ink-2)}
+  .ai-panel .validacao summary{cursor:pointer}
+  .ai-panel .validacao ul{list-style:none;margin:8px 0 4px;padding:0}
+  .ai-panel .validacao p{font-size:12px;opacity:.8}
   .ai-panel .vig-nota{font-size:12.5px;color:var(--ink-2);background:var(--warn-soft);
     border-radius:8px;padding:8px 11px;margin-top:7px;line-height:1.45}
   .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand);
@@ -976,6 +980,7 @@ async function perguntarAPI(pergunta){
       </div>`).join("");
     panel.innerHTML=`
       <div class="ai-k">⚖ Resposta da base jurídica ${d.gerado_por_llm?"· gerada por IA":"· modo extrativo"}</div>
+      ${d.validacao?`<details class="validacao"><summary><span class="vig ${["evidencia_insuficiente","fonte_desatualizada_ou_indisponivel"].includes(d.validacao.estado)?"vig-revogada":"vig-vacatio"}">${esc(d.validacao.rotulo)}</span> <u>como chegamos a isso</u></summary><ul>${d.validacao.verificacoes.map(c=>`<li>${c.ok===true?"✓":c.ok===false?"✗":"–"} ${esc(c.detalhe)}</li>`).join("")}</ul><p>${esc(d.validacao.aviso)}</p></details>`:""}
       <div class="ai-answer">${esc(d.resposta)}</div>
       ${arts?`<div class="ai-arts">${arts}</div>`:""}
       <div class="ai-aviso">${esc(d.aviso||"")}</div>`;

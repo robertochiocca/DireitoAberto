@@ -90,5 +90,5 @@ Os módulos novos entram como pacotes ao lado dos existentes, sem reescrever o q
 |---|---|
 | Leitura de documentos jurídicos (extração por página, peças, linha do tempo, perguntas com citação verificada) | **backend concluído (ciclo 2)**, `app/leitor/` — ver [leitor-de-processos.md](leitor-de-processos.md); interface no ciclo 3 |
 | Monitor de mudanças legislativas (snapshots com hash, diff por artigo, fila de revisão) | **concluído (ciclo 4)**, `app/monitor/` — ver [monitor-legislativo.md](monitor-legislativo.md) |
-| Estados de validação da resposta e avaliação reproduzível | **planejado** (ciclo 5) |
+| Estados de validação da resposta e avaliação reproduzível | **concluído (ciclo 5)**, `app/validacao.py`, `app/avaliacao.py` — ver [avaliacao/relatorio.md](avaliacao/relatorio.md) |
 | Feedback de usuários, organizações/tenants, planos e limites | **planejado** (fases posteriores) |

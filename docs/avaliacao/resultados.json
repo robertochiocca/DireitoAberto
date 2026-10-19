@@ -1,0 +1,264 @@
+{
+  "gerado_em": "2026-10-19T22:16:05+00:00",
+  "commit": "ccbb302",
+  "corpus_sha256": "4940100685a4e361",
+  "busca": {
+    "geral": {
+      "perguntas": 86,
+      "recall@1": 0.8837,
+      "recall@3": 1.0,
+      "recall@10": 1.0,
+      "mrr@10": 0.9341,
+      "ndcg@4": 0.8856,
+      "precisao_relevante@4": 0.3246,
+      "precisao_util@4": 0.5659,
+      "precisao_relevante_api": 0.4651,
+      "precisao_util_api": 0.6977,
+      "artigos_por_resposta_api": 2.8837
+    },
+    "calibracao": {
+      "perguntas": 11,
+      "recall@1": 0.8182,
+      "recall@3": 1.0,
+      "recall@10": 1.0,
+      "mrr@10": 0.8939,
+      "ndcg@4": 0.8568,
+      "precisao_relevante@4": 0.3182,
+      "precisao_util@4": 0.6364,
+      "precisao_relevante_api": 0.5227,
+      "precisao_util_api": 0.7955,
+      "artigos_por_resposta_api": 2.9091
+    },
+    "validacao": {
+      "perguntas": 75,
+      "recall@1": 0.8933,
+      "recall@3": 1.0,
+      "recall@10": 1.0,
+      "mrr@10": 0.94,
+      "ndcg@4": 0.8898,
+      "precisao_relevante@4": 0.3256,
+      "precisao_util@4": 0.5556,
+      "precisao_relevante_api": 0.4567,
+      "precisao_util_api": 0.6833,
+      "artigos_por_resposta_api": 2.88
+    },
+    "por_tema": {
+      "acesso-justica": {
+        "perguntas": 9,
+        "recall@1": 0.6667,
+        "recall@3": 1.0,
+        "mrr@10": 0.8333
+      },
+      "ambiental": {
+        "perguntas": 2,
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@10": 1.0
+      },
+      "civel": {
+        "perguntas": 8,
+        "recall@1": 0.875,
+        "recall@3": 1.0,
+        "mrr@10": 0.9167
+      },
+      "civil-registro": {
+        "perguntas": 8,
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@10": 1.0
+      },
+      "consumidor": {
+        "perguntas": 8,
+        "recall@1": 0.875,
+        "recall@3": 1.0,
+        "mrr@10": 0.9167
+      },
+      "crianca-adolescente": {
+        "perguntas": 5,
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@10": 1.0
+      },
+      "dados": {
+        "perguntas": 1,
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@10": 1.0
+      },
+      "familia": {
+        "perguntas": 11,
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@10": 1.0
+      },
+      "moradia": {
+        "perguntas": 5,
+        "recall@1": 0.6,
+        "recall@3": 1.0,
+        "mrr@10": 0.7667
+      },
+      "previdencia": {
+        "perguntas": 3,
+        "recall@1": 0.6667,
+        "recall@3": 1.0,
+        "mrr@10": 0.8333
+      },
+      "saude": {
+        "perguntas": 2,
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@10": 1.0
+      },
+      "servico-publico": {
+        "perguntas": 3,
+        "recall@1": 0.6667,
+        "recall@3": 1.0,
+        "mrr@10": 0.8333
+      },
+      "trabalho": {
+        "perguntas": 9,
+        "recall@1": 0.8889,
+        "recall@3": 1.0,
+        "mrr@10": 0.9259
+      },
+      "transito": {
+        "perguntas": 11,
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@10": 1.0
+      },
+      "tributos": {
+        "perguntas": 1,
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@10": 1.0
+      }
+    }
+  },
+  "abstencao": {
+    "limiar": 6.0,
+    "fora_do_escopo": {
+      "calibracao": {
+        "perguntas": 13,
+        "abstencoes": 8
+      },
+      "validacao": {
+        "perguntas": 13,
+        "abstencoes": 8
+      }
+    },
+    "dentro_do_escopo": {
+      "calibracao": {
+        "perguntas": 11,
+        "abstencoes": 0
+      },
+      "validacao": {
+        "perguntas": 75,
+        "abstencoes": 3
+      }
+    },
+    "fora_do_escopo_respondidas": [
+      "Como abrir uma empresa de responsabilidade limitada?",
+      "Estrangeiro pode comprar terra no Brasil?",
+      "Posso ter uma arma de fogo em casa?",
+      "Qual é a idade mínima para tirar carteira de motorista?",
+      "Qual é a multa por não votar na eleição?",
+      "Qual é a pena para homicídio culposo?",
+      "Qual é a velocidade máxima permitida numa rodovia?",
+      "Quanto tempo de prisão pega quem dirige sem habilitação?",
+      "Quem tem direito ao seguro-desemprego?",
+      "É crime xingar alguém nas redes sociais?"
+    ],
+    "dentro_do_escopo_abstidas": [
+      "Minhas dívidas passaram do que ganho, dá para renegociar tudo?",
+      "Pedi informação na prefeitura e não responderam",
+      "Posso alegar que não sabia da lei?"
+    ]
+  },
+  "vigencia": {
+    "casos": 24,
+    "cobertura": {
+      "n": 24,
+      "pct": 100.0
+    },
+    "recall_vigente": {
+      "n": 24,
+      "pct": 100.0
+    },
+    "contaminacao": {
+      "n": 24,
+      "pct": 100.0
+    },
+    "inversao": {
+      "n": 10,
+      "pct": 41.7
+    },
+    "resposta_contaminada": {
+      "n": 24,
+      "pct": 100.0
+    },
+    "mitigacao_por_rotulo": {
+      "distratores_recuperados": 24,
+      "respostas_com_alerta": 24,
+      "pct": 100.0
+    }
+  },
+  "leitor": {
+    "itens_por_categoria": {
+      "pedidos": {
+        "esperados": 5,
+        "encontrados": 5,
+        "extraidos": 5
+      },
+      "alegacoes": {
+        "esperados": 7,
+        "encontrados": 7,
+        "extraidos": 10
+      },
+      "decisoes": {
+        "esperados": 6,
+        "encontrados": 6,
+        "extraidos": 6
+      },
+      "obrigacoes_e_determinacoes": {
+        "esperados": 6,
+        "encontrados": 6,
+        "extraidos": 8
+      },
+      "prazos": {
+        "esperados": 5,
+        "encontrados": 5,
+        "extraidos": 5
+      },
+      "linha_do_tempo": {
+        "esperados": 10,
+        "encontrados": 10,
+        "extraidos": 13
+      }
+    },
+    "citacoes": {
+      "total": 79,
+      "verificadas": 79
+    },
+    "afirmacoes_proibidas": 0,
+    "perguntas": {
+      "total": 13,
+      "comportamento_esperado": 13
+    }
+  },
+  "fidelidade": {
+    "conferidos": 46,
+    "por_classe": {
+      "condensado": 21,
+      "divergente": 15,
+      "literal": 8,
+      "quase_literal": 2
+    },
+    "dispositivos_no_corpus": 79
+  },
+  "latencia": {
+    "busca_ms_mediana": 0.114,
+    "busca_ms_p95": 0.207,
+    "custo_llm_por_consulta": "zero no modo extrativo (padrão); com LLM, não medido (sem chave)"
+  }
+}
