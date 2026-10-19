@@ -1,7 +1,23 @@
 # Leitor de processos
 
-> Estado: **backend concluído (ciclo 2)**; interface no ciclo 3. Funciona sem modelo de linguagem e
-> sem enviar nada a terceiros.
+> Estado: **concluído — backend (ciclo 2) e interface `/documentos` no Next.js (ciclo 3)**. Funciona
+> sem modelo de linguagem e sem enviar nada a terceiros.
+
+## Interface (`web/app/documentos`)
+
+- Entrada com o exemplo fictício (sem conta) e o envio de PDF (com conta), com os compromissos de
+  privacidade escritos na tela; lista dos documentos guardados, com validade e botão de apagar.
+- Abas: Resumo (com próximos passos e perguntas para a Defensoria), Linha do tempo, Partes e peças,
+  Decisões e prazos, Perguntar, Glossário. Cada item tem o selo da natureza e os botões de citação
+  "p. 9 · fls. 30"; duas citações na mesma página mostram o começo do trecho para se distinguirem.
+- Visualizador ao lado (fixo no desktop, abaixo no celular): o texto extraído da página com o trecho
+  citado destacado, navegação entre páginas, aviso explícito em página não lida e, quando o PDF está
+  disponível, o original (o arquivo enviado na sessão vira um endereço `blob:` local — nunca volta do
+  servidor; o do exemplo vem de `/documentos/exemplo/arquivo`, a única rota que aceita iframe da
+  própria origem).
+- Verificado num navegador real (Playwright, Chromium): fluxo completo de conta → envio pelo proxy do
+  Next → análise → PDF original → pergunta → exclusão, sem erro de console; 1360 px, 960 px e 390 px,
+  claro e escuro, sem rolagem horizontal no celular. Esse roteiro ainda não está automatizado na CI.
 
 ## O que ele faz
 

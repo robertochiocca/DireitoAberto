@@ -115,9 +115,11 @@ export async function encerrarSessao() {
   window.dispatchEvent(new Event("da-auth"));
 }
 
-async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
+export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
   const headers = new Headers(init.headers);
-  if (!headers.has("Content-Type") && init.body) headers.set("Content-Type", "application/json");
+  // Só JSON leva Content-Type explícito; FormData (upload) define o próprio, com o boundary.
+  if (!headers.has("Content-Type") && typeof init.body === "string")
+    headers.set("Content-Type", "application/json");
   const token = getToken();
   if (token) headers.set("Authorization", `Bearer ${token}`);
 

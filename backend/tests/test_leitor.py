@@ -283,6 +283,13 @@ def test_exemplo_e_publico():
     assert pergunta.status_code == 200 and pergunta.json()["itens"]
 
 
+def test_pdf_do_exemplo_pode_ir_em_iframe_da_propria_origem():
+    resp = client.get("/api/v1/documentos/exemplo/arquivo")
+    assert resp.status_code == 200 and resp.content.startswith(b"%PDF")
+    assert resp.headers["X-Frame-Options"] == "SAMEORIGIN"
+    assert client.get("/api/v1/saude").headers["X-Frame-Options"] == "DENY"  # o resto continua bloqueado
+
+
 def test_envio_exige_conta():
     assert _enviar({}).status_code == 401
 

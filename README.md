@@ -42,6 +42,18 @@ O cidadão descreve o problema em linguagem comum e recebe a regra aplicável, o
 |---|---|
 | <img src="docs/screenshots/estatico-7-menu-celular.png" alt="Menu compacto do frontend estático aberto no celular" width="260"> | <img src="docs/screenshots/estatico-8-celular-escuro.png" alt="Página do divórcio no celular, no modo escuro" width="260"> |
 
+### Leitor de processos
+
+Envie o PDF de um processo e veja o que cada parte alega, o que o juiz decidiu, os prazos mencionados e o que ainda falta confirmar — **cada informação com a página do PDF e a folha do processo, e um clique leva ao trecho destacado**. O leitor não usa modelo de linguagem e não inventa: toda citação é conferida contra a página antes de aparecer, e o que ele não conseguiu ler (páginas digitalizadas, folhas citadas que não estão no arquivo) vira aviso. Um processo **fictício** de demonstração abre sem conta. Detalhes em [docs/leitor-de-processos.md](docs/leitor-de-processos.md).
+
+| Resumo: cada frase aponta de onde saiu | Linha do tempo: alegação × fato certificado |
+|---|---|
+| ![Resumo do processo fictício com o resultado da sentença destacado na página 9](docs/screenshots/leitor-2-resumo-citacao.png) | ![Linha do tempo com a certidão de citação destacada na página 5](docs/screenshots/leitor-3-linha-do-tempo.png) |
+
+| Perguntas sobre o documento | Entrada (com o exemplo fictício) | Celular, modo escuro |
+|---|---|---|
+| ![Explicação simples da sentença, com o dispositivo e o glossário](docs/screenshots/leitor-4-perguntar.png) | ![Tela inicial do leitor com os compromissos de privacidade](docs/screenshots/leitor-1-entrada.png) | <img src="docs/screenshots/leitor-5-celular-escuro.png" alt="Leitor no celular, modo escuro" width="260"> |
+
 ## O problema
 
 A legislação brasileira é escrita para operadores do Direito, não para o cidadão. Quem tem um produto com defeito, foi demitido, recebeu uma multa injusta ou teve o nome negativado raramente sabe **qual lei protege o seu caso, quais são os prazos e onde buscar ajuda gratuita** — e o juridiquês afasta exatamente quem mais precisa da informação.

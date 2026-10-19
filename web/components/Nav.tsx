@@ -88,6 +88,7 @@ export default function Nav() {
 
           <nav className="bar-nav" aria-label="Seções">
             <Link href="/" className={ativo("/")}>Perguntar</Link>
+            <Link href="/documentos" className={ativo("/documentos")}>Ler documento</Link>
             <Link href="/base-legal" className={ativo("/base-legal")}>Base legal</Link>
             <Link href="/historico" className={ativo("/historico")}>Histórico</Link>
             <Link href="/ajuda" className={`nav-cta ${ativo("/ajuda")}`}>
@@ -150,6 +151,10 @@ export default function Nav() {
 
             <div className="menu-k">Para consultar</div>
             <div className="mi-list">
+              <Link href="/documentos" className={`mi-row ${ativo("/documentos")}`} onClick={fechar}>
+                <b>Ler documento</b>
+                <span>Entenda um processo, página por página</span>
+              </Link>
               <Link href="/base-legal" className={`mi-row ${ativo("/base-legal")}`} onClick={fechar}>
                 <b>Base legal</b>
                 <span>Leis, súmulas e o que vale hoje</span>
