@@ -10,7 +10,7 @@
     "calibracao": "usadas para escolher o corte da busca adaptativa",
     "validacao": "fora da amostra de calibração"
   },
-  "julgado_em": "2026-10-18",
+  "julgado_em": "2026-10-19",
   "perguntas": [
     {
       "pergunta": "O plano de saúde negou minha cirurgia de emergência",
@@ -132,7 +132,8 @@
         "cc-1694": "tangencial",
         "cf-226": "tangencial",
         "lei10741-39": "ruido",
-        "lei8009-1": "ruido"
+        "lei8009-1": "ruido",
+        "cc-1784": "ruido"
       }
     },
     {
@@ -417,7 +418,8 @@
         "ctb-284": "tangencial",
         "ctb-257": "ruido",
         "lgpd-18": "ruido",
-        "ctb-282": "tangencial"
+        "ctb-282": "tangencial",
+        "lai-10-11": "ruido"
       }
     },
     {
@@ -534,7 +536,8 @@
         "lei8009-1": "ruido",
         "loas-20": "ruido",
         "stj-sumula479": "ruido",
-        "cc-3-4": "tangencial"
+        "cc-3-4": "tangencial",
+        "cc-1583": "ruido"
       }
     },
     {
@@ -560,7 +563,8 @@
         "lai-10-11": "tangencial",
         "lei13460-16": "tangencial",
         "cf-7": "ruido",
-        "eca-132": "ruido"
+        "eca-132": "ruido",
+        "clt-477": "ruido"
       }
     },
     {
@@ -652,7 +656,8 @@
         "cc-206": "tangencial",
         "cdc-54a": "tangencial",
         "stf-sv25": "tangencial",
-        "lei8036-18": "ruido"
+        "lei8036-18": "ruido",
+        "cdc-42": "tangencial"
       }
     },
     {
@@ -665,7 +670,8 @@
         "lei8036-18": "ruido",
         "lei8245-46": "ruido",
         "lei8245-62": "ruido",
-        "cc-1784": "ruido"
+        "cc-1784": "ruido",
+        "cdc-18": "ruido"
       }
     },
     {
@@ -780,7 +786,8 @@
         "cdc-54a": "ruido",
         "lei6015-46": "ruido",
         "stj-sumula479": "ruido",
-        "cdc-43": "ruido"
+        "cdc-43": "ruido",
+        "ctn-174": "ruido"
       }
     },
     {
@@ -797,7 +804,8 @@
         "lei6015-57": "ruido",
         "lgpd-18": "ruido",
         "lindb-3": "ruido",
-        "cdc-26": "ruido"
+        "cdc-26": "ruido",
+        "lei6015-110": "ruido"
       }
     },
     {
@@ -1017,7 +1025,8 @@
         "lei6015-56": "tangencial",
         "cdc-42a": "ruido",
         "cdc-43": "ruido",
-        "lgpd-18": "ruido"
+        "lgpd-18": "ruido",
+        "lei6015-46": "ruido"
       }
     },
     {

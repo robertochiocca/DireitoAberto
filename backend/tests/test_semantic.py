@@ -35,6 +35,19 @@ def test_vetores_normalizados_dim_384():
     assert abs(norma - 1.0) < 1e-3
 
 
+def test_vetor_do_documento_nao_depende_dos_vizinhos():
+    """Regressão: em lote, o modelo quantizado dava a um documento um vetor
+    diferente conforme os outros textos da chamada (cosseno de ~0,996 —
+    o bastante para trocar a ordem dos resultados)."""
+    from app.embeddings import EmbedderMultilingue
+
+    emb = EmbedderMultilingue()
+    doc = "Divórcio: é direito que não exige prazo nem justificativa."
+    sozinho = emb.embed_documentos([doc])[0]
+    acompanhado = emb.embed_documentos(["curto", doc, "um texto bem mais longo " * 30])[1]
+    assert max(abs(a - b) for a, b in zip(sozinho, acompanhado)) < 1e-6
+
+
 # Parafrases sem sobreposição lexical com o corpus — onde o BM25 não alcança.
 PARAFRASES = [
     ("a operadora não autorizou meu procedimento médico", "lei9656-35c"),

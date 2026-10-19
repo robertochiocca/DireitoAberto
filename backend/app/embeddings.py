@@ -29,7 +29,6 @@ CACHE_DIR = Path(
     )
 )
 MAX_TOKENS = 512
-LOTE = 16
 
 
 def _baixar_modelo() -> None:
@@ -67,34 +66,25 @@ class EmbedderMultilingue:
         )
         self._entradas = {e.name for e in self._sessao.get_inputs()}
 
-    def _lote(self, textos: list[str]):
+    def _vetor(self, texto: str):
         np = self._np
-        codificados = self._tokenizer.encode_batch(textos)
-        maior = max(len(e.ids) for e in codificados)
-        ids = np.zeros((len(textos), maior), dtype=np.int64)
-        mascara = np.zeros((len(textos), maior), dtype=np.int64)
-        for i, e in enumerate(codificados):
-            ids[i, : len(e.ids)] = e.ids
-            mascara[i, : len(e.ids)] = e.attention_mask
-
-        entradas = {"input_ids": ids, "attention_mask": mascara}
+        codificado = self._tokenizer.encode(texto)
+        ids = np.array([codificado.ids], dtype=np.int64)
+        entradas = {"input_ids": ids, "attention_mask": np.ones_like(ids)}
         if "token_type_ids" in self._entradas:
             entradas["token_type_ids"] = np.zeros_like(ids)
-        (estados,) = self._sessao.run(None, entradas)  # (lote, tokens, 384)
+        (estados,) = self._sessao.run(None, entradas)  # (1, tokens, 384)
 
-        # mean pooling sobre os tokens válidos + normalização L2
-        pesos = mascara[:, :, None].astype(np.float32)
-        vetores = (estados * pesos).sum(axis=1) / pesos.sum(axis=1).clip(min=1e-9)
-        normas = np.linalg.norm(vetores, axis=1, keepdims=True).clip(min=1e-9)
-        return vetores / normas
+        # mean pooling (sem padding, todos os tokens valem) + normalização L2
+        vetor = estados[0].mean(axis=0)
+        return vetor / max(np.linalg.norm(vetor), 1e-9)
 
     def _embed(self, textos: list[str], prefixo: str):
-        np = self._np
-        com_prefixo = [f"{prefixo}{t}" for t in textos]
-        partes = [
-            self._lote(com_prefixo[i : i + LOTE]) for i in range(0, len(com_prefixo), LOTE)
-        ]
-        return np.concatenate(partes, axis=0)
+        # Um texto por chamada, de propósito: o modelo quantizado calcula a
+        # escala das ativações (DynamicQuantizeLinear) sobre o tensor inteiro
+        # da chamada. Em lote, o vetor de um documento dependia dos vizinhos
+        # de lote e do padding — editar um verbete mudava a posição de outros.
+        return self._np.stack([self._vetor(f"{prefixo}{t}") for t in textos])
 
     def embed_documentos(self, textos: list[str]) -> list[list[float]]:
         return self._embed(textos, "passage: ").tolist()

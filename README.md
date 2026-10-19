@@ -49,7 +49,7 @@ O DireitoAberto ataca o problema em duas camadas:
 | Geração | API de LLM (pacote `anthropic`), opcional |
 | Frontend (produto) | React/Next.js 15 + TypeScript (`web/`): perguntar, base legal, histórico, ajuda gratuita e login |
 | Frontend (MVP) | HTML/CSS/JS estático (`frontend/`), servido pelo próprio backend |
-| Testes | pytest + TestClient (httpx) — 145 testes |
+| Testes | pytest + TestClient (httpx) — 146 testes |
 
 ## Arquitetura
 
@@ -111,7 +111,7 @@ A API é versionada em **`/api/v1`** (os caminhos `/api/...` são aliases de com
 | `GET /api/v1/saude` | Health check |
 
 - **Autenticação é opcional**: sem token, tudo funciona anonimamente; com `Authorization: Bearer <token>`, as consultas entram no histórico do usuário.
-- **Retriever semântico**: `pip install chromadb` e `DIREITO_ABERTO_RETRIEVER=semantico`. Usa o **multilingual-e5-small** (ONNX, ~130 MB baixados do Hugging Face na 1ª execução, sem PyTorch), com prefixos assimétricos `query:`/`passage:` e vetores L2-normalizados. No benchmark interno de 21 casos: **e5 19/21 no top-1** vs BM25 18/21 vs MiniLM padrão do Chroma 13/21 — e o e5 acerta parafrases sem nenhuma palavra do corpus ("a companhia aérea me deixou na mão" → Resolução ANAC 400). `DIREITO_ABERTO_EMBEDDING=padrao` força o embedding nativo do Chroma; sem dependências ou sem rede, o fallback é o BM25.
+- **Retriever semântico**: `pip install chromadb` e `DIREITO_ABERTO_RETRIEVER=semantico`. Usa o **multilingual-e5-small** (ONNX, ~130 MB baixados do Hugging Face na 1ª execução, sem PyTorch), com prefixos assimétricos `query:`/`passage:` e vetores L2-normalizados. Cada texto é vetorizado numa chamada própria: o modelo quantizado calcula a escala das ativações sobre a chamada inteira, e em lote o vetor de um documento dependia dos vizinhos — editar um verbete mudava a posição de outros na busca. No benchmark interno de 21 casos: **e5 19/21 no top-1** vs BM25 18/21 vs MiniLM padrão do Chroma 13/21 — e o e5 acerta parafrases sem nenhuma palavra do corpus ("a companhia aérea me deixou na mão" → Resolução ANAC 400). `DIREITO_ABERTO_EMBEDDING=padrao` força o embedding nativo do Chroma; sem dependências ou sem rede, o fallback é o BM25.
 - **Banco**: SQLite em `backend/data/direitoaberto.db` por padrão; para PostgreSQL, `DIREITO_ABERTO_DATABASE_URL=postgresql+psycopg://usuario:senha@host/db`.
 
 ### Ingestão do Planalto (semiautomatizada)
@@ -166,12 +166,12 @@ python3 scripts/benchmark_temporal.py --retriever semantico --json resultado.jso
 |---|---|---|
 | dispositivo vigente no corpus | 24/24 (100%) | 24/24 (100%) |
 | recuperado quando existe | 24/24 (100%) | 23/24 (95,8%) |
-| texto de 2006 recuperado | **24/24 (100%)** | **21/24 (87,5%)** |
-| texto de 2006 **acima** do vigente | **10/24 (41,7%)** | **5/24 (20,8%)** |
-| resposta final cita o texto de 2006 | **24/24 (100%)** | **21/24 (87,5%)** |
-| …com aviso de revogação, após rotular | **24/24 (100%)** | **21/21 (100%)** |
+| texto de 2006 recuperado | **24/24 (100%)** | **20/24 (83,3%)** |
+| texto de 2006 **acima** do vigente | **10/24 (41,7%)** | **6/24 (25,0%)** |
+| resposta final cita o texto de 2006 | **24/24 (100%)** | **20/24 (83,3%)** |
+| …com aviso de revogação, após rotular | **24/24 (100%)** | **20/20 (100%)** |
 
-**Leitura.** Recuperação não resolve validade temporal. Com o corpus fechando os 24 casos, a redação vigente está lá e é recuperada — e **o texto de 2006 continua sendo recuperado junto em 88% a 100% das perguntas, e ainda vence a redação vigente em 21% a 42% delas**. A fonte velha é *melhor escrita* para a pergunta do cidadão, porque foi feita exatamente para ele: ela compete em pé de igualdade mesmo quando a resposta correta está indexada ao lado. Trocar BM25 por embeddings multilíngues reduz o dano (100% → 88% de contaminação; 42% → 21% de inversão) mas não muda o quadro: **nenhum avanço no motor de busca resolve o problema, porque ele não é de semântica — é de metadado**. O que resolve é o rótulo: com `status: revogada`, o distrator continua sendo recuperado, mas toda resposta passa a trazer o aviso (100% nos dois motores). Daí a decisão de arquitetura do projeto — **a vigência é um campo do corpus, não um detalhe do conteúdo**.
+**Leitura.** Recuperação não resolve validade temporal. Com o corpus fechando os 24 casos, a redação vigente está lá e é recuperada — e **o texto de 2006 continua sendo recuperado junto em 83% a 100% das perguntas, e ainda vence a redação vigente em 25% a 42% delas**. A fonte velha é *melhor escrita* para a pergunta do cidadão, porque foi feita exatamente para ele: ela compete em pé de igualdade mesmo quando a resposta correta está indexada ao lado. Trocar BM25 por embeddings multilíngues reduz o dano (100% → 83% de contaminação; 42% → 25% de inversão) mas não muda o quadro: **nenhum avanço no motor de busca resolve o problema, porque ele não é de semântica — é de metadado**. O que resolve é o rótulo: com `status: revogada`, o distrator continua sendo recuperado, mas toda resposta passa a trazer o aviso (100% nos dois motores). Daí a decisão de arquitetura do projeto — **a vigência é um campo do corpus, não um detalhe do conteúdo**.
 
 Ao dar peso menor aos sinônimos, a contaminação do BM25 subiu de 23/24 para 24/24: no caso "indicar o condutor", a vaga que um artigo ocupava só por sinônimo passou ao texto de 2006, que carrega as palavras-chave da própria pergunta. É o desenho de pior caso funcionando — o distrator é feito para casar com o que o cidadão escreve, e qualquer ajuste que favoreça as palavras literais o favorece também.
 
@@ -191,7 +191,7 @@ python3 scripts/comparar_retrievers.py --casos   # + cada pergunta julgada, moto
 **Método.** Duas medidas, porque são duas perguntas:
 
 - **o artigo certo aparece?** — nas 86 perguntas com gabarito (`data/casos_busca.json` mais as do benchmark temporal);
-- **o que mais aparece junto?** — o ruído, que o gabarito não mede, porque só conhece um artigo certo por pergunta. Nas 86 perguntas, cada artigo que algum motor pôs no top-4 foi **julgado à mão** como relevante, tangencial ou ruído — 577 rótulos em `data/relevancia_julgada.json`. Como aproximação, conta-se também quantos resultados extras são de área diferente da do artigo esperado.
+- **o que mais aparece junto?** — o ruído, que o gabarito não mede, porque só conhece um artigo certo por pergunta. Nas 86 perguntas, cada artigo que algum motor pôs no top-4 foi **julgado à mão** como relevante, tangencial ou ruído — 586 rótulos em `data/relevancia_julgada.json`. Como aproximação, conta-se também quantos resultados extras são de área diferente da do artigo esperado.
 
 Os julgamentos seguem três regras: são feitos **sem saber qual motor trouxe cada artigo**; "tangencial" exige que o artigo faça parte do mesmo conflito que o cidadão plausivelmente vive (tirar o sobrenome do ex, num divórcio) — ser apenas da mesma área do direito conta como ruído; e paráfrases da mesma pergunta dão o mesmo rótulo ao mesmo artigo (um teste confere). As perguntas se dividem em **calibração** — as 11 usadas para escolher o corte da busca adaptativa (as do README, os atalhos da home e "onde consigo advogado gratuito?") — e **validação**, as outras 75, que medem a busca fora dessa amostra. Os rótulos foram atribuídos pelo projeto e ainda não passaram por revisão de um profissional do Direito.
 
@@ -202,15 +202,15 @@ O híbrido funde as duas listas por posição (*Reciprocal Rank Fusion*), sem de
 | | BM25 | BM25 adaptativo (o que a API devolve) | Semântico (e5) | Híbrido (RRF) |
 |---|---|---|---|---|
 | artigos por resposta (média) | 3,92 | **2,88** | 4,00 | 4,00 |
-| artigo certo no top-3 | **86/86** | **86/86** | 83/86 | 85/86 |
-| artigo certo em 1º lugar | 76/86 | 76/86 | 75/86 | **78/86** |
-| extras de outra área (aproximação) | 53% | 45% | 46% | 45% |
-| **ruído julgado — validação** (75 perguntas) | **131/293 (45%)** | **70/216 (32%)** | **144/300 (48%)** | **126/300 (42%)** |
-| relevantes · tangenciais — validação | 93 · 69 | 91 · 55 | 91 · 65 | 93 · 81 |
+| artigo certo no top-3 | **86/86** | **86/86** | 84/86 | 85/86 |
+| artigo certo em 1º lugar | 76/86 | 76/86 | 76/86 | **78/86** |
+| extras de outra área (aproximação) | 53% | 45% | 45% | 46% |
+| **ruído julgado — validação** (75 perguntas) | **131/293 (45%)** | **70/216 (32%)** | **140/300 (47%)** | **130/300 (43%)** |
+| relevantes · tangenciais — validação | 93 · 69 | 91 · 55 | 92 · 68 | 93 · 77 |
 | ruído julgado — calibração (11 perguntas) | 16/44 (36%) | 8/32 (25%) | 17/44 (39%) | 15/44 (34%) |
 | tempo por busca | 0,2 ms | igual ao BM25 | 6,1 ms | — |
 
-**Leitura.** Entre os motores com 4 vagas fixas, fora da amostra, BM25 e híbrido ficam em 45% e 42% de ruído e o semântico fica atrás, com 48%. Trocar de motor não reduz o ruído; muda **o tipo de erro**. O BM25 confunde palavras escritas iguais ("trocar o nome" puxa troca de produto; "caí" casa com a jornada que "cai") — ruído óbvio. O semântico traz o que *parece* do assunto e não é: a LGPD logo atrás do CDC em "notebook defeituoso", a súmula de negativação em perguntas de voo, INSS e plano de saúde — ruído que engana mais. O semântico ganha onde a pergunta não usa as palavras da lei ("posso ser preso por dívida?" sai limpa, com a súmula certa em 1º), mas **perde a Defensoria Pública em "onde consigo advogado gratuito?"** — e o híbrido também. Para uma plataforma cujo propósito é encaminhar o cidadão à ajuda gratuita, é a falha que mais pesa.
+**Leitura.** Entre os motores com 4 vagas fixas, fora da amostra, BM25 e híbrido ficam em 45% e 43% de ruído e o semântico fica atrás, com 47%. Trocar de motor não reduz o ruído; muda **o tipo de erro**. O BM25 confunde palavras escritas iguais ("trocar o nome" puxa troca de produto; "caí" casa com a jornada que "cai") — ruído óbvio. O semântico traz o que *parece* do assunto e não é: a LGPD entre os artigos do CDC em "notebook defeituoso", a súmula de negativação em perguntas de voo, INSS e plano de saúde — ruído que engana mais. O semântico ganha onde a pergunta não usa as palavras da lei ("posso ser preso por dívida?" sai limpa, com a súmula certa em 1º), mas **perde a Defensoria Pública em "onde consigo advogado gratuito?"** — e o híbrido também. Para uma plataforma cujo propósito é encaminhar o cidadão à ajuda gratuita, é a falha que mais pesa.
 
 **Decisão: o BM25 continua o padrão.** O ruído não é do motor, é estrutural: preencher sempre 4 vagas quando há uns 2 artigos relevantes. Trocar de motor troca o tipo de ruído e custa cobertura e implantação (modelo de ~135 MB, ChromaDB). A alavanca é o número de vagas.
 
@@ -330,7 +330,7 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - ✅ Expansão do corpus para 100% de cobertura do benchmark (38 → 79 dispositivos; fechou as lacunas que o próprio benchmark mediu)
 - ⬜ Valores dinâmicos (tetos dos Juizados calculados a partir do salário mínimo vigente, em vez de fixos no conteúdo)
 - ✅ Número de artigos por resposta ajustado à pergunta (2 a 4; corte em um terço da nota do 1º colocado, calibrado com os julgamentos manuais)
-- ✅ Julgamentos manuais de relevância nas 86 perguntas do gabarito (577 rótulos, julgados sem saber o motor; 11 de calibração e 75 de validação)
+- ✅ Julgamentos manuais de relevância nas 86 perguntas do gabarito (586 rótulos, julgados sem saber o motor; 11 de calibração e 75 de validação)
 - ⬜ Revisão dos julgamentos de relevância por profissional do Direito
 - ⬜ Camada de revisão jurídica contínua com profissional (o fluxo `revisado: false` já existe)
 
