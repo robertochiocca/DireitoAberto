@@ -10,6 +10,8 @@ O cidadão descreve o problema em linguagem comum e recebe a regra aplicável, o
 
 ![Resposta do RAG citando o CDC art. 18, com fonte oficial](docs/screenshots/2-resposta-rag.png)
 
+**Next.js (`web/`)**, com conta e histórico:
+
 | Home | Modo escuro |
 |---|---|
 | ![Página inicial](docs/screenshots/1-home.png) | ![Home no modo escuro](docs/screenshots/6-modo-escuro.png) |
@@ -21,6 +23,24 @@ O cidadão descreve o problema em linguagem comum e recebe a regra aplicável, o
 | Ajuda gratuita: os quatro degraus e os canais | Menu no celular |
 |---|---|
 | ![Página /ajuda com o caminho de resolução em quatro degraus](docs/screenshots/7-ajuda.png) | <img src="docs/screenshots/8-menu-celular.png" alt="Menu compacto aberto no celular" width="260"> |
+
+**Frontend estático (`frontend/`)**, servido pela própria API em `http://localhost:8000` — aberto direto do disco, sem backend, continua filtrando os problemas curados. A busca fica no cabeçalho de todas as views, e Enter pergunta à base jurídica:
+
+| Home | Modo escuro |
+|---|---|
+| ![Home do frontend estático, com a busca no cabeçalho](docs/screenshots/estatico-1-home.png) | ![Home do frontend estático no modo escuro](docs/screenshots/estatico-2-escuro.png) |
+
+| Busca no cabeçalho: filtra enquanto se digita | Enter: resposta da base jurídica |
+|---|---|
+| ![Busca "golpe" filtrando os problemas, com o foco mantido no campo](docs/screenshots/estatico-3-busca.png) | ![Resposta da base jurídica citando as súmulas 479 e 297 do STJ, com nota de vigência](docs/screenshots/estatico-4-resposta.png) |
+
+| Página de problema: lei, passo a passo e prazo | Ajuda gratuita: canais públicos |
+|---|---|
+| ![Página do golpe do PIX com a lei, o passo a passo e o prazo do MED](docs/screenshots/estatico-5-problema.png) | ![Canais gratuitos: Defensoria, Procon, Juizado e outros](docs/screenshots/estatico-6-ajuda.png) |
+
+| Menu no celular | Página de problema no celular, modo escuro |
+|---|---|
+| <img src="docs/screenshots/estatico-7-menu-celular.png" alt="Menu compacto do frontend estático aberto no celular" width="260"> | <img src="docs/screenshots/estatico-8-celular-escuro.png" alt="Página do divórcio no celular, no modo escuro" width="260"> |
 
 ## O problema
 
