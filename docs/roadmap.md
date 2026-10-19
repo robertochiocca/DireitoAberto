@@ -33,7 +33,7 @@ O pedido prioriza três entregas: (1) leitor de processos, (2) monitor de mudan�
 | Média | `base_atualizada_em` honesto | M5 | **concluído (ciclo 1)** |
 | Média | XSS no frontend estático | M7 | **concluído (ciclo 1)** |
 | Alta (produto) | Leitor de processos: backend | pedido, entrega 1 | **concluído (ciclo 2)** — ver [leitor-de-processos.md](leitor-de-processos.md) |
-| Alta (produto) | Leitor de processos: interface | pedido, entrega 1 | planejado (ciclo 3) |
+| Alta (produto) | Leitor de processos: interface | pedido, entrega 1 | **concluído (ciclo 3)** |
 | Alta (produto) | Monitor de mudanças: snapshots, diff, relatório, fila de revisão | pedido, entrega 2 | planejado (ciclo 4) |
 | Alta (produto) | Estados de validação e avaliação reproduzível | pedido, entrega 3 | planejado (ciclo 5) |
 | Média | CI (pytest + build do web) | B4 | planejado (ciclo 6) |
@@ -113,3 +113,24 @@ de *improcedência* porque pegava o último "julgo" (capítulo acessório) em ve
 citações geradas já existe e está testada).
 
 **Próximo incremento:** interface "Ler documentos jurídicos" no Next.js.
+
+### Ciclo 3 — leitor de processos: interface (concluído)
+
+**Implementado:** página `/documentos` no Next.js (`app/documentos/page.tsx`, `components/leitor/*`,
+`lib/leitor.ts`) e o item "Ler documento" na navegação; rota pública com o PDF do exemplo; rótulos de
+campos com a grafia do documento. O cliente `api()` deixou de forçar `Content-Type: application/json`
+em uploads multipart.
+
+**Verificação:** `tsc` e `next build` passam; roteiro no navegador (Playwright) com conta, envio,
+análise, PDF original, pergunta e exclusão, sem erro de console; capturas em 1360, 960 e 390 px, claro e
+escuro. Defeitos achados e corrigidos na verificação visual: visualizador "fixo" que não acompanhava a
+rolagem (o `sticky` estava num elemento sem espaço para se mover), citações iguais lado a lado,
+cabeçalho do visualizador sob a barra no celular, e o `X-Frame-Options: DENY` do ciclo 1 impedindo o
+PDF do exemplo no iframe.
+
+**Testes:** 227 no backend (+1: iframe só para o PDF do exemplo).
+
+**Pendências:** roteiro de navegador fora da CI; limite de corpo de requisição da Vercel no caminho do
+upload não verificado.
+
+**Próximo incremento:** monitor de mudanças legislativas.

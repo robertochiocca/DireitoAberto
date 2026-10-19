@@ -25,6 +25,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
@@ -119,6 +120,21 @@ def exemplo():
     doc, analise = _exemplo()
     return _completo(doc, analise, {"id": "exemplo", "nome": doc.nome, "total_paginas": doc.total_paginas,
                                     "ficticio": True})
+
+
+@router.get("/exemplo/arquivo", response_class=FileResponse)
+def arquivo_exemplo():
+    """O PDF fictício original, para o visualizador mostrar ao lado do texto extraído.
+
+    É a única resposta que pode ir num iframe — da própria origem (o Next
+    repassa /api, então para o navegador a origem é a do site).
+    """
+    return FileResponse(
+        EXEMPLO,
+        media_type="application/pdf",
+        headers={"X-Frame-Options": "SAMEORIGIN", "Content-Security-Policy": "frame-ancestors 'self'",
+                 "Content-Disposition": f'inline; filename="{EXEMPLO.name}"'},
+    )
 
 
 @router.post("/exemplo/perguntar", dependencies=[Depends(limitar("perguntar"))])

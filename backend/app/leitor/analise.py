@@ -305,7 +305,8 @@ def analisar(doc: DocumentoExtraido) -> dict:
         if mr := _RE_ROTULO.match(u.trecho):
             chave = sem_acento(mr.group(1)).lower().replace(" ", "_")
             rotulos.setdefault(chave, {
-                "valor": mr.group(2).strip(), "citacoes": [citar(doc, u.pagina, u.trecho).como_dict()],
+                "rotulo": mr.group(1), "valor": mr.group(2).strip(),
+                "citacoes": [citar(doc, u.pagina, u.trecho).como_dict()],
             })
 
     # --- partes
