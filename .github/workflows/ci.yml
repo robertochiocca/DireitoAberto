@@ -11,7 +11,9 @@ permissions:
 
 jobs:
   backend:
-    runs-on: ubuntu-latest
+    # Fixo em 24.04: o ubuntu-latest já é o 26.04, onde o Playwright 1.56 (requirements-dev.txt) não
+    # instala o Chromium. Subir o Playwright exige conferir o teste de navegador de novo.
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
