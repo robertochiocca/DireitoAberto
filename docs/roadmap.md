@@ -37,7 +37,9 @@ O pedido prioriza três entregas: (1) leitor de processos, (2) monitor de mudan�
 | Alta (produto) | Monitor de mudanças: snapshots, diff, relatório, fila de revisão | pedido, entrega 2 | **concluído (ciclo 4)** — ver [monitor-legislativo.md](monitor-legislativo.md) |
 | Alta (dados) | Separar no corpus o texto oficial literal da explicação (15 dispositivos divergentes, 21 condensados) | ciclo 4 | planejado; exige revisão jurídica |
 | Média | Agendar o monitor (workflow que abre PR com `data/monitor/`) | ciclo 4 | planejado; decisão do mantenedor |
-| Alta (produto) | Estados de validação e avaliação reproduzível | pedido, entrega 3 | planejado (ciclo 5) |
+| Alta (produto) | Estados de validação e avaliação reproduzível | pedido, entrega 3 | **concluído (ciclo 5)** — ver [avaliacao/relatorio.md](avaliacao/relatorio.md) |
+| Alta (qualidade) | Melhorar a abstenção: 5 de 13 perguntas fora do escopo ainda recebem lei de outro assunto | ciclo 5 | planejado (ex.: sinal de cobertura por tema, julgamento de pertinência) |
+| Média | Avaliar o texto gerado por LLM (fidelidade às fontes, afirmações sem suporte) com chave de API | ciclo 5 | planejado; exige chave e orçamento |
 | Média | CI (pytest + build do web) | B4 | planejado (ciclo 6) |
 | Média | Migrações com Alembic | M6 | planejado |
 | Média | Next.js 16 (elimina o `postcss` vulnerável embutido) | C1 residual | planejado |
@@ -159,3 +161,24 @@ literais, 2 quase literais, 21 condensados, 15 divergentes), com os divergentes 
 **Testes:** 30 em `tests/test_monitor.py` (+1 em `test_ingestao.py`), todos sem rede; 258 no total.
 
 **Próximo incremento:** estados de validação na resposta e avaliação reproduzível (ciclo 5).
+
+### Ciclo 5 — validação das respostas e avaliação reproduzível (concluído)
+
+**Implementado:** `app/validacao.py` (estado de validação de cada resposta, por verificações
+determinísticas; abstenção abaixo do limiar de evidência; conferência de citações de texto gerado),
+`app/avaliacao.py` + `scripts/avaliar.py` (Recall@k, MRR, nDCG com julgamento graduado, precisão,
+abstenção por conjunto, desempenho por tema, armadilha temporal, leitor, fidelidade e latência, com
+comparação contra a linha de base), `data/avaliacao/fora_do_escopo.json` (26 perguntas, metade para
+calibrar), o selo de validação nos dois frontends e a linha de base em `docs/avaliacao/`.
+
+**Achado:** o README dizia que perguntas fora do vocabulário "podem não encontrar nada — e o sistema
+diz isso". Na prática, quase nunca: "multa por não votar" voltava com ECA e condomínio. A abstenção
+calibrada passou a pegar 8 de 13 na validação, ao custo de 3 de 75 perguntas legítimas sem resposta.
+
+**Calibração:** limiar 6,0 = o maior sem abstenção indevida nas 11 perguntas de calibração, escolhido
+antes de olhar a validação.
+
+**Testes:** 274 passando, 1 pulado (eram 258): 11 de validação, 5 de avaliação, incluindo o portão que
+roda a avaliação inteira e falha se qualquer métrica piorar em relação ao `resultados.json` versionado.
+
+**Próximo incremento:** CI e documentação final (ciclo 6).
