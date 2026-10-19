@@ -19,6 +19,8 @@ os.environ.setdefault(
     "sqlite:///" + os.path.join(tempfile.mkdtemp(prefix="direitoaberto-test-"), "test.db"),
 )
 os.environ.setdefault("DIREITO_ABERTO_DATA_REFERENCIA", "2026-10-19")
+# O registro real do monitor (data/monitor) não entra nos testes: pendências commitadas mudariam as respostas.
+os.environ.setdefault("DIREITO_ABERTO_MONITOR_DIR", tempfile.mkdtemp(prefix="direitoaberto-monitor-"))
 
 
 @pytest.fixture(autouse=True)

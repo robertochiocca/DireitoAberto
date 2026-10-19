@@ -17,9 +17,15 @@ from html.parser import HTMLParser
 
 
 class _ExtratorTexto(HTMLParser):
-    """Converte o HTML do Planalto em texto corrido, ignorando scripts/estilos."""
+    """Converte o HTML do Planalto em texto corrido, ignorando scripts/estilos.
 
-    _IGNORAR = {"script", "style", "head"}
+    Também ignora o texto tachado (`<strike>`, `<del>`): nas páginas compiladas
+    do Planalto, é assim que aparece a redação revogada, logo antes da vigente
+    (a Constituição tem centenas). Lido como texto, ele virava um segundo
+    "Art. 6º" com a redação antiga.
+    """
+
+    _IGNORAR = {"script", "style", "head", "strike", "del"}
 
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)

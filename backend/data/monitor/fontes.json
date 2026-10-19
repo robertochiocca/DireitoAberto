@@ -1,0 +1,14 @@
+{
+  "sobre": "Fontes oficiais acompanhadas pelo monitor legislativo (scripts/monitor.py). Começa pequeno: as páginas do Planalto de onde vem a maior parte do corpus (46 dos 72 dispositivos de lei) e o decreto ainda em vacatio. A página compilada do Planalto é consolidação editorial da Casa Civil, não publicação oficial (esta é o DOU): por isso o monitor fala em indícios.",
+  "fontes": [
+    {"id": "cf", "nome": "Constituição Federal de 1988", "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm", "orgao_emissor": "Assembleia Nacional Constituinte — texto compilado pela Presidência da República (Casa Civil)", "tipo": "constituicao"},
+    {"id": "cc", "nome": "Código Civil — Lei nº 10.406/2002", "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm", "orgao_emissor": "Congresso Nacional — texto compilado pela Presidência da República (Casa Civil)", "tipo": "lei"},
+    {"id": "cdc", "nome": "Código de Defesa do Consumidor — Lei nº 8.078/1990", "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm", "orgao_emissor": "Congresso Nacional — texto compilado pela Presidência da República (Casa Civil)", "tipo": "lei"},
+    {"id": "ctb", "nome": "Código de Trânsito Brasileiro — Lei nº 9.503/1997", "url": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm", "orgao_emissor": "Congresso Nacional — texto compilado pela Presidência da República (Casa Civil)", "tipo": "lei"},
+    {"id": "clt", "nome": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943", "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm", "orgao_emissor": "Presidência da República", "tipo": "decreto-lei"},
+    {"id": "lei9099", "nome": "Lei dos Juizados Especiais — Lei nº 9.099/1995", "url": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm", "orgao_emissor": "Congresso Nacional", "tipo": "lei"},
+    {"id": "lei6015", "nome": "Lei de Registros Públicos — Lei nº 6.015/1973", "url": "https://www.planalto.gov.br/ccivil_03/leis/l6015compilada.htm", "orgao_emissor": "Congresso Nacional — texto compilado pela Presidência da República (Casa Civil)", "tipo": "lei"},
+    {"id": "lei8245", "nome": "Lei do Inquilinato — Lei nº 8.245/1991", "url": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm", "orgao_emissor": "Congresso Nacional", "tipo": "lei"},
+    {"id": "decreto13135", "nome": "Decreto nº 13.135/2026 (SAC)", "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/decreto/d13135.htm", "orgao_emissor": "Presidência da República", "tipo": "decreto"}
+  ]
+}
