@@ -88,7 +88,7 @@ Os módulos novos entram como pacotes ao lado dos existentes, sem reescrever o q
 
 | Módulo | Estado |
 |---|---|
-| Leitura de documentos jurídicos (extração por página, peças, linha do tempo, perguntas com citação verificada) | **planejado** (ciclos 2 e 3) |
+| Leitura de documentos jurídicos (extração por página, peças, linha do tempo, perguntas com citação verificada) | **backend concluído (ciclo 2)**, `app/leitor/` — ver [leitor-de-processos.md](leitor-de-processos.md); interface no ciclo 3 |
 | Monitor de mudanças legislativas (snapshots com hash, diff por artigo, fila de revisão) | **planejado** (ciclo 4) |
 | Estados de validação da resposta e avaliação reproduzível | **planejado** (ciclo 5) |
 | Feedback de usuários, organizações/tenants, planos e limites | **planejado** (fases posteriores) |

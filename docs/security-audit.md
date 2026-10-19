@@ -66,7 +66,11 @@ Estados: **aberto**, **corrigido (ciclo N)**, **mitigado** (risco reduzido, não
 - Retriever semântico: pulado por falta de `chromadb` e do modelo e5.
 - Política de privacidade e termos de uso: não existem no repositório.
 
-## Riscos específicos do módulo de leitura de processos (antes de construí-lo)
+## Riscos específicos do módulo de leitura de processos
+
+Os seis requisitos abaixo foram definidos antes de construir o módulo e **implementados no ciclo 2**,
+com testes (`tests/test_leitor.py`: dono e IDOR, retenção, exclusão com a conta, limites, injeção de
+instrução). Ver [leitor-de-processos.md](leitor-de-processos.md).
 
 O módulo pedido no roadmap recebe **processos judiciais**, que podem estar em segredo de justiça e trazem dados de terceiros (partes contrárias, testemunhas, menores). Requisitos mínimos derivados desta auditoria:
 

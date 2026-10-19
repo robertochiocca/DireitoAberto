@@ -133,6 +133,9 @@ A API é versionada em **`/api/v1`** (os caminhos `/api/...` são aliases de com
 | `GET /api/v1/historico` | Consultas do usuário autenticado (as perguntas feitas com token ficam registradas) |
 | `DELETE /api/v1/historico` | Apaga o histórico do usuário |
 | `POST /api/v1/conta/excluir` | Apaga conta, histórico e sessões (pede a senha) |
+| `GET /api/v1/documentos/exemplo` | Leitor de processos: processo fictício já analisado (público) |
+| `POST /api/v1/documentos` | Leitor de processos: envia um PDF (exige conta) → peças, partes, linha do tempo, decisões, prazos, com página de cada item |
+| `POST /api/v1/documentos/{id}/perguntar` | Pergunta sobre o documento → resposta só com trechos dele, citação conferida, ou abstenção |
 | `GET /api/v1/saude` | Health check |
 
 - **Autenticação é opcional**: sem token, tudo funciona anonimamente; com `Authorization: Bearer <token>`, as consultas entram no histórico do usuário. Da consulta anônima, a API guarda só a contagem e os artigos devolvidos — o texto da pergunta não.

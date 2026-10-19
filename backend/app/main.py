@@ -19,8 +19,9 @@ from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
 from . import auth
-from .db import Consulta, Usuario, agora, get_db, init_db
+from .db import Consulta, DocumentoProcesso, Usuario, agora, get_db, init_db
 from .documentos import DocumentoGrandeDemais, DocumentoInvalido, extrair_texto, ler_upload_limitado
+from .leitor.rotas import router as leitor_router
 from .llm import gerar_resposta, resposta_extrativa
 from .retrieval import normalizar
 from .seguranca import CABECALHOS_SEGURANCA, limitar, origens_cors, verificar_limite
@@ -431,10 +432,11 @@ def excluir_conta(
     db: Session = Depends(get_db),
     usuario: Usuario = Depends(auth.usuario_obrigatorio),
 ):
-    """Apaga a conta, o histórico e todas as sessões. Pede a senha de novo."""
+    """Apaga a conta, o histórico, os documentos do leitor e todas as sessões. Pede a senha de novo."""
     if not auth.verificar_senha(payload.senha, usuario.senha_hash):
         raise HTTPException(status_code=401, detail="Senha incorreta.")
     db.execute(delete(Consulta).where(Consulta.usuario_id == usuario.id))
+    db.execute(delete(DocumentoProcesso).where(DocumentoProcesso.usuario_id == usuario.id))
     auth.revogar_todos(db, usuario)
     db.delete(usuario)
     db.commit()
@@ -473,6 +475,8 @@ def apagar_historico(
     db.execute(delete(Consulta).where(Consulta.usuario_id == usuario.id))
     db.commit()
 
+
+router.include_router(leitor_router)
 
 # API pública versionada + aliases de compatibilidade do MVP.
 app.include_router(router, prefix="/api/v1")
