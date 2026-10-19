@@ -329,6 +329,9 @@
   ol.steps li::before{content:counter(s);flex:none;width:27px;height:27px;border-radius:8px;
     background:var(--ink);color:var(--paper);font-family:'Space Mono',monospace;font-weight:700;font-size:13px;
     display:grid;place-items:center;margin-top:1px}
+  /* o texto do passo vai num <span>: solto, cada trecho e cada <b> viravam
+     um item do flex — uma coluna cada */
+  ol.steps li>span{flex:1;min-width:0}
   ol.steps li b{color:var(--ink)}
   .deadline{display:flex;align-items:center;gap:10px;background:var(--warn-soft);border:1px solid var(--warn-line);
     border-radius:10px;padding:13px 16px;margin-top:16px;font-size:14.5px;color:var(--warn)}
@@ -775,7 +778,7 @@ function openProblem(id){
 
     <div class="block">
       <div class="block-h"><span class="dot" style="background:var(--do)"></span>O que fazer, passo a passo</div>
-      <ol class="steps">${p.steps.map(s=>`<li>${s}</li>`).join("")}</ol>
+      <ol class="steps">${p.steps.map(s=>`<li><span>${s}</span></li>`).join("")}</ol>
       <div class="deadline">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
         <span>${p.deadline}</span>
