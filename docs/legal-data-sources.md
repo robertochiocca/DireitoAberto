@@ -100,8 +100,35 @@ auditoria.
 
 ## Pendências de revisão
 
-| Entrada | Motivo | Evidência |
-|---|---|---|
-| `cf-7-xiii` | prazo e texto divergentes da EC 141/2026 (acima) | EC 141/2026, arts. 1º, 6º e 10; DOU 16/10/2026, ed. extra |
-| `decreto13135-sac` | fonte é notícia; trocar pelo texto oficial | Decreto 13.135/2026, art. 25; DOU 13/10/2026 |
-| entradas condensadas sem marca | o `texto` não é transcrição literal | tabela de fidelidade acima (amostra do CDC) |
+| Entrada | Motivo | Evidência | Estado |
+|---|---|---|---|
+| `cf-7-xiii` | prazo e texto divergentes da EC 141/2026 (acima) | EC 141/2026, arts. 1º, 2º, 6º e 10; DOU 16/10/2026, ed. extra | **corrigido com evidência e em revisão (ciclo 1)** — ver abaixo |
+| `decreto13135-sac` | fonte era notícia | Decreto 13.135/2026, art. 25; DOU 13/10/2026 | **corrigido (ciclo 1)**: `fonte` aponta para o texto oficial no Planalto |
+| entradas condensadas sem marca | o `texto` não é transcrição literal | tabela de fidelidade acima (amostra do CDC) | aberto (ciclo 4: verificação de fidelidade de todo o corpus) |
+
+### O que mudou em `cf-7-xiii` e o que continua em aberto
+
+- `texto` agora transcreve a redação oficial (caput do art. 7º, incisos XIII e XV na redação da EC
+  141/2026, e os arts. 6º e 10 da emenda). Cada trecho foi conferido, normalizado, contra as páginas
+  oficiais baixadas em 19/10/2026.
+- `nota` e `resumo` falam em "2 meses", como a emenda; "60 dias" saiu do corpus e do benchmark.
+- `entra_em_vigor_em` passou de 15/12 para **16/12/2026**: dois meses contados de 16/10, pela regra
+  de contagem de meses do Código Civil (art. 132, § 3º).
+- A entrada ganhou um bloco `revisao` com `estado: pendente`, motivo e evidência. A API devolve o
+  bloco, o LLM recebe a marca "EM REVISÃO" com instrução de recomendar a fonte oficial, e os dois
+  frontends mostram o aviso.
+- **Em aberto, para revisão jurídica:** (1) se a regra vale a partir de 16 ou de 17/12 ("após
+  decorridos 2 meses"); (2) se o rótulo `em_vacatio` do inciso XIII se sustenta diante do art. 10, II,
+  que põe em vigor na publicação os dispositivos que não o XV; (3) a afirmação, mantida do texto
+  anterior, de que até a primeira etapa vale o limite de 44 horas.
+
+### Formato do bloco de revisão
+
+```json
+"revisao": {
+  "estado": "pendente",
+  "motivo": "frase que o cidadão e o LLM vão ler",
+  "evidencia": ["URL ou citação da fonte oficial que fundamenta a dúvida"],
+  "aberta_em": "2026-10-19"
+}
+```

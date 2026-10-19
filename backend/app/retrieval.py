@@ -17,6 +17,8 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .vigencia import VIGENCIA_PADRAO, vigencia_efetiva
+
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "legislacao.json"
 
 STOPWORDS = {
@@ -24,7 +26,7 @@ STOPWORDS = {
     "nas", "um", "uma", "uns", "umas", "para", "pra", "por", "com", "sem",
     "que", "se", "ao", "aos", "as", "os", "me", "meu", "minha", "meus",
     "minhas", "seu", "sua", "seus", "suas", "ele", "ela", "eles", "elas",
-    "eu", "nós", "nos", "foi", "ser", "é", "são", "está", "estão", "ter",
+    "eu", "nós", "foi", "ser", "é", "são", "está", "estão", "ter",
     "tem", "têm", "não", "sim", "mais", "menos", "muito", "já", "quando",
     "como", "qual", "quais", "onde", "quem", "isso", "isto", "essa", "esse",
     "ou", "mas", "também", "até", "após", "sobre", "entre", "pelo", "pela",
@@ -159,15 +161,6 @@ _SINONIMOS_NORM = {
 }
 
 
-VIGENCIA_PADRAO = {
-    "status": "vigente",
-    "entra_em_vigor_em": None,
-    "alterada_por": [],
-    "nota": None,
-    "conferida_em": None,
-}
-
-
 @dataclass
 class Resultado:
     id: str
@@ -179,10 +172,16 @@ class Resultado:
     fonte: str
     score: float
     vigencia: dict = field(default_factory=lambda: dict(VIGENCIA_PADRAO))
+    # Pendência de revisão registrada no corpus (motivo e evidência), ou None.
+    revisao: dict | None = None
 
     @classmethod
-    def de_artigo(cls, art: dict, score: float) -> "Resultado":
-        """Constrói o resultado a partir da entrada do corpus (ponto único de verdade)."""
+    def de_artigo(cls, art: dict, score: float) -> Resultado:
+        """Constrói o resultado a partir da entrada do corpus (ponto único de verdade).
+
+        A vigência sai como vale hoje (`vigencia_efetiva`), não como foi gravada:
+        norma em vacatio cuja data de início já chegou aparece como vigente.
+        """
         return cls(
             id=art["id"],
             lei=art["lei"],
@@ -192,7 +191,8 @@ class Resultado:
             resumo=art["resumo"],
             fonte=art["fonte"],
             score=round(score, 3),
-            vigencia={**VIGENCIA_PADRAO, **art.get("vigencia", {})},
+            vigencia=vigencia_efetiva(art.get("vigencia")),
+            revisao=art.get("revisao"),
         )
 
     @property

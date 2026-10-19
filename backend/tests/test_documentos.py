@@ -8,7 +8,7 @@ client = TestClient(app)
 
 
 def test_extrair_texto_txt():
-    texto = extrair_texto("nota.txt", "Nota fiscal 123\n  notebook  com defeito".encode())
+    texto = extrair_texto("nota.txt", b"Nota fiscal 123\n  notebook  com defeito")
     assert texto == "Nota fiscal 123 notebook com defeito"
 
 
@@ -23,9 +23,9 @@ def test_extrair_texto_vazio():
 
 
 def test_extrair_texto_pdf():
-    from pypdf import PdfWriter
-
     import io
+
+    from pypdf import PdfWriter
 
     writer = PdfWriter()
     writer.add_blank_page(width=200, height=200)

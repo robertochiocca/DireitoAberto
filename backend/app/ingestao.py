@@ -42,8 +42,8 @@ class _ExtratorTexto(HTMLParser):
 
     def texto(self) -> str:
         bruto = "".join(self._partes)
-        linhas = [" ".join(l.split()) for l in bruto.splitlines()]
-        return "\n".join(l for l in linhas if l)
+        linhas = [" ".join(linha.split()) for linha in bruto.splitlines()]
+        return "\n".join(linha for linha in linhas if linha)
 
 
 # "Art. 1º", "Art. 2 o" (Planalto usa <sup>o</sup>), "Art. 10.", "Art. 1.694."

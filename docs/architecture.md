@@ -57,7 +57,9 @@ documento somados à consulta de busca e ao prompt.
 | `retrieval.py` | BM25 em Python puro, sinônimos, busca adaptativa, `Resultado` com vigência | `test_retrieval.py` |
 | `semantic.py`, `embeddings.py` | retriever por embeddings atrás da mesma interface; *fallback* para BM25 | `test_semantic.py` (pulado sem chromadb) |
 | `llm.py` | *prompt* com regras de cautela e vigência; modo extrativo | `test_vigencia.py`, `test_api.py` |
-| `documentos.py` | extração de texto de PDF/TXT | `test_documentos.py` |
+| `documentos.py` | extração de texto de PDF/TXT com leitura limitada e limite de páginas | `test_documentos.py`, `test_seguranca.py` |
+| `vigencia.py` | situação de vigência na data da consulta (Brasília) | `test_vigencia.py` |
+| `seguranca.py` | limitação de requisições, CORS, cabeçalhos | `test_seguranca.py` |
 | `ingestao.py`, `ingestao_jurisprudencia.py` | parser do HTML do Planalto e das súmulas → esqueletos para revisão humana | `test_ingestao*.py` |
 | `benchmark.py`, `comparacao.py` | benchmark de armadilha temporal; comparação BM25 × semântico × híbrido | `test_benchmark_temporal.py`, `test_comparacao.py` |
 
@@ -75,7 +77,7 @@ documento somados à consulta de busca e ao prompt.
 
 - O corpus é carregado uma vez na importação de `main.py` (`retriever = criar_retriever()`); mudar o
   JSON exige reiniciar o processo.
-- O status de vigência é lido do JSON como está; nada o recalcula quando a data de início passa.
+- ~~O status de vigência é lido do JSON como está~~ — corrigido no ciclo 1 (`vigencia.py`).
 - Sem migrações de banco (`create_all`), colunas novas não chegam a bancos existentes.
 - Sem camada de serviço: regras de negócio vivem nas rotas de `main.py`.
 - Segurança e privacidade: ver [security-audit.md](security-audit.md).

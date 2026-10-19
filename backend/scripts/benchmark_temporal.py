@@ -16,7 +16,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from app.benchmark import (  # noqa: E402
-    TOP_K_PADRAO, _indice_contaminado, _indice_mitigado, carregar_casos, rodar,
+    TOP_K_PADRAO,
+    _indice_contaminado,
+    _indice_mitigado,
+    carregar_casos,
+    rodar,
 )
 from app.retrieval import Retriever  # noqa: E402
 

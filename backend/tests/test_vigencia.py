@@ -131,3 +131,94 @@ def test_conferencia_agregada_reporta_o_pior_caso():
     datas = [a["vigencia"]["conferida_em"]
              for a in client.get("/api/v1/artigos").json()["artigos"]]
     assert body["vigencia_conferida_em"] == min(datas)
+
+
+# ---------------------------------------------------------------- vigência na data da consulta
+from datetime import datetime, timezone  # noqa: E402
+
+from app.vigencia import hoje, vigencia_efetiva  # noqa: E402
+
+SAC = {"status": "em_vacatio", "entra_em_vigor_em": "2026-11-02", "nota": "Publicado em 13/10/2026."}
+
+
+def test_vacatio_continua_ate_a_vespera():
+    v = vigencia_efetiva(SAC, em=date(2026, 11, 1))
+    assert v["status"] == "em_vacatio"
+    assert "status_registrado" not in v
+
+
+def test_vacatio_vira_vigente_na_data_de_inicio():
+    """O status gravado envelhece: na data fixada pela norma, ela passa a valer
+    mesmo que ninguém edite o corpus — e a base sinaliza que falta revisar."""
+    v = vigencia_efetiva(SAC, em=date(2026, 11, 2))
+    assert v["status"] == "vigente"
+    assert v["status_registrado"] == "em_vacatio"
+    assert v["vigente_desde"] == "2026-11-02"
+    assert v["nota"] == SAC["nota"]
+
+
+def test_data_passada_nao_revoga_nem_desfaz_inconstitucionalidade():
+    for status in ("revogada", "inconstitucional", "vigente"):
+        v = vigencia_efetiva({"status": status, "entra_em_vigor_em": "2000-01-01"}, em=date(2026, 11, 2))
+        assert v["status"] == status
+
+
+def test_hoje_e_a_data_de_brasilia_nao_a_do_servidor():
+    """01/11 às 22h em Brasília já é 02/11 em UTC — o SAC ainda não vale."""
+    assert hoje(datetime(2026, 11, 2, 1, 0, tzinfo=timezone.utc)) == date(2026, 11, 1)
+    assert hoje(datetime(2026, 11, 2, 3, 0, tzinfo=timezone.utc)) == date(2026, 11, 2)
+
+
+def test_rotulo_de_norma_que_acabou_de_entrar_em_vigor():
+    rotulo = rotulo_vigencia(vigencia_efetiva(SAC, em=date(2026, 11, 2)))
+    assert "EM VIGOR desde 02/11/2026" in rotulo
+    assert "AINDA NÃO" not in rotulo
+
+
+def test_api_na_data_de_inicio_do_sac(monkeypatch):
+    monkeypatch.setenv("DIREITO_ABERTO_DATA_REFERENCIA", "2026-11-02")
+    resp = client.post("/api/v1/perguntar", json={"pergunta": "o SAC não me atende para cancelar"})
+    sac = next(a for a in resp.json()["artigos"] if a["id"] == "decreto13135-sac")
+    assert sac["vigencia"]["status"] == "vigente"
+    assert sac["vigencia"]["status_registrado"] == "em_vacatio"
+    assert "EM VIGOR desde 02/11/2026" in resp.json()["resposta"]
+
+    # A fila de revisão continua mostrando o registro desatualizado.
+    fila = client.get("/api/v1/vigencia").json()
+    assert "decreto13135-sac" in {i["id"] for i in fila["marcadas_como_futuras_mas_ja_vigentes"]}
+    assert "decreto13135-sac" not in {i["id"] for i in fila["entram_em_vigor"]}
+
+
+def test_api_na_vespera_do_sac(monkeypatch):
+    monkeypatch.setenv("DIREITO_ABERTO_DATA_REFERENCIA", "2026-11-01")
+    resp = client.post("/api/v1/perguntar", json={"pergunta": "o SAC não me atende para cancelar"})
+    sac = next(a for a in resp.json()["artigos"] if a["id"] == "decreto13135-sac")
+    assert sac["vigencia"]["status"] == "em_vacatio"
+    assert "AINDA NÃO ESTÁ EM VIGOR" in resp.json()["resposta"]
+
+
+# ---------------------------------------------------------------- revisão pendente
+def test_entrada_em_revisao_e_sinalizada_em_toda_parte(retriever):
+    """cf-7-xiii divergia da EC 141/2026 ("60 dias" × "2 meses"); foi corrigida
+    com evidência e ficou marcada para revisão jurídica."""
+    art = next(a for a in retriever.artigos if a["id"] == "cf-7-xiii")
+    assert art["revisao"]["estado"] == "pendente"
+    assert art["revisao"]["evidencia"]
+    assert "60 dias" not in art["texto"] + art["resumo"] + art["vigencia"]["nota"]
+
+    resultado = next(r for r in retriever.buscar("escala 6x1 jornada semanal", top_k=8) if r.id == "cf-7-xiii")
+    assert "EM REVISÃO" in _montar_contexto([resultado])
+    assert "EM REVISÃO" in resposta_extrativa("qual a jornada?", [resultado])
+
+    resp = client.post("/api/v1/perguntar", json={"pergunta": "fim da escala 6x1 jornada semanal"})
+    api = next(a for a in resp.json()["artigos"] if a["id"] == "cf-7-xiii")
+    assert api["revisao"]["estado"] == "pendente"
+    assert client.get("/api/v1/estatisticas").json()["dispositivos_em_revisao"] >= 1
+
+
+def test_estatisticas_nao_usam_data_do_arquivo():
+    """`base_atualizada_em` vinha do mtime do arquivo, que num deploy é a hora
+    do checkout. Agora é a conferência mais recente registrada no corpus."""
+    body = client.get("/api/v1/estatisticas").json()
+    datas = [a["vigencia"]["conferida_em"] for a in client.get("/api/v1/artigos").json()["artigos"]]
+    assert body["base_atualizada_em"] == max(datas)

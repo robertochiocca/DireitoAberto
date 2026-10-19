@@ -48,6 +48,9 @@ export default function AnswerPanel({
                 </div>
                 <div className="txt">{a.resumo}</div>
                 {a.vigencia?.nota && <div className="vig-nota">{a.vigencia.nota}</div>}
+                {a.revisao?.estado === "pendente" && (
+                  <div className="vig-nota">⚠ Em revisão: {a.revisao.motivo}</div>
+                )}
                 <a href={a.fonte} target="_blank" rel="noopener noreferrer">
                   fonte oficial ↗
                 </a>
