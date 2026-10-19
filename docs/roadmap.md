@@ -192,8 +192,10 @@ crítico), `backend/requirements-dev.txt` com versões fixas, README atualizado,
 
 **Verificação final:** 274 testes passando (+ os do retriever semântico, pulados sem chromadb); ruff e
 mypy limpos; avaliação sem regressão; `pip-audit` sem vulnerabilidade; `npm audit` sem crítica (restam
-as duas pendências do postcss embutido no Next 15). O CI ainda não rodou no GitHub no momento em que
-este ciclo foi escrito — a primeira execução acontece no push da branch.
+as duas pendências do postcss embutido no Next 15). No GitHub, a 1ª execução do CI falhou antes dos
+testes: o `ubuntu-latest` já é o 26.04, onde o Playwright 1.56 não instala o Chromium. Com o job do
+backend fixado em `ubuntu-24.04`, a 2ª execução passou em todas as etapas (Python 3.10 e 3.13, e o
+frontend).
 
 ## Estado ao fim desta rodada
 
