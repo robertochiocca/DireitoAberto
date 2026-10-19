@@ -1,0 +1,95 @@
+{
+  "sobre": "Gabarito do processo FICTÍCIO data/exemplos/processo-ficticio.pdf (gerado por scripts/gerar_processo_exemplo.py). Lista o que o leitor deve encontrar, com a página do PDF, e o que ele NÃO pode afirmar. Escrito pelo projeto a partir do texto que ele mesmo redigiu: mede se o leitor recupera o que está no documento, não substitui validação com processos reais nem revisão de profissional do Direito.",
+  "numero_processo": {"numero": "0000000-58.2026.8.99.0001", "digito_verificador_valido": true, "pagina": 1},
+  "paginas_sem_texto": [6],
+  "folhas_por_pagina": {"1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": null, "7": "7", "8": "18", "9": "30", "10": "31"},
+  "partes": [
+    {"papel": "autor(a)", "nome": "Ana Exemplo da Silva", "pagina": 1},
+    {"papel": "ré(u)", "nome": "Loja Ficta Comércio de Eletrônicos Ltda.", "pagina": 1}
+  ],
+  "pecas": [
+    {"tipo": "autuacao", "pagina": 1, "data": "2026-02-12"},
+    {"tipo": "peticao_inicial", "pagina": 2, "data": "2026-02-12"},
+    {"tipo": "decisao", "pagina": 4, "data": "2026-02-20"},
+    {"tipo": "certidao", "pagina": 5, "data": "2026-03-05"},
+    {"tipo": "audiencia", "pagina": 7, "data": "2026-04-14"},
+    {"tipo": "contestacao", "pagina": 8, "data": "2026-04-28"},
+    {"tipo": "sentenca", "pagina": 9, "data": "2026-06-10"},
+    {"tipo": "certidao", "pagina": 10, "data": "2026-06-12"}
+  ],
+  "resultado_final": "parcialmente procedente",
+  "itens": {
+    "pedidos": [
+      {"pagina": 3, "contem": "a) a concessão de tutela de urgência"},
+      {"pagina": 3, "contem": "b) a condenação da ré à restituição"},
+      {"pagina": 3, "contem": "c) a condenação da ré ao pagamento de indenização"},
+      {"pagina": 3, "contem": "d) a inversão do ônus da prova"},
+      {"pagina": 8, "contem": "Requer a improcedência"}
+    ],
+    "alegacoes": [
+      {"pagina": 2, "contem": "Em 10/01/2026, a autora comprou"},
+      {"pagina": 2, "contem": "Em 25/01/2026, o aparelho deixou de ligar"},
+      {"pagina": 2, "contem": "Passados mais de 30 dias"},
+      {"pagina": 2, "contem": "A autora alega que ficou sem o computador"},
+      {"pagina": 8, "contem": "A ré sustenta que o defeito decorreu de mau uso"},
+      {"pagina": 8, "contem": "A ré afirma, ainda, que ofereceu o conserto"},
+      {"pagina": 8, "contem": "Alega também que não houve dano moral"}
+    ],
+    "decisoes": [
+      {"pagina": 4, "contem": "INDEFIRO, por ora, o pedido de tutela de urgência"},
+      {"pagina": 4, "contem": "DEFIRO a inversão do ônus da prova"},
+      {"pagina": 9, "contem": "JULGO PARCIALMENTE PROCEDENTES"},
+      {"pagina": 9, "contem": "a) CONDENAR a ré a restituir"},
+      {"pagina": 9, "contem": "b) CONDENAR a ré ao pagamento de R$ 4.000,00"},
+      {"pagina": 9, "contem": "Julgo improcedente o pedido de substituição"}
+    ],
+    "obrigacoes_e_determinacoes": [
+      {"pagina": 4, "contem": "Cite-se a ré"},
+      {"pagina": 4, "contem": "Designo audiência de conciliação para 14/04/2026"},
+      {"pagina": 7, "contem": "A ré apresentará contestação no prazo de 15 (quinze) dias"},
+      {"pagina": 9, "contem": "a) CONDENAR a ré a restituir"},
+      {"pagina": 9, "contem": "b) CONDENAR a ré ao pagamento"},
+      {"pagina": 9, "contem": "a ré deverá retirar o notebook"}
+    ],
+    "prazos": [
+      {"pagina": 3, "contem": "no prazo de 5 (cinco) dias", "tipo_de_prazo": "prazo pedido por uma parte — não está correndo"},
+      {"pagina": 7, "contem": "no prazo de 15 (quinze) dias", "tipo_de_prazo": "prazo informado em certidão ou ata"},
+      {"pagina": 9, "contem": "Não sanado o vício no prazo de 30 dias", "tipo_de_prazo": "prazo citado na fundamentação — não é ordem de cumprimento"},
+      {"pagina": 9, "contem": "deverá retirar o notebook", "tipo_de_prazo": "prazo fixado em ato do juiz"},
+      {"pagina": 10, "contem": "recurso inominado é de 10 (dez) dias", "tipo_de_prazo": "prazo informado em certidão ou ata"}
+    ],
+    "linha_do_tempo": [
+      {"data": "2026-01-10", "pagina": 2, "natureza": "alegacao"},
+      {"data": "2026-01-25", "pagina": 2, "natureza": "alegacao"},
+      {"data": "2026-02-12", "pagina": 1, "natureza": "fato_registrado"},
+      {"data": "2026-02-20", "pagina": 4, "natureza": "ato_processual"},
+      {"data": "2026-03-03", "pagina": 5, "natureza": "fato_registrado"},
+      {"data": "2026-04-14", "pagina": 4, "natureza": "ato_judicial"},
+      {"data": "2026-04-14", "pagina": 7, "natureza": "fato_registrado"},
+      {"data": "2026-04-28", "pagina": 8, "natureza": "ato_processual"},
+      {"data": "2026-06-10", "pagina": 9, "natureza": "ato_processual"},
+      {"data": "2026-06-12", "pagina": 10, "natureza": "fato_registrado"}
+    ]
+  },
+  "nao_pode_afirmar": {
+    "transito_em_julgado": "não há certidão de trânsito em julgado no arquivo",
+    "evento_de_data_citada_em_condenacao": {"data": "2026-01-10", "pagina": 9},
+    "resultado_pelo_capitulo_acessorio": "improcedente"
+  },
+  "folhas_citadas_nao_enviadas": ["9", "21"],
+  "perguntas": [
+    {"pergunta": "O que aconteceu neste processo?", "intencao": "resumo", "paginas_esperadas": [1, 9]},
+    {"pergunta": "O juiz já tomou alguma decisão?", "intencao": "decisoes", "paginas_esperadas": [4, 9]},
+    {"pergunta": "O que a outra parte está alegando?", "intencao": "alegacoes", "paginas_esperadas": [2, 8]},
+    {"pergunta": "Quais são as obrigações mencionadas?", "intencao": "obrigacoes", "paginas_esperadas": [9]},
+    {"pergunta": "Explique esta decisão como se eu não entendesse Direito.", "intencao": "explicar_decisao", "paginas_esperadas": [9]},
+    {"pergunta": "Em quais páginas aparece a audiência?", "intencao": "paginas", "paginas_esperadas": [4, 7]},
+    {"pergunta": "Quais informações ainda preciso confirmar?", "intencao": "pendencias", "paginas_esperadas": [2, 8]},
+    {"pergunta": "Tem prazo para recorrer?", "intencao": "prazos", "primeira_pagina": 10},
+    {"pergunta": "A ré foi citada?", "intencao": "busca", "primeira_pagina": 5},
+    {"pergunta": "Qual o valor do notebook?", "intencao": "busca", "primeira_pagina": 2},
+    {"pergunta": "O réu foi preso?", "abstencao": true},
+    {"pergunta": "Quanto custa uma receita de bolo de fubá?", "abstencao": true},
+    {"pergunta": "Houve acordo na audiência?", "intencao": "busca", "paginas_esperadas": [7]}
+  ]
+}

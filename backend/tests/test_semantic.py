@@ -45,7 +45,7 @@ def test_vetor_do_documento_nao_depende_dos_vizinhos():
     doc = "Divórcio: é direito que não exige prazo nem justificativa."
     sozinho = emb.embed_documentos([doc])[0]
     acompanhado = emb.embed_documentos(["curto", doc, "um texto bem mais longo " * 30])[1]
-    assert max(abs(a - b) for a, b in zip(sozinho, acompanhado)) < 1e-6
+    assert max(abs(a - b) for a, b in zip(sozinho, acompanhado, strict=True)) < 1e-6
 
 
 # Parafrases sem sobreposição lexical com o corpus — onde o BM25 não alcança.

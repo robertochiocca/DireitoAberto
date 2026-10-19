@@ -87,3 +87,40 @@ def test_passo_a_passo_corre_em_linha(navegador, largura):
     assert esperados and len(passos) == esperados
     quebrados = [p for p in passos if p["maiorVao"] > VAO_MAXIMO]
     assert not quebrados, f"passos quebrados em colunas a {largura}px: {quebrados}"
+
+
+# Texto que fecha o atributo e o elemento: no código antigo, o histórico local
+# ia para o innerHTML sem escape, e "&quot;" digitado virava aspas no onclick.
+CARGA_XSS = '"><img src=x onerror="window.__xss=1">&quot;);window.__xss=2;//'
+
+
+def test_historico_local_nao_executa_html(navegador):
+    pagina = navegador.new_page()
+    dialogos = []
+    pagina.on("dialog", lambda d: (dialogos.append(d.message), d.dismiss()))
+    pagina.add_init_script(
+        f"localStorage.setItem('da-hist', JSON.stringify([{CARGA_XSS!r}, 'golpe do pix']))"
+    )
+    pagina.goto(INDEX.as_uri())
+
+    botoes = pagina.locator("#hist [data-hist]")
+    assert botoes.count() == 2
+    assert botoes.first.inner_text() == CARGA_XSS  # aparece como texto, literal
+    assert pagina.locator("#hist img").count() == 0
+    botoes.first.click()
+    assert pagina.input_value("#q") == CARGA_XSS
+    assert pagina.evaluate("() => window.__xss") is None
+    assert not dialogos
+    pagina.close()
+
+
+def test_links_externos_so_aceitam_http(navegador):
+    pagina = navegador.new_page()
+    pagina.goto(INDEX.as_uri())
+    assert pagina.evaluate("() => urlSegura('javascript:alert(1)')") == "#"
+    assert pagina.evaluate("() => urlSegura('https://www.planalto.gov.br/x?a=1&b=\"2\"')") == (
+        "https://www.planalto.gov.br/x?a=1&amp;b=&quot;2&quot;"
+    )
+    # Data sem hora não pode virar o dia anterior no fuso do Brasil.
+    assert pagina.evaluate("() => dataLocal('2026-10-18').getDate()") == 18
+    pagina.close()

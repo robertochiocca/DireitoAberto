@@ -1,0 +1,462 @@
+[
+  {
+    "id": "lei9099-3",
+    "artigo": "Art. 3º, I",
+    "fonte": "lei9099",
+    "versao_oficial": "07c334937ce23744",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 1.0,
+    "classe": "literal",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "lei9099-9",
+    "artigo": "Art. 9º",
+    "fonte": "lei9099",
+    "versao_oficial": "07c334937ce23744",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 1.0,
+    "classe": "literal",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "lei9099-61",
+    "artigo": "Art. 61",
+    "fonte": "lei9099",
+    "versao_oficial": "07c334937ce23744",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 1.0,
+    "classe": "literal",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "lei9099-12a",
+    "artigo": "Art. 12-A",
+    "fonte": "lei9099",
+    "versao_oficial": "07c334937ce23744",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.286,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cc-206",
+    "artigo": "Art. 206, § 3º, V e § 5º, I",
+    "fonte": "cc",
+    "versao_oficial": "647ba409698f8064",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.529,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cc-3-4",
+    "artigo": "Arts. 3º e 4º",
+    "fonte": "cc",
+    "versao_oficial": "647ba409698f8064",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.39,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cc-389-406",
+    "artigo": "Arts. 389, 395 e 406",
+    "fonte": "cc",
+    "versao_oficial": "647ba409698f8064",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.111,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "lei6015-46",
+    "artigo": "Art. 46",
+    "fonte": "lei6015",
+    "versao_oficial": "34ecfe1211596408",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.289,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "lei6015-110",
+    "artigo": "Art. 110",
+    "fonte": "lei6015",
+    "versao_oficial": "34ecfe1211596408",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.406,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "lei6015-56",
+    "artigo": "Art. 56",
+    "fonte": "lei6015",
+    "versao_oficial": "34ecfe1211596408",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.364,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "lei6015-57",
+    "artigo": "Art. 57",
+    "fonte": "lei6015",
+    "versao_oficial": "34ecfe1211596408",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.415,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cdc-14",
+    "artigo": "Art. 14, caput",
+    "fonte": "cdc",
+    "versao_oficial": "ef77eb7adba54b04",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 1.0,
+    "classe": "literal",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cdc-18",
+    "artigo": "Art. 18, caput e § 1º",
+    "fonte": "cdc",
+    "versao_oficial": "ef77eb7adba54b04",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.89,
+    "classe": "quase_literal",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cdc-26",
+    "artigo": "Art. 26",
+    "fonte": "cdc",
+    "versao_oficial": "ef77eb7adba54b04",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.754,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cdc-42",
+    "artigo": "Art. 42",
+    "fonte": "cdc",
+    "versao_oficial": "ef77eb7adba54b04",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 1.0,
+    "classe": "literal",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cdc-42a",
+    "artigo": "Art. 42-A",
+    "fonte": "cdc",
+    "versao_oficial": "ef77eb7adba54b04",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 1.0,
+    "classe": "literal",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cdc-43",
+    "artigo": "Art. 43, §§ 1º e 2º",
+    "fonte": "cdc",
+    "versao_oficial": "ef77eb7adba54b04",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.707,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cdc-49",
+    "artigo": "Art. 49",
+    "fonte": "cdc",
+    "versao_oficial": "ef77eb7adba54b04",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 1.0,
+    "classe": "literal",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cdc-54a",
+    "artigo": "Arts. 54-A e 104-A",
+    "fonte": "cdc",
+    "versao_oficial": "ef77eb7adba54b04",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.439,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "decreto13135-sac",
+    "artigo": "Decreto 13.135/2026 (síntese)",
+    "fonte": "decreto13135",
+    "versao_oficial": "1006fb39092e8b13",
+    "comparado_com": "página inteira",
+    "cobertura": 0.0,
+    "classe": "divergente",
+    "marcado_como_sintese": true
+  },
+  {
+    "id": "cf-226",
+    "artigo": "Art. 226, § 6º",
+    "fonte": "cf",
+    "versao_oficial": "ca8cfa3680b8e03d",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.0,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cc-1583",
+    "artigo": "Arts. 1.583 e 1.584, § 2º",
+    "fonte": "cc",
+    "versao_oficial": "647ba409698f8064",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.8,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cc-1694",
+    "artigo": "Arts. 1.694 e 1.695",
+    "fonte": "cc",
+    "versao_oficial": "647ba409698f8064",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.815,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cc-1790",
+    "artigo": "Art. 1.790",
+    "fonte": "cc",
+    "versao_oficial": "647ba409698f8064",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.048,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cc-1784",
+    "artigo": "Arts. 1.784, 1.845 e 1.846",
+    "fonte": "cc",
+    "versao_oficial": "647ba409698f8064",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.39,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cc-1723",
+    "artigo": "Art. 1.723",
+    "fonte": "cc",
+    "versao_oficial": "647ba409698f8064",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.14,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cc-1336",
+    "artigo": "Arts. 1.336, 1.337 e 1.277",
+    "fonte": "cc",
+    "versao_oficial": "647ba409698f8064",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.44,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "lei8245-18",
+    "artigo": "Arts. 18 e 19",
+    "fonte": "lei8245",
+    "versao_oficial": "8d1cbec9f0b25080",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.706,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "lei8245-37",
+    "artigo": "Arts. 22 e 37",
+    "fonte": "lei8245",
+    "versao_oficial": "8d1cbec9f0b25080",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.074,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "lei8245-46",
+    "artigo": "Art. 46, §§ 1º e 2º",
+    "fonte": "lei8245",
+    "versao_oficial": "8d1cbec9f0b25080",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.885,
+    "classe": "quase_literal",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "lei8245-62",
+    "artigo": "Art. 62",
+    "fonte": "lei8245",
+    "versao_oficial": "8d1cbec9f0b25080",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.429,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "clt-477",
+    "artigo": "Art. 477, caput e § 6º",
+    "fonte": "clt",
+    "versao_oficial": "e638322b979c7b37",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.766,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "clt-482",
+    "artigo": "Art. 482",
+    "fonte": "clt",
+    "versao_oficial": "e638322b979c7b37",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.575,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "clt-483",
+    "artigo": "Art. 483",
+    "fonte": "clt",
+    "versao_oficial": "e638322b979c7b37",
+    "comparado_com": "página inteira",
+    "cobertura": 0.702,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "clt-791",
+    "artigo": "Arts. 791, 791-A e 790-B",
+    "fonte": "clt",
+    "versao_oficial": "e638322b979c7b37",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.25,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "clt-487",
+    "artigo": "Art. 487, II (e aviso prévio proporcional)",
+    "fonte": "clt",
+    "versao_oficial": "e638322b979c7b37",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.359,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cf-6",
+    "artigo": "Art. 6º",
+    "fonte": "cf",
+    "versao_oficial": "ca8cfa3680b8e03d",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 1.0,
+    "classe": "literal",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cf-7",
+    "artigo": "Art. 7º, I, III, XXI e XXIX",
+    "fonte": "cf",
+    "versao_oficial": "ca8cfa3680b8e03d",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.759,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "cf-7-xiii",
+    "artigo": "Art. 7º, XIII e XV",
+    "fonte": "cf",
+    "versao_oficial": "ca8cfa3680b8e03d",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.179,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "ctb-165",
+    "artigo": "Arts. 165 e 165-A",
+    "fonte": "ctb",
+    "versao_oficial": "6c561394171b78e0",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.286,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "ctb-262",
+    "artigo": "Art. 262 (revogado)",
+    "fonte": "ctb",
+    "versao_oficial": "6c561394171b78e0",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.0,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "ctb-281",
+    "artigo": "Art. 281, caput e parágrafo único",
+    "fonte": "ctb",
+    "versao_oficial": "6c561394171b78e0",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.644,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "ctb-282",
+    "artigo": "Arts. 282 e 285 a 288 (síntese)",
+    "fonte": "ctb",
+    "versao_oficial": "6c561394171b78e0",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.038,
+    "classe": "divergente",
+    "marcado_como_sintese": true
+  },
+  {
+    "id": "ctb-284",
+    "artigo": "Art. 284 e § 1º",
+    "fonte": "ctb",
+    "versao_oficial": "6c561394171b78e0",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.645,
+    "classe": "condensado",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "ctb-257",
+    "artigo": "Art. 257, §§ 7º e 8º",
+    "fonte": "ctb",
+    "versao_oficial": "6c561394171b78e0",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.258,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  },
+  {
+    "id": "ctb-259-261",
+    "artigo": "Arts. 259 e 261, § 1º",
+    "fonte": "ctb",
+    "versao_oficial": "6c561394171b78e0",
+    "comparado_com": "artigos nomeados",
+    "cobertura": 0.0,
+    "classe": "divergente",
+    "marcado_como_sintese": false
+  }
+]

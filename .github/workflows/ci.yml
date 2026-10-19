@@ -1,0 +1,63 @@
+# CI do DireitoAberto: o mesmo que se roda localmente (ver README, "Como rodar").
+# Não usa segredos nem faz deploy; só lê o repositório.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    # Fixo em 24.04: o ubuntu-latest já é o 26.04, onde o Playwright 1.56 (requirements-dev.txt) não
+    # instala o Chromium. Subir o Playwright exige conferir o teste de navegador de novo.
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.13"]  # a versão mínima declarada e a usada no desenvolvimento
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: backend/requirements*.txt
+      - run: pip install -r requirements-dev.txt
+      - name: Navegador do teste do frontend estático
+        run: python -m playwright install --with-deps chromium
+      - name: Lint
+        run: ruff check app tests scripts
+      - name: Tipos
+        run: mypy
+      - name: Testes (inclui o portão de avaliação contra docs/avaliacao/resultados.json)
+        run: python -m pytest -q
+      - name: Relatório de avaliação
+        run: python scripts/avaliar.py --comparar
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - name: Tipos
+        run: npx tsc --noEmit
+      - name: Build
+        run: npm run build
+      - name: Dependências com falha crítica
+        # O nível "critical" é o portão; as altas restantes (postcss embutido no Next 15) estão
+        # documentadas em docs/security-audit.md e saem com a migração para o Next 16.
+        run: npm audit --omit=dev --audit-level=critical

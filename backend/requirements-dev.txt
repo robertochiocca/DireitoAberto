@@ -1,0 +1,7 @@
+# Ferramentas de desenvolvimento e CI (as versões fixas evitam que uma regra nova de lint quebre o CI sozinha).
+-r requirements.txt
+ruff==0.16.9
+mypy==2.4.0
+# Teste de navegador do frontend estático (tests/test_frontend_estatico.py);
+# depois de instalar: python -m playwright install chromium
+playwright==1.56.0

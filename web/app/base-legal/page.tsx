@@ -137,6 +137,9 @@ export default function BaseLegalPage() {
           </div>
           <div className="resumo">{a.resumo}</div>
           {a.vigencia?.nota && <div className="vig-nota">{a.vigencia.nota}</div>}
+          {a.revisao?.estado === "pendente" && (
+            <div className="vig-nota">⚠ Em revisão: {a.revisao.motivo}</div>
+          )}
           <div style={{ marginTop: 8 }}>
             <a
               href={a.fonte}

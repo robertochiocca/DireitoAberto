@@ -14,6 +14,14 @@ services:
         fromDatabase:
           name: direitoaberto-db
           property: connectionString
+      # Limitação de requisições por endereço: o Render acrescenta o IP do
+      # cliente ao X-Forwarded-For. Pelo frontend da Vercel, o IP visto aqui é o
+      # do servidor da Vercel — ver docs/security-audit.md (A2) antes de mudar.
+      - key: DIREITO_ABERTO_PROXIES_CONFIAVEIS
+        value: "1"
+      # Origens com CORS liberado (nenhum frontend do projeto precisa em produção).
+      - key: DIREITO_ABERTO_CORS_ORIGENS
+        value: ""
       # Descomente (e preencha no painel) para respostas geradas por LLM:
       # - key: ANTHROPIC_API_KEY
       #   sync: false

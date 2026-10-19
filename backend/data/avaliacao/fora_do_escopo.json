@@ -1,0 +1,135 @@
+{
+  "descricao": "Perguntas cuja resposta correta é NÃO responder com a base atual: o assunto não está entre os 79 dispositivos do corpus (conferido contra os ids e rótulos em 19/10/2026). Mede a abstenção apropriada. Metade calibra o limiar de evidência (app/validacao.py), a outra metade só mede (alternadas, na ordem em que foram escritas). Rótulos do projeto, sem revisão de profissional do Direito; se o corpus passar a cobrir um assunto, a pergunta sai daqui.",
+  "casos": [
+    {
+      "pergunta": "Como faço para tirar o passaporte?",
+      "assunto_ausente": "documentos de viagem (Polícia Federal)",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "Qual é a pena para homicídio culposo?",
+      "assunto_ausente": "Código Penal",
+      "conjunto": "validacao"
+    },
+    {
+      "pergunta": "Como registrar a marca da minha empresa no INPI?",
+      "assunto_ausente": "propriedade industrial",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "Quais são os requisitos da usucapião de imóvel urbano?",
+      "assunto_ausente": "usucapião (CC arts. 1.238 e seguintes)",
+      "conjunto": "validacao"
+    },
+    {
+      "pergunta": "Como abrir um MEI e quais impostos ele paga?",
+      "assunto_ausente": "Simples Nacional / MEI",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "Qual é a velocidade máxima permitida numa rodovia?",
+      "assunto_ausente": "CTB art. 61",
+      "conjunto": "validacao"
+    },
+    {
+      "pergunta": "Posso ter uma arma de fogo em casa?",
+      "assunto_ausente": "Estatuto do Desarmamento",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "Quem tem direito ao seguro-desemprego?",
+      "assunto_ausente": "Lei 7.998/1990",
+      "conjunto": "validacao"
+    },
+    {
+      "pergunta": "Como faço para registrar a patente de uma invenção?",
+      "assunto_ausente": "propriedade industrial",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "É crime xingar alguém nas redes sociais?",
+      "assunto_ausente": "Código Penal (injúria)",
+      "conjunto": "validacao"
+    },
+    {
+      "pergunta": "Qual é a multa por não votar na eleição?",
+      "assunto_ausente": "Código Eleitoral",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "Como declarar criptomoedas no imposto de renda?",
+      "assunto_ausente": "imposto de renda",
+      "conjunto": "validacao"
+    },
+    {
+      "pergunta": "Qual é a idade mínima para tirar carteira de motorista?",
+      "assunto_ausente": "CTB art. 140",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "Como funciona a recuperação judicial de uma empresa?",
+      "assunto_ausente": "Lei 11.101/2005",
+      "conjunto": "validacao"
+    },
+    {
+      "pergunta": "Como conseguir visto de trabalho para um estrangeiro?",
+      "assunto_ausente": "Lei de Migração",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "Sou obrigado a fazer o alistamento militar aos 18 anos?",
+      "assunto_ausente": "Lei do Serviço Militar",
+      "conjunto": "validacao"
+    },
+    {
+      "pergunta": "Como funciona o FIES para pagar a faculdade?",
+      "assunto_ausente": "Lei do FIES",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "Posso pilotar um drone perto do aeroporto?",
+      "assunto_ausente": "regulamentação da ANAC/DECEA sobre drones",
+      "conjunto": "validacao"
+    },
+    {
+      "pergunta": "Como abrir uma empresa de responsabilidade limitada?",
+      "assunto_ausente": "direito empresarial",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "Qual é a alíquota de ICMS sobre a conta de luz?",
+      "assunto_ausente": "legislação estadual do ICMS",
+      "conjunto": "validacao"
+    },
+    {
+      "pergunta": "Como funciona a delação premiada?",
+      "assunto_ausente": "Lei 12.850/2013",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "Quais são as regras para um concurso público ser anulado?",
+      "assunto_ausente": "direito administrativo",
+      "conjunto": "validacao"
+    },
+    {
+      "pergunta": "Posso registrar um software que eu desenvolvi?",
+      "assunto_ausente": "Lei do Software",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "Quanto tempo de prisão pega quem dirige sem habilitação?",
+      "assunto_ausente": "CTB art. 309 (crime)",
+      "conjunto": "validacao"
+    },
+    {
+      "pergunta": "Estrangeiro pode comprar terra no Brasil?",
+      "assunto_ausente": "Lei 5.709/1971",
+      "conjunto": "calibracao"
+    },
+    {
+      "pergunta": "Como funciona o habeas corpus?",
+      "assunto_ausente": "CF art. 5º, LXVIII; CPP",
+      "conjunto": "validacao"
+    }
+  ]
+}
