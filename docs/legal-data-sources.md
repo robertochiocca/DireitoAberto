@@ -39,7 +39,11 @@ quando o Planalto atualiza a página compilada. Os ciclos 4 e 5 do roadmap trata
 
 As páginas foram baixadas em 19/10/2026 com um `User-Agent` identificado.
 
-### Fidelidade textual — CDC (8 entradas)
+### Fidelidade textual — CDC (8 entradas, amostra inicial)
+
+> Atualização do ciclo 4: a conferência foi automatizada e estendida a 46 dispositivos de 9 fontes
+> (`scripts/monitor.py fidelidade`), já sem a redação tachada (revogada) das páginas. Ver
+> [monitor-legislativo.md](monitor-legislativo.md#fidelidade-do-corpus-ao-texto-oficial-vigente).
 
 Método: texto do corpus e da página compilada normalizados (minúsculas, sem acento, só letras e
 números); mede-se quantas janelas de 8 palavras do corpus aparecem na página.
@@ -104,7 +108,7 @@ auditoria.
 |---|---|---|---|
 | `cf-7-xiii` | prazo e texto divergentes da EC 141/2026 (acima) | EC 141/2026, arts. 1º, 2º, 6º e 10; DOU 16/10/2026, ed. extra | **corrigido com evidência e em revisão (ciclo 1)** — ver abaixo |
 | `decreto13135-sac` | fonte era notícia | Decreto 13.135/2026, art. 25; DOU 13/10/2026 | **corrigido (ciclo 1)**: `fonte` aponta para o texto oficial no Planalto |
-| entradas condensadas sem marca | o `texto` não é transcrição literal | tabela de fidelidade acima (amostra do CDC) | aberto (ciclo 4: verificação de fidelidade de todo o corpus) |
+| entradas condensadas sem marca | o `texto` não é transcrição literal | [monitor-legislativo.md](monitor-legislativo.md#fidelidade-do-corpus-ao-texto-oficial-vigente): 46 dispositivos conferidos — 8 literais, 2 quase literais, 21 condensados, 15 divergentes | medido (ciclo 4); separar texto oficial de explicação continua aberto |
 
 ### O que mudou em `cf-7-xiii` e o que continua em aberto
 

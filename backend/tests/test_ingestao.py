@@ -35,3 +35,16 @@ def test_gerar_esqueletos_filtra_e_marca_revisao():
     assert art["artigo"] == "Art. 2"
     assert art["revisado"] is False
     assert art["resumo"].startswith("TODO")
+
+
+def test_redacao_tachada_e_revogada_nao_entra():
+    """Nas páginas compiladas do Planalto, a redação revogada vem tachada logo
+    antes da vigente. Antes, ela entrava como um segundo artigo."""
+    html = (
+        "<p><strike>Art. 6º São direitos sociais a educação, a saúde e o trabalho.</strike></p>"
+        "<p>Art. 6º São direitos sociais a educação, a saúde, a alimentação, o trabalho e a moradia. "
+        "(Redação dada pela Emenda Constitucional nº 90, de 2015)</p>"
+    )
+    artigos = extrair_artigos(html)
+    assert [a["numero"] for a in artigos] == ["6"]
+    assert "alimentação" in artigos[0]["texto"]

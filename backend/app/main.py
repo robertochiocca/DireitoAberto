@@ -23,6 +23,8 @@ from .db import Consulta, DocumentoProcesso, Usuario, agora, get_db, init_db
 from .documentos import DocumentoGrandeDemais, DocumentoInvalido, extrair_texto, ler_upload_limitado
 from .leitor.rotas import router as leitor_router
 from .llm import gerar_resposta, resposta_extrativa
+from .monitor.registro import Registro
+from .monitor.sinais import revisao_do_monitor
 from .retrieval import normalizar
 from .seguranca import CABECALHOS_SEGURANCA, limitar, origens_cors, verificar_limite
 from .semantic import criar_retriever
@@ -174,6 +176,9 @@ def _responder(
     # Adaptativa: devolve menos artigos quando os demais são fracos, em vez de
     # completar as vagas com lei de outro assunto.
     artigos = retriever.buscar(consulta_busca, tema=tema, adaptativo=True)
+    for a in artigos:
+        # Mudança detectada pelo monitor e ainda não revisada também deixa o dispositivo "em revisão".
+        a.revisao = a.revisao or revisao_do_monitor(a.id)
     # O documento enriquece a busca local sempre; ao provedor de IA ele só vai
     # com autorização expressa do cidadão.
     texto_llm = gerar_resposta(
@@ -210,8 +215,16 @@ def _vigencia(art: dict) -> dict:
     return vigencia_efetiva(art.get("vigencia"))
 
 
+def _revisao(art: dict) -> dict | None:
+    """Pendência registrada no corpus ou, na falta dela, a do monitor legislativo."""
+    propria = art.get("revisao")
+    if propria and propria.get("estado") == "pendente":
+        return propria
+    return revisao_do_monitor(art["id"])
+
+
 def _em_revisao(art: dict) -> bool:
-    return (art.get("revisao") or {}).get("estado") == "pendente"
+    return _revisao(art) is not None
 
 
 @router.get("/estatisticas", tags=["infra"])
@@ -285,6 +298,29 @@ def fila_de_vigencia(
     }
 
 
+@router.get("/monitor", tags=["corpus"])
+def monitor_legislativo():
+    """Transparência do monitor: fontes oficiais acompanhadas, versão aceita e mudanças pendentes."""
+    registro = Registro()
+    fontes = []
+    for f in registro.fontes():
+        aceita = registro.versao_aceita(f["id"])
+        fontes.append({
+            "id": f["id"],
+            "nome": f["nome"],
+            "url": f["url"],
+            "versao_aceita": aceita["versao"] if aceita else None,
+            "estado_da_versao_aceita": aceita["estado"] if aceita else None,
+            "capturada_em": aceita["capturada_em"] if aceita else None,
+            "ultima_verificacao": registro.dados["verificacoes"].get(f["id"]),
+        })
+    pendentes = [
+        {k: v[k] for k in ("fonte", "versao", "capturada_em", "resumo_mudancas", "dispositivos_afetados", "relatorio")}
+        for v in registro.pendentes()
+    ]
+    return {"fontes": fontes, "pendentes": pendentes}
+
+
 @router.get("/artigos", tags=["corpus"])
 def listar_artigos(
     tema: str | None = Query(None, description="Filtra por área temática."),
@@ -316,7 +352,7 @@ def listar_artigos(
             {
                 **{k: art[k] for k in ("id", "lei", "artigo", "tema", "resumo", "fonte")},
                 "vigencia": _vigencia(art),
-                **({"revisao": art["revisao"]} if _em_revisao(art) else {}),
+                **({"revisao": revisao} if (revisao := _revisao(art)) else {}),
                 **({"tipo": art["tipo"], "tribunal": art.get("tribunal")}
                    if art.get("tipo") == "jurisprudencia" else {}),
             }

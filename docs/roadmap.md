@@ -34,7 +34,9 @@ O pedido prioriza três entregas: (1) leitor de processos, (2) monitor de mudan�
 | Média | XSS no frontend estático | M7 | **concluído (ciclo 1)** |
 | Alta (produto) | Leitor de processos: backend | pedido, entrega 1 | **concluído (ciclo 2)** — ver [leitor-de-processos.md](leitor-de-processos.md) |
 | Alta (produto) | Leitor de processos: interface | pedido, entrega 1 | **concluído (ciclo 3)** |
-| Alta (produto) | Monitor de mudanças: snapshots, diff, relatório, fila de revisão | pedido, entrega 2 | planejado (ciclo 4) |
+| Alta (produto) | Monitor de mudanças: snapshots, diff, relatório, fila de revisão | pedido, entrega 2 | **concluído (ciclo 4)** — ver [monitor-legislativo.md](monitor-legislativo.md) |
+| Alta (dados) | Separar no corpus o texto oficial literal da explicação (15 dispositivos divergentes, 21 condensados) | ciclo 4 | planejado; exige revisão jurídica |
+| Média | Agendar o monitor (workflow que abre PR com `data/monitor/`) | ciclo 4 | planejado; decisão do mantenedor |
 | Alta (produto) | Estados de validação e avaliação reproduzível | pedido, entrega 3 | planejado (ciclo 5) |
 | Média | CI (pytest + build do web) | B4 | planejado (ciclo 6) |
 | Média | Migrações com Alembic | M6 | planejado |
@@ -134,3 +136,26 @@ PDF do exemplo no iframe.
 upload não verificado.
 
 **Próximo incremento:** monitor de mudanças legislativas.
+
+### Ciclo 4 — monitor legislativo (concluído)
+
+**Objetivo:** detectar mudanças em normas oficiais, comparar versões e gerar relatórios verificáveis,
+sem publicar nada sem revisão.
+
+**Implementado:** pacote `app/monitor/` (coleta, texto vigente sem tachado, divisão em artigos,
+classificação, impacto no corpus e regressão, relatório, registro com estados, decisão, reversão e
+diário, fidelidade do corpus), `scripts/monitor.py`, `GET /api/v1/monitor` e o sinal "em revisão" na
+API para dispositivos afetados por mudança pendente. Linha de base real de 9 fontes do Planalto.
+
+**Defeitos encontrados:** a ingestão do Planalto incluía a redação revogada (tachada) como se fosse
+vigente — corrigido, com teste; a primeira versão do classificador aceitava sozinha uma anotação nova
+de norma alteradora com o texto igual — virou `norma_nova_citada`, risco médio; a regra "rótulo sem
+artigo existente cobre a norma inteira" marcava dispositivos demais — restringida a rótulos que não
+começam por "Art.".
+
+**Medidas:** duas coletas seguidas das 9 fontes com o mesmo hash; fidelidade de 46 dispositivos (8
+literais, 2 quase literais, 21 condensados, 15 divergentes), com os divergentes conferidos.
+
+**Testes:** 30 em `tests/test_monitor.py` (+1 em `test_ingestao.py`), todos sem rede; 258 no total.
+
+**Próximo incremento:** estados de validação na resposta e avaliação reproduzível (ciclo 5).

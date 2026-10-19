@@ -148,12 +148,17 @@ A API é versionada em **`/api/v1`** (os caminhos `/api/...` são aliases de com
 | `GET /api/v1/documentos/exemplo` | Leitor de processos: processo fictício já analisado (público) |
 | `POST /api/v1/documentos` | Leitor de processos: envia um PDF (exige conta) → peças, partes, linha do tempo, decisões, prazos, com página de cada item |
 | `POST /api/v1/documentos/{id}/perguntar` | Pergunta sobre o documento → resposta só com trechos dele, citação conferida, ou abstenção |
+| `GET /api/v1/monitor` | Monitor legislativo: fontes acompanhadas, versão aceita e mudanças pendentes de revisão |
 | `GET /api/v1/saude` | Health check |
 
 - **Autenticação é opcional**: sem token, tudo funciona anonimamente; com `Authorization: Bearer <token>`, as consultas entram no histórico do usuário. Da consulta anônima, a API guarda só a contagem e os artigos devolvidos — o texto da pergunta não.
 - **Limites e segurança** (ver [docs/security-audit.md](docs/security-audit.md)): limitação de requisições por endereço e por conta (429 com `Retry-After`), CORS restrito a `DIREITO_ABERTO_CORS_ORIGENS`, upload lido em blocos com limite de tamanho e de páginas.
 - **Retriever semântico**: `pip install chromadb` e `DIREITO_ABERTO_RETRIEVER=semantico`. Usa o **multilingual-e5-small** (ONNX, ~130 MB baixados do Hugging Face na 1ª execução, sem PyTorch), com prefixos assimétricos `query:`/`passage:` e vetores L2-normalizados. Cada texto é vetorizado numa chamada própria: o modelo quantizado calcula a escala das ativações sobre a chamada inteira, e em lote o vetor de um documento dependia dos vizinhos — editar um verbete mudava a posição de outros na busca. No benchmark interno de 21 casos: **e5 19/21 no top-1** vs BM25 18/21 vs MiniLM padrão do Chroma 13/21 — e o e5 acerta parafrases sem nenhuma palavra do corpus ("a companhia aérea me deixou na mão" → Resolução ANAC 400). `DIREITO_ABERTO_EMBEDDING=padrao` força o embedding nativo do Chroma; sem dependências ou sem rede, o fallback é o BM25.
 - **Banco**: SQLite em `backend/data/direitoaberto.db` por padrão; para PostgreSQL, `DIREITO_ABERTO_DATABASE_URL=postgresql+psycopg://usuario:senha@host/db`.
+
+### Monitor legislativo
+
+`scripts/monitor.py` acompanha 9 páginas oficiais do Planalto (CF, Código Civil, CDC, CTB, CLT e outras), compara o texto vigente — sem a redação tachada — artigo por artigo, classifica cada mudança (formatação, anotação editorial, indício de alteração legislativa, indício de revogação, artigo ausente, que **não** é tratado como revogação…), aponta os dispositivos da base afetados e gera um relatório. Mudança de risco médio ou alto fica pendente até uma pessoa decidir, e enquanto isso a API mostra os dispositivos afetados como "em revisão". O mesmo módulo mede a **fidelidade do corpus ao texto oficial**: dos 46 dispositivos conferidos, 8 são transcrição literal e 15 são paráfrase ou explicação — o que motivou separar texto oficial de explicação no roadmap. Detalhes em [docs/monitor-legislativo.md](docs/monitor-legislativo.md).
 
 ### Ingestão do Planalto (semiautomatizada)
 
