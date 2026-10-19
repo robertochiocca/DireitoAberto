@@ -40,7 +40,7 @@ O pedido prioriza três entregas: (1) leitor de processos, (2) monitor de mudan�
 | Alta (produto) | Estados de validação e avaliação reproduzível | pedido, entrega 3 | **concluído (ciclo 5)** — ver [avaliacao/relatorio.md](avaliacao/relatorio.md) |
 | Alta (qualidade) | Melhorar a abstenção: 5 de 13 perguntas fora do escopo ainda recebem lei de outro assunto | ciclo 5 | planejado (ex.: sinal de cobertura por tema, julgamento de pertinência) |
 | Média | Avaliar o texto gerado por LLM (fidelidade às fontes, afirmações sem suporte) com chave de API | ciclo 5 | planejado; exige chave e orçamento |
-| Média | CI (pytest + build do web) | B4 | planejado (ciclo 6) |
+| Média | CI (pytest + build do web) | B4 | **concluído (ciclo 6)** |
 | Média | Migrações com Alembic | M6 | planejado |
 | Média | Next.js 16 (elimina o `postcss` vulnerável embutido) | C1 residual | planejado |
 | Média | Conteúdo jurídico dos frontends sob controle de vigência | legal-data-sources | planejado |
@@ -182,3 +182,39 @@ antes de olhar a validação.
 roda a avaliação inteira e falha se qualquer métrica piorar em relação ao `resultados.json` versionado.
 
 **Próximo incremento:** CI e documentação final (ciclo 6).
+
+### Ciclo 6 — CI e documentação (concluído)
+
+**Implementado:** `.github/workflows/ci.yml` (Python 3.10 e 3.13: ruff, mypy, pytest com teste de
+navegador e portão de avaliação, `avaliar.py --comparar`; Next: `tsc`, build, `npm audit` no nível
+crítico), `backend/requirements-dev.txt` com versões fixas, README atualizado, visão geral em inglês
+(`docs/overview.en.md`), `CHANGELOG.md`, diagrama de arquitetura com os módulos novos.
+
+**Verificação final:** 274 testes passando (+ os do retriever semântico, pulados sem chromadb); ruff e
+mypy limpos; avaliação sem regressão; `pip-audit` sem vulnerabilidade; `npm audit` sem crítica (restam
+as duas pendências do postcss embutido no Next 15). O CI ainda não rodou no GitHub no momento em que
+este ciclo foi escrito — a primeira execução acontece no push da branch.
+
+## Estado ao fim desta rodada
+
+| Entrega pedida | Estado |
+|---|---|
+| Leitor inteligente de processos (PDF, citações por página, resumo, linha do tempo, sem inventar) | **concluído** para PDFs com texto; sem OCR; medido em processo fictício |
+| Monitor de mudanças jurídicas (conjunto pequeno de normas oficiais, diff, versões, relatório) | **concluído** para 9 páginas do Planalto; sem agendamento e sem DOU |
+| Avaliação e confiabilidade (benchmark reproduzível, critérios claros) | **concluído** para busca, abstenção, vigência, leitor e fidelidade; sem medida de LLM e de compreensão |
+
+## Próximo incremento recomendado
+
+**Separar no corpus o texto oficial literal da explicação.** É o achado de dados com maior efeito na
+confiabilidade: hoje 15 dos 46 dispositivos conferidos têm paráfrase ou explicação no campo `texto`, e
+um deles funde interpretação do STF à redação do artigo. Proposta:
+
+1. acrescentar `texto_oficial` (transcrição, conferida automaticamente por `monitor.py fidelidade`, que
+   passa a exigir 100%) e manter `texto` como explicação marcada;
+2. a resposta cita `texto_oficial`; a explicação aparece como tal;
+3. o portão de avaliação passa a cobrar fidelidade literal dos dispositivos migrados;
+4. revisão por profissional do Direito antes de publicar cada lote — a começar pela entrada
+   `cf-7-xiii` (EC 141/2026), que já está marcada para revisão.
+
+Em seguida, por ordem: agendar o monitor (workflow que abre PR com `data/monitor/`), melhorar a
+abstenção (5 de 13 perguntas fora do escopo ainda passam) e OCR no leitor.

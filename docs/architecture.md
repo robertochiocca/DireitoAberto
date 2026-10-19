@@ -12,23 +12,34 @@ flowchart LR
   end
   subgraph API["backend/app (FastAPI)"]
     M[main.py<br>rotas /api/v1]
-    A[auth.py<br>PBKDF2 + token opaco]
+    SEG[seguranca.py<br>limites, CORS, cabeçalhos]
+    A[auth.py<br>PBKDF2 + token com validade]
     R[retrieval.py<br>BM25 + sinônimos]
     S[semantic.py + embeddings.py<br>e5 ONNX + Chroma, opt-in]
+    V[vigencia.py<br>situação na data]
+    VAL[validacao.py<br>estado + abstenção]
     L[llm.py<br>geração opcional + modo extrativo]
-    D[documentos.py<br>PDF/TXT → texto]
+    LE[leitor/<br>processos: página, natureza, citação conferida]
+    MO[monitor/<br>coleta, diff por artigo, revisão]
   end
   C[(data/legislacao.json<br>corpus versionado no git)]
-  B[(SQLite / PostgreSQL<br>usuários, tokens, consultas)]
+  MD[(data/monitor<br>versões e snapshots)]
+  B[(SQLite / PostgreSQL<br>usuários, sessões, consultas, documentos)]
   X[[API de LLM<br>opcional]]
+  P[[Planalto<br>páginas oficiais]]
   E --> M
   N --> M
+  M --> SEG
   M --> A --> B
   M --> R --> C
   M -.-> S --> C
+  R --> V
+  M --> VAL --> MD
   M --> L -.-> X
-  M --> D
-  M --> B
+  M --> LE --> B
+  MO --> P
+  MO --> MD
+  M -. "em revisão" .-> MD
 ```
 
 ## Fluxo de uma pergunta
@@ -44,8 +55,13 @@ flowchart LR
 5. A consulta é gravada na tabela `consultas` (com o usuário, se houver token).
 6. A resposta leva `artigos` (com `vigencia`), `gerado_por_llm` e o aviso legal.
 
+Desde o ciclo 5, entre os passos 2 e 3 a resposta passa pela validação (`validacao.py`): abaixo do
+limiar de evidência a API se abstém, e toda resposta leva o estado e as verificações. Dispositivos com
+mudança pendente no monitor saem marcados como "em revisão".
+
 O fluxo com documento (`/perguntar-documento`) é o mesmo, com os primeiros 4.000 caracteres do
-documento somados à consulta de busca e ao prompt.
+documento somados à consulta de busca; ao prompt do LLM, o documento só vai com consentimento
+(`permitir_ia_externa`) e delimitado como dado não confiável.
 
 ## Módulos
 

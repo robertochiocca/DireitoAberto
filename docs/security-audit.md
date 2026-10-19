@@ -56,7 +56,7 @@ Estados: **aberto**, **corrigido (ciclo N)**, **mitigado** (risco reduzido, não
 | B1 | Baixa | E-mail sensível a maiúsculas: `Fulano@x.com` e `fulano@x.com` viram duas contas | `main.py` | Confirmado | **corrigido (ciclo 1)**: e-mail normalizado no cadastro; busca sem distinção de maiúsculas (inclui contas antigas) |
 | B2 | Baixa | Sem cabeçalhos de segurança no frontend estático servido pela API (`X-Content-Type-Options`, `Referrer-Policy`, `frame-ancestors`) | `main.py` | Confirmado | **corrigido (ciclo 1)**: `nosniff`, `Referrer-Policy`, `X-Frame-Options`, `frame-ancestors 'none'`. CSP completa fica para depois: o estático usa *scripts* e manipuladores inline |
 | B3 | Baixa | Token no `localStorage` (roubável por XSS). Atenuantes: React escapa por padrão; o projeto não usa `dangerouslySetInnerHTML` com dado externo | `web/lib/api.ts` | Aceito por ora | aceito |
-| B4 | Baixa | Sem CI, sem configuração de lint/tipos versionada | repositório | Confirmado | **parcial (ciclo 1)**: `backend/pyproject.toml` com ruff e mypy (limpos); CI no ciclo 6 |
+| B4 | Baixa | Sem CI, sem configuração de lint/tipos versionada | repositório | Confirmado | **corrigido (ciclos 1 e 6)**: ruff e mypy versionados e limpos; `.github/workflows/ci.yml` com lint, tipos, testes, avaliação, build do Next e `npm audit` no nível crítico |
 
 ## Não verificado
 

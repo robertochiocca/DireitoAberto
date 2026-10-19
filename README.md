@@ -60,14 +60,17 @@ A legislação brasileira é escrita para operadores do Direito, não para o cid
 
 ## A solução
 
-O DireitoAberto ataca o problema em duas camadas:
+O DireitoAberto ataca o problema em quatro frentes — as duas primeiras desde o início do projeto, as duas últimas acrescentadas depois de uma auditoria (ver [docs/roadmap.md](docs/roadmap.md)):
 
 1. **Conteúdo curado** (frontend): 16 situações do dia a dia — consumidor, trabalho, trânsito, moradia, família, saúde, previdência e tributos — explicadas em passo a passo, com prazos, modelos de texto prontos, **fonte oficial destacada** (lei, artigo e link para o Planalto), glossário de juridiquês e canais gratuitos de ajuda (Defensoria Pública, Procon, consumidor.gov.br, ANS, INSS, Banco Central, Juizados Especiais). A home mostra o **caminho de resolução em quatro degraus** — entender o direito, tentar resolver direto, reclamar no canal oficial, levar à Justiça sem pagar — e a navegação destaca a ajuda gratuita em todas as páginas. Interface com modo escuro, animações suaves, filtros por área e histórico de pesquisas.
 2. **RAG jurídico** (backend): o usuário descreve o problema em linguagem natural ("*a empresa não quer trocar meu notebook defeituoso*") e o sistema:
    - normaliza a pergunta e a traduz do vocabulário do cidadão para o vocabulário da lei (sinônimos: "notebook" → "produto durável", "nome sujo" → "negativação");
    - busca no corpus de legislação (BM25) os artigos mais relevantes — ex.: CDC art. 18 e art. 26;
    - gera uma resposta cautelosa com LLM (via API, opcional), **citando apenas os artigos recuperados**, com as fontes oficiais do Planalto;
-   - sem chave de API, degrada para o **modo extrativo**: devolve os artigos encontrados com orientação padrão.
+   - sem chave de API, degrada para o **modo extrativo**: devolve os artigos encontrados com orientação padrão;
+   - acompanha cada resposta de um **estado de validação** e se abstém quando a base não tem o assunto.
+3. **Leitor de processos**: lê o PDF de um processo e mostra alegações, pedidos, decisões, prazos e linha do tempo, cada item com página, folha e natureza — sem modelo de linguagem e com toda citação conferida.
+4. **Monitor legislativo**: acompanha as páginas oficiais das normas da base, detecta e classifica mudanças artigo por artigo e põe os dispositivos afetados em revisão até uma pessoa decidir.
 
 ## Tecnologias
 
@@ -77,11 +80,13 @@ O DireitoAberto ataca o problema em duas camadas:
 | Recuperação | BM25 em Python puro (padrão) ou embeddings multilíngues (multilingual-e5-small/ONNX) + ChromaDB, atrás da mesma interface `Retriever` |
 | Persistência | SQLAlchemy — SQLite por padrão, PostgreSQL via `DIREITO_ABERTO_DATABASE_URL` |
 | Autenticação | PBKDF2 (stdlib) + tokens de sessão opacos (Bearer) |
-| Documentos | pypdf (upload de nota fiscal/contrato em PDF ou TXT) |
+| Documentos | pypdf: upload de nota fiscal/contrato e o leitor de processos (`app/leitor`), com verificação de citação por página |
+| Monitor | coleta do Planalto, diff por artigo e registro de versões com SHA-256 (`app/monitor`) |
+| Qualidade | estado de validação por regras (`app/validacao.py`) e avaliação reproduzível (`app/avaliacao.py`) |
 | Geração | API de LLM (pacote `anthropic`), opcional |
-| Frontend (produto) | React/Next.js 15 + TypeScript (`web/`): perguntar, base legal, histórico, ajuda gratuita e login |
+| Frontend (produto) | React/Next.js 15 + TypeScript (`web/`): perguntar, ler documento, base legal, histórico, ajuda gratuita e login |
 | Frontend (MVP) | HTML/CSS/JS estático (`frontend/`), servido pelo próprio backend |
-| Testes | pytest + TestClient (httpx) — 149 testes; Playwright (opcional) para o frontend estático |
+| Testes e CI | pytest + TestClient — 274 testes (mais os do retriever semântico, quando instalado), com Playwright para o frontend estático; ruff e mypy; GitHub Actions em Python 3.10 e 3.13 e build do Next |
 
 ## Arquitetura
 
@@ -103,8 +108,14 @@ resposta + artigos + fontes oficiais + aviso legal
 
 - `backend/data/legislacao.json` — corpus com 79 dispositivos legais (CF/88, Código Civil, LINDB, CDC e Decreto 7.962/2013, CLT, CTB, CPC, Lei do Inquilinato, Lei do Bem de Família, Lei dos Juizados Especiais, Federais e da Fazenda Pública, LC 80/1994 da Defensoria, Lei de Registros Públicos, ECA e ECA Digital, Maria da Penha, Estatuto da Pessoa Idosa e da Pessoa com Deficiência, LOAS/BPC, Lei do FGTS, Lei dos Planos de Saúde, Lei de Benefícios do INSS, CTN, Lei do Processo Administrativo, LAI, Lei 13.460/2017, LGPD, Código Florestal, Resolução ANAC 400 e 7 súmulas de STF/STJ/TST), cada um com texto, resumo em linguagem simples, tema, palavras-chave, fonte oficial e **bloco de vigência**.
 - `backend/app/retrieval.py` — índice BM25 com filtro por área temática. Os sinônimos que traduzem o vocabulário do cidadão entram na consulta com **peso 0,6**, abaixo das palavras que ele de fato escreveu: com peso cheio, um sinônimo solto trazia lei de outro assunto ("o plano negou minha cirurgia" expandia "negou" para "negativa" e puxava a Lei de Acesso à Informação). Na API, a busca é **adaptativa**: devolve de 2 a 4 artigos, cortando os que têm menos de um terço da nota do 1º colocado (ver *Comparação de motores de busca*). A interface `Retriever.buscar()` permite trocar o motor por busca semântica (embeddings) sem alterar a API.
-- `backend/app/llm.py` — camada de geração com prompt que exige linguagem cautelosa, proíbe inventar dispositivos e sempre encaminha para a Defensoria/Procon.
+- `backend/app/llm.py` — camada de geração com prompt que exige linguagem cautelosa, proíbe inventar dispositivos e sempre encaminha para a Defensoria/Procon; documento do cidadão vai delimitado como dado, e só com consentimento.
+- `backend/app/vigencia.py` — situação de vigência na data da consulta (Brasília).
+- `backend/app/validacao.py` — estado de validação de cada resposta e abstenção.
+- `backend/app/leitor/` — leitor de processos; `backend/app/monitor/` — monitor legislativo; `backend/app/avaliacao.py` — avaliação.
+- `backend/app/seguranca.py` — limitação de requisições, CORS e cabeçalhos.
 - `backend/app/main.py` — API FastAPI e serving do frontend.
+
+Documentação técnica em [docs/](docs/): [arquitetura](docs/architecture.md), [auditoria de segurança](docs/security-audit.md), [fontes jurídicas](docs/legal-data-sources.md), [leitor de processos](docs/leitor-de-processos.md), [monitor legislativo](docs/monitor-legislativo.md), [avaliação](docs/avaliacao/relatorio.md), [roadmap](docs/roadmap.md) e uma [visão geral em inglês](docs/overview.en.md).
 
 ### Navegação e caminho de resolução
 
@@ -322,11 +333,19 @@ npm run dev
 Com a variável `ANTHROPIC_API_KEY` configurada, as respostas passam a ser geradas por LLM; sem chave, o sistema responde no modo extrativo. Para desligar o LLM explicitamente: `export DIREITO_ABERTO_USAR_LLM=0`.
 
 ```bash
-# testes
-cd backend && python -m pytest
+# testes, lint e tipos (o que o CI roda)
+cd backend
+pip install -r requirements-dev.txt && python -m playwright install chromium
+ruff check app tests scripts && mypy && python -m pytest
 
-# opcional: testes do frontend estático num navegador (pulados sem Playwright)
-pip install playwright && python -m playwright install chromium
+# avaliação reproduzível (compara com docs/avaliacao/resultados.json)
+python scripts/avaliar.py --comparar
+
+# monitor legislativo
+python scripts/monitor.py verificar && python scripts/monitor.py pendentes
+
+# regerar o processo fictício do leitor
+python scripts/gerar_processo_exemplo.py
 ```
 
 Exemplo de uso da API:
@@ -359,7 +378,9 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 
 - **Não é aconselhamento jurídico.** O sistema informa a regra geral; detalhes do caso concreto mudam a resposta. Toda resposta encaminha para a Defensoria Pública (gratuita), Procon ou advogado.
 - O corpus é **curado e pequeno** (79 dispositivos legais): cobre consumidor, trabalho, trânsito, moradia, família, cível, registros públicos, criança e adolescente, saúde, previdência e assistência, tributos, proteção de dados, serviço público, ambiental e acesso à Justiça — e nada além disso.
-- A vigência é **conferida manualmente**, não monitorada em tempo real: cada dispositivo carrega a data da última conferência (`vigencia.conferida_em`) e o `GET /api/v1/vigencia` mostra o que está prestes a mudar. Uma norma alterada entre duas conferências continuaria sendo respondida com a redação antiga — por isso a data aparece junto da resposta.
+- A vigência é **conferida manualmente**: cada dispositivo carrega a data da última conferência (`vigencia.conferida_em`) e o `GET /api/v1/vigencia` mostra o que está prestes a mudar. O monitor legislativo acompanha 9 páginas oficiais e põe em revisão os dispositivos afetados por uma mudança, mas não roda sozinho (não há agendamento configurado) e não consulta o Diário Oficial.
+- O campo `texto` do corpus **mistura transcrição e explicação**: dos 46 dispositivos conferidos contra o texto oficial vigente, 8 são literais e 15 são paráfrase ou explicação (alguns fundem interpretação do STF ao texto do artigo). Separar texto oficial de explicação está no roadmap e exige revisão jurídica.
+- O leitor de processos foi medido num processo fictício escrito pelo próprio projeto; não faz OCR (páginas digitalizadas são avisadas, não lidas).
 - A busca é **lexical por padrão** (BM25 + sinônimos PT-BR); o índice semântico existe, mas é opt-in (`DIREITO_ABERTO_RETRIEVER=semantico`). Abaixo de um limiar de evidência calibrado, a API se abstém em vez de inventar — mas o limiar não pega todas as perguntas fora do escopo (8 de 13 na validação; ver *Estado de validação e avaliação*). No outro extremo, a busca ainda pode trazer artigo de outro assunto que casa uma palavra ambígua ("plano" de saúde × plano de pagamento). A busca adaptativa corta esse ruído quando ele é fraco, mas não quando pontua perto do artigo certo, e trocar o BM25 pela busca semântica também não resolve (ver *Comparação de motores de busca*).
 - Os textos legais foram consolidados manualmente a partir do Planalto e podem não refletir alterações legislativas posteriores; cada artigo traz o link para a fonte oficial. Textos marcados como "(síntese)" condensam caput e parágrafos relevantes em vez de transcrevê-los na íntegra.
 - A jurisprudência é uma **curadoria inicial de 7 súmulas** de STF, STJ e TST — não um índice de precedentes.
@@ -398,6 +419,15 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - ⬜ Valores dinâmicos (tetos dos Juizados calculados a partir do salário mínimo vigente, em vez de fixos no conteúdo)
 - ✅ Número de artigos por resposta ajustado à pergunta (2 a 4; corte em um terço da nota do 1º colocado, calibrado com os julgamentos manuais)
 - ✅ Julgamentos manuais de relevância nas 86 perguntas do gabarito (586 rótulos, julgados sem saber o motor; 11 de calibração e 75 de validação)
+- ✅ Auditoria de segurança e correções: sessões com validade e logout, limitação de requisições, CORS restrito, upload limitado, minimização de dados, XSS (ver [docs/security-audit.md](docs/security-audit.md))
+- ✅ Vigência recalculada na data da consulta, no fuso de Brasília
+- ✅ Leitor de processos com citação conferida por página, natureza de cada item e abstenção ([docs/leitor-de-processos.md](docs/leitor-de-processos.md))
+- ✅ Monitor legislativo com diff por artigo, fila de revisão humana e verificação de fidelidade do corpus ([docs/monitor-legislativo.md](docs/monitor-legislativo.md))
+- ✅ Estado de validação em cada resposta e abstenção calibrada; avaliação reproduzível com portão de regressão ([docs/avaliacao/relatorio.md](docs/avaliacao/relatorio.md))
+- ✅ CI (GitHub Actions) com lint, tipos, testes, avaliação e build do frontend
+- ⬜ Separar no corpus o texto oficial literal da explicação
+- ⬜ OCR para páginas digitalizadas no leitor
+- ⬜ Agendamento do monitor e integração com o Diário Oficial
 - ⬜ Revisão dos julgamentos de relevância por profissional do Direito
 - ⬜ Camada de revisão jurídica contínua com profissional (o fluxo `revisado: false` já existe)
 
