@@ -854,7 +854,9 @@ async function renderStats(){
       statCard(d.consultas_realizadas,"consultas realizadas","desde o último deploy"),
       ...locais
     ].join("");
-    upd.textContent="base atualizada em "+new Date(d.base_atualizada_em).toLocaleDateString("pt-BR");
+    upd.textContent=d.base_atualizada_em
+      ? "base conferida em "+dataLocal(d.base_atualizada_em).toLocaleDateString("pt-BR")
+      : "";
     nota.textContent="Números da base de RAG vindos da API ("+d.temas.length+" áreas temáticas: "+d.temas.join(", ")+").";
   }catch{
     grid.innerHTML=locais.join("");
@@ -890,6 +892,14 @@ const buscaDebounced=(()=>{
 const CHIPS=["Produto com defeito","Pensão alimentícia","Golpe do PIX","Voo cancelado","INSS negou","Fui demitido"];
 document.getElementById("chips").innerHTML=CHIPS.map(c=>`<button class="chip" onclick="search('${c.toLowerCase()}')">${c}</button>`).join("");
 
+/* Escapa texto para HTML, inclusive dentro de atributos (aspas). Todo dado que
+   vem do usuário ou da API passa por aqui antes de ir para innerHTML. */
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+/* Só links http(s) viram href: um "javascript:" vindo de dado externo executaria. */
+const urlSegura=u=>/^https?:\/\//i.test(String(u||""))?esc(u):"#";
+/* "2026-10-18" sem hora é lido como meia-noite UTC, que no Brasil ainda é o dia anterior. */
+const dataLocal=iso=>new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso)?iso+"T00:00:00":iso);
+
 function historico(){ try{return JSON.parse(localStorage.getItem("da-hist")||"[]")}catch{return []} }
 function salvarHistorico(q){
   const h=[q, ...historico().filter(x=>x!==q)].slice(0,6);
@@ -901,10 +911,17 @@ function renderHistorico(){
   const h=historico();
   document.getElementById("hist").innerHTML = h.length
     ? `<span class="hist-label">RECENTES</span>`+
-      h.map(q=>`<button class="chip hist" onclick="reperguntar(${JSON.stringify(q).replace(/"/g,"&quot;")})">${q}</button>`).join("")+
+      h.map((q,i)=>`<button class="chip hist" data-hist="${i}">${esc(q)}</button>`).join("")+
       `<button class="chip hist" onclick="limparHistorico()" title="Limpar histórico">✕ limpar</button>`
     : "";
 }
+/* Clique num item do histórico: o texto vem do array, nunca de um atributo. */
+document.getElementById("hist").addEventListener("click",e=>{
+  const b=e.target.closest("[data-hist]");
+  if(!b) return;
+  const q=historico()[Number(b.dataset.hist)];
+  if(q) reperguntar(q);
+});
 function reperguntar(q){
   document.getElementById("q").value=q;
   search(q);
@@ -916,10 +933,11 @@ function reperguntar(q){
    Enter na busca pergunta à base jurídica; sem backend
    (arquivo aberto localmente), a busca local continua valendo.
    ============================================================ */
-const esc=s=>{const d=document.createElement("div");d.textContent=s;return d.innerHTML};
 
 /* Badge de vigência: só aparece quando o dispositivo NÃO está valendo hoje. */
 function rotuloVigencia(v){
+  if(v && v.status==="vigente" && v.status_registrado==="em_vacatio")
+    return ` <span class="vig vig-vacatio">em vigor desde ${esc(dataLocal(v.vigente_desde).toLocaleDateString("pt-BR"))}</span>`;
   if(!v || v.status==="vigente") return "";
   if(v.status==="revogada") return ` <span class="vig vig-revogada">⚠ revogado</span>`;
   if(v.status==="inconstitucional")
@@ -953,7 +971,8 @@ async function perguntarAPI(pergunta){
         <div class="art">§ ${esc(a.lei)} · ${esc(a.artigo)}${rotuloVigencia(a.vigencia)}</div>
         <div class="txt">${esc(a.resumo)}</div>
         ${a.vigencia&&a.vigencia.nota?`<div class="vig-nota">${esc(a.vigencia.nota)}</div>`:""}
-        <a href="${esc(a.fonte)}" target="_blank" rel="noopener">fonte oficial ↗</a>
+        ${a.revisao&&a.revisao.estado==="pendente"?`<div class="vig-nota">⚠ Em revisão: ${esc(a.revisao.motivo)}</div>`:""}
+        <a href="${urlSegura(a.fonte)}" target="_blank" rel="noopener noreferrer">fonte oficial ↗</a>
       </div>`).join("");
     panel.innerHTML=`
       <div class="ai-k">⚖ Resposta da base jurídica ${d.gerado_por_llm?"· gerada por IA":"· modo extrativo"}</div>

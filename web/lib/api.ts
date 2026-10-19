@@ -6,6 +6,17 @@ export type Vigencia = {
   alterada_por: string[];
   nota: string | null;
   conferida_em: string | null;
+  /** Presente quando a data de início chegou mas o registro na base ainda não foi revisado. */
+  status_registrado?: string | null;
+  vigente_desde?: string | null;
+};
+
+/** Pendência de revisão: a informação sobre o dispositivo está sendo conferida. */
+export type Revisao = {
+  estado: "pendente";
+  motivo: string;
+  evidencia: string[];
+  aberta_em: string | null;
 };
 
 export type Artigo = {
@@ -20,6 +31,7 @@ export type Artigo = {
   tipo?: string;
   tribunal?: string | null;
   vigencia?: Vigencia;
+  revisao?: Revisao | null;
 };
 
 export type ItemFilaVigencia = {
@@ -56,7 +68,8 @@ export type Estatisticas = {
   jurisprudencias_indexadas: number;
   temas: string[];
   consultas_realizadas: number;
-  base_atualizada_em: string;
+  base_atualizada_em: string | null;
+  dispositivos_em_revisao: number;
 };
 
 export class ApiError extends Error {
@@ -86,7 +99,17 @@ export function salvarSessao(token: string, email: string) {
   window.dispatchEvent(new Event("da-auth"));
 }
 
-export function encerrarSessao() {
+/** Revoga o token no servidor e apaga a sessão local (mesmo se a API não responder). */
+export async function encerrarSessao() {
+  const token = getToken();
+  if (token) {
+    await fetch("/api/v1/auth/sair", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+    }).catch(() => {
+      /* sem rede: o token expira sozinho no servidor */
+    });
+  }
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(EMAIL_KEY);
   window.dispatchEvent(new Event("da-auth"));
@@ -109,7 +132,7 @@ async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
     }
     throw new ApiError(resp.status, detail);
   }
-  return resp.json();
+  return resp.status === 204 ? (undefined as T) : resp.json();
 }
 
 export const perguntar = (pergunta: string, tema?: string | null) =>
@@ -131,6 +154,8 @@ export const registrar = (email: string, senha: string) =>
   });
 
 export const historico = () => api<ConsultaHistorico[]>("/historico");
+
+export const apagarHistorico = () => api<void>("/historico", { method: "DELETE" });
 
 export const listarArtigos = (filtros: {
   tema?: string;
@@ -157,6 +182,10 @@ export const filaDeVigencia = (dias = 180) =>
 
 /** Rótulo curto da situação do dispositivo, para exibir ao lado do artigo. */
 export function rotuloVigencia(v?: Vigencia): { texto: string; tom: string } | null {
+  if (v?.status === "vigente" && v.status_registrado === "em_vacatio" && v.vigente_desde) {
+    const desde = new Date(`${v.vigente_desde}T00:00:00`).toLocaleDateString("pt-BR");
+    return { texto: `em vigor desde ${desde}`, tom: "vacatio" };
+  }
   if (!v || v.status === "vigente") return null;
   if (v.status === "revogada") return { texto: "revogado", tom: "revogada" };
   if (v.status === "inconstitucional")

@@ -50,7 +50,7 @@ class Usuario(Base):
     senha_hash: Mapped[str] = mapped_column(String(255))
     criado_em: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=agora)
 
-    consultas: Mapped[list["Consulta"]] = relationship(back_populates="usuario")
+    consultas: Mapped[list[Consulta]] = relationship(back_populates="usuario")
 
 
 class TokenSessao(Base):

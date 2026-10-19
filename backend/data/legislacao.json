@@ -829,13 +829,13 @@
         "chat",
         "ouvidoria"
       ],
-      "fonte": "https://www.gov.br/mj/pt-br/assuntos/noticias-1/novo-decreto-do-sac-amplia-protecao-ao-consumidor-e-estabelece-regras-de-atendimento",
+      "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/decreto/d13135.htm",
       "vigencia": {
         "status": "em_vacatio",
         "entra_em_vigor_em": "2026-11-02",
         "alterada_por": [],
         "nota": "Publicado em 13/10/2026, entra em vigor 20 dias depois. Até lá vale o Decreto 11.034/2022.",
-        "conferida_em": "2026-10-16"
+        "conferida_em": "2026-10-19"
       }
     },
     {
@@ -2116,10 +2116,10 @@
     {
       "id": "cf-7-xiii",
       "lei": "Constituição Federal de 1988 (redação da EC nº 141/2026)",
-      "artigo": "Art. 7º, XIII",
+      "artigo": "Art. 7º, XIII e XV",
       "tema": "trabalho",
-      "texto": "São direitos dos trabalhadores urbanos e rurais: XIII — duração do trabalho normal não superior a quarenta e duas horas semanais, com dois dias de descanso semanal, facultada a compensação de horários e a redução de jornada mediante acordo ou convenção coletiva de trabalho. A Emenda Constitucional nº 141/2026 fixa transição em duas etapas: o limite de 42 horas semanais com dois dias de descanso passa a valer 60 dias após a publicação da emenda, e o limite de 40 horas semanais, após quatorze meses. Até lá, continua aplicável o limite anterior de 44 horas semanais e 8 horas diárias.",
-      "resumo": "Fim da escala 6x1: a jornada máxima cai para 42 horas semanais com dois dias de descanso (60 dias após a emenda) e depois para 40 horas (em 14 meses). Até a primeira data, vale o limite antigo de 44 horas.",
+      "texto": "São direitos dos trabalhadores urbanos e rurais, além de outros que visem à melhoria de sua condição social: XIII - duração do trabalho normal não superior a 8 (oito) horas diárias e 40 (quarenta) horas semanais, facultada a compensação de horários e a redução da jornada, mediante acordo ou convenção coletiva de trabalho; XV - repouso semanal remunerado de 2 (dois) dias, um dos quais preferencialmente aos domingos. [Redação da EC nº 141/2026.] EC nº 141/2026, art. 6º: A redução da duração do trabalho normal para 40 (quarenta) horas semanais será implementada de forma progressiva, observado o seguinte: I - 2 (dois) meses após a publicação desta Emenda Constitucional, a duração do trabalho normal não excederá a 42 (quarenta e duas) horas semanais; II - 1 (um) ano após o decurso do prazo de que trata o inciso I deste artigo, a duração do trabalho normal não excederá a 40 (quarenta) horas semanais. Art. 10: Esta Emenda Constitucional entra em vigor: I - após decorridos 2 (dois) meses de sua publicação, em relação à alteração promovida pelo art. 1º desta Emenda Constitucional no inciso XV do caput do art. 7º da Constituição Federal; II - na data de sua publicação, em relação aos demais dispositivos.",
+      "resumo": "Fim da escala 6x1: a EC 141/2026 (publicada em 16/10/2026) reduz a jornada de forma progressiva — no máximo 42 horas semanais 2 meses após a publicação e 40 horas um ano depois disso — e passa o descanso semanal remunerado para 2 dias, também após 2 meses. A redução não pode diminuir o salário. Até a primeira etapa, vale o limite anterior de 44 horas.",
       "palavras_chave": [
         "jornada",
         "horas",
@@ -2141,12 +2141,21 @@
       "fonte": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm",
       "vigencia": {
         "status": "em_vacatio",
-        "entra_em_vigor_em": "2026-12-15",
+        "entra_em_vigor_em": "2026-12-16",
         "alterada_por": [
           "EC 141/2026"
         ],
-        "nota": "Promulgada em 16/10/2026. A regra de 42 horas vale 60 dias após a publicação (por volta de 15/12/2026) e a de 40 horas, 14 meses depois. Confira a data exata da publicação no Diário Oficial antes de usar.",
-        "conferida_em": "2026-10-16"
+        "nota": "EC 141/2026 publicada no DOU de 16/10/2026 (edição extra). Art. 6º, I: 42 horas semanais '2 (dois) meses após a publicação'; art. 6º, II: 40 horas '1 (um) ano após' essa etapa. Art. 10: o inciso XV (dois dias de repouso) vale 'após decorridos 2 (dois) meses' da publicação; os demais dispositivos, na data da publicação. A emenda também proíbe reduzir o salário (art. 2º).",
+        "conferida_em": "2026-10-19"
+      },
+      "revisao": {
+        "estado": "pendente",
+        "motivo": "a base registrava '60 dias após a publicação' (15/12/2026), mas a EC 141/2026 fala em '2 (dois) meses' (arts. 6º, I, e 10, I). A data passou a 16/12/2026 pela contagem de meses do art. 132, § 3º, do Código Civil e precisa de confirmação jurídica, assim como o efeito do art. 10, II (demais dispositivos em vigor na publicação) sobre o rótulo de vigência do inciso XIII.",
+        "evidencia": [
+          "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc141.htm",
+          "EC nº 141/2026, arts. 1º, 2º, 6º e 10 — DOU de 16/10/2026, edição extra"
+        ],
+        "aberta_em": "2026-10-19"
       }
     },
     {

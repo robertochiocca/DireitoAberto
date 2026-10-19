@@ -123,16 +123,20 @@ A API é versionada em **`/api/v1`** (os caminhos `/api/...` são aliases de com
 | Endpoint | Descrição |
 |---|---|
 | `POST /api/v1/perguntar` | Pergunta em linguagem natural (filtro opcional `tema`) → resposta + artigos + fontes |
-| `POST /api/v1/perguntar-documento` | Multipart: pergunta + arquivo `.pdf`/`.txt` (nota fiscal, contrato) usado como contexto da busca |
+| `POST /api/v1/perguntar-documento` | Multipart: pergunta + arquivo `.pdf`/`.txt` (nota fiscal, contrato) usado como contexto da busca. O texto do documento só vai ao provedor de IA com `permitir_ia_externa=true` |
 | `GET /api/v1/artigos` | Lista o corpus; filtros `?tema=familia`, `?tribunal=STJ`, `?status=em_vacatio` e `?busca=8.078` |
 | `GET /api/v1/vigencia` | Fila de monitoramento: normas já publicadas que ainda vão entrar em vigor, com dias restantes |
 | `GET /api/v1/estatisticas` | Leis, artigos e jurisprudências indexados, temas, consultas realizadas (persistente), dispositivos por situação e data da última conferência de vigência |
 | `POST /api/v1/auth/registrar` | Cria conta (e-mail + senha) e devolve token Bearer |
-| `POST /api/v1/auth/entrar` | Login → token Bearer |
+| `POST /api/v1/auth/entrar` | Login → token Bearer (vale 30 dias) |
+| `POST /api/v1/auth/sair` | Revoga o token usado na requisição |
 | `GET /api/v1/historico` | Consultas do usuário autenticado (as perguntas feitas com token ficam registradas) |
+| `DELETE /api/v1/historico` | Apaga o histórico do usuário |
+| `POST /api/v1/conta/excluir` | Apaga conta, histórico e sessões (pede a senha) |
 | `GET /api/v1/saude` | Health check |
 
-- **Autenticação é opcional**: sem token, tudo funciona anonimamente; com `Authorization: Bearer <token>`, as consultas entram no histórico do usuário.
+- **Autenticação é opcional**: sem token, tudo funciona anonimamente; com `Authorization: Bearer <token>`, as consultas entram no histórico do usuário. Da consulta anônima, a API guarda só a contagem e os artigos devolvidos — o texto da pergunta não.
+- **Limites e segurança** (ver [docs/security-audit.md](docs/security-audit.md)): limitação de requisições por endereço e por conta (429 com `Retry-After`), CORS restrito a `DIREITO_ABERTO_CORS_ORIGENS`, upload lido em blocos com limite de tamanho e de páginas.
 - **Retriever semântico**: `pip install chromadb` e `DIREITO_ABERTO_RETRIEVER=semantico`. Usa o **multilingual-e5-small** (ONNX, ~130 MB baixados do Hugging Face na 1ª execução, sem PyTorch), com prefixos assimétricos `query:`/`passage:` e vetores L2-normalizados. Cada texto é vetorizado numa chamada própria: o modelo quantizado calcula a escala das ativações sobre a chamada inteira, e em lote o vetor de um documento dependia dos vizinhos — editar um verbete mudava a posição de outros na busca. No benchmark interno de 21 casos: **e5 19/21 no top-1** vs BM25 18/21 vs MiniLM padrão do Chroma 13/21 — e o e5 acerta parafrases sem nenhuma palavra do corpus ("a companhia aérea me deixou na mão" → Resolução ANAC 400). `DIREITO_ABERTO_EMBEDDING=padrao` força o embedding nativo do Chroma; sem dependências ou sem rede, o fallback é o BM25.
 - **Banco**: SQLite em `backend/data/direitoaberto.db` por padrão; para PostgreSQL, `DIREITO_ABERTO_DATABASE_URL=postgresql+psycopg://usuario:senha@host/db`.
 
@@ -152,14 +156,16 @@ O maior risco de um RAG jurídico não é não achar o artigo — é achar o art
 ```json
 "vigencia": {
   "status": "em_vacatio",            // vigente · em_vacatio · revogada · inconstitucional
-  "entra_em_vigor_em": "2026-12-15",
+  "entra_em_vigor_em": "2026-12-16",
   "alterada_por": ["EC 141/2026"],
-  "nota": "Promulgada em 16/10/2026. A regra de 42 horas vale 60 dias após a publicação…",
-  "conferida_em": "2026-10-16"
+  "nota": "EC 141/2026 publicada no DOU de 16/10/2026 (edição extra). Art. 6º, I: 42 horas semanais '2 (dois) meses após a publicação'…",
+  "conferida_em": "2026-10-19"
 }
 ```
 
-A informação atravessa o sistema inteiro: entra no contexto do LLM (com regra explícita no prompt de nunca apresentar norma futura como vigente), aparece no modo extrativo, vira badge na resposta e na base legal, e alimenta o endpoint `/api/v1/vigencia`. Hoje a base tem duas normas publicadas e ainda sem efeito — a **EC 141/2026** (fim da escala 6x1: 42h em 15/12/2026, 40h em 14 meses) e o **Decreto 13.135/2026** (novo SAC, a partir de 02/11/2026) —, um dispositivo **revogado** mantido como marcador histórico (CTB art. 262, apreensão do veículo por 30 dias, extinta em 2016) e um **declarado inconstitucional** (CC art. 1.790, sucessão do companheiro, STF Tema 809).
+O status gravado é recalculado a cada consulta, na data de Brasília (`app/vigencia.py`): quando chega a data de início que a própria norma fixou, a API passa a apresentá-la como **em vigor desde** aquela data e marca `status_registrado: "em_vacatio"`, para a fila de revisão. Data passada nunca revoga nada — revogação e inconstitucionalidade continuam dependendo de revisão humana. Entradas com dúvida documentada levam um bloco `revisao` (motivo e evidência) e a resposta avisa que a informação está sendo conferida.
+
+A informação atravessa o sistema inteiro: entra no contexto do LLM (com regra explícita no prompt de nunca apresentar norma futura como vigente), aparece no modo extrativo, vira badge na resposta e na base legal, e alimenta o endpoint `/api/v1/vigencia`. Hoje a base tem duas normas publicadas e ainda sem efeito — a **EC 141/2026** (fim da escala 6x1: 42h dois meses após a publicação, 40h um ano depois; entrada em revisão, ver [docs/legal-data-sources.md](docs/legal-data-sources.md)) e o **Decreto 13.135/2026** (novo SAC, a partir de 02/11/2026) —, um dispositivo **revogado** mantido como marcador histórico (CTB art. 262, apreensão do veículo por 30 dias, extinta em 2016) e um **declarado inconstitucional** (CC art. 1.790, sucessão do companheiro, STF Tema 809).
 
 Os quatro status não são redundantes entre si, e é por isso que `revogada` não dá conta do caso: um artigo inconstitucional continua impresso no Código, nunca foi revogado pelo Legislativo e ainda assim não deve ser aplicado. Quem lê o código em papel não tem como saber.
 

@@ -65,9 +65,9 @@ export default function Nav() {
     setTema(novo);
   }
 
-  function sair() {
+  async function sair() {
     setAberto(false);
-    encerrarSessao();
+    await encerrarSessao();
     router.push("/");
   }
 
