@@ -1,4 +1,4 @@
-"""Persistência (SQLAlchemy): usuários, tokens de sessão e histórico de consultas.
+"""Persistência (SQLAlchemy): usuários, sessões, histórico e documentos do leitor.
 
 Por padrão usa SQLite em `backend/data/direitoaberto.db` — zero configuração.
 Para PostgreSQL, basta apontar a variável de ambiente:
@@ -50,7 +50,7 @@ class Usuario(Base):
     senha_hash: Mapped[str] = mapped_column(String(255))
     criado_em: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=agora)
 
-    consultas: Mapped[list["Consulta"]] = relationship(back_populates="usuario")
+    consultas: Mapped[list[Consulta]] = relationship(back_populates="usuario")
 
 
 class TokenSessao(Base):
@@ -77,6 +77,27 @@ class Consulta(Base):
     criado_em: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=agora)
 
     usuario: Mapped[Usuario | None] = relationship(back_populates="consultas")
+
+
+class DocumentoProcesso(Base):
+    """Documento enviado ao leitor de processos.
+
+    Guarda só o texto extraído por página e a análise — nunca o arquivo
+    original (o navegador do usuário já o tem para exibir). Sempre ligado a
+    um dono, e apagado em `expira_em` ou quando o dono pede.
+    """
+
+    __tablename__ = "documentos_processo"
+
+    id: Mapped[str] = mapped_column(String(32), primary_key=True)  # aleatório, não sequencial
+    usuario_id: Mapped[int] = mapped_column(ForeignKey("usuarios.id"), index=True)
+    nome: Mapped[str] = mapped_column(String(255))
+    hash_sha256: Mapped[str] = mapped_column(String(64))
+    total_paginas: Mapped[int] = mapped_column()
+    paginas_json: Mapped[str] = mapped_column(Text)
+    analise_json: Mapped[str] = mapped_column(Text)
+    criado_em: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=agora)
+    expira_em: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
 
 
 def init_db() -> None:

@@ -2,12 +2,22 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ApiError, getToken, historico, type ConsultaHistorico } from "@/lib/api";
+import { ApiError, apagarHistorico, getToken, historico, type ConsultaHistorico } from "@/lib/api";
 
 export default function HistoricoPage() {
   const [consultas, setConsultas] = useState<ConsultaHistorico[] | null>(null);
   const [erro, setErro] = useState<string | null>(null);
   const [semSessao, setSemSessao] = useState(false);
+
+  async function apagarTudo() {
+    if (!window.confirm("Apagar todas as suas consultas? Não dá para desfazer.")) return;
+    try {
+      await apagarHistorico();
+      setConsultas([]);
+    } catch (e) {
+      setErro(e instanceof ApiError ? e.message : "A API não respondeu.");
+    }
+  }
 
   useEffect(() => {
     if (!getToken()) {
@@ -43,6 +53,15 @@ export default function HistoricoPage() {
         <h2>Suas consultas</h2>
         <span className="lbl">{consultas ? `${consultas.length} registro(s)` : "carregando…"}</span>
       </div>
+
+      {consultas && consultas.length > 0 && (
+        <p className="empty" style={{ marginBottom: 16 }}>
+          Só as consultas feitas com a sua conta ficam guardadas.{" "}
+          <button className="chip" onClick={() => void apagarTudo()}>
+            Apagar meu histórico
+          </button>
+        </p>
+      )}
 
       {erro && <div className="erro">{erro}</div>}
 

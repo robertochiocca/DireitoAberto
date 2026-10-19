@@ -86,7 +86,7 @@ class EmbeddingRetriever:
             where={"tema": tema} if tema else None,
         )
         resultados = []
-        for id_, dist in zip(res["ids"][0], res["distances"][0]):
+        for id_, dist in zip(res["ids"][0], res["distances"][0], strict=True):
             score = 1.0 - dist  # similaridade de cosseno
             if score < score_minimo:
                 continue

@@ -4,9 +4,9 @@ Não dependem do retriever semântico: usam o BM25 e, onde a mecânica pede dois
 motores, um segundo motor de mentira.
 """
 
-import pytest
-
 from collections import defaultdict
+
+import pytest
 
 from app.comparacao import (
     CONJUNTOS,

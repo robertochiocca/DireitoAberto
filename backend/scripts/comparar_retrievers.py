@@ -20,7 +20,11 @@ from pathlib import Path
 warnings.filterwarnings("ignore")
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from app.comparacao import (  # noqa: E402
-    TOP_K_PADRAO, carregar_conjuntos, carregar_julgamentos, comparar, perguntas_com_gabarito,
+    TOP_K_PADRAO,
+    carregar_conjuntos,
+    carregar_julgamentos,
+    comparar,
+    perguntas_com_gabarito,
 )
 from app.retrieval import Retriever  # noqa: E402
 
@@ -76,7 +80,8 @@ def main() -> None:
     melhor_top3 = max(m.esperado_top3 for m in medicoes)
     menor_ruido = min(val(m).get("ruido", 0) for m in medicoes)
     for m in medicoes:
-        v = val(m); vagas = sum(v.values())
+        v = val(m)
+        vagas = sum(v.values())
         cor3 = VERDE if m.esperado_top3 == melhor_top3 else VERMELHO
         corr = VERDE if v.get("ruido", 0) == menor_ruido else AMARELO
         ms = f"{m.ms_por_pergunta:.1f}" if m.ms_por_pergunta is not None else "—"
@@ -93,7 +98,8 @@ def main() -> None:
     for m in medicoes:
         cel = []
         for c in ("calibracao", "validacao"):
-            cont = m.julgados_por_conjunto.get(c, {}); vagas = sum(cont.values())
+            cont = m.julgados_por_conjunto.get(c, {})
+            vagas = sum(cont.values())
             pct = 100 * cont.get("ruido", 0) / vagas if vagas else 0
             cel.append(f"{cont.get('ruido', 0):>4}/{vagas:<4} {pct:>3.0f}%")
         print(f"  {m.motor:<17}{cel[0]:>18}{cel[1]:>20}")

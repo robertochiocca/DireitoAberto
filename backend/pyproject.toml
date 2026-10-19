@@ -1,0 +1,25 @@
+# Configuração das ferramentas de qualidade do backend (o projeto não é
+# empacotado: as dependências ficam em requirements.txt).
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "UP", "I"]
+ignore = [
+  "B008",  # Depends()/Query()/File() em argumento padrão é o idioma do FastAPI
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E402"]  # importorskip e variáveis de ambiente antes dos imports
+"scripts/*" = ["E402"]  # sys.path ajustado antes de importar app.*
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+plugins = ["pydantic.mypy"]
+files = ["app"]
