@@ -16,3 +16,7 @@ psycopg[binary]>=3
 
 # desenvolvimento / testes
 pytest>=8
+
+# opcional: testes do frontend estático num navegador (tests/test_frontend_estatico.py);
+# depois de instalar, baixe o navegador com `python -m playwright install chromium`
+# playwright>=1.48

@@ -69,7 +69,7 @@ O DireitoAberto ataca o problema em duas camadas:
 | Geração | API de LLM (pacote `anthropic`), opcional |
 | Frontend (produto) | React/Next.js 15 + TypeScript (`web/`): perguntar, base legal, histórico, ajuda gratuita e login |
 | Frontend (MVP) | HTML/CSS/JS estático (`frontend/`), servido pelo próprio backend |
-| Testes | pytest + TestClient (httpx) — 146 testes |
+| Testes | pytest + TestClient (httpx) — 149 testes; Playwright (opcional) para o frontend estático |
 
 ## Arquitetura
 
@@ -112,7 +112,7 @@ Os dois frontends seguem o mesmo desenho, pensado para que a saída do problema 
 
 No frontend estático a busca mora no cabeçalho, fora das views: trocar de view não a esconde nem tira o foco do campo. A filtragem por tecla tem *debounce* de 200 ms, e Enter pergunta à base jurídica.
 
-Nas páginas de problema do estático, o passo a passo é uma lista numerada em que cada passo mistura texto e trechos em negrito. O texto vai num `<span>` ao lado do número: solto dentro do `<li>`, que usa `display:flex`, cada trecho e cada `<b>` virava um item do flex, e o passo saía quebrado em colunas ("Ligue para o banco AGORA │ (canal oficial) e peça o acionamento do │ MED │ …"). O defeito vinha da primeira versão do site; a correção foi conferida nos 68 passos das 16 páginas, a 1360, 768 e 390 px de largura. No Next.js, o equivalente é a faixa dos quatro degraus, que não tem esse problema.
+Nas páginas de problema do estático, o passo a passo é uma lista numerada em que cada passo mistura texto e trechos em negrito. O texto vai num `<span>` ao lado do número: solto dentro do `<li>`, que usa `display:flex`, cada trecho e cada `<b>` virava um item do flex, e o passo saía quebrado em colunas ("Ligue para o banco AGORA │ (canal oficial) e peça o acionamento do │ MED │ …"). O defeito vinha da primeira versão do site. Um teste de regressão (`backend/tests/test_frontend_estatico.py`) abre a página num Chromium headless, a 1360, 768 e 390 px, e mede o texto renderizado dos 68 passos das 16 páginas: na mesma linha, cada trecho tem de começar onde o anterior termina. Com o defeito, o vão entre as colunas era de 14 px ou mais; corrigido, é zero. No Next.js, o equivalente é a faixa dos quatro degraus, que não tem esse problema.
 
 No Next.js, a navegação está em `web/components/Nav.tsx`, a faixa em `web/components/Degraus.tsx` (usada pela home e pela `/ajuda`, com os links adaptados a cada página) e os canais e degraus em `web/lib/ajuda.ts`. Esse arquivo espelha o `HELP` de `frontend/dados.js` e a faixa da home do estático — **ao revisar o texto de um, revise o outro**.
 
@@ -282,6 +282,9 @@ Com a variável `ANTHROPIC_API_KEY` configurada, as respostas passam a ser gerad
 ```bash
 # testes
 cd backend && python -m pytest
+
+# opcional: testes do frontend estático num navegador (pulados sem Playwright)
+pip install playwright && python -m playwright install chromium
 ```
 
 Exemplo de uso da API:
