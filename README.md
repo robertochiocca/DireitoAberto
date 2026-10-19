@@ -6,15 +6,15 @@
 
 ## Como funciona
 
-O cidadão descreve o problema em linguagem comum e recebe a regra aplicável, os artigos de lei com fonte oficial e o caminho prático — como no caso abaixo, respondido com o art. 18 do CDC:
+O cidadão descreve o problema em linguagem comum e recebe a regra aplicável, os artigos de lei com fonte oficial e o caminho prático — como no caso abaixo, respondido com o art. 18 do CDC e seguido dos quatro degraus para resolver o problema:
 
-![Resposta do RAG citando o CDC art. 18, com fonte oficial](docs/screenshots/2-resposta-rag.png)
+![Resposta do RAG citando o CDC art. 18, com fonte oficial, seguida da faixa dos quatro degraus](docs/screenshots/2-resposta-rag.png)
 
 **Next.js (`web/`)**, com conta e histórico:
 
-| Home | Modo escuro |
+| Home: do problema à solução, em quatro degraus | Modo escuro |
 |---|---|
-| ![Página inicial](docs/screenshots/1-home.png) | ![Home no modo escuro](docs/screenshots/6-modo-escuro.png) |
+| ![Página inicial com a faixa dos quatro degraus e o aviso de emergência](docs/screenshots/1-home.png) | ![Home no modo escuro, com a resposta sobre voo cancelado](docs/screenshots/6-modo-escuro.png) |
 
 | Login | Histórico do usuário | Base legal (filtro STJ) |
 |---|---|---|
