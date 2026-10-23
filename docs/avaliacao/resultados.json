@@ -1,7 +1,7 @@
 {
-  "gerado_em": "2026-10-19T22:16:05+00:00",
-  "commit": "ccbb302",
-  "corpus_sha256": "4940100685a4e361",
+  "gerado_em": "2026-10-23T17:08:52+00:00",
+  "commit": "96e6251",
+  "corpus_sha256": "aeea075bb14e68e1",
   "busca": {
     "geral": {
       "perguntas": 86,
@@ -12,9 +12,9 @@
       "ndcg@4": 0.8856,
       "precisao_relevante@4": 0.3246,
       "precisao_util@4": 0.5659,
-      "precisao_relevante_api": 0.4651,
-      "precisao_util_api": 0.6977,
-      "artigos_por_resposta_api": 2.8837
+      "precisao_relevante_api": 0.5756,
+      "precisao_util_api": 0.7791,
+      "artigos_por_resposta_api": 2.593
     },
     "calibracao": {
       "perguntas": 11,
@@ -25,9 +25,9 @@
       "ndcg@4": 0.8568,
       "precisao_relevante@4": 0.3182,
       "precisao_util@4": 0.6364,
-      "precisao_relevante_api": 0.5227,
-      "precisao_util_api": 0.7955,
-      "artigos_por_resposta_api": 2.9091
+      "precisao_relevante_api": 0.6136,
+      "precisao_util_api": 0.8409,
+      "artigos_por_resposta_api": 2.6364
     },
     "validacao": {
       "perguntas": 75,
@@ -38,9 +38,9 @@
       "ndcg@4": 0.8898,
       "precisao_relevante@4": 0.3256,
       "precisao_util@4": 0.5556,
-      "precisao_relevante_api": 0.4567,
-      "precisao_util_api": 0.6833,
-      "artigos_por_resposta_api": 2.88
+      "precisao_relevante_api": 0.57,
+      "precisao_util_api": 0.77,
+      "artigos_por_resposta_api": 2.5867
     },
     "por_tema": {
       "acesso-justica": {
@@ -223,12 +223,12 @@
       "obrigacoes_e_determinacoes": {
         "esperados": 6,
         "encontrados": 6,
-        "extraidos": 8
+        "extraidos": 9
       },
       "prazos": {
         "esperados": 5,
         "encontrados": 5,
-        "extraidos": 5
+        "extraidos": 6
       },
       "linha_do_tempo": {
         "esperados": 10,
@@ -237,8 +237,8 @@
       }
     },
     "citacoes": {
-      "total": 79,
-      "verificadas": 79
+      "total": 100,
+      "verificadas": 100
     },
     "afirmacoes_proibidas": 0,
     "perguntas": {
@@ -246,19 +246,357 @@
       "comportamento_esperado": 13
     }
   },
+  "leitor_adversarial": {
+    "documentos": {
+      "acordao-antes-da-sentenca": {
+        "verificacoes": 5,
+        "aprovadas": 5,
+        "falhas": [],
+        "erro": null
+      },
+      "acordao-estilo-tjsp": {
+        "verificacoes": 4,
+        "aprovadas": 4,
+        "falhas": [],
+        "erro": null
+      },
+      "acordao-reforma-sentenca": {
+        "verificacoes": 10,
+        "aprovadas": 10,
+        "falhas": [],
+        "erro": null
+      },
+      "agravo-de-instrumento-e-sentenca": {
+        "verificacoes": 5,
+        "aprovadas": 5,
+        "falhas": [],
+        "erro": null
+      },
+      "apelacao-numero-na-linha-seguinte": {
+        "verificacoes": 6,
+        "aprovadas": 6,
+        "falhas": [],
+        "erro": null
+      },
+      "assinaturas-variadas": {
+        "verificacoes": 7,
+        "aprovadas": 7,
+        "falhas": [],
+        "erro": null
+      },
+      "cabecalho-do-juizo-na-sentenca": {
+        "verificacoes": 6,
+        "aprovadas": 6,
+        "falhas": [],
+        "erro": null
+      },
+      "certidao-de-outro-processo": {
+        "verificacoes": 6,
+        "aprovadas": 6,
+        "falhas": [],
+        "erro": null
+      },
+      "contradicoes": {
+        "verificacoes": 8,
+        "aprovadas": 8,
+        "falhas": [],
+        "erro": null
+      },
+      "cumprimento-apos-transito": {
+        "verificacoes": 8,
+        "aprovadas": 8,
+        "falhas": [],
+        "erro": null
+      },
+      "documento-longo": {
+        "verificacoes": 8,
+        "aprovadas": 8,
+        "falhas": [],
+        "erro": null
+      },
+      "embargos-acolhidos-efeitos-infringentes": {
+        "verificacoes": 6,
+        "aprovadas": 6,
+        "falhas": [],
+        "erro": null
+      },
+      "embargos-acolhidos-sem-resultado-claro": {
+        "verificacoes": 5,
+        "aprovadas": 5,
+        "falhas": [],
+        "erro": null
+      },
+      "embargos-de-declaracao": {
+        "verificacoes": 4,
+        "aprovadas": 4,
+        "falhas": [],
+        "erro": null
+      },
+      "extracao-ilegivel": {
+        "verificacoes": 6,
+        "aprovadas": 6,
+        "falhas": [],
+        "erro": null
+      },
+      "injecao-estrutural": {
+        "verificacoes": 7,
+        "aprovadas": 7,
+        "falhas": [],
+        "erro": null
+      },
+      "injecao-quebra-de-pagina": {
+        "verificacoes": 9,
+        "aprovadas": 9,
+        "falhas": [],
+        "erro": null
+      },
+      "numero-so-no-cabecalho": {
+        "verificacoes": 5,
+        "aprovadas": 5,
+        "falhas": [],
+        "erro": null
+      },
+      "pagina-digitalizada-com-carimbo": {
+        "verificacoes": 9,
+        "aprovadas": 9,
+        "falhas": [],
+        "erro": null
+      },
+      "prazos": {
+        "verificacoes": 8,
+        "aprovadas": 8,
+        "falhas": [],
+        "erro": null
+      },
+      "procedencia-em-parte": {
+        "verificacoes": 3,
+        "aprovadas": 3,
+        "falhas": [],
+        "erro": null
+      },
+      "procedencia-mista": {
+        "verificacoes": 3,
+        "aprovadas": 3,
+        "falhas": [],
+        "erro": null
+      },
+      "relatorio-breve-relato": {
+        "verificacoes": 4,
+        "aprovadas": 4,
+        "falhas": [],
+        "erro": null
+      },
+      "resultados-mistos-em-frases": {
+        "verificacoes": 3,
+        "aprovadas": 3,
+        "falhas": [],
+        "erro": null
+      },
+      "sentenca-em-audiencia": {
+        "verificacoes": 4,
+        "aprovadas": 4,
+        "falhas": [],
+        "erro": null
+      },
+      "sentencas-sem-data-confiavel": {
+        "verificacoes": 5,
+        "aprovadas": 5,
+        "falhas": [],
+        "erro": null
+      },
+      "subtitulos-em-peticao": {
+        "verificacoes": 7,
+        "aprovadas": 7,
+        "falhas": [],
+        "erro": null
+      },
+      "titulos-repetidos": {
+        "verificacoes": 4,
+        "aprovadas": 4,
+        "falhas": [],
+        "erro": null
+      },
+      "titulos-sem-padrao": {
+        "verificacoes": 7,
+        "aprovadas": 7,
+        "falhas": [],
+        "erro": null
+      },
+      "transito-acentuado-e-negado": {
+        "verificacoes": 6,
+        "aprovadas": 6,
+        "falhas": [],
+        "erro": null
+      },
+      "transito-nao-havendo-recurso": {
+        "verificacoes": 4,
+        "aprovadas": 4,
+        "falhas": [],
+        "erro": null
+      }
+    },
+    "total": {
+      "documentos": 31,
+      "documentos_sem_falha": 31,
+      "verificacoes": 182,
+      "aprovadas": 182,
+      "taxa": 1.0
+    },
+    "citacoes": {
+      "total": 1470,
+      "verificadas": 1470
+    }
+  },
   "fidelidade": {
-    "conferidos": 46,
+    "conferidos": 71,
     "por_classe": {
-      "condensado": 21,
-      "divergente": 15,
-      "literal": 8,
+      "condensado": 33,
+      "divergente": 25,
+      "literal": 11,
       "quase_literal": 2
     },
     "dispositivos_no_corpus": 79
   },
+  "proveniencia": {
+    "entradas": 79,
+    "natureza_do_texto": {
+      "consolidado": 11,
+      "interpretacao_juridica": 12,
+      "nao_conferido": 4,
+      "resumo_explicativo": 52
+    },
+    "com_trecho_oficial": 68,
+    "trechos_oficiais": 141,
+    "com_lacuna": 27,
+    "com_alerta_de_vigencia": 11,
+    "em_revisao": 28,
+    "fontes_monitoradas": 34,
+    "problemas_de_integridade": 0
+  },
+  "temporal_v2": {
+    "data_de_referencia": "2026-10-21",
+    "versoes": {
+      "atual": {
+        "perguntas": 24,
+        "com_as_duas_versoes": 23,
+        "versao_certa_primeiro_antes": {
+          "n": 14,
+          "total": 23,
+          "pct": 60.9
+        },
+        "versao_certa_primeiro_depois": {
+          "n": 23,
+          "total": 23,
+          "pct": 100.0
+        },
+        "versao_certa_primeiro_ou_incerteza_declarada": {
+          "n": 23,
+          "total": 23,
+          "pct": 100.0
+        },
+        "versao_certa_recuperada": {
+          "n": 24,
+          "total": 24,
+          "pct": 100.0
+        }
+      },
+      "historica": {
+        "perguntas": 24,
+        "com_as_duas_versoes": 23,
+        "versao_certa_primeiro_antes": {
+          "n": 12,
+          "total": 23,
+          "pct": 52.2
+        },
+        "versao_certa_primeiro_depois": {
+          "n": 22,
+          "total": 23,
+          "pct": 95.7
+        },
+        "versao_certa_primeiro_ou_incerteza_declarada": {
+          "n": 23,
+          "total": 23,
+          "pct": 100.0
+        },
+        "versao_certa_recuperada": {
+          "n": 23,
+          "total": 24,
+          "pct": 95.8
+        },
+        "com_aviso_temporal": {
+          "n": 23,
+          "total": 24,
+          "pct": 95.8
+        }
+      }
+    },
+    "perguntas_do_corpus": {
+      "perguntas": 20,
+      "intencao": {
+        "n": 20,
+        "total": 20,
+        "pct": 100.0
+      },
+      "data_de_referencia": {
+        "n": 20,
+        "total": 20,
+        "pct": 100.0
+      },
+      "pedido_de_esclarecimento": {
+        "n": 20,
+        "total": 20,
+        "pct": 100.0
+      },
+      "aceito_no_topo_antes": {
+        "n": 18,
+        "total": 20,
+        "pct": 90.0
+      },
+      "aceito_no_topo_depois": {
+        "n": 18,
+        "total": 20,
+        "pct": 90.0
+      },
+      "aceito_recuperado": {
+        "n": 20,
+        "total": 20,
+        "pct": 100.0
+      },
+      "situacao_de_vigencia": {
+        "n": 3,
+        "total": 3,
+        "pct": 100.0
+      },
+      "aplicabilidade_na_data": {
+        "n": 7,
+        "total": 7,
+        "pct": 100.0
+      },
+      "falhas": []
+    }
+  },
+  "politica": {
+    "fora_do_escopo": {
+      "abstencao": 16,
+      "ressalva_ligacao_fraca": 7,
+      "resposta": 3,
+      "perguntas": 26,
+      "protegidas": 23
+    },
+    "dentro_do_escopo": {
+      "abstencao": 3,
+      "ressalva_ligacao_fraca": 5,
+      "resposta": 78,
+      "perguntas": 86
+    },
+    "fora_do_escopo_com_documento_anexado": {
+      "perguntas": 3,
+      "abstencoes": 3
+    }
+  },
   "latencia": {
-    "busca_ms_mediana": 0.114,
-    "busca_ms_p95": 0.207,
+    "busca_ms_mediana": 0.122,
+    "busca_ms_p95": 0.201,
     "custo_llm_por_consulta": "zero no modo extrativo (padrão); com LLM, não medido (sem chave)"
   }
 }
