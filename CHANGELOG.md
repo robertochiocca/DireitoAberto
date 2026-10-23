@@ -51,7 +51,7 @@ Ciclos, números e riscos em [docs/roadmap.md](docs/roadmap.md#rodada-90). Nada 
 
 ## Auditoria e plataforma de inteligência jurídica verificável — outubro de 2026
 
-Branch `claude/direitoaberto-intelligence`, em ciclos (detalhes em [docs/roadmap.md](docs/roadmap.md)).
+PR #1, em ciclos (detalhes em [docs/roadmap.md](docs/roadmap.md)).
 
 ### Ciclo 0 — auditoria
 - Documentos de arquitetura, segurança, fontes jurídicas e roadmap (`docs/`).

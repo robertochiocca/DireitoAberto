@@ -7,7 +7,7 @@
 
 ## Rodada 9.0 (22/10/2026): modelo de ameaças, achados e controles
 
-> Auditoria read-only refeita sobre o HEAD `22c7f81` (15 achados de segurança/LGPD, `P2-01` a `P2-15`),
+> Auditoria read-only refeita sobre o HEAD `6e90c73` (15 achados de segurança/LGPD, `P2-01` a `P2-15`),
 > correções com teste e o que continua aberto. **Controles técnicos não são conformidade com a LGPD:**
 > falta definir controlador, encarregado e bases legais com assessoria jurídica, e revisar a política de
 > privacidade (hoje uma minuta técnica em `web/app/privacidade`).

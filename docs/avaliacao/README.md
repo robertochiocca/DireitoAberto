@@ -39,7 +39,7 @@ olhou a precisão.
 
 ## Antes e depois da rodada 9.0
 
-"Antes" é a linha de base versionada de 19/10/2026 (commit `ccbb302`) ou, nos conjuntos novos, a mesma
+"Antes" é a linha de base versionada de 19/10/2026 (commit `1440c71`) ou, nos conjuntos novos, a mesma
 régua aplicada ao código anterior.
 
 | Medida | Antes | Depois | Observação |

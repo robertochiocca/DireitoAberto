@@ -1,6 +1,6 @@
 # Avaliação do DireitoAberto
 
-> Gerado por `scripts/avaliar.py` em 2026-10-23T17:08:52+00:00 (commit `96e6251`, corpus `aeea075bb14e68e1`). Os números abaixo são os do arquivo `resultados.json` ao lado.
+> Gerado por `scripts/avaliar.py` em 2026-10-23T17:08:52+00:00 (commit `fe633c9`, corpus `aeea075bb14e68e1`). Os números abaixo são os do arquivo `resultados.json` ao lado.
 
 ## Busca (BM25, o motor padrão)
 
