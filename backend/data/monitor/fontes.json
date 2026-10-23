@@ -1,14 +1,251 @@
 {
-  "sobre": "Fontes oficiais acompanhadas pelo monitor legislativo (scripts/monitor.py). Começa pequeno: as páginas do Planalto de onde vem a maior parte do corpus (46 dos 72 dispositivos de lei) e o decreto ainda em vacatio. A página compilada do Planalto é consolidação editorial da Casa Civil, não publicação oficial (esta é o DOU): por isso o monitor fala em indícios.",
+  "sobre": "Fontes oficiais acompanhadas pelo monitor legislativo (scripts/monitor.py): as páginas do Planalto de todas as normas federais do corpus e a EC 141/2026, que altera dispositivos em vacatio. A página do Planalto é texto atualizado pela Casa Civil (consolidação editorial), não a publicação oficial — esta é o DOU: por isso o monitor fala em indícios, e o texto que dela se extrai é 'consolidado', não 'literal da publicação'. O campo orgao_emissor é quem editou a norma.",
   "fontes": [
-    {"id": "cf", "nome": "Constituição Federal de 1988", "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm", "orgao_emissor": "Assembleia Nacional Constituinte — texto compilado pela Presidência da República (Casa Civil)", "tipo": "constituicao"},
-    {"id": "cc", "nome": "Código Civil — Lei nº 10.406/2002", "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm", "orgao_emissor": "Congresso Nacional — texto compilado pela Presidência da República (Casa Civil)", "tipo": "lei"},
-    {"id": "cdc", "nome": "Código de Defesa do Consumidor — Lei nº 8.078/1990", "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm", "orgao_emissor": "Congresso Nacional — texto compilado pela Presidência da República (Casa Civil)", "tipo": "lei"},
-    {"id": "ctb", "nome": "Código de Trânsito Brasileiro — Lei nº 9.503/1997", "url": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm", "orgao_emissor": "Congresso Nacional — texto compilado pela Presidência da República (Casa Civil)", "tipo": "lei"},
-    {"id": "clt", "nome": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943", "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm", "orgao_emissor": "Presidência da República", "tipo": "decreto-lei"},
-    {"id": "lei9099", "nome": "Lei dos Juizados Especiais — Lei nº 9.099/1995", "url": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm", "orgao_emissor": "Congresso Nacional", "tipo": "lei"},
-    {"id": "lei6015", "nome": "Lei de Registros Públicos — Lei nº 6.015/1973", "url": "https://www.planalto.gov.br/ccivil_03/leis/l6015compilada.htm", "orgao_emissor": "Congresso Nacional — texto compilado pela Presidência da República (Casa Civil)", "tipo": "lei"},
-    {"id": "lei8245", "nome": "Lei do Inquilinato — Lei nº 8.245/1991", "url": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm", "orgao_emissor": "Congresso Nacional", "tipo": "lei"},
-    {"id": "decreto13135", "nome": "Decreto nº 13.135/2026 (SAC)", "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/decreto/d13135.htm", "orgao_emissor": "Presidência da República", "tipo": "decreto"}
+    {
+      "id": "cf",
+      "nome": "Constituição Federal de 1988",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm",
+      "orgao_emissor": "Assembleia Nacional Constituinte — texto compilado pela Presidência da República (Casa Civil)",
+      "tipo": "constituicao",
+      "corpo_principal": {
+        "termina_em": "ATO DAS DISPOSIÇÕES CONSTITUCIONAIS TRANSITÓRIAS",
+        "motivo": "a página traz o ADCT depois do texto permanente, com numeração de artigos própria"
+      }
+    },
+    {
+      "id": "cc",
+      "nome": "Código Civil — Lei nº 10.406/2002",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "orgao_emissor": "Congresso Nacional — texto compilado pela Presidência da República (Casa Civil)",
+      "tipo": "lei"
+    },
+    {
+      "id": "cdc",
+      "nome": "Código de Defesa do Consumidor — Lei nº 8.078/1990",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
+      "orgao_emissor": "Congresso Nacional — texto compilado pela Presidência da República (Casa Civil)",
+      "tipo": "lei"
+    },
+    {
+      "id": "ctb",
+      "nome": "Código de Trânsito Brasileiro — Lei nº 9.503/1997",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm",
+      "orgao_emissor": "Congresso Nacional — texto compilado pela Presidência da República (Casa Civil)",
+      "tipo": "lei"
+    },
+    {
+      "id": "clt",
+      "nome": "Consolidação das Leis do Trabalho — Decreto-Lei nº 5.452/1943",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm",
+      "orgao_emissor": "Presidência da República",
+      "tipo": "decreto-lei",
+      "corpo_principal": {
+        "comeca_em": "CONSOLIDAÇÃO DAS LEIS DO TRABALHO TÍTULO I",
+        "motivo": "a página começa pelos artigos do Decreto-Lei 5.452/1943, que aprova a Consolidação e tem numeração própria"
+      }
+    },
+    {
+      "id": "lei9099",
+      "nome": "Lei dos Juizados Especiais — Lei nº 9.099/1995",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei6015",
+      "nome": "Lei de Registros Públicos — Lei nº 6.015/1973",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6015compilada.htm",
+      "orgao_emissor": "Congresso Nacional — texto compilado pela Presidência da República (Casa Civil)",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei8245",
+      "nome": "Lei do Inquilinato — Lei nº 8.245/1991",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "decreto13135",
+      "nome": "Decreto nº 13.135/2026 (SAC)",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/decreto/d13135.htm",
+      "orgao_emissor": "Presidência da República",
+      "tipo": "decreto"
+    },
+    {
+      "id": "cpc",
+      "nome": "Código de Processo Civil — Lei nº 13.105/2015",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lindb",
+      "nome": "Lei de Introdução às Normas do Direito Brasileiro — Decreto-Lei nº 4.657/1942",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del4657compilado.htm",
+      "orgao_emissor": "Presidência da República",
+      "tipo": "decreto-lei"
+    },
+    {
+      "id": "decreto7962",
+      "nome": "Decreto nº 7.962/2013 — comércio eletrônico",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7962.htm",
+      "orgao_emissor": "Presidência da República",
+      "tipo": "decreto"
+    },
+    {
+      "id": "lei8009",
+      "nome": "Lei do Bem de Família — Lei nº 8.009/1990",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8009.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei10259",
+      "nome": "Lei dos Juizados Especiais Federais — Lei nº 10.259/2001",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10259.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei12153",
+      "nome": "Juizados Especiais da Fazenda Pública — Lei nº 12.153/2009",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12153.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lc80",
+      "nome": "Lei Orgânica da Defensoria Pública — Lei Complementar nº 80/1994",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp80.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei-complementar"
+    },
+    {
+      "id": "eca",
+      "nome": "Estatuto da Criança e do Adolescente — Lei nº 8.069/1990",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei15211",
+      "nome": "Estatuto Digital da Criança e do Adolescente — Lei nº 15.211/2025",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15211.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei11340",
+      "nome": "Lei Maria da Penha — Lei nº 11.340/2006",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei10741",
+      "nome": "Estatuto da Pessoa Idosa — Lei nº 10.741/2003",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/2003/l10.741.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei13146",
+      "nome": "Estatuto da Pessoa com Deficiência — Lei nº 13.146/2015",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "loas",
+      "nome": "Lei Orgânica da Assistência Social — Lei nº 8.742/1993",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8742compilado.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei8213",
+      "nome": "Lei de Benefícios da Previdência Social — Lei nº 8.213/1991",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei8036",
+      "nome": "Lei do FGTS — Lei nº 8.036/1990",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8036consol.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei9656",
+      "nome": "Lei dos Planos de Saúde — Lei nº 9.656/1998",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9656compilado.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "ctn",
+      "nome": "Código Tributário Nacional — Lei nº 5.172/1966",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5172compilado.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei9784",
+      "nome": "Lei do Processo Administrativo — Lei nº 9.784/1999",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9784.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lai",
+      "nome": "Lei de Acesso à Informação — Lei nº 12.527/2011",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei13460",
+      "nome": "Código de Defesa do Usuário de Serviço Público — Lei nº 13.460/2017",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lgpd",
+      "nome": "Lei Geral de Proteção de Dados — Lei nº 13.709/2018",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei12651",
+      "nome": "Código Florestal — Lei nº 12.651/2012",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "lei10192",
+      "nome": "Lei nº 10.192/2001 (medidas complementares ao Plano Real)",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10192.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    },
+    {
+      "id": "ec141",
+      "nome": "Emenda Constitucional nº 141/2026",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc141.htm",
+      "orgao_emissor": "Mesas da Câmara dos Deputados e do Senado Federal",
+      "tipo": "emenda-constitucional"
+    },
+    {
+      "id": "lei12506",
+      "nome": "Lei do aviso prévio proporcional — Lei nº 12.506/2011",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12506.htm",
+      "orgao_emissor": "Congresso Nacional",
+      "tipo": "lei"
+    }
   ]
 }
