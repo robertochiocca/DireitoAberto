@@ -1,0 +1,42 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "subtitulos-em-peticao.pdf",
+ "cobre": [
+  "'DECISÃO AGRAVADA', 'MANDADO DE SEGURANÇA', 'CERTIDÃO DE NASCIMENTO' dentro de petição não abrem peça do juízo ou do cartório (item 4)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "sem_origem",
+   "esperado": [
+    "juizo",
+    "cartorio"
+   ]
+  },
+  {
+   "tipo": "item_ausente",
+   "categoria": "obrigacoes_e_determinacoes",
+   "contem": "requer o provimento"
+  },
+  {
+   "tipo": "item_ausente",
+   "categoria": "obrigacoes_e_determinacoes",
+   "contem": "autoridade coatora"
+  },
+  {
+   "tipo": "nenhum_item_com_natureza",
+   "categoria": "linha_do_tempo",
+   "esperado": "fato_registrado"
+  },
+  {
+   "tipo": "prazo",
+   "pagina": 2,
+   "contem": "requer a concessão da liminar",
+   "tipo_de_prazo_contem": "pedido"
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "O juiz já decidiu?",
+   "abstencao": true
+  }
+ ]
+}

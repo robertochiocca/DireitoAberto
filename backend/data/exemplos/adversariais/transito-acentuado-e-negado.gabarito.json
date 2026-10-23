@@ -1,0 +1,39 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "transito-acentuado-e-negado.pdf",
+ "cobre": [
+  "'trânsito' com acento é reconhecido; certidão que nega o trânsito não o certifica (item 7)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "transito_certificado",
+   "esperado": true
+  },
+  {
+   "tipo": "item_presente",
+   "categoria": "transito_em_julgado",
+   "contem": "Certifico o trânsito em julgado do acórdão",
+   "pagina": 4
+  },
+  {
+   "tipo": "item_ausente",
+   "categoria": "transito_em_julgado",
+   "contem": "ainda não transitou"
+  },
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "acordao",
+    "pagina": 3,
+    "resultado": "recurso não provido"
+   }
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "A decisão é definitiva?",
+   "contem": [
+    "certidao de transito em julgado"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "titulos-sem-padrao.pdf",
+ "cobre": [
+  "petição que começa com 'AO JUÍZO' e 'EXMO.', título espaçado 'S E N T E N Ç A', 'Certidão' em caixa mista (item 4)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "pecas_contem",
+   "esperado": [
+    [
+     "decisao",
+     1
+    ],
+    [
+     "sentenca",
+     3
+    ],
+    [
+     "certidao",
+     4
+    ]
+   ]
+  },
+  {
+   "tipo": "peca_origem",
+   "pagina": 2,
+   "esperado": "parte"
+  },
+  {
+   "tipo": "peca_origem",
+   "pagina": 5,
+   "esperado": "parte"
+  },
+  {
+   "tipo": "item_ausente",
+   "categoria": "obrigacoes_e_determinacoes",
+   "contem": "A ré declara que a autora deverá pagar"
+  },
+  {
+   "tipo": "item_presente",
+   "categoria": "alegacoes",
+   "contem": "A ré declara que a autora deverá pagar",
+   "pagina": 2
+  },
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "sentenca",
+    "pagina": 3,
+    "resultado": "procedente"
+   }
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py), rodada 9.0: reproduz uma variação usada por um revisor independente. Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "certidao-de-outro-processo.pdf",
+ "cobre": [
+  "certidão de trânsito de outro processo, sem decisão final no arquivo, não é trânsito deste processo (H5)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "transito_certificado",
+   "esperado": false
+  },
+  {
+   "tipo": "decisao_principal",
+   "esperado": null
+  },
+  {
+   "tipo": "resumo_nao_contem",
+   "esperado": "certificada como definitiva"
+  },
+  {
+   "tipo": "aviso_contem",
+   "esperado": "mais de um número de processo"
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "A decisão é definitiva?",
+   "contem": [
+    "outro número de processo"
+   ],
+   "nao_contem": [
+    "certificada como definitiva"
+   ]
+  }
+ ]
+}

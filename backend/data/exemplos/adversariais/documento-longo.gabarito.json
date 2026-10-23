@@ -1,0 +1,43 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "documento-longo.pdf",
+ "parametros": {
+  "limite_paginas": 300
+ },
+ "cobre": [
+  "documento acima do limite de páginas é lido em parte, com aviso, em vez de recusado (item 10)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "estado_pagina",
+   "pagina": 300,
+   "esperado": "lida"
+  },
+  {
+   "tipo": "estado_pagina",
+   "pagina": 301,
+   "esperado": "nao_processada"
+  },
+  {
+   "tipo": "estado_pagina",
+   "pagina": 320,
+   "esperado": "nao_processada"
+  },
+  {
+   "tipo": "leitura_completa",
+   "esperado": false
+  },
+  {
+   "tipo": "aviso_contem",
+   "esperado": "301 a 320"
+  },
+  {
+   "tipo": "numero_processo",
+   "esperado": "0000000-22.2026.8.99.0013"
+  },
+  {
+   "tipo": "decisao_principal",
+   "esperado": null
+  }
+ ]
+}

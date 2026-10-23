@@ -1,0 +1,38 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py), rodada 9.0: reproduz uma variação usada por um revisor independente. Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "embargos-acolhidos-sem-resultado-claro.pdf",
+ "cobre": [
+  "embargos acolhidos sem dizer como ficou o resultado: o leitor não afirma o resultado anterior (H4)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "decisao_principal",
+   "esperado": null
+  },
+  {
+   "tipo": "resumo_nao_contem",
+   "esperado": "Resultado da sentença"
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "Eu ganhei?",
+   "contem": [
+    "não consegui determinar",
+    "embargos de declaração"
+   ],
+   "nao_contem": [
+    "com resultado procedente"
+   ]
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "Explique a decisão de forma simples",
+   "contem": [
+    "não consegui determinar"
+   ],
+   "nao_contem": [
+    "com resultado procedente"
+   ]
+  }
+ ]
+}

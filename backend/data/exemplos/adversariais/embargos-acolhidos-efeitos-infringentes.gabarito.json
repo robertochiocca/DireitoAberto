@@ -1,0 +1,43 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py), rodada 9.0: reproduz uma variação usada por um revisor independente. Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "embargos-acolhidos-efeitos-infringentes.pdf",
+ "cobre": [
+  "embargos de declaração ACOLHIDOS com efeitos infringentes mudam o resultado; não são 'rejeitados' (H4)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "sentenca",
+    "pagina": 4,
+    "resultado": "embargos de declaração acolhidos"
+   }
+  },
+  {
+   "tipo": "resumo_nao_contem",
+   "esperado": "REJEITADOS"
+  },
+  {
+   "tipo": "resumo_nao_contem",
+   "esperado": "Ela não é o resultado da causa"
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "Eu ganhei?",
+   "contem": [
+    "improcedente",
+    "embargos de declaração"
+   ],
+   "nao_contem": [
+    "com resultado procedente"
+   ]
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "Explique a decisão de forma simples",
+   "nao_contem": [
+    "com resultado procedente"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "numero-so-no-cabecalho.pdf",
+ "cobre": [
+  "número e partes só no cabeçalho repetido (item 13)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "numero_processo",
+   "esperado": "0000000-37.2026.8.99.0008"
+  },
+  {
+   "tipo": "parte",
+   "papel": "autor(a)",
+   "nome": "Maria Exemplo"
+  },
+  {
+   "tipo": "parte",
+   "papel": "ré(u)",
+   "nome": "Loja Teste Ltda."
+  },
+  {
+   "tipo": "pecas",
+   "esperado": [
+    [
+     "peticao_inicial",
+     1
+    ],
+    [
+     "contestacao",
+     2
+    ],
+    [
+     "sentenca",
+     3
+    ]
+   ]
+  }
+ ]
+}

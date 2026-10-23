@@ -4,7 +4,8 @@ import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import AnswerPanel from "@/components/AnswerPanel";
 import Degraus from "@/components/Degraus";
-import { ApiError, perguntar, type Resposta } from "@/lib/api";
+import Link from "next/link";
+import { ApiError, perguntar, saude, type Resposta } from "@/lib/api";
 
 const EXEMPLOS = [
   "Produto com defeito e a loja não troca",
@@ -22,6 +23,13 @@ function Home() {
   const [resposta, setResposta] = useState<Resposta | null>(null);
   const [erro, setErro] = useState<string | null>(null);
   const jaPerguntouDaUrl = useRef(false);
+  // Com IA ativa, a pergunta sai do servidor para o provedor: quem pergunta precisa saber antes.
+  const [llmAtivo, setLlmAtivo] = useState(false);
+  useEffect(() => {
+    saude()
+      .then((s) => setLlmAtivo(s.llm_ativo))
+      .catch(() => setLlmAtivo(false));
+  }, []);
 
   const enviar = useCallback(async (texto: string) => {
     const q = texto.trim();
@@ -59,8 +67,9 @@ function Home() {
         A lei foi escrita pra você. Só faltava alguém <em>traduzir</em>.
       </h1>
       <p className="lede">
-        Descreva o seu problema em linguagem comum. A busca encontra os artigos de lei e a
-        jurisprudência que se aplicam — sempre com a fonte oficial ao lado.
+        Descreva o seu problema em linguagem comum. A busca encontra artigos de lei e jurisprudência
+        que podem ter relação com o seu caso — com a explicação separada do texto oficial e a fonte ao
+        lado.
       </p>
 
       <form
@@ -76,11 +85,19 @@ function Home() {
           onChange={(e) => setPergunta(e.target.value)}
           placeholder="Ex.: a empresa não quer trocar meu notebook defeituoso"
           aria-label="Descreva seu problema"
+          aria-describedby="nota-privacidade"
         />
         <button className="btn" disabled={carregando}>
           {carregando ? "Buscando…" : "Perguntar"}
         </button>
       </form>
+
+      <p className="nota-privacidade" id="nota-privacidade">
+        {llmAtivo
+          ? "Sua pergunta e os textos de lei encontrados são enviados a um provedor de inteligência artificial (Anthropic) para escrever a resposta. Não escreva nomes, CPF ou dados de saúde."
+          : "Sua pergunta é respondida no próprio servidor do DireitoAberto, sem IA externa."}{" "}
+        Sem conta, o texto da pergunta não é guardado. <Link href="/privacidade">Como tratamos seus dados</Link>.
+      </p>
 
       <div className="chips">
         {EXEMPLOS.map((ex) => (

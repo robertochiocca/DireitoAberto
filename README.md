@@ -341,8 +341,16 @@ ruff check app tests scripts && mypy && python -m pytest
 # avaliação reproduzível (compara com docs/avaliacao/resultados.json)
 python scripts/avaliar.py --comparar
 
-# monitor legislativo
-python scripts/monitor.py verificar && python scripts/monitor.py pendentes
+# integridade do corpus (selos, histórico, trechos oficiais) — também roda no CI
+python scripts/corpus.py verificar
+
+# monitor legislativo: simular não grava nada; sem --simular, grava no registro do monitor (nunca no corpus)
+python scripts/monitor.py verificar --simular && python scripts/monitor.py pendentes
+# levar ao corpus uma versão decidida por pessoa (docs/monitor-legislativo.md)
+# python scripts/corpus.py publicar --fonte cdc --versao <v> --responsavel "Nome" --motivo "..."
+
+# triagem do feedback (docs/feedback.md)
+python scripts/feedback.py resumo
 
 # regerar o processo fictício do leitor
 python scripts/gerar_processo_exemplo.py
@@ -378,10 +386,10 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 
 - **Não é aconselhamento jurídico.** O sistema informa a regra geral; detalhes do caso concreto mudam a resposta. Toda resposta encaminha para a Defensoria Pública (gratuita), Procon ou advogado.
 - O corpus é **curado e pequeno** (79 dispositivos legais): cobre consumidor, trabalho, trânsito, moradia, família, cível, registros públicos, criança e adolescente, saúde, previdência e assistência, tributos, proteção de dados, serviço público, ambiental e acesso à Justiça — e nada além disso.
-- A vigência é **conferida manualmente**: cada dispositivo carrega a data da última conferência (`vigencia.conferida_em`) e o `GET /api/v1/vigencia` mostra o que está prestes a mudar. O monitor legislativo acompanha 9 páginas oficiais e põe em revisão os dispositivos afetados por uma mudança, mas não roda sozinho (não há agendamento configurado) e não consulta o Diário Oficial.
-- O campo `texto` do corpus **mistura transcrição e explicação**: dos 46 dispositivos conferidos contra o texto oficial vigente, 8 são literais e 15 são paráfrase ou explicação (alguns fundem interpretação do STF ao texto do artigo). Separar texto oficial de explicação está no roadmap e exige revisão jurídica.
-- O leitor de processos foi medido num processo fictício escrito pelo próprio projeto; não faz OCR (páginas digitalizadas são avisadas, não lidas).
-- A busca é **lexical por padrão** (BM25 + sinônimos PT-BR); o índice semântico existe, mas é opt-in (`DIREITO_ABERTO_RETRIEVER=semantico`). Abaixo de um limiar de evidência calibrado, a API se abstém em vez de inventar — mas o limiar não pega todas as perguntas fora do escopo (8 de 13 na validação; ver *Estado de validação e avaliação*). No outro extremo, a busca ainda pode trazer artigo de outro assunto que casa uma palavra ambígua ("plano" de saúde × plano de pagamento). A busca adaptativa corta esse ruído quando ele é fraco, mas não quando pontua perto do artigo certo, e trocar o BM25 pela busca semântica também não resolve (ver *Comparação de motores de busca*).
+- A vigência é **conferida manualmente**: cada dispositivo carrega a data da última conferência (`vigencia.conferida_em`); sem ela, a situação é `nao_verificada` e a resposta avisa. O monitor legislativo acompanha 34 páginas oficiais, põe em revisão os dispositivos afetados por uma mudança e marca a fonte como desatualizada se não for conferida em 30 dias — roda nos dias úteis pelo workflow agendado (desde 23/10/2026), põe tudo em revisão humana e não consulta o Diário Oficial. Em 23/10/2026, 16 versões (releitura do texto riscado por estilo) esperam revisão.
+- **Texto oficial e explicação são separados**: cada dispositivo traz os trechos oficiais extraídos da página do Planalto (141, com hash e versão) e a natureza do texto da base (consolidado, resumo explicativo, interpretação jurídica ou não conferido). O texto oficial é o **compilado pelo Planalto**, não o do Diário Oficial; nenhum trecho foi conferido por profissional do Direito, e 28 entradas estão em revisão ([docs/legal-data-sources.md](docs/legal-data-sources.md)).
+- O leitor de processos foi medido em 32 documentos fictícios escritos pelo próprio projeto (um processo exemplar e 31 casos adversariais); **não foi validado em processos reais** e não faz OCR (páginas possivelmente digitalizadas são avisadas, não lidas).
+- A busca é **lexical por padrão** (BM25 + sinônimos PT-BR); o índice semântico existe, mas é opt-in (`DIREITO_ABERTO_RETRIEVER=semantico`). Abaixo de um limiar de evidência calibrado, a API se abstém em vez de inventar, e a política de resposta põe ressalva quando a ligação com a pergunta é fraca — ainda assim, 3 de 26 perguntas fora do escopo recebem resposta sem ressalva ([docs/avaliacao/README.md](docs/avaliacao/README.md)). No outro extremo, a busca ainda pode trazer artigo de outro assunto que casa uma palavra ambígua ("plano" de saúde × plano de pagamento). A busca adaptativa corta esse ruído quando ele é fraco, mas não quando pontua perto do artigo certo, e trocar o BM25 pela busca semântica também não resolve (ver *Comparação de motores de busca*).
 - Os textos legais foram consolidados manualmente a partir do Planalto e podem não refletir alterações legislativas posteriores; cada artigo traz o link para a fonte oficial. Textos marcados como "(síntese)" condensam caput e parágrafos relevantes em vez de transcrevê-los na íntegra.
 - A jurisprudência é uma **curadoria inicial de 7 súmulas** de STF, STJ e TST — não um índice de precedentes.
 
@@ -425,9 +433,12 @@ Avisos do plano gratuito: o serviço do Render hiberna após inatividade (a prim
 - ✅ Monitor legislativo com diff por artigo, fila de revisão humana e verificação de fidelidade do corpus ([docs/monitor-legislativo.md](docs/monitor-legislativo.md))
 - ✅ Estado de validação em cada resposta e abstenção calibrada; avaliação reproduzível com portão de regressão ([docs/avaliacao/relatorio.md](docs/avaliacao/relatorio.md))
 - ✅ CI (GitHub Actions) com lint, tipos, testes, avaliação e build do frontend
-- ⬜ Separar no corpus o texto oficial literal da explicação
-- ⬜ OCR para páginas digitalizadas no leitor
-- ⬜ Agendamento do monitor e integração com o Diário Oficial
+- ✅ Proveniência por dispositivo: texto oficial separado da explicação, natureza do texto, selos, histórico e reversão (rodada 9.0)
+- ✅ Recuperação temporal (versão aplicável na data), verificador do texto gerado e política de resposta em 5 modos (rodada 9.0)
+- ✅ Monitor operacional: simulação, alertas, eventos tipados, publicação controlada no corpus ([docs/monitor-legislativo.md](docs/monitor-legislativo.md))
+- ✅ Feedback por dispositivo com triagem humana ([docs/feedback.md](docs/feedback.md)); acessibilidade WCAG 2.1 AA nas regras automáticas
+- ⬜ OCR para páginas digitalizadas no leitor; validação do leitor em processos reais anonimizados
+- ⬜ Agendamento do monitor (decisão do mantenedor) e integração com o Diário Oficial
 - ⬜ Revisão dos julgamentos de relevância por profissional do Direito
 - ⬜ Camada de revisão jurídica contínua com profissional (o fluxo `revisado: false` já existe)
 

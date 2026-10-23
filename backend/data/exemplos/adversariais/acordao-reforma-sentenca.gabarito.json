@@ -1,0 +1,72 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "acordao-reforma-sentenca.pdf",
+ "cobre": [
+  "acórdão que reforma a sentença (item 5)",
+  "cabeçalho 'APELAÇÃO CÍVEL Nº' não é peça de parte (item 4)",
+  "número só em linha de título (item 13)",
+  "'Eu ganhei?' sem 'Sim.' (item 11)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "pecas",
+   "esperado": [
+    [
+     "peticao_inicial",
+     1
+    ],
+    [
+     "sentenca",
+     2
+    ],
+    [
+     "acordao",
+     3
+    ]
+   ]
+  },
+  {
+   "tipo": "peca_ausente",
+   "esperado": "recurso"
+  },
+  {
+   "tipo": "numero_processo",
+   "esperado": "0000000-55.2026.8.99.0002"
+  },
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "acordao",
+    "pagina": 3,
+    "resultado": "recurso provido"
+   }
+  },
+  {
+   "tipo": "item_ausente",
+   "categoria": "decisoes",
+   "contem": "cujo dispositivo foi o seguinte"
+  },
+  {
+   "tipo": "resumo_nao_contem",
+   "esperado": "Resultado da sentença"
+  },
+  {
+   "tipo": "transito_certificado",
+   "esperado": false
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "Eu ganhei?",
+   "nao_comeca_com": "Sim",
+   "contem": [
+    "recurso provido",
+    "depende"
+   ]
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "O juiz já tomou alguma decisão?",
+   "nao_comeca_com": "Sim"
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "embargos-de-declaracao.pdf",
+ "cobre": [
+  "sentença dos embargos de declaração não vira o resultado principal (item 6)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "pecas",
+   "esperado": [
+    [
+     "peticao_inicial",
+     1
+    ],
+    [
+     "sentenca",
+     2
+    ],
+    [
+     "recurso",
+     3
+    ],
+    [
+     "sentenca",
+     4
+    ]
+   ]
+  },
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "sentenca",
+    "pagina": 2,
+    "resultado": "procedente"
+   }
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "Explique a decisão de forma simples",
+   "contem": [
+    "procedente"
+   ],
+   "nao_contem": [
+    "negou os pedidos"
+   ]
+  }
+ ]
+}

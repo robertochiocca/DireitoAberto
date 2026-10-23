@@ -1,0 +1,52 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py), rodada 9.0: reproduz uma variação usada por um revisor independente. Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "cabecalho-do-juizo-na-sentenca.pdf",
+ "cobre": [
+  "'Juízo de Direito…', 'Classe - Assunto: …' e campos rotulados no alto da página não impedem a sentença de abrir peça (H2)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "pecas",
+   "esperado": [
+    [
+     "peticao_inicial",
+     1
+    ],
+    [
+     "sentenca",
+     2
+    ]
+   ]
+  },
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "sentenca",
+    "pagina": 2,
+    "resultado": "improcedente"
+   }
+  },
+  {
+   "tipo": "item_ausente",
+   "categoria": "alegacoes",
+   "contem": "JULGO IMPROCEDENTES"
+  },
+  {
+   "tipo": "item_presente",
+   "categoria": "decisoes",
+   "contem": "JULGO IMPROCEDENTES",
+   "pagina": 2
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "O juiz já decidiu?",
+   "nao_comeca_com": "Sim",
+   "contem": [
+    "improcedente"
+   ],
+   "nao_contem": [
+    "não localizei decisão"
+   ]
+  }
+ ]
+}

@@ -24,22 +24,25 @@ from datetime import datetime, timedelta, timezone
 from functools import lru_cache
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 from starlette.concurrency import run_in_threadpool
 
-from .. import auth
+from .. import auditoria, auth
 from ..db import DocumentoProcesso, Usuario, agora, get_db
 from ..documentos import DocumentoGrandeDemais, DocumentoInvalido, ler_upload_limitado
-from ..seguranca import limitar
+from ..seguranca import endereco_do_cliente, limitar
 from .analise import analisar
 from .extracao import DocumentoExtraido, Pagina, extrair
 from .perguntas import responder
 
 RETENCAO = timedelta(hours=float(os.environ.get("DIREITO_ABERTO_DOCUMENTOS_RETENCAO_HORAS", 24)))
+# Teto do que se guarda por documento (texto das páginas e análise, cada um). A extração já
+# limita caracteres e a análise limita itens; este teto é a última defesa do banco.
+LIMITE_JSON_BYTES = int(float(os.environ.get("DIREITO_ABERTO_LEITOR_MAX_JSON_MB", 16)) * 1024 * 1024)
 MAX_POR_USUARIO = int(os.environ.get("DIREITO_ABERTO_DOCUMENTOS_POR_USUARIO", 10))
 LIMITE_BYTES = int(float(os.environ.get("DIREITO_ABERTO_LEITOR_MAX_MB", 20)) * 1024 * 1024)
 EXEMPLO = Path(__file__).resolve().parent.parent.parent / "data" / "exemplos" / "processo-ficticio.pdf"
@@ -53,10 +56,22 @@ class Pergunta(BaseModel):
 
 # ---------------------------------------------------------------- serialização
 def _paginas_para_json(doc: DocumentoExtraido) -> str:
+    """Só guarda texto de página processada: o que não foi lido não fica no banco."""
     return json.dumps(
-        [{"numero": p.numero, "texto": p.texto, "estado": p.estado, "folha": p.folha} for p in doc.paginas],
+        [{"numero": p.numero, "texto": "" if p.estado == "nao_processada" else p.texto, "estado": p.estado,
+          "folha": p.folha, "truncada": p.truncada} for p in doc.paginas],
         ensure_ascii=False,
     )
+
+
+def _cabe(serializado: str, o_que: str) -> None:
+    tamanho = len(serializado.encode("utf-8"))
+    if tamanho > LIMITE_JSON_BYTES:
+        raise HTTPException(
+            status_code=413,
+            detail=f"O {o_que} deste documento ficou grande demais para guardar ({tamanho / 1048576:.1f} MB; limite "
+                   f"{LIMITE_JSON_BYTES / 1048576:.0f} MB). Envie só as partes do processo que interessam.",
+        )
 
 
 def _doc_do_registro(registro: DocumentoProcesso) -> DocumentoExtraido:
@@ -82,7 +97,8 @@ def _completo(doc: DocumentoExtraido, analise: dict, meta: dict) -> dict:
     return {
         **meta,
         "paginas": [
-            {"numero": p.numero, "folha": p.folha, "estado": p.estado, "texto": p.texto} for p in doc.paginas
+            {"numero": p.numero, "folha": p.folha, "estado": p.estado, "truncada": p.truncada,
+             "texto": "" if p.estado == "nao_processada" else p.texto} for p in doc.paginas
         ],
         "analise": analise,
     }
@@ -145,6 +161,7 @@ def perguntar_exemplo(payload: Pergunta):
 
 @router.post("", status_code=201, dependencies=[Depends(limitar("documento"))])
 async def enviar(
+    request: Request,
     arquivo: UploadFile = File(..., description="Processo em .pdf (ou .txt; páginas separadas por form feed)."),
     db: Session = Depends(get_db),
     usuario: Usuario = Depends(auth.usuario_obrigatorio),
@@ -162,22 +179,30 @@ async def enviar(
         conteudo = await ler_upload_limitado(arquivo, LIMITE_BYTES)
         # Extração e análise usam CPU: fora do laço de eventos.
         doc = await run_in_threadpool(extrair, arquivo.filename or "documento.pdf", conteudo)
-        analise = await run_in_threadpool(analisar, doc)
     except DocumentoGrandeDemais as exc:
         raise HTTPException(status_code=413, detail=str(exc)) from exc
     except DocumentoInvalido as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
+    # O texto que seria guardado é conferido ANTES da análise: se não cabe, não vale gastar CPU com ela.
+    paginas_json = _paginas_para_json(doc)
+    _cabe(paginas_json, "texto extraído")
+    analise = await run_in_threadpool(analisar, doc)
+    analise_json = json.dumps(analise, ensure_ascii=False)
+    _cabe(analise_json, "resultado da análise")
     registro = DocumentoProcesso(
         id=secrets.token_hex(16),
         usuario_id=usuario.id,
         nome=(arquivo.filename or "documento.pdf")[:255],
         hash_sha256=doc.hash_sha256,
         total_paginas=doc.total_paginas,
-        paginas_json=_paginas_para_json(doc),
-        analise_json=json.dumps(analise, ensure_ascii=False),
+        paginas_json=paginas_json,
+        analise_json=analise_json,
         expira_em=agora() + RETENCAO,
     )
     db.add(registro)
+    # Trilha de auditoria: só o evento, a conta como pseudônimo e o prefixo de rede — nem o nome do
+    # arquivo nem o texto do documento.
+    auditoria.registrar(db, "documento_enviado", usuario_id=usuario.id, endereco=endereco_do_cliente(request))
     db.commit()
     return _completo(doc, analise, _resumo_registro(registro))
 
@@ -211,7 +236,9 @@ def perguntar(
 
 
 @router.delete("/{documento_id}", status_code=204)
-def apagar(documento_id: str, db: Session = Depends(get_db), usuario: Usuario = Depends(auth.usuario_obrigatorio)):
+def apagar(documento_id: str, request: Request, db: Session = Depends(get_db),
+           usuario: Usuario = Depends(auth.usuario_obrigatorio)):
     registro = _do_dono(db, usuario, documento_id)
     db.delete(registro)
+    auditoria.registrar(db, "documento_apagado", usuario_id=usuario.id, endereco=endereco_do_cliente(request))
     db.commit()

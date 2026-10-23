@@ -100,6 +100,41 @@ class DocumentoProcesso(Base):
     expira_em: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
 
 
+class EventoAuditoria(Base):
+    """Trilha de operações sensíveis (login, exclusão, exportação, documentos). Sem conteúdo pessoal: nada de
+    pergunta, documento, e-mail ou senha — a conta aparece só como pseudônimo (HMAC do id) e o endereço só
+    como prefixo de rede. Apagada depois de `DIREITO_ABERTO_RETENCAO_AUDITORIA_DIAS` (app/manutencao.py)."""
+
+    __tablename__ = "eventos_auditoria"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    em: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=agora, index=True)
+    evento: Mapped[str] = mapped_column(String(40), index=True)
+    conta: Mapped[str | None] = mapped_column(String(32), nullable=True, index=True)
+    rede: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    resultado: Mapped[str] = mapped_column(String(20), default="ok")
+
+
+class Feedback(Base):
+    """Problema apontado por quem usa num dispositivo citado (app/feedback.py). Entra numa fila de triagem
+    humana e nunca muda o corpus, a vigência ou a confiança sozinho. Guarda o mínimo: dispositivo,
+    categoria, comentário curto (com dado pessoal mascarado) e, com conta, a conta — para sair na
+    exportação e na exclusão. Apagado depois de `DIREITO_ABERTO_RETENCAO_FEEDBACK_DIAS`."""
+
+    __tablename__ = "feedbacks"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    criado_em: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=agora, index=True)
+    usuario_id: Mapped[int | None] = mapped_column(ForeignKey("usuarios.id"), nullable=True, index=True)
+    dispositivo_id: Mapped[str] = mapped_column(String(64), index=True)
+    categoria: Mapped[str] = mapped_column(String(40))
+    comentario: Mapped[str | None] = mapped_column(Text, nullable=True)
+    estado: Mapped[str] = mapped_column(String(20), default="novo", index=True)
+    triado_em: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    triado_por: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    nota_da_triagem: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+
 def init_db() -> None:
     Base.metadata.create_all(engine)
 

@@ -100,7 +100,7 @@ export default function Nav() {
           <div className="bar-tools">
             {email ? (
               <>
-                <span className="user-chip" title={email}>{email}</span>
+                <Link href="/conta" className="user-chip" title={`Sua conta: ${email}`}>{email}</Link>
                 <button className="linklike conta" onClick={sair}>Sair</button>
               </>
             ) : (
@@ -168,10 +168,16 @@ export default function Nav() {
             <div className="menu-k">Sua conta</div>
             <div className="mi-list">
               {email ? (
-                <button className="mi-row" onClick={sair}>
-                  <b>Sair</b>
-                  <span className="mi-email">{email}</span>
-                </button>
+                <>
+                  <Link href="/conta" className={`mi-row ${ativo("/conta")}`} onClick={fechar}>
+                    <b>Seus dados</b>
+                    <span>Baixar, trocar a senha, excluir a conta</span>
+                  </Link>
+                  <button className="mi-row" onClick={sair}>
+                    <b>Sair</b>
+                    <span className="mi-email">{email}</span>
+                  </button>
+                </>
               ) : (
                 <Link href="/login" className={`mi-row ${ativo("/login")}`} onClick={fechar}>
                   <b>Entrar</b>
