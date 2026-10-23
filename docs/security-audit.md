@@ -5,6 +5,60 @@
 > **Não cobre** a configuração real de produção (Render/Vercel), que não está acessível daqui.
 > Nada aqui equivale a certificação de segurança ou a declaração de conformidade com a LGPD.
 
+## Rodada 9.0 (22/10/2026): modelo de ameaças, achados e controles
+
+> Auditoria read-only refeita sobre o HEAD `22c7f81` (15 achados de segurança/LGPD, `P2-01` a `P2-15`),
+> correções com teste e o que continua aberto. **Controles técnicos não são conformidade com a LGPD:**
+> falta definir controlador, encarregado e bases legais com assessoria jurídica, e revisar a política de
+> privacidade (hoje uma minuta técnica em `web/app/privacidade`).
+
+### Modelo de ameaças (atualizado)
+
+| Ativo | Ameaça | Controle |
+|---|---|---|
+| Perguntas | vazamento, retenção sem prazo, envio ao LLM sem aviso | anônima não guarda o texto; com conta, 365 dias; aviso na página quando o LLM está ativo (`/saude` → `llm_ativo`); fontes servidas pelo próprio site |
+| Documentos do leitor (dados de terceiros, segredo de justiça) | acesso cruzado, retenção, esgotamento de recursos, injeção de instrução | dono checado; 24 h; limites de páginas, caracteres e tempo também no `.txt`; texto como dado, nunca como instrução; sem LLM externo |
+| Contas | força bruta, bloqueio malicioso da vítima, token roubado | bloqueio por conta **e** rede de origem, só falhas contam; PBKDF2 600 mil com parâmetros no hash e *rehash*; troca de senha e "sair de todas"; CSP no Next |
+| Corpus jurídico publicado | edição sem revisão, coleta falha sobrescrevendo texto, publicação automática | selos e histórico verificados no CI; o monitor nunca escreve no corpus; publicação só por pessoa (`corpus.py publicar`); feedback não muda nada sozinho |
+| Registro do monitor | escritas concorrentes, arquivo ilegível para a API | trava `fcntl` + contador de revisão; 0644 |
+| Trilha de auditoria | virar ela mesma um depósito de dados pessoais | só evento, resultado, pseudônimo (HMAC do id) e prefixo de rede; 180 dias |
+| Feedback | dado pessoal em texto livre, abuso | máscara de CPF/e-mail/telefone/número de processo; 5 envios/10 min por endereço; sai na exportação, some com a conta; 365 dias |
+| Disponibilidade | corpo de requisição gigante, *event loop* travado | limite de corpo no ASGI (inclusive *chunked*), PDF em *threadpool* |
+
+### Achados da rodada e estado
+
+| # | Sev. | Achado | Estado |
+|---|---|---|---|
+| P2-01 | Alta | `.txt` no leitor sem limite de páginas (form feeds derrubam a API) | **corrigido** no ciclo do leitor: limite de páginas e caracteres também no `.txt`, páginas não processadas sem texto gravado, análise com teto ([leitor-de-processos.md](leitor-de-processos.md)) |
+| P2-02 | Média | `/perguntar-documento` bloqueava o *event loop* | **corrigido**: extração e resposta em `run_in_threadpool` |
+| P2-03 | Média | limite de upload aplicado depois de receber o corpo inteiro | **corrigido**: middleware ASGI `LimiteDeCorpo` corta antes (256 KB por padrão; limites próprios para upload), inclusive corpo *chunked* sem `Content-Length`; teste |
+| P2-04 | Média | dependências sem mínimo seguro; `pypdf` com 13 avisos; CI sem `pip-audit` | **corrigido**: `pypdf>=6.21.1`, `python-multipart>=0.0.31`, `starlette>=1.3.1`; o CI audita as versões **instaladas** |
+| P2-05 | Média | qualquer pessoa bloqueava o login de outra (5 tentativas de qualquer lugar) | **corrigido**: chave conta + rede (/24 ou /48), só falhas contam, acerto zera; testes de vítima e atacante |
+| P2-06 | Média | sem trilha de auditoria | **corrigido**: `app/auditoria.py`, 13 eventos (login, falha, bloqueio, conta criada/excluída, sessões, senha, exportação, histórico, documentos, feedback); teste de que e-mail e conteúdo não entram |
+| P2-07 | Média | direitos do titular incompletos | **corrigido em parte**: `GET /conta/exportar` (conta, histórico completo, documentos, feedbacks), histórico paginado, tela `/conta` (exportar, trocar senha, sair de todas, excluir). **Aberto:** recuperação de senha (exige e-mail transacional — serviço externo) |
+| P2-08 | Média | limite por IP atrás do proxy (balde único ou XFF falsificável; IPv6 rotaciona) | **aberto**: depende de verificar o X-Forwarded-For real no Render/Vercel. O bloqueio de login já agrupa por /24 e /48 |
+| P2-09 | Média | sem política, encarregado nem aviso de envio ao LLM; Google Fonts | **corrigido em parte**: aviso de LLM na página, fontes servidas pelo próprio site (`next/font`; o estático usa fontes do sistema), minuta técnica de privacidade. **Aberto:** controlador, encarregado, bases legais, termos de uso — decisão jurídica |
+| P2-10 | Baixa | Next sem cabeçalhos de segurança | **corrigido**: CSP, `frame-ancestors 'none'`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, sem `X-Powered-By`. A CSP ainda permite `'unsafe-inline'` em *scripts* (o Next injeta *scripts* inline; *nonce* fica para depois). HSTS em produção não verificado |
+| P2-11 | Baixa | sem troca de senha nem "sair de todas"; PBKDF2 240 mil sem parâmetros no hash | **corrigido**: 600 mil iterações, formato com algoritmo e iterações, *rehash* no login; `/conta/senha` encerra as outras sessões; `/auth/sair-de-todas` |
+| P2-12 | Baixa | retenção preguiçosa | **corrigido**: `app/manutencao.py` apaga, no máximo uma vez por hora, sessões vencidas, documentos vencidos, consultas com conta > 365 dias, auditoria > 180 dias, feedback > 365 dias |
+| P2-13 | Baixa | `tema` sem limite | **corrigido**: até 50 caracteres e só temas do corpus |
+| P2-14 | Baixa | delimitador do documento só neutralizado em minúsculas exatas | **corrigido**: variantes de caixa, espaço e entidade neutralizadas; teste |
+| P2-15 | Baixa | estático guardava as perguntas no `localStorage` | **corrigido**: `sessionStorage` (só a aba), e a cópia antiga do `localStorage` é apagada; teste de navegador |
+
+Outros controles desta rodada: texto gerado pelo LLM que falha na verificação determinística não é
+entregue (`app/verificador.py`); o workflow do monitor tem permissão só de leitura e recebe as entradas
+por variável de ambiente (sem interpolação no *shell*); o registro do monitor e o corpus têm trava entre
+processos.
+
+### Não verificado nesta rodada
+
+- Produção: variáveis do Render/Vercel, HSTS, X-Forwarded-For real, logs e backups do provedor.
+- LLM: resistência real a injeção de instrução e aderência às regras (sem chave de API neste ambiente).
+- Resistência do bloqueio de login a ataque distribuído por muitas redes (o bloqueio é por conta + rede;
+  muitas redes diferentes ainda podem tentar senhas, contidas só pelo custo do PBKDF2 e pelo limite por
+  endereço).
+- Revisão jurídica da minuta de privacidade.
+
 ## Como a auditoria foi feita
 
 | Verificação | Ferramenta | Resultado na linha de base |

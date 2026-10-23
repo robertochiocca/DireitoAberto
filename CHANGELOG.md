@@ -3,6 +3,52 @@
 Mudanças relevantes, da mais recente para a mais antiga. O histórico anterior está no `git log` e no
 roadmap do README.
 
+## Rodada 9.0 — integridade jurídica verificável — 22/10/2026
+
+Ciclos, números e riscos em [docs/roadmap.md](docs/roadmap.md#rodada-90). Nada foi publicado em produção.
+
+### P0 — proveniência, literalidade e incerteza
+- Proveniência por dispositivo (`app/corpus/`, `scripts/corpus.py`): 141 trechos oficiais extraídos do
+  snapshot da fonte, com hash, versão e data; natureza de cada texto (consolidado, resumo explicativo,
+  interpretação jurídica, não conferido); lacunas declaradas; selos e histórico com responsável e motivo;
+  reversão; verificação no CI.
+- `nao_verificada` como estado padrão de vigência; `redacao_anterior` automática.
+- Recuperação temporal (`app/temporal.py`, `app/consulta.py`): intenção, data de referência, versão
+  aplicável primeiro; benchmark temporal v2 (versão certa primeiro: 60,9% → 100% atual, 52,2% → 95,7%
+  histórica).
+- Verificador determinístico do texto gerado e política de resposta em 5 modos; corte adaptativo da busca
+  escolhido por validação cruzada (precisão 46,5% → 57,6%).
+
+### P1 — leitor de processos
+- Limites também no `.txt`, tetos de tempo e de armazenamento, página possivelmente digitalizada,
+  segmentação de peças, acórdão e decisão que vale, procedência parcial, embargos, trânsito com acento,
+  prazos ligados à expressão certa (sem calcular data), inconsistências, injeção estrutural, documentos
+  longos processados em parte. Revisão adversarial independente (14 problemas, 5 altos) corrigida:
+  decisão interlocutória, sentença reformada ou embargos acolhidos não são mais apresentados como resultado
+  errado; quando a ordem das decisões é incerta, o leitor diz que não sabe; trânsito forjado com quebra de
+  página não passa; poucos KB não esgotam mais CPU e memória. Conjunto adversarial versionado: 29/104 →
+  182/182 (31 documentos). Upload e exclusão de documento entram na trilha de auditoria.
+
+### P2 — segurança e LGPD
+- Bloqueio de login por conta + rede, PBKDF2 600 mil com *rehash*, trilha de auditoria sem dado pessoal,
+  limite de corpo no ASGI, retenção automática, exportação de dados, troca de senha, sair de todas as
+  sessões, CSP no Next, fontes sem Google, `pip-audit` no CI, dependências com mínimo seguro.
+
+### P3 — monitor operacional
+- Simulação e modo controlado; retentativas com espera e `Retry-After`; parada no site que bloqueia;
+  códigos de saída e alertas; workflow agendado nos dias úteis (autorizado em 23/10/2026); eventos jurídicos tipados; índice de dependências;
+  publicação controlada (`corpus.py publicar`) com regressão; trava e contador de revisão; decisões fora de
+  ordem; retorno a texto antigo; revogação total e artigo riscado como indícios; atualidade da fonte na
+  validação.
+- Leitura do tachado por estilo CSS (16 de 34 páginas o usam): os 141 trechos do corpus não mudam.
+- Revisão adversarial do ciclo: 16 problemas, todos corrigidos com teste.
+
+### P4/P5
+- Feedback por dispositivo com triagem humana; nunca muda a base sozinho.
+- Acessibilidade: 0 violações WCAG 2.1 A/AA (regras automáticas do axe) nas 8 páginas do web, na
+  resposta e no frontend estático, nos 2 temas; contraste e foco visível corrigidos.
+- Análise de prontidão comercial, só com hipóteses (`docs/prontidao-comercial.md`).
+
 ## Auditoria e plataforma de inteligência jurídica verificável — outubro de 2026
 
 Branch `claude/direitoaberto-intelligence`, em ciclos (detalhes em [docs/roadmap.md](docs/roadmap.md)).

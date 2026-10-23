@@ -3,6 +3,7 @@
     python scripts/avaliar.py              # mede e imprime o relatório
     python scripts/avaliar.py --gravar     # grava docs/avaliacao/resultados.json e relatorio.md
     python scripts/avaliar.py --comparar   # sai com código 1 se alguma métrica piorou em relação ao versionado
+    python scripts/avaliar.py --varrer     # refaz a escolha do corte da busca adaptativa (validação cruzada)
 
 Fluxo para mudar a busca, o corpus ou o leitor: rode --comparar antes e depois; se a mudança melhora
 algo e piora outra coisa de propósito, explique no commit e regrave a linha de base com --gravar.
@@ -24,7 +25,13 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--gravar", action="store_true")
     parser.add_argument("--comparar", action="store_true")
+    parser.add_argument("--varrer", action="store_true")
     args = parser.parse_args()
+    if args.varrer:
+        from app.calibracao import validar
+
+        print(json.dumps(validar(), ensure_ascii=False, indent=2))
+        return 0
     resultado = rodar()
     print(relatorio_md(resultado))
     if args.comparar:

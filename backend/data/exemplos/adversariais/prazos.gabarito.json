@@ -1,0 +1,50 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "prazos.pdf",
+ "cobre": [
+  "prazo preso à expressão 'prazo'/'em', número por extenso, 'prazo legal', 'para, em N dias', prazo já decorrido (item 8)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "prazo",
+   "pagina": 1,
+   "contem": "Designo audiência",
+   "duracao_contem": "15 (quinze) dias"
+  },
+  {
+   "tipo": "prazo",
+   "pagina": 1,
+   "contem": "Intime-se a executada",
+   "duracao_contem": "15 dias"
+  },
+  {
+   "tipo": "prazo",
+   "pagina": 1,
+   "contem": "Cite-se a ré para responder",
+   "duracao_contem": "quinze dias"
+  },
+  {
+   "tipo": "prazo",
+   "pagina": 1,
+   "contem": "prazo legal",
+   "duracao_contem": "prazo legal"
+  },
+  {
+   "tipo": "prazo",
+   "pagina": 2,
+   "contem": "decorreu o prazo",
+   "tipo_de_prazo_contem": "decorrido"
+  },
+  {
+   "tipo": "prazo_ausente",
+   "duracao_contem": "14 horas"
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "Até quando eu tenho que pagar?",
+   "contem": [
+    "nenhum foi calculado"
+   ]
+  }
+ ]
+}

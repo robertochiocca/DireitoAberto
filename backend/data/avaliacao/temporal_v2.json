@@ -1,0 +1,27 @@
+{
+  "versao": 2,
+  "sobre": "Benchmark temporal v2 (21-22/10/2026). Duas partes: (1) as 24 armadilhas do benchmark v1 (data/benchmark_temporal.json) em duas variantes geradas por código, 'atual' (a pergunta original) e 'historica' ('Em 10/04/2006, …'), com a redação de 2006 indexada como versão anterior ligada à vigente (versao_de) — exceto quando a entrada vigente ainda está em vacatio, caso em que a redação antiga é a que vale hoje; (2) perguntas escritas à mão sobre o corpus real, com a intenção, a data e o comportamento esperados. As expectativas vêm do histórico das normas (anotações da página oficial e bloco de vigência do corpus), não da saída do sistema. Escritas pelo próprio projeto, sem revisão de profissional do Direito.",
+  "data_de_referencia": "2026-10-21",
+  "perguntas": [
+    {"id": "jornada-atual", "pergunta": "Qual é a regra atual sobre a jornada de trabalho semanal?", "intencao": "atual", "data": null, "esclarecer": false, "aceitos": ["cf-7-xiii"]},
+    {"id": "jornada-futura", "pergunta": "Quantas horas por semana valerá a jornada a partir de janeiro de 2027?", "intencao": "atual", "data": "2027-01-01", "esclarecer": false, "aceitos": ["cf-7-xiii"], "aplicabilidade": "aplicavel"},
+    {"id": "multa-2015", "pergunta": "Qual era o prazo para recorrer de multa de trânsito em 2015?", "intencao": "historica", "data": "2015", "esclarecer": false, "aceitos": ["ctb-282", "ctb-281", "ctb-284"], "aplicabilidade": "nao_aplicavel_ou_incerta"},
+    {"id": "patio-revogado", "pergunta": "O carro ainda fica apreendido 30 dias no pátio?", "intencao": "revogacao", "data": null, "esclarecer": false, "aceitos": ["ctb-262"], "situacao": "revogada"},
+    {"id": "1790-vale", "pergunta": "O art. 1.790 do Código Civil ainda vale?", "intencao": "revogacao", "data": null, "esclarecer": false, "aceitos": ["cc-1790"], "situacao": "inconstitucional"},
+    {"id": "guarda-antigamente", "pergunta": "Antigamente, como era a guarda dos filhos depois do divórcio?", "intencao": "historica", "data": null, "esclarecer": true, "aceitos": ["cc-1583"]},
+    {"id": "divorcio-2010", "pergunta": "Em 2010 o divórcio exigia separação prévia?", "intencao": "historica", "data": "2010", "esclarecer": false, "aceitos": ["cf-226"], "aplicabilidade": "incerta", "nota": "A EC 66 é de julho de 2010: só com a data exata dá para saber a regra."},
+    {"id": "gratuidade-artigo", "pergunta": "Qual artigo garante a gratuidade da justiça?", "intencao": "fundamento", "data": null, "esclarecer": false, "aceitos": ["cpc-98"]},
+    {"id": "mora-mudou", "pergunta": "O que mudou na regra da emenda da mora no despejo?", "intencao": "mudanca", "data": null, "esclarecer": false, "aceitos": ["lei8245-62"]},
+    {"id": "bpc-2005", "pergunta": "Em 2005, qual era a idade mínima para receber o BPC?", "intencao": "historica", "data": "2005", "esclarecer": false, "aceitos": ["loas-20"], "aplicabilidade": "nao_aplicavel_ou_incerta"},
+    {"id": "lindb-vigor", "pergunta": "A Lei de Introdução às normas ainda está em vigor?", "intencao": "revogacao", "data": null, "esclarecer": false, "aceitos": ["lindb-3"], "situacao": "vigente"},
+    {"id": "condominio-2020", "pergunta": "Em 15/03/2020, quanto eram os juros da taxa de condomínio atrasada?", "intencao": "historica", "data": "2020-03-15", "esclarecer": false, "aceitos": ["cc-1336"], "aplicabilidade": "nao_aplicavel_ou_incerta", "nota": "A Lei 14.905/2024 trocou o 1% ao mês pela taxa legal."},
+    {"id": "conselho-hoje", "pergunta": "Hoje, quanto tempo de mandato tem o conselheiro tutelar?", "intencao": "atual", "data": null, "esclarecer": false, "aceitos": ["eca-132"]},
+    {"id": "honorarios-reforma", "pergunta": "O que mudou nos honorários de advogado na Justiça do Trabalho com a reforma trabalhista?", "intencao": "mudanca", "data": null, "esclarecer": false, "aceitos": ["clt-791"]},
+    {"id": "nome-2025", "pergunta": "Em 2025 eu podia trocar meu prenome no cartório sem ir à justiça?", "intencao": "historica", "data": "2025", "esclarecer": false, "aceitos": ["lei6015-56"], "aplicabilidade": "aplicavel", "nota": "A Lei 14.382/2022 já estava em vigor em 2025."},
+    {"id": "sac-nome-de-norma", "pergunta": "O decreto do SAC de 2022 foi revogado?", "intencao": "revogacao", "data": null, "esclarecer": false, "aceitos": ["decreto13135-sac"], "nota": "'de 2022' é parte do nome da norma, não a data da pergunta."},
+    {"id": "arrependimento-lei", "pergunta": "Qual lei diz que posso desistir da compra feita pela internet?", "intencao": "fundamento", "data": null, "esclarecer": false, "aceitos": ["cdc-49"]},
+    {"id": "data-invalida", "pergunta": "Em 31/02/2020 qual era a regra do aviso prévio?", "intencao": "atual", "data": null, "esclarecer": true, "aceitos": ["clt-487"], "nota": "Data inexistente: pedir a data correta."},
+    {"id": "juros-lei-2024", "pergunta": "Depois da Lei 14.905 de 2024, como são calculados os juros quando o contrato não diz nada?", "intencao": "atual", "data": null, "esclarecer": false, "aceitos": ["cc-389-406"]},
+    {"id": "bafometro-2016", "pergunta": "Até 2016, a recusa ao bafômetro tinha multa?", "intencao": "historica", "data": "2016", "esclarecer": false, "aceitos": ["ctb-165"], "aplicabilidade": "nao_aplicavel_ou_incerta", "nota": "O art. 165-A é de 2016 (Lei 13.281): só com a data exata."}
+  ]
+}

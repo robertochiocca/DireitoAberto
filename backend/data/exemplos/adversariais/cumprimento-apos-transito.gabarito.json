@@ -1,0 +1,48 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py), rodada 9.0: reproduz uma variação usada por um revisor independente. Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "cumprimento-apos-transito.pdf",
+ "cobre": [
+  "sentença que extingue a execução (art. 924) não é o resultado da causa nem rebaixa a certidão de trânsito (H3)",
+  "'CUMPRIMENTO DE SENTENÇA' é peça de parte (M5)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "sentenca",
+    "pagina": 2,
+    "resultado": "procedente"
+   }
+  },
+  {
+   "tipo": "transito_certificado",
+   "esperado": true
+  },
+  {
+   "tipo": "peca_origem",
+   "pagina": 4,
+   "esperado": "parte"
+  },
+  {
+   "tipo": "item_presente",
+   "categoria": "pedidos",
+   "contem": "O autor requer a intimação do réu",
+   "pagina": 4
+  },
+  {
+   "tipo": "resumo_nao_contem",
+   "esperado": "ANTERIOR"
+  },
+  {
+   "tipo": "resumo_nao_contem",
+   "esperado": "resultados diferentes"
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "A decisão é definitiva?",
+   "contem": [
+    "certificada como definitiva"
+   ]
+  }
+ ]
+}

@@ -1,8 +1,97 @@
 # Fontes jurídicas: inventário, proveniência e verificação
 
-> Estado em 19/10/2026. Este documento separa o que foi **conferido contra a fonte oficial**
-> nesta auditoria do que apenas **consta do corpus**. Conferência técnica de texto não é revisão
-> jurídica: nenhum item aqui foi revisado por profissional do Direito.
+> Estado em 22/10/2026 (rodada 9.0). Este documento separa o que foi **conferido contra a fonte
+> oficial** do que apenas **consta do corpus**. Conferência técnica de texto não é revisão jurídica:
+> nenhum item aqui foi revisado por profissional do Direito. As seções a partir de "O que existe no
+> banco" registram a auditoria de 19/10/2026 e continuam valendo como histórico.
+
+## Proveniência por dispositivo (rodada 9.0)
+
+Cada entrada de `backend/data/legislacao.json` passou a dizer **de onde vem cada texto, o que ele é e
+quem o conferiu**. O código é `backend/app/corpus/` (proveniência, dispositivos, normas) e
+`backend/scripts/corpus.py` (extração, registro, publicação, reversão, verificação).
+
+### As naturezas de texto
+
+A resposta nunca mistura transcrição com explicação. Há quatro categorias de texto, mais um estado
+explícito de incerteza:
+
+| Natureza | O que é | Onde aparece | Entradas hoje |
+|---|---|---|---|
+| `literal` | transcrição conferida com a publicação oficial (DOU) | — | **0**: nenhum texto foi conferido com o DOU |
+| `consolidado` | redação atualizada, transcrita da página oficial e conferida com ela na data indicada | `trechos_oficiais` (rótulo "Texto oficial") e o `texto` que cobre o trecho palavra por palavra (≥ 98%) | 11 (`texto`); 141 trechos |
+| `resumo_explicativo` | simplificação redigida pelo projeto | `texto`/`resumo`, rotulado "Explicação do DireitoAberto" | 52 |
+| `interpretacao_juridica` | inclui entendimento de tribunal, órgão regulador ou análise | `texto`, com o rótulo próprio | 12 |
+| `nao_conferido` | não há texto oficial para comparar | `texto`, com aviso | 4 |
+
+**Regra de transcrição.** Um trecho só é apresentado como texto oficial se cada frase dele estiver,
+palavra por palavra, no texto vigente da página na versão citada. O trecho é extraído pelo código do
+snapshot do monitor: nunca é digitado. Anotações editoriais ("Redação dada pela…", "Vide…") saem do
+texto e vão para `anotacoes`/`relacoes`; o que foi descartado fica registrado. Paráfrase nunca recebe o
+rótulo de transcrição.
+
+**Cada trecho oficial guarda** o dispositivo e a referência estruturada (artigo, parágrafo, inciso,
+alínea), o texto, o SHA-256 do texto, a fonte, a versão da fonte no monitor, o SHA-256 do snapshot, a
+data da coleta, a data da conferência, o método e as relações anotadas pela página (alterado por,
+incluído por, revogado por). `scripts/corpus.py verificar`, que roda no CI, refaz a extração em cada
+trecho e confere os três hashes; qualquer palavra que não esteja na página derruba a verificação.
+
+**Estado atual (22/10/2026):** 79 entradas; 68 com trecho oficial; 141 trechos; 27 entradas com lacuna
+declarada (por exemplo, fonte sem coleta automática, dispositivo que a página não traz, entrada que é
+síntese de vários artigos); 11 com alerta de vigência (a página anota uma alteração que o bloco de
+vigência não registra); 28 em revisão; 0 problemas de integridade.
+
+### Estado de incerteza da vigência
+
+`vigencia.status` aceita `vigente`, `em_vacatio`, `revogada`, `redacao_anterior`, `inconstitucional` e
+**`nao_verificada`**. O padrão é `nao_verificada`, e `vigente` sem data de conferência também vira
+`nao_verificada`. A resposta não apresenta como "certamente vigente" o que não foi verificado: a
+validação marca "revisão humana recomendada" e o texto da resposta avisa. Uma redação com `vigente_ate`
+no passado passa sozinha a `redacao_anterior`. Página que some, falha ou volta cortada **não** muda a
+vigência de nada (ver [monitor-legislativo.md](monitor-legislativo.md#revogação-o-que-é-indício-e-o-que-não-é)).
+
+### Histórico, selos e reversão
+
+- Cada entrada tem um **selo** (SHA-256 do conteúdo canônico). `data/corpus_historico.json` guarda, para
+  cada mudança, o selo anterior e o novo, os campos alterados, o responsável, o motivo e a evidência;
+  `data/corpus_versoes/` guarda cada versão da entrada, endereçada pelo selo. Hoje: 209 eventos.
+- Nenhuma alteração entra sem responsável e motivo. `corpus.py verificar` falha se o corpus tiver
+  mudança não registrada (selo diferente do histórico).
+- `corpus.py reverter --id X` devolve a entrada ao conteúdo anterior e registra a reversão.
+- O corpus só muda por `corpus.py` (`extrair`, `registrar`, `publicar`, `abrir-revisao`, `reverter`),
+  sob trava de arquivo. O monitor **nunca** escreve no corpus; coleta que falha ou é suspeita não
+  registra versão nem sobrescreve nada.
+- **Publicação controlada:** uma versão nova de uma fonte só chega aos trechos oficiais por
+  `corpus.py publicar`, depois de decidida por uma pessoa, com regressão da busca e registro no histórico
+  (detalhes em [monitor-legislativo.md](monitor-legislativo.md#fluxo-operacional-rodada-90-ciclo-p3)).
+- `extrair` não usa mais, por padrão, fonte cuja versão aceita não foi decidida por pessoa (linha de
+  base ou aceita automaticamente): pede `--incluir-nao-revisadas`. **As 34 fontes ainda estão na linha
+  de base**: os 141 trechos atuais vieram dessas capturas. Eles conferem com a página, mas nenhuma pessoa
+  revisou a captura.
+
+### Normas (`data/normas.json`)
+
+41 normas com tipo, número, data e órgão emissor. Para as 34 monitoradas, os dados vêm do cabeçalho da
+página oficial (campo `evidencia`); para as demais (súmulas, resolução da ANAC), de
+`data/normas_sem_coleta.json`, com o resultado da tentativa de acesso à fonte. A URN LexML é montada a
+partir desses dados e **não foi conferida** no LexML (`urn_conferida: false`).
+
+### O que a proveniência não resolve
+
+- A página do Planalto é texto compilado pela Casa Civil, não a publicação oficial. Por isso nenhum
+  texto é `literal`.
+- O campo `texto` (o que a busca indexa) continua, em 25 de 71 entradas conferíveis, longe do texto
+  oficial (classe "divergente" da medida de fidelidade). Isso não é escondido: 20 delas têm natureza
+  `resumo_explicativo`, 3 `interpretacao_juridica` e 2 `nao_conferido`, e nenhuma é citada como lei.
+  Reescrevê-las pede revisão jurídica.
+- Em 22/10/2026 descobriu-se que 16 das 34 páginas riscam redação revogada por estilo CSS, que a
+  leitura anterior tratava como vigente. **Nenhum dos 141 trechos oficiais vinha desse texto** (os 141
+  saem idênticos com a leitura corrigida). A rodada controlada do monitor de 23/10/2026 registrou as 16
+  versões relidas, pendentes de revisão humana; até lá, os snapshots aceitos continuam os da primeira
+  captura ([detalhes](monitor-legislativo.md#tachado-por-estilo-a-leitura-2)).
+- As 28 revisões pendentes (erros de conteúdo do texto curado e da vigência apontados pela revisão
+  adversarial automatizada) esperam decisão humana; enquanto isso, as respostas mostram os dispositivos
+  como "em revisão".
 
 ## O que existe no banco
 

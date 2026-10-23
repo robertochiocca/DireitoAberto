@@ -1,0 +1,64 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py), rodada 9.0: reproduz uma variação usada por um revisor independente. Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "assinaturas-variadas.pdf",
+ "cobre": [
+  "linha de local e data com UF ('Cidade/TS', 'Cidade (TS)', 'Cidade – TS'), mês com maiúscula e data numérica (H2/H3)",
+  "acórdão que reforma a sentença é a decisão que vale mesmo com o corpo citando data anterior (H3)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "pecas",
+   "esperado": [
+    [
+     "peticao_inicial",
+     1
+    ],
+    [
+     "contestacao",
+     2
+    ],
+    [
+     "sentenca",
+     3
+    ],
+    [
+     "acordao",
+     4
+    ]
+   ]
+  },
+  {
+   "tipo": "numero_processo",
+   "esperado": "0000000-04.2026.8.99.0019"
+  },
+  {
+   "tipo": "parte",
+   "papel": "autor(a)",
+   "nome": "Pedro Inventado Souza"
+  },
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "acordao",
+    "pagina": 4,
+    "resultado": "recurso provido"
+   }
+  },
+  {
+   "tipo": "resumo_nao_contem",
+   "esperado": "Resultado da sentença"
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "Eu ganhei?",
+   "nao_comeca_com": "Sim",
+   "contem": [
+    "recurso provido",
+    "depende"
+   ],
+   "nao_contem": [
+    "com resultado procedente"
+   ]
+  }
+ ]
+}

@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import re
 
-from .texto import sem_acento
+from .extracao import dobrar
 
 # termo exibido → (padrão de busca sem acento, explicação)
 TERMOS: dict[str, tuple[str, str]] = {
@@ -89,7 +89,7 @@ def termos_presentes(paginas: list[tuple[int, str]]) -> list[dict]:
     """[(número da página, texto)] → termos que aparecem, com explicação e páginas."""
     achados: dict[str, list[int]] = {}
     for numero, texto in paginas:
-        comparavel = sem_acento(texto)
+        comparavel = dobrar(texto)  # o texto das páginas já vem em NFC (extracao._limpar)
         for termo, padrao in _PADROES.items():
             if padrao.search(comparavel):
                 achados.setdefault(termo, []).append(numero)

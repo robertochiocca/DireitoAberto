@@ -1,0 +1,78 @@
+# Monitor legislativo: coleta as páginas oficiais monitoradas e compara com as versões aceitas.
+#
+# Roda nos dias úteis às 6h17 de Brasília (agendamento autorizado pelo mantenedor em 23/10/2026) e quando
+# alguém dispara à mão (Actions → "Monitor legislativo" → Run workflow). A rodada agendada é "controlada".
+# Abrir PR automático com o resultado NÃO foi autorizado: quem revisa baixa os artefatos.
+#
+# O que o job faz e não faz:
+# - "simular" (padrão): baixa as páginas, calcula diferenças, eventos e dispositivos afetados, e não
+#   grava nada;
+# - "controlado": grava as versões novas no registro DO RUNNER (efêmero) e publica o registro, os
+#   relatórios e o alerta como artefatos para revisão humana. Nada volta para o repositório e nada toca
+#   o corpus jurídico: levar uma versão ao corpus é `scripts/corpus.py publicar`, com decisão humana.
+# Código de saída do verificar: 0 nada a fazer; 1 revisão humana pendente; 2 rodada incompleta. O job
+# fica vermelho com 1 ou 2 — é o aviso para alguém olhar o alerta.
+# Sem segredos; permissão só de leitura do repositório.
+name: Monitor legislativo
+
+on:
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "simular (não grava nada) ou controlado (grava no registro do runner e publica artefatos)"
+        type: choice
+        options: [simular, controlado]
+        default: simular
+      fonte:
+        description: "id de uma fonte de backend/data/monitor/fontes.json (vazio = todas)"
+        required: false
+        default: ""
+  schedule:
+    - cron: "17 9 * * 1-5"  # dias úteis, 6h17 em Brasília (UTC-3); autorizado pelo mantenedor em 23/10/2026
+
+permissions:
+  contents: read
+
+concurrency:
+  group: monitor-legislativo
+  cancel-in-progress: false
+
+jobs:
+  verificar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install -r requirements.txt
+      - name: Verificar fontes
+        env:
+          # Na rodada agendada não há entradas: vale "controlado".
+          MODO: ${{ inputs.modo || 'controlado' }}
+          FONTE: ${{ inputs.fonte }}
+        run: |
+          args=(verificar --json ../monitor-resumo.json)
+          if [ "$MODO" != "controlado" ]; then args+=(--simular); fi
+          if [ -n "$FONTE" ]; then args+=(--fonte "$FONTE"); fi
+          python scripts/monitor.py "${args[@]}"
+      - name: Artefatos para revisão humana
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monitor-${{ inputs.modo || 'controlado' }}-${{ github.run_id }}
+          if-no-files-found: ignore
+          retention-days: 30
+          # Os snapshots vão junto: sem o texto capturado, o registro.json não serve para decidir nem publicar.
+          path: |
+            monitor-resumo.json
+            backend/data/monitor/alertas/
+            backend/data/monitor/relatorios/
+            backend/data/monitor/registro.json
+            backend/data/monitor/snapshots/

@@ -159,8 +159,35 @@ def test_vacatio_vira_vigente_na_data_de_inicio():
 
 def test_data_passada_nao_revoga_nem_desfaz_inconstitucionalidade():
     for status in ("revogada", "inconstitucional", "vigente"):
-        v = vigencia_efetiva({"status": status, "entra_em_vigor_em": "2000-01-01"}, em=date(2026, 11, 2))
+        v = vigencia_efetiva({"status": status, "entra_em_vigor_em": "2000-01-01", "conferida_em": "2026-10-16"},
+                             em=date(2026, 11, 2))
         assert v["status"] == status
+
+
+@pytest.mark.parametrize("registrada", [
+    None,                                              # sem bloco de vigência
+    {"status": "vigente"},                             # "vigente" sem data de conferência
+    {"status": "vigente", "conferida_em": None},
+    {"status": "suspensa_talvez", "conferida_em": "2026-10-16"},  # situação desconhecida
+])
+def test_sem_evidencia_a_situacao_e_nao_verificada_nunca_vigente(registrada):
+    v = vigencia_efetiva(registrada, em=date(2026, 10, 21))
+    assert v["status"] == "nao_verificada"
+    assert v["nota"]  # explica por que não dá para afirmar a vigência
+    assert "NÃO VERIFICADA" in rotulo_vigencia(v)
+
+
+def test_dispositivo_nao_verificado_pede_revisao_na_validacao():
+    from app.retrieval import Resultado
+    from app.validacao import avaliar
+
+    art = Resultado.de_artigo({"id": "x", "lei": "Lei X", "artigo": "Art. 1º", "tema": "t", "texto": "texto",
+                               "resumo": "r", "fonte": "https://www.planalto.gov.br/x.htm",
+                               "vigencia": {"status": "vigente"}}, score=9.0)
+    resultado = avaliar([art], date(2026, 10, 21))
+    assert resultado["estado"] in ("revisao_humana_recomendada", "fonte_desatualizada_ou_indisponivel")
+    vigencia = next(v for v in resultado["verificacoes"] if v["nome"] == "vigencia")
+    assert vigencia["ok"] is False and "não verificada" in vigencia["detalhe"]
 
 
 def test_hoje_e_a_data_de_brasilia_nao_a_do_servidor():

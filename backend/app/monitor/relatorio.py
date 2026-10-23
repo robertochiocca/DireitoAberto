@@ -5,7 +5,14 @@ from __future__ import annotations
 _ORDEM_RISCO = {"alto": 0, "medio": 1, "baixo": 2}
 _ROTULO_TIPO = {
     "formatacao": "Formatação",
-    "anotacao_editorial": "Anotação editorial",
+    "anotacao_editorial": "Anotação de navegação",
+    "anotacao_de_vigencia": "Anotação de vigência ou produção de efeitos",
+    "remissao_a_norma_nova": "Remissão nova a outra norma",
+    "anotacao_de_controle_constitucional": "Anotação de controle de constitucionalidade",
+    "artigo_tachado_na_pagina": "Artigo riscado na página",
+    "tachado_por_estilo_retirado": "Texto riscado por estilo, retirado pela nova leitura",
+    "indicio_revogacao_total": "Indício de revogação da norma inteira",
+    "retorno_a_versao_anterior": "Retorno a um texto já registrado",
     "norma_nova_citada": "Norma alteradora nova citada (texto igual)",
     "indicio_alteracao_legislativa": "Indício de alteração legislativa",
     "indicio_revogacao": "Indício de revogação",
@@ -17,6 +24,8 @@ _ROTULO_TIPO = {
 
 
 def _rotulo_artigo(chave: str) -> str:
+    if chave == "norma":
+        return "A norma inteira"
     if chave in ("preambulo", "fecho"):
         return "Preâmbulo" if chave == "preambulo" else "Fecho (assinaturas e nota do DOU)"
     numero, _, repeticao = chave.partition("#")
@@ -55,6 +64,18 @@ def gerar(fonte: dict, versao: dict, anterior: dict | None) -> str:
         f"{contagem.get('baixo', 0)} de risco baixo.",
         "",
     ]
+    if versao.get("releitura"):
+        linhas += ["> **A página não mudou.** Lida do jeito antigo, ela dá exatamente o texto da versão aceita: a "
+                   "diferença vem da nova leitura do monitor, que passou a reconhecer o texto riscado por estilo "
+                   "(CSS). Confira por amostragem que o que saiu está riscado na página e decida `sem_impacto`.", ""]
+    if versao.get("eventos"):
+        linhas += ["## O que pode ter acontecido (indícios, a confirmar no DOU)", ""]
+        for e in versao["eventos"]:
+            normas = f" — normas citadas: {', '.join(e['normas_citadas'])}" if e["normas_citadas"] else ""
+            artigos = ", ".join(_rotulo_artigo(a) for a in e["artigos"][:12])
+            mais = f" e mais {len(e['artigos']) - 12}" if len(e["artigos"]) > 12 else ""
+            linhas.append(f"- **{e['tipo']}**: {e['descricao']} ({artigos}{mais}){normas}")
+        linhas.append("")
     if versao["dispositivos_afetados"]:
         linhas += ["## Dispositivos da base afetados", "",
                    *[f"- `{i}`" for i in versao["dispositivos_afetados"]], "",
@@ -79,6 +100,8 @@ def gerar(fonte: dict, versao: dict, anterior: dict | None) -> str:
         ]
         if m["normas_citadas"]:
             linhas += [f"Normas citadas nas anotações novas: {', '.join(m['normas_citadas'])}.", ""]
+        if m.get("anotacoes_novas"):
+            linhas += [f"Anotações novas: {'; '.join(m['anotacoes_novas'])}.", ""]
         linhas += ["**Antes:**", "", _citar(m["trecho_anterior"]), "", "**Depois:**", "", _citar(m["trecho_novo"]), ""]
     linhas += [
         "## Como decidir",
@@ -87,6 +110,14 @@ def gerar(fonte: dict, versao: dict, anterior: dict | None) -> str:
         f"python scripts/monitor.py decidir --versao {versao['versao']} --resultado sem_impacto "
         "--responsavel \"Nome\" --nota \"o que foi conferido\"",
         "# resultados: sem_impacto · corpus_atualizado · rejeitada",
+        "```",
+        "",
+        "Decidir não mexe no corpus. Para levar esta versão aos trechos oficiais da base (depois de aceita por "
+        "uma pessoa), com regressão e registro no histórico:",
+        "",
+        "```bash",
+        f"python scripts/corpus.py publicar --fonte {fonte['id']} --versao {versao['versao']} "
+        "--responsavel \"Nome\" --motivo \"o que foi conferido\"",
         "```",
         "",
     ]

@@ -1,0 +1,24 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py), rodada 9.0: reproduz uma variação usada por um revisor independente. Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "resultados-mistos-em-frases.pdf",
+ "cobre": [
+  "procedente num item e improcedente no outro do dispositivo é procedência em parte (M1)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "sentenca",
+    "pagina": 2,
+    "resultado": "parcialmente procedente"
+   }
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "Explique a decisão de forma simples",
+   "contem": [
+    "só uma parte"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "procedencia-mista.pdf",
+ "cobre": [
+  "'IMPROCEDENTE o pedido X e PROCEDENTE o Y' é procedência parcial (item 6)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "sentenca",
+    "pagina": 2,
+    "resultado": "parcialmente procedente"
+   }
+  },
+  {
+   "tipo": "resumo_nao_contem",
+   "esperado": "IMPROCEDENTE —"
+  }
+ ]
+}

@@ -98,8 +98,9 @@ def test_historico_local_nao_executa_html(navegador):
     pagina = navegador.new_page()
     dialogos = []
     pagina.on("dialog", lambda d: (dialogos.append(d.message), d.dismiss()))
+    # As recentes ficam no sessionStorage (só a aba atual) desde a rodada 9.0; a carga maliciosa vai para lá.
     pagina.add_init_script(
-        f"localStorage.setItem('da-hist', JSON.stringify([{CARGA_XSS!r}, 'golpe do pix']))"
+        f"sessionStorage.setItem('da-hist', JSON.stringify([{CARGA_XSS!r}, 'golpe do pix']))"
     )
     pagina.goto(INDEX.as_uri())
 
@@ -111,6 +112,15 @@ def test_historico_local_nao_executa_html(navegador):
     assert pagina.input_value("#q") == CARGA_XSS
     assert pagina.evaluate("() => window.__xss") is None
     assert not dialogos
+    pagina.close()
+
+
+def test_perguntas_antigas_do_localstorage_sao_apagadas(navegador):
+    pagina = navegador.new_page()
+    pagina.add_init_script("localStorage.setItem('da-hist', JSON.stringify(['violência em casa']))")
+    pagina.goto(INDEX.as_uri())
+    assert pagina.evaluate("() => localStorage.getItem('da-hist')") is None
+    assert pagina.locator("#hist [data-hist]").count() == 0
     pagina.close()
 
 

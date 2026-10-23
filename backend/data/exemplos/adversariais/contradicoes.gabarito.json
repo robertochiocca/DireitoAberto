@@ -1,0 +1,40 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "contradicoes.pdf",
+ "cobre": [
+  "decisões finais divergentes, trânsito certificado antes da decisão, nomes e valores divergentes, folhas faltando (item 9)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "inconsistencia",
+   "esperado": "decisoes_finais_divergentes"
+  },
+  {
+   "tipo": "inconsistencia",
+   "esperado": "transito_antes_da_decisao"
+  },
+  {
+   "tipo": "inconsistencia",
+   "esperado": "nomes_divergentes"
+  },
+  {
+   "tipo": "inconsistencia",
+   "esperado": "valores_divergentes"
+  },
+  {
+   "tipo": "inconsistencia",
+   "esperado": "folhas_ausentes"
+  },
+  {
+   "tipo": "transito_certificado",
+   "esperado": false
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "Explique a decisão de forma simples",
+   "contem": [
+    "resultados diferentes"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "sentenca-em-audiencia.pdf",
+ "cobre": [
+  "sentença proferida no termo de audiência (Juizado Especial)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "sentenca",
+    "resultado": "procedente"
+   }
+  },
+  {
+   "tipo": "item_presente",
+   "categoria": "decisoes",
+   "contem": "JULGO PROCEDENTE",
+   "pagina": 2
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "O juiz já tomou alguma decisão?",
+   "nao_comeca_com": "Sim",
+   "abstencao": false
+  }
+ ]
+}

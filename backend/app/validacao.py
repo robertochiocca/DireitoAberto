@@ -28,6 +28,7 @@ from typing import Any
 from .monitor.fidelidade import verificar_corpus
 from .monitor.impacto import artigos_do_rotulo
 from .monitor.registro import Registro, diretorio
+from .monitor.sinais import fonte_desatualizada
 from .retrieval import DATA_PATH
 
 # Abaixo desta nota BM25 do 1º colocado, a evidência é insuficiente e a API não responde com
@@ -112,7 +113,7 @@ def _conflitos(artigos) -> list[str]:
 
     por_dispositivo: dict[tuple[str, str], set[str]] = {}
     for a in artigos:
-        por_dispositivo.setdefault((chave(a.lei), chave(a.artigo)), set()).add(a.vigencia.get("status", "vigente"))
+        por_dispositivo.setdefault((chave(a.lei), chave(a.artigo)), set()).add(a.vigencia.get("status", "nao_verificada"))
     return [f"{a} — {b}" for (a, b), situacoes in por_dispositivo.items() if len(situacoes) > 1]
 
 
@@ -148,20 +149,32 @@ def avaliar(artigos, hoje: date, texto_gerado: str | None = None, calibrado: boo
               f"{len(conferidos)} de {len(artigos)} com texto conferido contra a versão oficial vigente"
               + ("" if conferidos else " (fonte não monitorada, ou texto condensado ou parafraseado)"))
 
-    fora_de_vigor = [a.id for a in artigos if a.vigencia.get("status") != "vigente"]
-    verificar("vigencia", not fora_de_vigor,
-              "todos em vigor na data da consulta" if not fora_de_vigor
-              else f"fora de vigor hoje: {', '.join(fora_de_vigor)} — a resposta precisa dizer o que vale agora")
+    nao_verificados = [a.id for a in artigos if a.vigencia.get("status", "nao_verificada") == "nao_verificada"]
+    fora_de_vigor = [a.id for a in artigos
+                     if a.vigencia.get("status", "nao_verificada") not in ("vigente", "nao_verificada")]
+    verificar("vigencia", not fora_de_vigor and not nao_verificados,
+              "todos em vigor na data da consulta" if not fora_de_vigor and not nao_verificados
+              else "; ".join(filter(None, [
+                  f"fora de vigor hoje: {', '.join(fora_de_vigor)} — a resposta precisa dizer o que vale agora"
+                  if fora_de_vigor else "",
+                  f"situação de vigência não verificada: {', '.join(nao_verificados)}" if nao_verificados else "",
+              ])))
 
     limite = (hoje - timedelta(days=VALIDADE_CONFERENCIA_DIAS)).isoformat()
     velhos = [a.id for a in artigos if (a.vigencia.get("conferida_em") or "0000") < limite]
     sem_revisao = [a.id for a in artigos if a.vigencia.get("status_registrado")]
-    verificar("atualidade", not velhos and not sem_revisao,
-              f"vigência conferida há menos de {VALIDADE_CONFERENCIA_DIAS} dias"
-              if not velhos and not sem_revisao
+    # A página oficial da norma não é conferida pelo monitor há mais do que o limite: a base não sabe se ela
+    # mudou nesse meio-tempo.
+    fontes_paradas = {n: d for a in artigos if (n := getattr(a, "norma", None)) and (d := fonte_desatualizada(n))}
+    sem_monitor = [a.id for a in artigos if getattr(a, "norma", None) in fontes_paradas]
+    verificar("atualidade", not velhos and not sem_revisao and not sem_monitor,
+              f"vigência conferida há menos de {VALIDADE_CONFERENCIA_DIAS} dias e fontes conferidas pelo monitor"
+              if not velhos and not sem_revisao and not sem_monitor
               else "; ".join(filter(None, [
                   f"conferência antiga: {', '.join(velhos)}" if velhos else "",
                   f"data de início chegou sem revisão registrada: {', '.join(sem_revisao)}" if sem_revisao else "",
+                  "fonte oficial sem conferência recente do monitor: "
+                  + "; ".join(f"{n} ({d['motivo']})" for n, d in fontes_paradas.items()) if sem_monitor else "",
               ])))
 
     em_revisao = [a.id for a in artigos if a.revisao and a.revisao.get("estado") == "pendente"]
@@ -180,11 +193,11 @@ def avaliar(artigos, hoje: date, texto_gerado: str | None = None, calibrado: boo
                   "toda citação do texto gerado está entre os dispositivos recuperados" if not soltas
                   else f"citações sem dispositivo recuperado: {', '.join(soltas)}")
 
-    if velhos or sem_revisao:
+    if velhos or sem_revisao or sem_monitor:
         estado = "fonte_desatualizada_ou_indisponivel"
     elif conflitos:
         estado = "conflito_de_fontes"
-    elif em_revisao or fora_de_vigor or soltas:
+    elif em_revisao or fora_de_vigor or nao_verificados or soltas:
         estado = "revisao_humana_recomendada"
     elif calibrado and conferidos and len(conferidos) == len(artigos) and not nao_oficiais:
         estado = "fonte_e_versao_verificadas"

@@ -1,0 +1,175 @@
+{
+  "sobre": "Normas e fontes sem coleta automática. Mantido à mão; scripts/corpus.py normas junta estas às fontes monitoradas em data/normas.json.",
+  "normas": [
+    {
+      "id": "stf-sv25",
+      "nome": "Súmula Vinculante nº 25 do STF",
+      "tipo": "sumula-vinculante",
+      "numero": "25",
+      "data": null,
+      "publicado_no_dou": null,
+      "jurisdicao": "federal",
+      "orgao_emissor": "Supremo Tribunal Federal",
+      "fonte_oficial": "https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=26&sumula=1268",
+      "fonte_monitorada": false,
+      "urn_lexml": null,
+      "urn_conferida": false,
+      "evidencia": "dados de identificação digitados na curadoria; data não verificada",
+      "acesso_a_fonte": {
+        "verificado_em": "2026-10-21",
+        "resultado": "bloqueado",
+        "detalhe": "HTTP 403 do sistema de proteção do portal (F5); não contornado"
+      },
+      "observacao": "Enunciado não conferido automaticamente; conferir manualmente no portal do STF."
+    },
+    {
+      "id": "stj-sumula297",
+      "nome": "Súmula nº 297 do STJ",
+      "tipo": "sumula",
+      "numero": "297",
+      "data": null,
+      "publicado_no_dou": null,
+      "jurisdicao": "federal",
+      "orgao_emissor": "Superior Tribunal de Justiça",
+      "fonte_oficial": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2011_23_capSumula297.pdf",
+      "fonte_monitorada": false,
+      "urn_lexml": null,
+      "urn_conferida": false,
+      "evidencia": "dados de identificação digitados na curadoria; data não verificada",
+      "acesso_a_fonte": {
+        "verificado_em": "2026-10-21",
+        "resultado": "disponivel",
+        "detalhe": "HTTP 200, PDF da Revista de Súmulas",
+        "sha256_documento": "5da535d46eb6feb0b8a4358901aa2c8fbf233d42f8fef78886817ab9d2a8cb0b"
+      },
+      "observacao": "O enunciado publicado ('O Código de Defesa do Consumidor é aplicável às instituições financeiras.') coincide com o 1º período do texto do corpus; o restante é explicação. Conferência assistida, sem extração automática (PDF com quebras de ligadura)."
+    },
+    {
+      "id": "stj-sumula302",
+      "nome": "Súmula nº 302 do STJ",
+      "tipo": "sumula",
+      "numero": "302",
+      "data": null,
+      "publicado_no_dou": null,
+      "jurisdicao": "federal",
+      "orgao_emissor": "Superior Tribunal de Justiça",
+      "fonte_oficial": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2011_24_capSumula302.pdf",
+      "fonte_monitorada": false,
+      "urn_lexml": null,
+      "urn_conferida": false,
+      "evidencia": "dados de identificação digitados na curadoria; data não verificada",
+      "acesso_a_fonte": {
+        "verificado_em": "2026-10-21",
+        "resultado": "disponivel",
+        "detalhe": "HTTP 200, PDF da Revista de Súmulas",
+        "sha256_documento": "cd65fe1b5c23f0b33854e093f0d2c1daef06d07ee3c6c07b284eec736edb5671"
+      },
+      "observacao": "O enunciado publicado ('É abusiva a cláusula contratual de plano de saúde que limita no tempo a internação hospitalar do segurado.') coincide com o 1º período do texto do corpus; o restante é explicação."
+    },
+    {
+      "id": "stj-sumula385",
+      "nome": "Súmula nº 385 do STJ",
+      "tipo": "sumula",
+      "numero": "385",
+      "data": null,
+      "publicado_no_dou": null,
+      "jurisdicao": "federal",
+      "orgao_emissor": "Superior Tribunal de Justiça",
+      "fonte_oficial": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2013_34_capSumula385.pdf",
+      "fonte_monitorada": false,
+      "urn_lexml": null,
+      "urn_conferida": false,
+      "evidencia": "dados de identificação digitados na curadoria; data não verificada",
+      "acesso_a_fonte": {
+        "verificado_em": "2026-10-21",
+        "resultado": "indisponivel",
+        "detalhe": "HTTP 404 no endereço registrado"
+      },
+      "observacao": "Endereço da fonte quebrado: precisa de nova fonte oficial (revisão humana)."
+    },
+    {
+      "id": "stj-sumula479",
+      "nome": "Súmula nº 479 do STJ",
+      "tipo": "sumula",
+      "numero": "479",
+      "data": null,
+      "publicado_no_dou": null,
+      "jurisdicao": "federal",
+      "orgao_emissor": "Superior Tribunal de Justiça",
+      "fonte_oficial": "https://www.stj.jus.br/docs_internet/revista/eletronica/stj-revista-sumulas-2017_44_capSumulas479-483.pdf",
+      "fonte_monitorada": false,
+      "urn_lexml": null,
+      "urn_conferida": false,
+      "evidencia": "dados de identificação digitados na curadoria; data não verificada",
+      "acesso_a_fonte": {
+        "verificado_em": "2026-10-21",
+        "resultado": "indisponivel",
+        "detalhe": "HTTP 404 no endereço registrado"
+      },
+      "observacao": "Endereço da fonte quebrado: precisa de nova fonte oficial (revisão humana)."
+    },
+    {
+      "id": "tst-sumula338",
+      "nome": "Súmula nº 338 do TST",
+      "tipo": "sumula",
+      "numero": "338",
+      "data": null,
+      "publicado_no_dou": null,
+      "jurisdicao": "federal",
+      "orgao_emissor": "Tribunal Superior do Trabalho",
+      "fonte_oficial": "https://jurisprudencia.tst.jus.br/#void",
+      "fonte_monitorada": false,
+      "urn_lexml": null,
+      "urn_conferida": false,
+      "evidencia": "dados de identificação digitados na curadoria; data não verificada",
+      "acesso_a_fonte": {
+        "verificado_em": "2026-10-21",
+        "resultado": "nao_verificavel",
+        "detalhe": "o endereço registrado é a página inicial de uma aplicação JavaScript ('#void'), sem o texto da súmula"
+      },
+      "observacao": "Fonte registrada não identifica o documento: precisa de endereço específico (revisão humana)."
+    },
+    {
+      "id": "tst-sumula443",
+      "nome": "Súmula nº 443 do TST",
+      "tipo": "sumula",
+      "numero": "443",
+      "data": null,
+      "publicado_no_dou": null,
+      "jurisdicao": "federal",
+      "orgao_emissor": "Tribunal Superior do Trabalho",
+      "fonte_oficial": "https://jurisprudencia.tst.jus.br/#void",
+      "fonte_monitorada": false,
+      "urn_lexml": null,
+      "urn_conferida": false,
+      "evidencia": "dados de identificação digitados na curadoria; data não verificada",
+      "acesso_a_fonte": {
+        "verificado_em": "2026-10-21",
+        "resultado": "nao_verificavel",
+        "detalhe": "o endereço registrado é a página inicial de uma aplicação JavaScript ('#void'), sem o texto da súmula"
+      },
+      "observacao": "Fonte registrada não identifica o documento: precisa de endereço específico (revisão humana)."
+    },
+    {
+      "id": "anac-400",
+      "nome": "Resolução ANAC nº 400/2016",
+      "tipo": "resolucao",
+      "numero": "400",
+      "data": null,
+      "publicado_no_dou": null,
+      "jurisdicao": "federal",
+      "orgao_emissor": "Agência Nacional de Aviação Civil",
+      "fonte_oficial": "https://www.anac.gov.br/assuntos/legislacao/legislacao-1/resolucoes/resolucoes-2016/resolucao-no-400-13-07-2016",
+      "fonte_monitorada": false,
+      "urn_lexml": null,
+      "urn_conferida": false,
+      "evidencia": "dados de identificação digitados na curadoria; data não verificada",
+      "acesso_a_fonte": {
+        "verificado_em": "2026-10-21",
+        "resultado": "indisponivel",
+        "detalhe": "HTTP 404 no endereço registrado"
+      },
+      "observacao": "Endereço da fonte quebrado: precisa de nova fonte oficial (revisão humana)."
+    }
+  ]
+}

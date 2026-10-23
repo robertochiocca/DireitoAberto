@@ -10,3 +10,7 @@ venv/
 dist/
 build/
 .DS_Store
+# Monitor e corpus: travas entre processos e alertas de cada rodada (operacionais, não versionados)
+.registro.lock
+.corpus.lock
+backend/data/monitor/alertas/

@@ -174,6 +174,15 @@ class Resultado:
     vigencia: dict = field(default_factory=lambda: dict(VIGENCIA_PADRAO))
     # Pendência de revisão registrada no corpus (motivo e evidência), ou None.
     revisao: dict | None = None
+    # Proveniência (app/corpus/proveniencia.py): o que é o `texto` (transcrição consolidada, resumo,
+    # interpretação, não conferido), os trechos oficiais transcritos da fonte e o que falta conferir.
+    norma: str | None = None
+    dispositivos: list[dict] = field(default_factory=list)
+    # Redação anterior de outra entrada (o id da entrada vigente): as duas são versões do mesmo dispositivo.
+    versao_de: str | None = None
+    texto_natureza: str = "nao_conferido"
+    trechos_oficiais: list[dict] = field(default_factory=list)
+    lacunas: list[str] = field(default_factory=list)
 
     @classmethod
     def de_artigo(cls, art: dict, score: float) -> Resultado:
@@ -193,6 +202,12 @@ class Resultado:
             score=round(score, 3),
             vigencia=vigencia_efetiva(art.get("vigencia")),
             revisao=art.get("revisao"),
+            norma=art.get("norma"),
+            dispositivos=art.get("dispositivos", []),
+            versao_de=art.get("versao_de"),
+            texto_natureza=art.get("texto_natureza", "nao_conferido"),
+            trechos_oficiais=art.get("trechos_oficiais", []),
+            lacunas=art.get("lacunas", []),
         )
 
     @property
@@ -216,14 +231,16 @@ class Retriever:
     # qualquer peso entre 0,5 e 0,7 mantém o artigo esperado no top-3 em
     # todas e põe mais artigos certos em 1º lugar; 0,6 fica no meio da faixa.
     PESO_SINONIMO = 0.6
-    # Nem toda pergunta tem 4 artigos relevantes, e preencher as vagas com o
-    # que estiver mais perto traz lei de outro assunto. Na busca adaptativa,
-    # os 2 primeiros sempre entram; depois deles, só quem tem ao menos um terço
-    # da nota do 1º colocado. Calibrado em scripts/comparar_retrievers.py: com
-    # mínimo 1 já se perdiam artigos relevantes; com mínimo 2, qualquer corte
-    # entre 30% e 35% dá o mesmo resultado nas perguntas julgadas.
-    MINIMO_ARTIGOS = 2
-    CORTE_RELATIVO = 1 / 3
+    # Nem toda pergunta tem 4 artigos relevantes, e preencher as vagas com o que estiver mais perto traz
+    # lei de outro assunto. Na busca adaptativa, o 1º sempre entra; depois dele, só quem tem ao menos 35%
+    # da nota do 1º colocado. Escolhido em 22/10/2026 por validação cruzada agrupada (app/calibracao.py,
+    # `scripts/avaliar.py --varrer`) com critério fixado antes: artigo do gabarito em 100% das respostas e
+    # ≥ 95% dos relevantes julgados; maior precisão. Nas 86 perguntas, contra o mínimo de 2 artigos e corte
+    # de 1/3 de antes: precisão (só relevante) 46,5% → 57,6%, relevantes julgados mantidos 98,1% → 96,3%,
+    # gabarito 100% nos dois; estimativa fora da amostra 61,4%. O mínimo de 2 forçava um segundo artigo em
+    # toda resposta, e 65 das 86 perguntas têm um só artigo relevante.
+    MINIMO_ARTIGOS = 1
+    CORTE_RELATIVO = 0.35
 
     def __init__(self, data_path: Path = DATA_PATH):
         raw = json.loads(Path(data_path).read_text(encoding="utf-8"))
@@ -266,6 +283,28 @@ class Retriever:
                 pesos.setdefault(sinonimo, self.PESO_SINONIMO)
         return pesos
 
+    # Texto do documento do cidadão entra na busca como expansão: os termos mais raros (maior IDF) dele, com
+    # peso 0,3, abaixo do peso dos sinônimos. Antes o documento inteiro era somado à pergunta com peso cheio
+    # e decidia sozinho o resultado (uma nota fiscal anexada trazia o CDC para "como funciona o habeas
+    # corpus?" e desligava a abstenção).
+    PESO_EXPANSAO = 0.3
+    TERMOS_EXPANSAO = 25
+
+    def _expansao(self, texto: str, ja: dict[str, float]) -> dict[str, float]:
+        candidatos = {t for t in normalizar(texto) if t in self._idf and t not in ja}
+        melhores = sorted(candidatos, key=lambda t: (-self._idf[t], t))[: self.TERMOS_EXPANSAO]
+        return dict.fromkeys(melhores, self.PESO_EXPANSAO)
+
+    def termos_casados(self, pergunta: str, art_id: str) -> list[str]:
+        """Palavras da pergunta que o dispositivo contém, por si ou por um sinônimo do vocabulário do cidadão
+        ("notebook" casa por "produto"): mede se a ligação com a pergunta é forte ou se é uma palavra solta."""
+        i = next((n for n, a in enumerate(self.artigos) if a["id"] == art_id), None)
+        if i is None:
+            return []
+        freqs = self._doc_freqs[i]
+        return [t for t in dict.fromkeys(normalizar(pergunta))
+                if t in freqs or any(s in freqs for s in _SINONIMOS_NORM.get(t, []))]
+
     def temas(self) -> list[str]:
         return sorted({art["tema"] for art in self.artigos})
 
@@ -276,6 +315,7 @@ class Retriever:
         score_minimo: float = 1.0,
         tema: str | None = None,
         adaptativo: bool = False,
+        expansao: str | None = None,
     ) -> list[Resultado]:
         """Até `top_k` artigos; com `adaptativo`, menos quando os demais são fracos.
 
@@ -283,6 +323,8 @@ class Retriever:
         fixo de resultados, para continuarem comparáveis entre si.
         """
         consulta = self._expandir_consulta(pergunta)
+        if expansao:
+            consulta.update(self._expansao(expansao, consulta))
         resultados = []
         for i, art in enumerate(self.artigos):
             if tema and art["tema"] != tema:
