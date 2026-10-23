@@ -22,13 +22,13 @@
     --brand-ink:#0f5a4a;    /* brand usable as text on paper */
     --brand-soft:#e2ede8;   /* pine tint */
     --brand-fill:#0f5a4a;   /* filled surfaces that carry white text */
-    --right:#b5541f;        /* "seu direito" signal */
+    --right:#a34c1c;        /* "seu direito" signal */
     --right-soft:#f6e7dc;
     --do:#1f6f45;
-    --warn:#8a6d1a;
+    --warn:#7c6217;
     --warn-soft:#f3ecd4;
     --warn-line:#e6dcb4;
-    --dead:#8f8a7c;
+    --dead:#6b685d;
     --soft:#f0eee6;         /* notes / disclaimers */
     --soft-2:#faf8f2;       /* templates */
     --hover:#e9e6da;
@@ -52,7 +52,7 @@
     --warn:#cfa93c;
     --warn-soft:#2c2712;
     --warn-line:#4a4020;
-    --dead:#77818f;
+    --dead:#838e9d;
     --soft:#20262f;
     --soft-2:#1e242d;
     --hover:#232b36;
@@ -106,6 +106,8 @@
     font-family:inherit;transition:border-color .18s,box-shadow .18s}
   .bar-search input::placeholder{color:var(--dead)}
   .bar-search input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+  /* Foco visível em todo elemento interativo (WCAG 2.4.7); o anel padrão some no tema escuro. */
+  :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
   .bar-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);
     color:var(--ink-2);pointer-events:none}
   .bar-search .hint{position:absolute;right:9px;top:50%;transform:translateY(-50%);
@@ -219,7 +221,7 @@
   .door .go{margin-top:18px;color:var(--brand-ink);font-weight:600;font-size:14.5px;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
   .door:hover .go{gap:11px}
   .door.primary{background:var(--brand-fill);color:#eef7f2}
-  .door.primary .door-k{color:#8fc4b3}
+  .door.primary .door-k{color:#c8e8dd}
   .door.primary p{color:#cfe6dd}
   .door.primary .go{color:#fff}
   .door.primary:hover{border-color:var(--brand-fill)}
@@ -292,6 +294,10 @@
   .ai-panel .validacao summary{cursor:pointer}
   .ai-panel .validacao ul{list-style:none;margin:8px 0 4px;padding:0}
   .ai-panel .validacao p{font-size:12px;opacity:.8}
+  .law-ref .resumo-aviso{margin-top:8px;font-size:12px;color:var(--ink-2)}
+  .ai-panel .texto-oficial{margin-top:8px;font-size:13px;line-height:1.5}
+  .ai-panel .texto-oficial summary{cursor:pointer;font-weight:600}
+  .ai-panel .texto-oficial blockquote{margin:8px 0;padding:8px 12px;border-left:3px solid var(--line);border-radius:0 8px 8px 0}
   .ai-panel .vig-nota{font-size:12.5px;color:var(--ink-2);background:var(--warn-soft);
     border-radius:8px;padding:8px 11px;margin-top:7px;line-height:1.45}
   .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand);
@@ -772,10 +778,11 @@ function openProblem(id){
     <p class="plain">${p.plain}</p>
 
     <div class="block">
-      <div class="block-h"><span class="dot" style="background:var(--brand)"></span>O que a lei diz</div>
+      <div class="block-h"><span class="dot" style="background:var(--brand)"></span>Em resumo, o que a lei prevê</div>
       <div class="law-ref">
-        <div class="art">§ ${p.law.art}</div>
+        <div class="art">${p.law.art}</div>
         <div class="txt">${p.law.txt}</div>
+        <div class="resumo-aviso">Resumo explicativo do DireitoAberto, em linguagem simples — não é o texto da lei. Antes de citar, leia o texto oficial na fonte abaixo.</div>
       </div>
       ${fonte}
     </div>
@@ -904,17 +911,20 @@ const urlSegura=u=>/^https?:\/\//i.test(String(u||""))?esc(u):"#";
 /* "2026-10-18" sem hora é lido como meia-noite UTC, que no Brasil ainda é o dia anterior. */
 const dataLocal=iso=>new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso)?iso+"T00:00:00":iso);
 
-function historico(){ try{return JSON.parse(localStorage.getItem("da-hist")||"[]")}catch{return []} }
+/* Perguntas recentes só nesta aba (sessionStorage): somem ao fechá-la. Antes ficavam no localStorage sem prazo
+   nem aviso — num computador compartilhado, a próxima pessoa via "violência", "dívida", "INSS" na tela inicial. */
+try{ localStorage.removeItem("da-hist"); }catch{}
+function historico(){ try{return JSON.parse(sessionStorage.getItem("da-hist")||"[]")}catch{return []} }
 function salvarHistorico(q){
   const h=[q, ...historico().filter(x=>x!==q)].slice(0,6);
-  localStorage.setItem("da-hist", JSON.stringify(h));
+  try{ sessionStorage.setItem("da-hist", JSON.stringify(h)); }catch{}
   renderHistorico();
 }
-function limparHistorico(){ localStorage.removeItem("da-hist"); renderHistorico(); }
+function limparHistorico(){ try{ sessionStorage.removeItem("da-hist"); }catch{} renderHistorico(); }
 function renderHistorico(){
   const h=historico();
   document.getElementById("hist").innerHTML = h.length
-    ? `<span class="hist-label">RECENTES</span>`+
+    ? `<span class="hist-label" title="Ficam só nesta aba e somem quando você a fecha">RECENTES (só nesta aba)</span>`+
       h.map((q,i)=>`<button class="chip hist" data-hist="${i}">${esc(q)}</button>`).join("")+
       `<button class="chip hist" onclick="limparHistorico()" title="Limpar histórico">✕ limpar</button>`
     : "";
@@ -942,14 +952,30 @@ function reperguntar(q){
 function rotuloVigencia(v){
   if(v && v.status==="vigente" && v.status_registrado==="em_vacatio")
     return ` <span class="vig vig-vacatio">em vigor desde ${esc(dataLocal(v.vigente_desde).toLocaleDateString("pt-BR"))}</span>`;
-  if(!v || v.status==="vigente") return "";
+  if(!v || v.status==="nao_verificada")
+    return ` <span class="vig vig-revogada">⚠ situação de vigência não verificada</span>`;
+  if(v.status==="vigente") return "";
   if(v.status==="revogada") return ` <span class="vig vig-revogada">⚠ revogado</span>`;
+  if(v.status==="redacao_anterior") return ` <span class="vig vig-revogada">⚠ redação anterior — não vale hoje</span>`;
   if(v.status==="inconstitucional")
     return ` <span class="vig vig-revogada">⚠ declarado inconstitucional</span>`;
   const d=v.entra_em_vigor_em
     ? new Date(v.entra_em_vigor_em+"T00:00:00").toLocaleDateString("pt-BR") : null;
   const txt=d?`em vigor a partir de ${d}`:"ainda não está em vigor";
   return ` <span class="vig vig-vacatio">⚠ ${esc(txt)}</span>`;
+}
+
+/* Texto oficial transcrito da fonte, separado da explicação; ou o aviso de que não foi conferido. */
+function textoOficial(a){
+  const t=a.trechos_oficiais||[];
+  if(!t.length)
+    return `<div class="vig-nota">Texto oficial não conferido nesta base. Confira na fonte oficial antes de citar.</div>`;
+  const coletado=new Date(t[0].coletado_em).toLocaleDateString("pt-BR");
+  return `<details class="texto-oficial"><summary>Texto oficial — ${esc(t.map(x=>x.dispositivo).join("; "))}
+    <small>(transcrição do texto consolidado, coletado em ${esc(coletado)})</small></summary>
+    ${t.map(x=>`<blockquote>${x.contexto?`<p><i>${esc(x.contexto)} […]</i></p>`:""}<p>${esc(x.texto)}</p>
+      <small>${esc(x.dispositivo)} · página oficial, versão ${esc(String(x.versao_fonte).slice(0,8))} · texto atualizado pela Casa Civil, não substitui o Diário Oficial</small></blockquote>`).join("")}
+  </details>`;
 }
 
 fetch("/api/saude").then(r=>{
@@ -973,9 +999,10 @@ async function perguntarAPI(pergunta){
     const arts=(d.artigos||[]).map(a=>`
       <div class="ai-art">
         <div class="art">§ ${esc(a.lei)} · ${esc(a.artigo)}${rotuloVigencia(a.vigencia)}</div>
-        <div class="txt">${esc(a.resumo)}</div>
+        <div class="txt"><b>Explicação do DireitoAberto:</b> ${esc(a.resumo)}</div>
         ${a.vigencia&&a.vigencia.nota?`<div class="vig-nota">${esc(a.vigencia.nota)}</div>`:""}
         ${a.revisao&&a.revisao.estado==="pendente"?`<div class="vig-nota">⚠ Em revisão: ${esc(a.revisao.motivo)}</div>`:""}
+        ${textoOficial(a)}
         <a href="${urlSegura(a.fonte)}" target="_blank" rel="noopener noreferrer">fonte oficial ↗</a>
       </div>`).join("");
     panel.innerHTML=`

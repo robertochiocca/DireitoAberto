@@ -1,0 +1,28 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py), rodada 9.0: reproduz uma variação usada por um revisor independente. Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "relatorio-breve-relato.pdf",
+ "cobre": [
+  "'É o breve relato.' encerra o relatório; o dispositivo é decisão (M3)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "sentenca",
+    "pagina": 2,
+    "resultado": "procedente"
+   }
+  },
+  {
+   "tipo": "item_presente",
+   "categoria": "decisoes",
+   "contem": "JULGO PROCEDENTE",
+   "pagina": 2
+  },
+  {
+   "tipo": "item_ausente",
+   "categoria": "decisoes",
+   "contem": "O autor alega cobrança"
+  }
+ ]
+}

@@ -70,6 +70,23 @@ def test_decodifica_windows_1252():
     assert "Proteção" in coleta.texto_vigente(bruto)
 
 
+@pytest.mark.parametrize("codificacao, bom", [("utf-16-le", b"\xff\xfe"), ("utf-16-be", b"\xfe\xff"),
+                                              ("utf-8", b"\xef\xbb\xbf")])
+def test_decodifica_pela_marca_de_ordem_de_bytes(codificacao, bom):
+    # A página da Lei 11.340/2006 vem em UTF-16 com BOM; lida como Windows-1252, perdia todos os artigos.
+    bruto = bom + "<p>Art. 1º Esta Lei cria mecanismos para coibir a violência.</p>".encode(codificacao)
+    texto = coleta.texto_vigente(bruto)
+    assert "Art. 1º Esta Lei cria mecanismos" in texto
+    assert list(dividir(texto)) == ["1"]
+
+
+def test_pagina_sem_artigos_nao_vira_linha_de_base(registro):
+    r = _verificar(registro, "<html><body><p>Serviço indisponível. Tente mais tarde.</p></body></html>".encode())
+    assert r["resultado"] == "coleta_suspeita"
+    assert registro.versoes_da_fonte("cdc") == [] and registro.versao_aceita("cdc") is None
+    assert registro.dados["verificacoes"]["cdc"]["resultado"] == "coleta_suspeita"
+
+
 def test_metadados_da_pagina():
     meta = coleta.metadados(coleta.texto_vigente(pagina(*BASE)))
     assert meta == {"titulo": "LEI Nº 8.078, DE 11 DE SETEMBRO DE 1990", "publicado_no_dou": "1990-09-12"}
@@ -136,6 +153,8 @@ def test_artigos_do_rotulo():
     assert artigos_do_rotulo("Art. 7º, XIII e XV") == {"7"}
     assert artigos_do_rotulo("Art. 42-A") == {"42-A"}
     assert artigos_do_rotulo("Arts. 282 e 285 a 288 (síntese)") == {"282", "285", "286", "287", "288"}
+    # Artigo com letra no meio da lista não corta o resto (lei11340-22).
+    assert artigos_do_rotulo("Arts. 7º, 12-C, 22 e 24-A") == {"7", "12-C", "22", "24-A"}
 
 
 def test_dispositivos_afetados_pela_url_e_pelo_artigo():

@@ -39,6 +39,15 @@ jobs:
         run: python -m pytest -q
       - name: Relatório de avaliação
         run: python scripts/avaliar.py --comparar
+      - name: Integridade do corpus (selos, histórico, trechos oficiais)
+        run: python scripts/corpus.py verificar
+      - name: Dependências com vulnerabilidade conhecida (o que este job instalou)
+        # Audita as versões efetivamente instaladas, não uma resolução nova: em 21/10/2026 o ambiente tinha
+        # pypdf 6.17.0 (13 avisos) enquanto "pip-audit -r requirements.txt" dizia que estava tudo limpo.
+        run: |
+          pip install pip-audit
+          pip freeze --exclude-editable | grep -viE "^(pip|setuptools|wheel)==" > /tmp/instalado.txt
+          pip-audit --no-deps --disable-pip -r /tmp/instalado.txt
 
   web:
     runs-on: ubuntu-latest

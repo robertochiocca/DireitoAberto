@@ -25,7 +25,12 @@ from sqlalchemy.orm import Session
 
 from .db import TokenSessao, Usuario, agora, get_db
 
-_PBKDF2_ITERACOES = 240_000
+# OWASP (2023+) recomenda 600 mil iterações para PBKDF2-HMAC-SHA256. O hash guarda o algoritmo e o número
+# de iterações ("pbkdf2_sha256$600000$salt$dk"): subir o número no futuro não invalida senhas — o login
+# refaz o hash antigo. Hashes do formato anterior ("salt:dk", 240 mil iterações) continuam valendo.
+ITERACOES_PADRAO = 600_000
+_PBKDF2_ITERACOES = int(os.environ.get("DIREITO_ABERTO_PBKDF2_ITERACOES", ITERACOES_PADRAO))
+_ITERACOES_LEGADAS = 240_000
 
 VALIDADE_TOKEN = timedelta(hours=float(os.environ.get("DIREITO_ABERTO_TOKEN_VALIDADE_HORAS", 720)))
 
@@ -40,7 +45,24 @@ _HASH_FICTICIO = None
 def gerar_hash_senha(senha: str) -> str:
     salt = secrets.token_bytes(16)
     dk = hashlib.pbkdf2_hmac("sha256", senha.encode(), salt, _PBKDF2_ITERACOES)
-    return f"{salt.hex()}:{dk.hex()}"
+    return f"pbkdf2_sha256${_PBKDF2_ITERACOES}${salt.hex()}${dk.hex()}"
+
+
+def _parametros(armazenado: str) -> tuple[int, bytes, str] | None:
+    """(iterações, salt, dk em hex) do hash guardado, nos dois formatos."""
+    try:
+        if armazenado.startswith("pbkdf2_sha256$"):
+            _, iteracoes, salt_hex, dk_hex = armazenado.split("$")
+            return int(iteracoes), bytes.fromhex(salt_hex), dk_hex
+        salt_hex, dk_hex = armazenado.split(":")
+        return _ITERACOES_LEGADAS, bytes.fromhex(salt_hex), dk_hex
+    except ValueError:
+        return None
+
+
+def precisa_refazer_hash(armazenado: str) -> bool:
+    parametros = _parametros(armazenado)
+    return parametros is None or parametros[0] < _PBKDF2_ITERACOES or not armazenado.startswith("pbkdf2_sha256$")
 
 
 def normalizar_email(email: str) -> str:
@@ -59,11 +81,11 @@ def verificar_senha_ou_gastar_tempo(senha: str, armazenado: str | None) -> bool:
 
 
 def verificar_senha(senha: str, armazenado: str) -> bool:
-    try:
-        salt_hex, dk_hex = armazenado.split(":")
-    except ValueError:
+    parametros = _parametros(armazenado)
+    if parametros is None:
         return False
-    dk = hashlib.pbkdf2_hmac("sha256", senha.encode(), bytes.fromhex(salt_hex), _PBKDF2_ITERACOES)
+    iteracoes, salt, dk_hex = parametros
+    dk = hashlib.pbkdf2_hmac("sha256", senha.encode(), salt, iteracoes)
     return hmac.compare_digest(dk.hex(), dk_hex)
 
 
@@ -101,8 +123,12 @@ def revogar_token(db: Session, token: str) -> None:
     db.commit()
 
 
-def revogar_todos(db: Session, usuario: Usuario) -> None:
-    db.execute(delete(TokenSessao).where(TokenSessao.usuario_id == usuario.id))
+def revogar_todos(db: Session, usuario: Usuario, exceto: str | None = None) -> None:
+    """Encerra todas as sessões da conta — menos a do token `exceto`, quando dado (troca de senha)."""
+    consulta = delete(TokenSessao).where(TokenSessao.usuario_id == usuario.id)
+    if exceto is not None:
+        consulta = consulta.where(TokenSessao.token_hash != _hash_token(exceto))
+    db.execute(consulta)
     db.commit()
 
 

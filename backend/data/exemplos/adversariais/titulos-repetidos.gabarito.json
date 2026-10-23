@@ -1,0 +1,36 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "titulos-repetidos.pdf",
+ "cobre": [
+  "título de peça repetido em várias páginas não é apagado como cabeçalho (fala da parte não cai dentro da certidão)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "transito_certificado",
+   "esperado": false
+  },
+  {
+   "tipo": "item_presente",
+   "categoria": "alegacoes",
+   "contem": "já transitou em julgado",
+   "pagina": 3
+  },
+  {
+   "tipo": "pecas_contem",
+   "esperado": [
+    [
+     "sentenca",
+     1
+    ],
+    [
+     "certidao",
+     2
+    ],
+    [
+     "manifestacao",
+     3
+    ]
+   ]
+  }
+ ]
+}

@@ -2,7 +2,7 @@
 
 > Descreve o código como ele está. O que ainda é plano aparece marcado como **planejado**.
 
-## Visão geral
+## Visão geral (rodada 9.0)
 
 ```mermaid
 flowchart LR
@@ -11,73 +11,97 @@ flowchart LR
     N[web/ Next.js 15<br>proxy /api → FastAPI]
   end
   subgraph API["backend/app (FastAPI)"]
-    M[main.py<br>rotas /api/v1]
-    SEG[seguranca.py<br>limites, CORS, cabeçalhos]
-    A[auth.py<br>PBKDF2 + token com validade]
-    R[retrieval.py<br>BM25 + sinônimos]
-    S[semantic.py + embeddings.py<br>e5 ONNX + Chroma, opt-in]
-    V[vigencia.py<br>situação na data]
-    VAL[validacao.py<br>estado + abstenção]
-    L[llm.py<br>geração opcional + modo extrativo]
-    LE[leitor/<br>processos: página, natureza, citação conferida]
-    MO[monitor/<br>coleta, diff por artigo, revisão]
+    M[main.py<br>rotas /api/v1, limite de corpo]
+    SEG[seguranca.py · auditoria.py · manutencao.py<br>limites, cabeçalhos, trilha, retenção]
+    A[auth.py<br>PBKDF2 600 mil + tokens]
+    CQ[consulta.py + temporal.py<br>intenção, data, versão aplicável]
+    R[retrieval.py<br>BM25 + sinônimos + corte adaptativo]
+    V[vigencia.py<br>situação na data, incerteza]
+    VAL[validacao.py<br>estado + verificações]
+    L[llm.py<br>geração opcional + extrativo]
+    VER[verificador.py<br>texto gerado × fontes]
+    POL[politica.py<br>5 modos de resposta]
+    FB[feedback.py<br>fila de triagem]
+    LE[leitor/<br>processos]
+    MO[monitor/<br>coleta, diff, eventos, alertas]
+    CO[corpus/<br>proveniência, dispositivos, normas]
   end
-  C[(data/legislacao.json<br>corpus versionado no git)]
-  MD[(data/monitor<br>versões e snapshots)]
-  B[(SQLite / PostgreSQL<br>usuários, sessões, consultas, documentos)]
+  C[(data/legislacao.json<br>corpus + trechos oficiais)]
+  H[(corpus_historico.json<br>+ corpus_versoes/)]
+  MD[(data/monitor<br>registro, snapshots, alertas)]
+  B[(SQLite / PostgreSQL<br>usuários, sessões, consultas,<br>documentos, auditoria, feedback)]
   X[[API de LLM<br>opcional]]
   P[[Planalto<br>páginas oficiais]]
   E --> M
   N --> M
-  M --> SEG
+  M --> SEG --> B
   M --> A --> B
-  M --> R --> C
-  M -.-> S --> C
-  R --> V
+  M --> CQ --> R --> C
+  CQ --> V
   M --> VAL --> MD
   M --> L -.-> X
+  M --> VER
+  M --> POL
+  M --> FB --> B
   M --> LE --> B
   MO --> P
   MO --> MD
-  M -. "em revisão" .-> MD
+  CO --> MD
+  CO --> C
+  CO --> H
+  M -. "em revisão / desatualizada" .-> MD
 ```
+
+O corpus só muda por `scripts/corpus.py` (com responsável, motivo e histórico); o monitor só escreve
+em `data/monitor`; o feedback só escreve na própria tabela.
 
 ## Fluxo de uma pergunta
 
-1. `POST /api/v1/perguntar` valida a entrada (3 a 1000 caracteres; `tema` opcional).
-2. `Retriever.buscar(..., adaptativo=True)` normaliza a pergunta (minúsculas, sem acento, sem
-   stopwords, plural simples), expande sinônimos do vocabulário do cidadão com peso 0,6 e pontua
-   os 79 dispositivos com BM25 (palavras-chave curadas pesam 3x). Devolve de 2 a 4 artigos,
-   cortando os que têm menos de um terço da nota do 1º.
-3. `gerar_resposta` monta o contexto com texto, situação de vigência, nota e fonte de cada artigo e
-   chama o LLM. Sem chave, sem rede, com erro ou recusa, devolve `None`.
-4. Sem texto do LLM, `resposta_extrativa` lista os artigos com resumo e avisos de vigência.
-5. A consulta é gravada na tabela `consultas` (com o usuário, se houver token).
-6. A resposta leva `artigos` (com `vigencia`), `gerado_por_llm` e o aviso legal.
+1. `POST /api/v1/perguntar` valida a entrada (3 a 1000 caracteres; `tema` só da lista do corpus). O
+   middleware recusa corpo acima do limite antes de ler tudo.
+2. `consulta.consultar` (o mesmo caminho da avaliação) interpreta a pergunta no tempo
+   (`temporal.interpretar`: intenção atual, histórica, mudança, revogação ou fundamento; data de
+   referência; pedido de esclarecimento quando a data falta ou não existe) e busca com o
+   `Retriever` (BM25, sinônimos com peso 0,6, corte adaptativo: o 1º sempre, depois só quem tem ≥ 35%
+   da nota dele). Com documento anexado, até 25 termos raros do documento entram com peso 0,3.
+3. Abaixo do limiar de evidência, a API se abstém. Senão, as versões de um mesmo dispositivo são
+   agrupadas e a aplicável na data de referência vem primeiro; incertezas viram avisos.
+4. Dispositivos com mudança pendente no monitor saem "em revisão".
+5. `gerar_resposta` chama o LLM, se houver chave, com o contexto (texto oficial separado da
+   explicação, vigência, avisos temporais). O texto gerado passa pelo `verificador`; se falhar, não é
+   entregue.
+6. `validacao.avaliar` produz o estado da evidência (inclui texto conferido, vigência, revisão,
+   conflito, atualidade da fonte no monitor); `politica.decidir` escolhe o modo de resposta.
+7. A consulta é gravada (sem o texto da pergunta, se não houver conta).
+8. A resposta leva `artigos` (com `trechos_oficiais`, `texto_natureza`, `lacunas`, vigência e
+   revisão), `temporal`, `validacao`, `politica` e `verificacao_do_texto`.
 
-Desde o ciclo 5, entre os passos 2 e 3 a resposta passa pela validação (`validacao.py`): abaixo do
-limiar de evidência a API se abstém, e toda resposta leva o estado e as verificações. Dispositivos com
-mudança pendente no monitor saem marcados como "em revisão".
-
-O fluxo com documento (`/perguntar-documento`) é o mesmo, com os primeiros 4.000 caracteres do
-documento somados à consulta de busca; ao prompt do LLM, o documento só vai com consentimento
-(`permitir_ia_externa`) e delimitado como dado não confiável.
+O fluxo com documento (`/perguntar-documento`) roda em *threadpool*; ao LLM, o documento só vai com
+consentimento (`permitir_ia_externa`) e delimitado como dado não confiável.
 
 ## Módulos
 
 | Módulo | Responsabilidade | Testes |
 |---|---|---|
-| `main.py` | rotas, esquemas Pydantic, serviço do frontend estático | `test_api.py`, `test_auth_api.py`, `test_documentos.py`, `test_vigencia.py` |
-| `auth.py` | hash de senha (PBKDF2-SHA256, 240 mil iterações), tokens opacos guardados como SHA-256 | `test_auth_api.py` |
-| `db.py` | modelos SQLAlchemy (`usuarios`, `tokens_sessao`, `consultas`); `create_all` na importação | indireto |
-| `retrieval.py` | BM25 em Python puro, sinônimos, busca adaptativa, `Resultado` com vigência | `test_retrieval.py` |
-| `semantic.py`, `embeddings.py` | retriever por embeddings atrás da mesma interface; *fallback* para BM25 | `test_semantic.py` (pulado sem chromadb) |
-| `llm.py` | *prompt* com regras de cautela e vigência; modo extrativo | `test_vigencia.py`, `test_api.py` |
-| `documentos.py` | extração de texto de PDF/TXT com leitura limitada e limite de páginas | `test_documentos.py`, `test_seguranca.py` |
-| `vigencia.py` | situação de vigência na data da consulta (Brasília) | `test_vigencia.py` |
-| `seguranca.py` | limitação de requisições, CORS, cabeçalhos | `test_seguranca.py` |
-| `ingestao.py`, `ingestao_jurisprudencia.py` | parser do HTML do Planalto e das súmulas → esqueletos para revisão humana | `test_ingestao*.py` |
-| `benchmark.py`, `comparacao.py` | benchmark de armadilha temporal; comparação BM25 × semântico × híbrido | `test_benchmark_temporal.py`, `test_comparacao.py` |
+| `main.py` | rotas, esquemas, limite de corpo, conta (exportar, senha, sessões, excluir) | `test_api.py`, `test_auth_api.py`, `test_seguranca.py` |
+| `consulta.py`, `temporal.py` | caminho da pergunta: busca, abstenção, intenção, data, versão aplicável | `test_temporal.py`, `test_benchmark_temporal.py` |
+| `retrieval.py` | BM25, sinônimos, corte adaptativo, expansão limitada por documento | `test_retrieval.py` |
+| `vigencia.py` | situação na data (Brasília), `nao_verificada` como padrão, `redacao_anterior` | `test_vigencia.py` |
+| `validacao.py` | estado da evidência e verificações | `test_validacao.py` |
+| `llm.py` | *prompt* (texto oficial × explicação, vigência, tempo), modo extrativo | `test_vigencia.py`, `test_api.py` |
+| `verificador.py`, `politica.py` | verificação determinística do texto gerado; modo de resposta | `test_politica.py` |
+| `corpus/` | proveniência por dispositivo, extração de trechos, selos, histórico, normas | `test_proveniencia.py` |
+| `monitor/` | coleta com retentativas, leitura do tachado, diff por artigo, eventos, dependências, registro com trava, alertas, atualidade | `test_monitor.py`, `test_monitor_operacao.py` |
+| `leitor/` | processos: páginas, peças, natureza, decisões, prazos, inconsistências, perguntas | `test_leitor*.py` |
+| `feedback.py` | feedback por dispositivo, com máscara de dado pessoal | `test_feedback.py` |
+| `auth.py` | PBKDF2-SHA256 600 mil (parâmetros no hash, *rehash*), tokens como SHA-256 | `test_auth_api.py`, `test_seguranca.py` |
+| `auditoria.py`, `manutencao.py`, `seguranca.py` | trilha sem dado pessoal; retenção; limites, CORS, cabeçalhos | `test_seguranca.py` |
+| `db.py` | `usuarios`, `tokens_sessao`, `consultas`, `documentos_processo`, `eventos_auditoria`, `feedbacks` | indireto |
+| `documentos.py`, `ingestao*.py` | extração de PDF/TXT; HTML do Planalto (com o tachado por tag e por estilo) | `test_documentos.py`, `test_ingestao*.py` |
+| `avaliacao.py`, `avaliacao_temporal.py`, `calibracao.py` | avaliação reproduzível, portão de regressão, validação cruzada | `test_avaliacao.py` |
+| `semantic.py`, `embeddings.py` | retriever semântico opcional | `test_semantic.py` (pulado sem chromadb) |
+
+Scripts: `scripts/avaliar.py`, `scripts/corpus.py`, `scripts/monitor.py`, `scripts/feedback.py`.
 
 ## Decisões que valem preservar
 
@@ -94,7 +118,8 @@ documento somados à consulta de busca; ao prompt do LLM, o documento só vai co
 - O corpus é carregado uma vez na importação de `main.py` (`retriever = criar_retriever()`); mudar o
   JSON exige reiniciar o processo.
 - ~~O status de vigência é lido do JSON como está~~ — corrigido no ciclo 1 (`vigencia.py`).
-- Sem migrações de banco (`create_all`), colunas novas não chegam a bancos existentes.
+- Sem migrações de banco (`create_all`): tabelas novas (`eventos_auditoria`, `feedbacks`) são criadas
+  sozinhas, mas colunas novas em tabelas existentes não chegam a bancos já criados.
 - Sem camada de serviço: regras de negócio vivem nas rotas de `main.py`.
 - Segurança e privacidade: ver [security-audit.md](security-audit.md).
 
@@ -107,4 +132,7 @@ Os módulos novos entram como pacotes ao lado dos existentes, sem reescrever o q
 | Leitura de documentos jurídicos (extração por página, peças, linha do tempo, perguntas com citação verificada) | **backend concluído (ciclo 2)**, `app/leitor/` — ver [leitor-de-processos.md](leitor-de-processos.md); interface no ciclo 3 |
 | Monitor de mudanças legislativas (snapshots com hash, diff por artigo, fila de revisão) | **concluído (ciclo 4)**, `app/monitor/` — ver [monitor-legislativo.md](monitor-legislativo.md) |
 | Estados de validação da resposta e avaliação reproduzível | **concluído (ciclo 5)**, `app/validacao.py`, `app/avaliacao.py` — ver [avaliacao/relatorio.md](avaliacao/relatorio.md) |
-| Feedback de usuários, organizações/tenants, planos e limites | **planejado** (fases posteriores) |
+| Proveniência por dispositivo, recuperação temporal, verificador e política de resposta | **concluído (rodada 9.0)**, `app/corpus/`, `app/temporal.py`, `app/verificador.py`, `app/politica.py` |
+| Monitor como fluxo operacional (simulação, alertas, publicação controlada) | **concluído (rodada 9.0)**; agendado nos dias úteis desde 23/10/2026 |
+| Feedback controlado | **concluído (rodada 9.0)**, `app/feedback.py` — ver [feedback.md](feedback.md) |
+| Organizações/tenants, planos e limites | **planejado**; nada de cobrança implementado (ver [prontidao-comercial.md](prontidao-comercial.md)) |

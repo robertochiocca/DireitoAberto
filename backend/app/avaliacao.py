@@ -14,6 +14,8 @@ Cada bloco mede uma coisa, com o dado que existe para ela:
   (data/avaliacao/fora_do_escopo.json) e nas legítimas, também por conjunto;
 - **vigência** — o benchmark de armadilha temporal (app/benchmark.py);
 - **leitor** — o processo fictício contra o gabarito (data/exemplos);
+- **leitor_adversarial** — 17 documentos fictícios que reproduzem falhas conhecidas do leitor, com gabarito
+  escrito à mão (data/exemplos/adversariais, app/leitor/avaliacao.py);
 - **fidelidade** — o texto do corpus contra a versão oficial aceita pelo monitor;
 - **latência** — informativa (depende da máquina); não entra na comparação.
 
@@ -229,6 +231,67 @@ def avaliar_fidelidade() -> dict | None:
             "dispositivos_no_corpus": len(corpus)}
 
 
+def avaliar_proveniencia() -> dict:
+    """Quanto do corpus tem texto oficial transcrito e conferido, e quanto está em revisão."""
+    import sys
+
+    from .monitor.registro import DIR_PADRAO, Registro
+
+    corpus = json.loads(DATA_PATH.read_text(encoding="utf-8"))["artigos"]
+    natureza: dict[str, int] = defaultdict(int)
+    for a in corpus:
+        natureza[a.get("texto_natureza", "sem_proveniencia")] += 1
+    sys.path.insert(0, str(RAIZ / "scripts"))
+    import corpus as script_corpus
+
+    return {
+        "entradas": len(corpus),
+        "natureza_do_texto": dict(sorted(natureza.items())),
+        "com_trecho_oficial": sum(bool(a.get("trechos_oficiais")) for a in corpus),
+        "trechos_oficiais": sum(len(a.get("trechos_oficiais", [])) for a in corpus),
+        "com_lacuna": sum(bool(a.get("lacunas")) for a in corpus),
+        "com_alerta_de_vigencia": sum(bool(a.get("vigencia_alertas")) for a in corpus),
+        "em_revisao": sum((a.get("revisao") or {}).get("estado") == "pendente" for a in corpus),
+        "fontes_monitoradas": len(Registro(DIR_PADRAO).fontes()),
+        "problemas_de_integridade": len(script_corpus.problemas_de_integridade(Registro(DIR_PADRAO))),
+    }
+
+
+def avaliar_politica(retriever: Retriever) -> dict:
+    """Modo da resposta nas perguntas fora e dentro do escopo, e o caminho com documento."""
+    from datetime import date
+
+    from .consulta import consultar
+    from .vigencia import hoje
+
+    referencia = hoje()
+
+    def classe(pergunta: str, documento: str | None = None) -> str:
+        c = consultar(retriever, pergunta, referencia, contexto_documento=documento)
+        if c.abstencao:
+            return "abstencao"
+        if c.termos_casados is not None and len(c.termos_casados) == 1 and c.termos_da_pergunta >= 3:
+            return "ressalva_ligacao_fraca"
+        return "resposta"
+
+    fora = [c["pergunta"] for c in json.loads(FORA_DO_ESCOPO.read_text(encoding="utf-8"))["casos"]]
+    dentro = [q for q, _ in perguntas_com_gabarito()]
+    contar = lambda perguntas: {k: sum(classe(q) == k for q in perguntas)  # noqa: E731
+                                for k in ("abstencao", "ressalva_ligacao_fraca", "resposta")}
+    nota = ("NOTA FISCAL DE VENDA AO CONSUMIDOR. Produto: notebook. Garantia de 90 dias. Defeito na tela. Troca e "
+            "devolução conforme o Código de Defesa do Consumidor.")
+    com_documento = [classe(q, nota) for q in ("Como funciona o habeas corpus?", "Como faço para tirar o passaporte?",
+                                               "Posso registrar um software que eu criei?")]
+    f, d = contar(fora), contar(dentro)
+    _ = date  # a data de referência vem de vigencia.hoje() (fixa nos testes e na avaliação reproduzível)
+    return {
+        "fora_do_escopo": {**f, "perguntas": len(fora), "protegidas": f["abstencao"] + f["ressalva_ligacao_fraca"]},
+        "dentro_do_escopo": {**d, "perguntas": len(dentro)},
+        "fora_do_escopo_com_documento_anexado": {"perguntas": len(com_documento),
+                                                 "abstencoes": com_documento.count("abstencao")},
+    }
+
+
 def medir_latencia(retriever: Retriever) -> dict:
     perguntas = [q for q, _ in perguntas_com_gabarito()]
     tempos = []
@@ -244,11 +307,16 @@ def medir_latencia(retriever: Retriever) -> dict:
 
 
 def _commit() -> str | None:
+    """O commit medido — com "+alteracoes" quando a árvore tem mudanças não commitadas, para o relatório não
+    atribuir ao commit números que vieram de código que ele não contém."""
     try:
-        return subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True,
-                              cwd=RAIZ, timeout=5).stdout.strip() or None
+        commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True,
+                                cwd=RAIZ, timeout=5).stdout.strip()
+        sujo = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True,
+                              cwd=RAIZ, timeout=5).stdout.strip()
     except (OSError, subprocess.SubprocessError):
         return None
+    return (commit + ("+alteracoes" if sujo else "")) or None
 
 
 def rodar() -> dict:
@@ -261,9 +329,29 @@ def rodar() -> dict:
         "abstencao": avaliar_abstencao(retriever),
         "vigencia": avaliar_vigencia(),
         "leitor": avaliar_leitor(),
+        "leitor_adversarial": _leitor_adversarial(),
         "fidelidade": avaliar_fidelidade(),
+        "proveniencia": avaliar_proveniencia(),
+        "temporal_v2": _temporal_v2(),
+        "politica": avaliar_politica(retriever),
         "latencia": medir_latencia(retriever),
     }
+
+
+def _leitor_adversarial() -> dict:
+    from .leitor.avaliacao import avaliar_conjunto
+
+    r = avaliar_conjunto()
+    # Tempo varia com a máquina; fica no relatório por documento, não no portão.
+    return {**r, "documentos": {nome: {k: v for k, v in d.items() if k != "tempo_s"} for nome, d in r["documentos"].items()}}
+
+
+def _temporal_v2() -> dict:
+    from .avaliacao_temporal import rodar as rodar_temporal
+
+    r = rodar_temporal()
+    r["versoes"].pop("casos", None)
+    return r
 
 
 # ---------------------------------------------------------------- comparação com a linha de base
@@ -273,10 +361,21 @@ MAIOR_MELHOR = [
     ("busca", "validacao", "precisao_relevante_api"), ("busca", "geral", "recall@3"), ("busca", "geral", "recall@1"),
     ("abstencao", "fora_do_escopo", "validacao", "abstencoes"),
     ("leitor", "citacoes", "verificadas"), ("leitor", "perguntas", "comportamento_esperado"),
+    ("leitor_adversarial", "total", "aprovadas"), ("leitor_adversarial", "total", "documentos_sem_falha"),
+    ("temporal_v2", "versoes", "atual", "versao_certa_primeiro_depois", "pct"),
+    ("temporal_v2", "versoes", "historica", "versao_certa_primeiro_depois", "pct"),
+    ("temporal_v2", "versoes", "historica", "versao_certa_primeiro_ou_incerteza_declarada", "pct"),
+    ("temporal_v2", "perguntas_do_corpus", "intencao", "pct"),
+    ("temporal_v2", "perguntas_do_corpus", "aceito_recuperado", "pct"),
+    ("politica", "fora_do_escopo", "protegidas"),
+    ("politica", "fora_do_escopo_com_documento_anexado", "abstencoes"),
+    ("proveniencia", "com_trecho_oficial"),
 ]
 MENOR_MELHOR = [
     ("abstencao", "dentro_do_escopo", "validacao", "abstencoes"),
     ("leitor", "afirmacoes_proibidas"),
+    ("politica", "dentro_do_escopo", "ressalva_ligacao_fraca"),
+    ("proveniencia", "problemas_de_integridade"),
 ]
 
 
@@ -385,11 +484,59 @@ def relatorio_md(r: dict) -> str:
         f"Perguntas com o comportamento esperado: {lt['perguntas']['comportamento_esperado']}/{lt['perguntas']['total']}.",
         "",
     ]
+    if la := r.get("leitor_adversarial"):
+        t = la["total"]
+        linhas += ["### Leitor no conjunto adversarial (documentos fictícios × gabarito)", "",
+                   f"{t['aprovadas']}/{t['verificacoes']} verificações; {t['documentos_sem_falha']}/{t['documentos']} "
+                   f"documentos sem falha; citações conferidas de novo na página: {la['citacoes']['verificadas']}/"
+                   f"{la['citacoes']['total']}. Os documentos e os gabaritos foram escritos pelo projeto para reproduzir "
+                   "falhas conhecidas: a medida mostra que essas falhas foram corrigidas, **não** valida o leitor em "
+                   "processos reais.", ""]
+        linhas += [f"- `{nome}`: {d['aprovadas']}/{d['verificacoes']}" + (f" — falhas: {'; '.join(d['falhas'])}"
+                                                                          if d["falhas"] else "")
+                   for nome, d in la["documentos"].items()]
+        linhas.append("")
     if r["fidelidade"]:
         f = r["fidelidade"]
         linhas += ["## Fidelidade do corpus ao texto oficial vigente", "",
                    f"{f['conferidos']} de {f['dispositivos_no_corpus']} dispositivos conferidos (fontes monitoradas): "
                    + ", ".join(f"{k} {v}" for k, v in f["por_classe"].items()) + ".", ""]
+    if pv := r.get("proveniencia"):
+        linhas += ["## Proveniência do corpus", "",
+                   f"{pv['com_trecho_oficial']} de {pv['entradas']} entradas com texto oficial transcrito e conferido "
+                   f"({pv['trechos_oficiais']} trechos, de {pv['fontes_monitoradas']} fontes monitoradas). Natureza do texto "
+                   "curado: " + ", ".join(f"{k} {v}" for k, v in pv["natureza_do_texto"].items()) + ". "
+                   f"Com lacuna declarada: {pv['com_lacuna']}. Com alerta de vigência: {pv['com_alerta_de_vigencia']}. "
+                   f"Em revisão humana: {pv['em_revisao']}. Problemas de integridade (selos, trechos): "
+                   f"{pv['problemas_de_integridade']}.", ""]
+    if tv := r.get("temporal_v2"):
+        va, vh, pc = tv["versoes"]["atual"], tv["versoes"]["historica"], tv["perguntas_do_corpus"]
+        linhas += ["## Recuperação temporal (benchmark v2)", "",
+                   "Versões do mesmo dispositivo indexadas juntas (a redação de 2006 ligada à vigente). \"Antes\" é a "
+                   "ordem da busca; \"depois\", a da API com a análise temporal.", "",
+                   "| Pergunta | Com as duas versões | Versão certa primeiro, antes | Versão certa primeiro, depois |",
+                   "|---|---|---|---|",
+                   f"| Regra atual | {va['com_as_duas_versoes']} | {va['versao_certa_primeiro_antes']['pct']}% | "
+                   f"{va['versao_certa_primeiro_depois']['pct']}% |",
+                   f"| Em 10/04/2006 | {vh['com_as_duas_versoes']} | {vh['versao_certa_primeiro_antes']['pct']}% | "
+                   f"{vh['versao_certa_primeiro_depois']['pct']}% (com incerteza declarada: "
+                   f"{vh['versao_certa_primeiro_ou_incerteza_declarada']['pct']}%) |", "",
+                   f"Perguntas sobre o corpus real ({pc['perguntas']}, escritas pelo projeto junto com as regras — "
+                   f"medida otimista): intenção {pc['intencao']['pct']}%, data de referência "
+                   f"{pc['data_de_referencia']['pct']}%, pedido de esclarecimento {pc['pedido_de_esclarecimento']['pct']}%, "
+                   f"dispositivo aceito no topo {pc['aceito_no_topo_antes']['pct']}% → {pc['aceito_no_topo_depois']['pct']}%, "
+                   f"situação de vigência {pc['situacao_de_vigencia']['pct']}%, aplicabilidade na data "
+                   f"{pc['aplicabilidade_na_data']['pct']}%.", ""]
+    if po := r.get("politica"):
+        fo, de, doc = po["fora_do_escopo"], po["dentro_do_escopo"], po["fora_do_escopo_com_documento_anexado"]
+        linhas += ["## Política de resposta", "",
+                   "| | Abstenção | Resposta com ressalva (ligação fraca) | Resposta |", "|---|---|---|---|",
+                   *(f"| {nome} ({g['perguntas']}) | {g['abstencao']} | {g['ressalva_ligacao_fraca']} | {g['resposta']} |"
+                     for nome, g in (("Fora do escopo", fo), ("Dentro do escopo", de))),
+                   "",
+                   f"Fora do escopo com uma nota fiscal anexada: {doc['abstencoes']}/{doc['perguntas']} abstenções. A regra "
+                   "da ligação fraca (só uma palavra da pergunta casa com o dispositivo) foi motivada por estas mesmas "
+                   "perguntas: os números são otimistas até haver um conjunto novo.", ""]
     lat = r["latencia"]
     linhas += ["## Latência (informativa, depende da máquina)", "",
                f"Busca: mediana {lat['busca_ms_mediana']} ms, p95 {lat['busca_ms_p95']} ms. "

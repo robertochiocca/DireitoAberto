@@ -19,6 +19,14 @@ const SITUACOES = [
   { valor: "inconstitucional", rotulo: "Inconstitucional" },
 ];
 
+const ROTULO_NATUREZA: Record<string, string> = {
+  consolidado: "transcrição conferida",
+  literal: "transcrição conferida",
+  resumo_explicativo: "resumo explicativo",
+  interpretacao_juridica: "interpretação jurídica",
+  nao_conferido: "texto não conferido",
+};
+
 export default function BaseLegalPage() {
   const [artigos, setArtigos] = useState<Artigo[] | null>(null);
   const [temas, setTemas] = useState<string[]>([]);
@@ -134,6 +142,11 @@ export default function BaseLegalPage() {
               const vig = rotuloVigencia(a.vigencia);
               return vig ? <span className={`vig vig-${vig.tom}`}>⚠ {vig.texto}</span> : null;
             })()}
+            {a.texto_natureza && (
+              <span className="badge" title="O que é o texto desta entrada">
+                {ROTULO_NATUREZA[a.texto_natureza]}
+              </span>
+            )}
           </div>
           <div className="resumo">{a.resumo}</div>
           {a.vigencia?.nota && <div className="vig-nota">{a.vigencia.nota}</div>}

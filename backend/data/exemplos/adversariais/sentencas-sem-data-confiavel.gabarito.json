@@ -1,0 +1,32 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py), rodada 9.0: reproduz uma variação usada por um revisor independente. Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "sentencas-sem-data-confiavel.pdf",
+ "cobre": [
+  "duas sentenças com resultados diferentes e data só na tarja: o leitor diz que não dá para determinar, em vez de escolher (H3)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "decisao_principal",
+   "esperado": null
+  },
+  {
+   "tipo": "inconsistencia",
+   "esperado": "decisoes_finais_divergentes"
+  },
+  {
+   "tipo": "resumo_nao_contem",
+   "esperado": "Resultado da sentença"
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "Eu ganhei?",
+   "contem": [
+    "não consegui determinar"
+   ],
+   "nao_contem": [
+    "com resultado procedente",
+    "com resultado improcedente"
+   ]
+  }
+ ]
+}

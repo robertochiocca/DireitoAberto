@@ -20,7 +20,8 @@ export type Natureza =
   | "trecho"
   | "interpretacao"
   | "nao_localizado"
-  | "orientacao_geral";
+  | "orientacao_geral"
+  | "inconsistencia";
 
 export type Item = {
   texto: string;
@@ -87,6 +88,13 @@ export type Analise = {
   resumo: Item[];
   proximos_passos: Item[];
   perguntas_para_advogado: string[];
+  // Rodada 9.0 (backend/app/leitor/analise.py). A página mostra o mesmo conteúdo pelo resumo, avisos e
+  // pendências; os campos ficam tipados para quem usar a API direto.
+  decisao_principal?: { incerta?: boolean; [campo: string]: unknown } | null;
+  decisoes_nao_usadas?: Item[];
+  inconsistencias?: Item[];
+  transito_nao_confirmado?: Item[];
+  contagens?: Record<string, number>;
 };
 
 export type PaginaDoc = { numero: number; folha: string | null; estado: string; texto: string };
@@ -156,6 +164,7 @@ export const ROTULO_NATUREZA: Record<Natureza, string> = {
   interpretacao: "interpretação",
   nao_localizado: "não localizado",
   orientacao_geral: "orientação geral",
+  inconsistencia: "inconsistência",
 };
 
 export function dataBr(iso?: string | null) {

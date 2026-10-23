@@ -84,6 +84,23 @@ class LimitadorDeRequisicoes:
             eventos.append(agora)
             return None
 
+    def consultar(self, chave: str, maximo: int, janela_s: float) -> float | None:
+        """Como `registrar`, mas só olha: devolve a espera se a chave já estourou, sem contar um evento."""
+        agora = self._relogio()
+        with self._trava:
+            eventos = self._eventos.get(chave)
+            if not eventos:
+                return None
+            while eventos and agora - eventos[0] >= janela_s:
+                eventos.popleft()
+            if len(eventos) >= maximo:
+                return max(janela_s - (agora - eventos[0]), 0.0)
+            return None
+
+    def esquecer(self, chave: str) -> None:
+        with self._trava:
+            self._eventos.pop(chave, None)
+
     def _podar(self, agora: float, janela_s: float) -> None:
         vazias = [c for c, ev in self._eventos.items() if not ev or agora - ev[-1] >= janela_s]
         for chave in vazias:
@@ -102,9 +119,13 @@ limitador = LimitadorDeRequisicoes()
 # (máximo, janela em segundos) por grupo de rotas.
 LIMITES = {
     "auth": (10, 60.0),           # login e registro, por endereço
-    "auth-email": (5, 300.0),     # tentativas de login por conta, de qualquer endereço
+    # Senhas erradas por conta E rede de origem (/24 ou /48). Só falhas contam, e o acerto zera: quem erra a
+    # senha alheia bloqueia a si mesmo, não o dono da conta (antes, 5 tentativas de qualquer lugar travavam a
+    # conta por 5 minutos — negação de serviço contra uma pessoa).
+    "login-falha": (5, 300.0),
     "perguntar": (int(os.environ.get("DIREITO_ABERTO_PERGUNTAS_POR_MINUTO", 30)), 60.0),
     "documento": (10, 60.0),
+    "feedback": (5, 600.0),       # por endereço: feedback é raro; mais que isso é abuso ou robô
 }
 
 
@@ -133,6 +154,29 @@ def verificar_limite(grupo: str, chave: str) -> None:
             detail="Muitas requisições. Aguarde um pouco e tente de novo.",
             headers={"Retry-After": str(max(1, round(espera)))},
         )
+
+
+def _chave_login(email: str, endereco: str) -> str:
+    from .auditoria import prefixo_de_rede
+
+    return f"login-falha:{email}|{prefixo_de_rede(endereco) or endereco}"
+
+
+def login_bloqueado(email: str, endereco: str) -> float | None:
+    if not _ativo():
+        return None
+    maximo, janela = LIMITES["login-falha"]
+    return limitador.consultar(_chave_login(email, endereco), maximo, janela)
+
+
+def registrar_falha_de_login(email: str, endereco: str) -> None:
+    if _ativo():
+        maximo, janela = LIMITES["login-falha"]
+        limitador.registrar(_chave_login(email, endereco), maximo, janela)
+
+
+def esquecer_falhas_de_login(email: str, endereco: str) -> None:
+    limitador.esquecer(_chave_login(email, endereco))
 
 
 def limitar(grupo: str) -> Callable[[Request], None]:

@@ -3,7 +3,127 @@
 > Atualizado a cada ciclo. Diferencia **concluído** (implementado, testado, documentado),
 > **parcial** e **planejado**. O roadmap de produto, com o histórico do projeto, continua no README.
 
-## Ordem de execução e por que ela difere da lista original
+## Rodada 9.0
+
+> 22/10/2026. Pedido: melhorias executadas e verificadas, por prioridade — P0 integridade jurídica, P1
+> confiabilidade e leitor, P2 segurança e LGPD, P3 monitor operacional, P4 feedback e qualidade, P5
+> prontidão comercial (hipóteses). Base: auditoria read-only com 7 auditores (82 problemas confirmados:
+> P0 31, P1 23, P2 15, P3 12, P4 1). Nada foi publicado em produção, nenhum serviço externo foi ativado e
+> nenhuma cobrança foi implementada. Suíte ao fim: **642 testes passando, 1 pulado** (o semântico, sem
+> chromadb); ruff e mypy limpos; build do web limpo.
+
+### Ciclo 1 (P0) — proveniência, literalidade e estado incerto
+- **Problema:** o campo `texto` misturava transcrição, paráfrase e interpretação sem marcar; só 8 de 79
+  entradas eram transcrição literal; vigência "vigente" sem data de conferência.
+- **Arquivos:** `app/corpus/` (novo), `scripts/corpus.py` (novo), `app/vigencia.py`, `app/retrieval.py`,
+  `app/llm.py`, `app/main.py`, `data/legislacao.json`, `data/normas*.json`, `data/corpus_historico.json`,
+  `data/corpus_versoes/`, `web/components/AnswerPanel.tsx`, `frontend/index.html`, CI.
+- **Testes:** `test_proveniencia.py` (com guardas sobre o corpus real), `test_vigencia.py`.
+- **Antes → depois:** trechos oficiais conferidos 0 → 141 (68 de 79 entradas); natureza declarada 0 →
+  79; problemas de integridade → 0 (verificado no CI); 28 erros de conteúdo abertos como revisão.
+- **Riscos:** os trechos vêm de capturas de linha de base sem revisão humana; nenhum texto conferido com
+  o DOU (0 `literal`).
+- **Não verificado:** conferência jurídica humana; URN LexML.
+
+### Ciclo 2 (P0) — recuperação temporal
+- **Problema:** a redação antiga aparecia antes da vigente em 39% (pergunta atual) e 48% (histórica) dos
+  casos; nenhuma noção de data de referência.
+- **Arquivos:** `app/temporal.py`, `app/consulta.py`, `app/avaliacao_temporal.py` (novos),
+  `data/avaliacao/temporal_v2.json`, `app/main.py`, `app/llm.py`.
+- **Testes:** `test_temporal.py`, benchmark temporal v2 no portão.
+- **Antes → depois:** versão certa primeiro 60,9% → 100% (atual) e 52,2% → 95,7% (histórica; 100% com
+  incerteza declarada); intenção e data em 20/20 perguntas escritas à mão.
+- **Riscos:** regras de intenção afinadas no próprio conjunto; datas de redação com precisão de ano.
+- **Não verificado:** conjunto separado nunca visto.
+
+### Ciclo 3 (P0/P1) — verificador, política de resposta e precisão
+- **Problema:** texto gerado sem verificação; respostas com artigos irrelevantes; nenhuma resposta
+  intermediária entre responder e se abster.
+- **Arquivos:** `app/verificador.py`, `app/politica.py`, `app/calibracao.py` (novos),
+  `app/retrieval.py`, `app/avaliacao.py`, `scripts/avaliar.py`.
+- **Testes:** `test_politica.py`, `test_validacao.py`, portão de avaliação.
+- **Antes → depois:** precisão só relevante 46,5% → 57,6% (61,4% fora da amostra); fora do escopo sem
+  proteção 10/26 → 3/26; ressalva indevida dentro do escopo 5/86; documento fora do escopo 3/3 abstenções.
+- **Riscos:** números da política otimistas (mesmo conjunto); verificador testado com textos escritos à
+  mão.
+- **Não verificado:** texto real de LLM (sem chave).
+
+### Ciclo 4 (P1) — leitor de processos
+- **Problema:** `.txt` sem limite (derrubava a API), análise quadrática, página digitalizada contada como
+  lida, acórdão que reforma a sentença ignorado ("Eu ganhei?" → "Sim"), injeção estrutural forjando
+  trânsito, processos > 300 páginas recusados.
+- **Arquivos:** `app/leitor/*`, `app/leitor/avaliacao.py` e `conjunto_adversarial.py` (novos),
+  `data/exemplos/adversariais/` (31 documentos fictícios + gabaritos), `app/avaliacao.py`,
+  `web/lib/leitor.ts`.
+- **Testes:** `test_leitor.py` (sem alteração), `test_leitor_auditoria.py`, `test_leitor_conjunto.py`,
+  `test_leitor_revisao.py` (87; 68 falham no código anterior à revisão, os outros 19 guardam o que já estava
+  certo).
+- **Revisão adversarial independente:** 14 problemas (5 altos: recursos esgotáveis com poucos KB,
+  segmentação que engolia a sentença, decisão interlocutória e sentença reformada apresentadas como
+  resultado, embargos acolhidos ignorados, trânsito forjado com quebra de página). Todos corrigidos e
+  conferidos de novo com os roteiros do revisor.
+- **Antes → depois:** conjunto adversarial 29/104 → 182/182 (0/31 → 31/31 documentos, incluindo 14 novos
+  a partir das variações do revisor, que davam 25/78); análise de PDF de 300 páginas densas 18,6 s → 3,5 s,
+  JSON 21 MB → 433 KB; `.txt` de 138 KB com sentenças alternadas 84 s / 1,1 GB → 2,5 s / 51 MB; 2,7 KB de
+  carimbos "fls." 849 MB → 35 MB; PDF de 301 páginas recusado → processado.
+- **Riscos:** gabaritos escritos pelo projeto; **não validado em processos reais**; sem OCR; em
+  exportações em que a data só está na tarja de assinatura (PJe), o leitor se abstém muito.
+- **Não verificado:** processos reais ou anonimizados; layouts de PJe, e-SAJ e Eproc; documentos
+  digitalizados.
+
+### Ciclo 5 (P3) — monitor operacional
+- **Problema:** anotação de inconstitucionalidade aceita sozinha como "editorial"; revogação total
+  descartada como coleta suspeita, com saída 0; sem alerta, sem agendamento, sem publicação controlada;
+  decisões fora de ordem voltavam o ponteiro; escritas concorrentes perdidas; texto riscado por CSS lido
+  como vigente.
+- **Arquivos:** `app/monitor/*` (`eventos.py`, `alertas.py` novos), `app/ingestao.py`,
+  `scripts/monitor.py`, `scripts/corpus.py`, `.github/workflows/monitor.yml` (novo), `app/main.py`,
+  `app/validacao.py`.
+- **Testes:** `test_monitor_operacao.py` (59), `test_ingestao.py`, `test_monitor.py`.
+- **Antes → depois:** os 11 cenários da auditoria passaram de errados a corretos (tabela em
+  [monitor-legislativo.md](monitor-legislativo.md#antes-e-depois-cenários-reproduzíveis)); revisão
+  adversarial do ciclo: 16 problemas, 16 corrigidos; simulação real: 18 fontes sem mudança e 16
+  releituras puras, registro intacto.
+- **Operação (23/10/2026, autorizado pelo mantenedor):** rodada controlada real — 16 releituras pendentes,
+  18 sem mudança, regressão 11/11; agendamento ativado nos dias úteis.
+- **Riscos:** as 16 releituras e as 34 linhas de base esperam revisão humana; o job agendado fica vermelho
+  até lá.
+- **Não verificado:** workflow no GitHub; DOU.
+
+### Ciclo 6 (P2) — segurança e LGPD
+- **Problema:** 15 achados (P2-01 a P2-15): bloqueio de login da vítima, sem trilha de auditoria,
+  retenção preguiçosa, limite de corpo tardio, dependências vulneráveis, sem CSP no Next, Google Fonts…
+- **Arquivos:** `app/auditoria.py`, `app/manutencao.py` (novos), `app/auth.py`, `app/seguranca.py`,
+  `app/main.py`, `app/db.py`, `requirements.txt`, CI, `web/next.config.mjs`, `web/app/conta`,
+  `web/app/privacidade`, `web/app/layout.tsx`, `frontend/index.html`.
+- **Testes:** `test_seguranca.py` (vítima × atacante, *rehash*, trilha sem dado pessoal, exportação,
+  limite de corpo, retenção), `test_frontend_estatico.py`.
+- **Antes → depois:** 15 achados → 12 corrigidos, 2 corrigidos em parte (P2-07: falta recuperação de
+  senha; P2-09: falta controlador, encarregado e termos) e 1 aberto (P2-08: limite atrás do proxy real).
+- **Riscos:** CSP com `'unsafe-inline'`; controles técnicos não são conformidade com a LGPD.
+- **Não verificado:** produção.
+
+### Ciclo 7 (P4/P5) — feedback, acessibilidade, prontidão comercial e documentação
+- **Problema:** nenhum canal de erro do usuário; contraste abaixo de 4,5:1 e foco invisível; nenhuma
+  análise de prontidão.
+- **Arquivos:** `app/feedback.py`, `scripts/feedback.py`, `web/components/FeedbackDispositivo.tsx`
+  (novos), `app/db.py`, `app/main.py`, `web/app/globals.css`, `frontend/index.html`, `docs/*`.
+- **Testes:** `test_feedback.py` (inclui: dez relatos iguais não mudam resposta nem corpus); auditoria
+  axe e teclado com Playwright (fora da suíte).
+- **Antes → depois:** violações WCAG automáticas (axe, só contraste) em 12 de 20 combinações página × tema, 277 ocorrências → 0; elementos sem anel de foco visível no percurso por Tab: ao menos 5 (a medida inicial listou só os 5 primeiros) → 0.
+- **Riscos:** triagem só por linha de comando; máscara de dado pessoal não pega nomes.
+- **Não verificado:** leitor de tela real; teste com pessoas.
+
+### Próxima prioridade
+1. **Revisão jurídica humana** das 28 pendências e do corpus de uma área piloto.
+2. **Revisar as 16 releituras e as 34 linhas de base** do monitor (a rodada controlada foi feita em
+   23/10/2026; o agendamento está ativo).
+3. **Conjunto de avaliação separado** (nunca visto) para busca, temporal e política.
+4. Leitor com processos anonimizados e gabarito de profissional; OCR opcional.
+5. Decisões de produção que faltam: canal de alerta além do job, nomes do controlador e do encarregado,
+   recuperação de senha.
+
+## Ordem de execução e por que ela difere da lista original (rodada de 19/10/2026)
 
 O pedido prioriza três entregas: (1) leitor de processos, (2) monitor de mudanças jurídicas,
 (3) avaliação e confiabilidade. A auditoria impôs dois ajustes:
@@ -197,7 +317,7 @@ testes: o `ubuntu-latest` já é o 26.04, onde o Playwright 1.56 não instala o 
 backend fixado em `ubuntu-24.04`, a 2ª execução passou em todas as etapas (Python 3.10 e 3.13, e o
 frontend).
 
-## Estado ao fim desta rodada
+## Estado ao fim da rodada de 19/10/2026
 
 | Entrega pedida | Estado |
 |---|---|
@@ -205,7 +325,7 @@ frontend).
 | Monitor de mudanças jurídicas (conjunto pequeno de normas oficiais, diff, versões, relatório) | **concluído** para 9 páginas do Planalto; sem agendamento e sem DOU |
 | Avaliação e confiabilidade (benchmark reproduzível, critérios claros) | **concluído** para busca, abstenção, vigência, leitor e fidelidade; sem medida de LLM e de compreensão |
 
-## Próximo incremento recomendado
+## Próximo incremento recomendado (19/10/2026 — feito na rodada 9.0)
 
 **Separar no corpus o texto oficial literal da explicação.** É o achado de dados com maior efeito na
 confiabilidade: hoje 15 dos 46 dispositivos conferidos têm paráfrase ou explicação no campo `texto`, e

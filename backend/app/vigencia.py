@@ -32,13 +32,25 @@ except ZoneInfoNotFoundError:  # sistema sem base de fusos e sem o pacote tzdata
 # base responderia em tal dia"). Sem a variável, vale o dia de hoje.
 VARIAVEL_DATA_REFERENCIA = "DIREITO_ABERTO_DATA_REFERENCIA"
 
+# Sem registro, a situação é desconhecida — nunca "vigente" por omissão. Ausência de evidência de
+# revogação não é evidência de vigência.
 VIGENCIA_PADRAO: dict[str, Any] = {
-    "status": "vigente",
+    "status": "nao_verificada",
     "entra_em_vigor_em": None,
     "alterada_por": [],
     "nota": None,
     "conferida_em": None,
 }
+STATUS = {
+    "vigente": "em vigor na data da consulta",
+    "em_vacatio": "publicada, ainda sem efeito",
+    "revogada": "revogada",
+    "redacao_anterior": "redação anterior, substituída por outra",
+    "inconstitucional": "declarada inconstitucional pelo STF",
+    "nao_verificada": "situação de vigência não verificada",
+}
+NOTA_NAO_VERIFICADA = ("A base não tem conferência registrada da vigência deste dispositivo: não o trate como "
+                       "certamente em vigor sem consultar a fonte oficial.")
 
 
 def hoje(instante: datetime | None = None) -> date:
@@ -65,6 +77,17 @@ def vigencia_efetiva(registrada: dict | None, em: date | None = None) -> dict:
     precisa ser atualizado.
     """
     vigencia = {**VIGENCIA_PADRAO, **(registrada or {})}
+    if vigencia["status"] not in STATUS or (vigencia["status"] == "vigente" and not vigencia.get("conferida_em")):
+        # "vigente" sem data de conferência é afirmação sem evidência; status desconhecido também.
+        return {**vigencia, "status": "nao_verificada", "status_registrado": vigencia["status"],
+                "nota": vigencia.get("nota") or NOTA_NAO_VERIFICADA}
+    if vigencia["status"] == "nao_verificada":
+        return {**vigencia, "nota": vigencia.get("nota") or NOTA_NAO_VERIFICADA}
+    fim = vigencia.get("vigente_ate")
+    if vigencia["status"] == "vigente" and fim and date.fromisoformat(fim) < (em or hoje()):
+        # Redação com data final fixada pela própria norma (ex.: a jornada de 44 horas até a etapa da
+        # EC 141/2026): passada a data, ela é redação anterior — mesmo antes de alguém editar o corpus.
+        return {**vigencia, "status": "redacao_anterior", "status_registrado": "vigente"}
     inicio = vigencia.get("entra_em_vigor_em")
     if vigencia["status"] != "em_vacatio" or not inicio:
         return vigencia

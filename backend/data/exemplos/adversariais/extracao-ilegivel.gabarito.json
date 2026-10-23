@@ -1,0 +1,31 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "extracao-ilegivel.pdf",
+ "cobre": [
+  "página com extração ilegível (caracteres U+FFFD) não conta como lida (item 3)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "estado_pagina",
+   "pagina": 2,
+   "esperado": "baixa_qualidade"
+  },
+  {
+   "tipo": "leitura_completa",
+   "esperado": false
+  },
+  {
+   "tipo": "aviso_contem",
+   "esperado": "pagina 2"
+  },
+  {
+   "tipo": "item_ausente",
+   "categoria": "alegacoes",
+   "contem": "�"
+  },
+  {
+   "tipo": "decisao_principal",
+   "esperado": null
+  }
+ ]
+}

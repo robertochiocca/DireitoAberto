@@ -41,11 +41,23 @@ class Citacao:
         }
 
 
+def _pagina_comparavel(doc: DocumentoExtraido, pagina: int, texto: str) -> str:
+    """Texto da página já normalizado, calculado uma vez por documento.
+
+    Normalizar a página inteira a cada citação deixava a análise quadrática: uma
+    página de 120 mil caracteres com mil frases levava 28 s só nisso.
+    """
+    comparavel = doc.cache_comparavel.get(pagina)
+    if comparavel is None:
+        comparavel = doc.cache_comparavel[pagina] = _comparavel(texto)
+    return comparavel
+
+
 def trecho_na_pagina(doc: DocumentoExtraido, pagina: int, trecho: str) -> bool:
     alvo = doc.pagina(pagina)
     if alvo is None or not alvo.tem_texto or not trecho.strip():
         return False
-    return _comparavel(trecho) in _comparavel(alvo.texto)
+    return _comparavel(trecho) in _pagina_comparavel(doc, pagina, alvo.texto)
 
 
 def citar(doc: DocumentoExtraido, pagina: int, trecho: str) -> Citacao:

@@ -1,0 +1,48 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "acordao-antes-da-sentenca.pdf",
+ "cobre": [
+  "decisão que vale escolhida pela data e instância, não pela posição no arquivo (item 5)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "pecas",
+   "esperado": [
+    [
+     "acordao",
+     1
+    ],
+    [
+     "peticao_inicial",
+     2
+    ],
+    [
+     "sentenca",
+     3
+    ]
+   ]
+  },
+  {
+   "tipo": "decisao_principal",
+   "esperado": {
+    "tipo": "acordao",
+    "pagina": 1,
+    "resultado": "recurso provido"
+   }
+  },
+  {
+   "tipo": "resumo_nao_contem",
+   "esperado": "Resultado da sentença"
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "Explique a decisão de forma simples",
+   "contem": [
+    "recurso"
+   ],
+   "nao_contem": [
+    "a sentenca julgou procedente"
+   ]
+  }
+ ]
+}

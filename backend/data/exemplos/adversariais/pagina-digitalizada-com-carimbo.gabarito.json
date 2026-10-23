@@ -1,0 +1,45 @@
+{
+ "sobre": "Gabarito escrito à mão para um processo FICTÍCIO do conjunto adversarial (gerado por app/leitor/conjunto_adversarial.py). Diz o que o leitor tem de encontrar e o que não pode afirmar. Não substitui validação com processos reais nem revisão de profissional do Direito.",
+ "arquivo": "pagina-digitalizada-com-carimbo.pdf",
+ "cobre": [
+  "página-imagem com só carimbo de folha ou tarja do sistema não conta como lida (item 3)"
+ ],
+ "verificacoes": [
+  {
+   "tipo": "estado_pagina",
+   "pagina": 3,
+   "esperado": "possivelmente_digitalizada"
+  },
+  {
+   "tipo": "estado_pagina",
+   "pagina": 4,
+   "esperado": "possivelmente_digitalizada"
+  },
+  {
+   "tipo": "estado_pagina",
+   "pagina": 5,
+   "esperado": "possivelmente_digitalizada"
+  },
+  {
+   "tipo": "leitura_completa",
+   "esperado": false
+  },
+  {
+   "tipo": "aviso_contem",
+   "esperado": "OCR"
+  },
+  {
+   "tipo": "numero_processo",
+   "esperado": "0000000-40.2026.8.99.0007"
+  },
+  {
+   "tipo": "decisao_principal",
+   "esperado": null
+  },
+  {
+   "tipo": "resposta",
+   "pergunta": "O juiz já decidiu?",
+   "abstencao": true
+  }
+ ]
+}

@@ -101,14 +101,18 @@ def test_citacao_do_texto_gerado_sem_dispositivo_recuperado(corpus):
 
 
 def test_resposta_gerada_por_llm_passa_pela_verificacao(monkeypatch):
+    # Desde a rodada 9.0, texto gerado que cita dispositivo não recuperado não é entregue: a API usa a resposta
+    # extrativa e diz por quê (antes, o texto saía com um selo de "revisão recomendada").
     import app.main as main
 
     monkeypatch.setattr(main, "gerar_resposta", lambda *a, **k: "Pelo art. 999 da Lei, a loja deve trocar.")
-    resp = client.post("/api/v1/perguntar", json={"pergunta": "A empresa não quer trocar meu notebook defeituoso"})
-    assert resp.json()["gerado_por_llm"] is True
-    assert _estado(resp) == "revisao_humana_recomendada"
-    citacoes = next(v for v in resp.json()["validacao"]["verificacoes"] if v["nome"] == "citacoes_do_texto_gerado")
-    assert citacoes["ok"] is False and "art. 999" in citacoes["detalhe"]
+    corpo = client.post("/api/v1/perguntar",
+                        json={"pergunta": "A empresa não quer trocar meu notebook defeituoso"}).json()
+    assert corpo["gerado_por_llm"] is False and "Pelo art. 999 da Lei, a loja deve trocar" not in corpo["resposta"]
+    assert any(p["tipo"] == "dispositivo_nao_recuperado" and "art. 999" in p["detalhe"]
+               for p in corpo["verificacao_do_texto"])
+    assert corpo["politica"]["modo"] == "responder_com_ressalvas"
+    assert any("não passou na verificação" in m for m in corpo["politica"]["motivos"])
 
 
 def test_limiar_nao_se_aplica_ao_motor_nao_calibrado(corpus):

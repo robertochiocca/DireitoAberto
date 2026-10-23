@@ -1,7 +1,9 @@
 /** Cliente da API do DireitoAberto (/api/v1, proxiada pelo Next via rewrites). */
 
 export type Vigencia = {
-  status: "vigente" | "em_vacatio" | "revogada" | "inconstitucional";
+  /** nao_verificada: sem conferência registrada — nunca tratar como em vigor. */
+  status: "vigente" | "em_vacatio" | "revogada" | "redacao_anterior" | "inconstitucional" | "nao_verificada";
+  vigente_ate?: string | null;
   entra_em_vigor_em: string | null;
   alterada_por: string[];
   nota: string | null;
@@ -19,12 +21,37 @@ export type Revisao = {
   aberta_em: string | null;
 };
 
+/** Transcrição de um dispositivo da página oficial (texto consolidado), com proveniência. */
+export type TrechoOficial = {
+  dispositivo: string;
+  tipo: "consolidado" | "literal";
+  texto: string;
+  contexto?: string | null;
+  fonte: string;
+  versao_fonte: string;
+  coletado_em: string;
+  hash_sha256: string;
+  alertas?: string[];
+};
+
+/** O que é o texto curado da base: só "consolidado" e "literal" são transcrição. */
+export type NaturezaTexto =
+  | "consolidado"
+  | "literal"
+  | "resumo_explicativo"
+  | "interpretacao_juridica"
+  | "nao_conferido";
+
 export type Artigo = {
   id: string;
   lei: string;
   artigo: string;
   tema: string;
   texto?: string;
+  texto_natureza?: NaturezaTexto;
+  texto_natureza_rotulo?: string;
+  trechos_oficiais?: TrechoOficial[];
+  lacunas?: string[];
   resumo: string;
   fonte: string;
   score?: number;
@@ -60,11 +87,40 @@ export type Validacao = {
   aviso: string;
 };
 
+/** O que a API fez com a evidência que tem (backend/app/politica.py). */
+export type Politica = {
+  modo:
+    | "responder"
+    | "responder_com_ressalvas"
+    | "pedir_esclarecimento"
+    | "nao_verificado"
+    | "recomendar_profissional";
+  rotulo: string;
+  motivos: string[];
+  proximos_passos: string;
+};
+
+/** Data a que a resposta se refere e o que a base sabe sobre ela (backend/app/temporal.py). */
+export type Temporal = {
+  intencao: "atual" | "historica" | "mudanca" | "revogacao" | "fundamento";
+  data_referencia: string;
+  data_explicita: boolean;
+  so_ano: boolean;
+  expressao: string | null;
+  pede_esclarecimento: boolean;
+  motivo: string | null;
+  avisos: string[];
+};
+
 export type Resposta = {
   resposta: string;
   artigos: Artigo[];
   gerado_por_llm: boolean;
   validacao: Validacao;
+  temporal?: Temporal | null;
+  politica?: Politica | null;
+  /** Problemas do texto gerado por IA; quando há algum, a resposta mostrada é a extrativa. */
+  verificacao_do_texto?: { tipo: string; detalhe: string }[];
   aviso: string;
 };
 
@@ -170,9 +226,61 @@ export const registrar = (email: string, senha: string) =>
     body: JSON.stringify({ email, senha }),
   });
 
-export const historico = () => api<ConsultaHistorico[]>("/historico");
+export const historico = (limite = 20, deslocamento = 0) =>
+  api<ConsultaHistorico[]>(`/historico?limite=${limite}&deslocamento=${deslocamento}`);
+
+export const saude = () => api<{ status: string; artigos_no_corpus: number; llm_ativo: boolean }>("/saude");
+
+/** Baixa tudo o que a base guarda sobre a conta (LGPD, art. 18) como arquivo JSON. */
+export async function exportarDados() {
+  const resp = await fetch("/api/v1/conta/exportar", { headers: { Authorization: `Bearer ${getToken() ?? ""}` } });
+  if (!resp.ok) throw new ApiError(resp.status, `Erro ${resp.status}`);
+  const url = URL.createObjectURL(await resp.blob());
+  const a = Object.assign(document.createElement("a"), { href: url, download: "direitoaberto-meus-dados.json" });
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+export const trocarSenha = (senhaAtual: string, senhaNova: string) =>
+  api<void>("/conta/senha", {
+    method: "POST",
+    body: JSON.stringify({ senha_atual: senhaAtual, senha_nova: senhaNova }),
+  });
+
+/** Encerra todas as sessões da conta (inclusive esta) e apaga a sessão local. */
+export async function sairDeTodas() {
+  await api<void>("/auth/sair-de-todas", { method: "POST" });
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(EMAIL_KEY);
+  window.dispatchEvent(new Event("da-auth"));
+}
+
+/** Apaga a conta, o histórico e os documentos (pede a senha de novo). */
+export async function excluirConta(senha: string) {
+  await api<void>("/conta/excluir", { method: "POST", body: JSON.stringify({ senha }) });
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(EMAIL_KEY);
+  window.dispatchEvent(new Event("da-auth"));
+}
 
 export const apagarHistorico = () => api<void>("/historico", { method: "DELETE" });
+
+/** Categorias de feedback (as mesmas de backend/app/feedback.py). */
+export const CATEGORIAS_FEEDBACK = {
+  texto_nao_confere: "O texto mostrado não confere com a lei",
+  norma_revogada_ou_alterada: "A norma foi revogada ou alterada",
+  dispositivo_nao_se_aplica: "O dispositivo não tem a ver com a pergunta",
+  explicacao_confusa: "A explicação está confusa, incompleta ou errada",
+  outro: "Outro problema",
+} as const;
+export type CategoriaFeedback = keyof typeof CATEGORIAS_FEEDBACK;
+
+/** Aponta um problema num dispositivo. Vai para triagem humana; não muda a base sozinho. */
+export const enviarFeedback = (dispositivoId: string, categoria: CategoriaFeedback, comentario: string) =>
+  api<{ id: number; estado: string; aviso: string }>("/feedback", {
+    method: "POST",
+    body: JSON.stringify({ dispositivo_id: dispositivoId, categoria, comentario: comentario.trim() || null }),
+  });
 
 export const listarArtigos = (filtros: {
   tema?: string;
@@ -203,8 +311,11 @@ export function rotuloVigencia(v?: Vigencia): { texto: string; tom: string } | n
     const desde = new Date(`${v.vigente_desde}T00:00:00`).toLocaleDateString("pt-BR");
     return { texto: `em vigor desde ${desde}`, tom: "vacatio" };
   }
-  if (!v || v.status === "vigente") return null;
+  if (!v || v.status === "nao_verificada")
+    return { texto: "situação de vigência não verificada", tom: "revogada" };
+  if (v.status === "vigente") return null;
   if (v.status === "revogada") return { texto: "revogado", tom: "revogada" };
+  if (v.status === "redacao_anterior") return { texto: "redação anterior — não vale hoje", tom: "revogada" };
   if (v.status === "inconstitucional")
     return { texto: "declarado inconstitucional", tom: "revogada" };
   const data = v.entra_em_vigor_em
